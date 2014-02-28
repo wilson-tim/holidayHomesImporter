@@ -60,8 +60,8 @@
       <SSIS:Property
         SSIS:Name="Value"
         SSIS:Sensitive="1"
-        SSIS:Salt="cEQltk4dXw=="
-        SSIS:IV="Jp8iCRbKRwE=">LDBIRxrsgAvqJkB1uJMQZ7cH6C1rJ2gpHflwfwQMcyEC86a0+ZET8mlpr4+RlIg8e738ZMvo7k9alpMWNo3cvJM3AGHU8cobDdjCB5jInwisuLE8Cb9QLPErjOeRwBdUjbsHRiUp89IO6yFLrZVrOtwdFblrl7zH5DxVteSF81/RAeNR0Dlb3w==</SSIS:Property>
+        SSIS:Salt="a2qB0l63aw=="
+        SSIS:IV="nuFt7EcK0l8=">LxSZ53jMN+rMgm+YTZiVsiJ2HBQ1uXNmkfiRoBk+TdtQXMD2AuB6N7T1G4Ay/8IQjat6bpl689uSpWwPPaf+yB2O1Xdz2Fwakb0AWK1kjv0FIBUUJWonqxSk9623zJzAarMG3NO2QY9wyW8TEQV8PvfgJJDBucywESnhMU2g46EnGYcMuMcSoQ==</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>
@@ -235,7 +235,7 @@
     </SSIS:Properties>
   </SSIS:Parameter>
   <SSIS:Parameter
-    SSIS:Name="DIRECTORY_xsltDirectory">
+    SSIS:Name="DIRECTORY_xslDirectory">
     <SSIS:Properties>
       <SSIS:Property
         SSIS:Name="ID">{887188b0-1640-4d5b-8883-d75fab743e5e}</SSIS:Property>
@@ -250,7 +250,7 @@
       <SSIS:Property
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
-        SSIS:Name="Value">C:\Data\XSLT\</SSIS:Property>
+        SSIS:Name="Value">C:\Data\XSL\</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>

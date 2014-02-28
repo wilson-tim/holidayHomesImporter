@@ -1,0 +1,6 @@
+C:\Git\compareandshare\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.dacpac
+C:\Git\compareandshare\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.cs
+C:\Git\compareandshare\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.dll
+C:\Git\compareandshare\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.pdb
+C:\Git\compareandshare\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.dll
+C:\Git\compareandshare\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.pdb

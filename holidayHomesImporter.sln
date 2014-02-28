@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "holidayHomes_build", "holid
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "holidayHomes", "holidayHomes\holidayHomes.sqlproj", "{F6028C9B-4FD9-4F4B-8C83-3EF91BB88252}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "clrUtilities", "clrUtilities\clrUtilities.sqlproj", "{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,11 +23,20 @@ Global
 		{4F873B9B-16C1-4F3D-84BA-BDBF9161AF5D}.Release|Any CPU.ActiveCfg = Development
 		{4F873B9B-16C1-4F3D-84BA-BDBF9161AF5D}.Release|Any CPU.Build.0 = Development
 		{9F1BE4F5-49A3-4693-9791-27E08D61D3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1BE4F5-49A3-4693-9791-27E08D61D3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F1BE4F5-49A3-4693-9791-27E08D61D3BC}.Development|Any CPU.ActiveCfg = Debug|Any CPU
 		{9F1BE4F5-49A3-4693-9791-27E08D61D3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6028C9B-4FD9-4F4B-8C83-3EF91BB88252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6028C9B-4FD9-4F4B-8C83-3EF91BB88252}.Development|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6028C9B-4FD9-4F4B-8C83-3EF91BB88252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Development|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Development|Any CPU.Build.0 = Debug|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Development|Any CPU.Deploy.0 = Debug|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F44980C-2EFA-467E-89F6-5E63DB3DB45B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
