@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>holidayHomes</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{f6028c9b-4fd9-4f4b-8c83-3ef91bb88252}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>holidayHomes</RootNamespace>
+    <AssemblyName>holidayHomes</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Latin1_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Synonyms\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="changeData\" />
+    <Folder Include="changeData\Tables\" />
+    <Folder Include="changeControl\" />
+    <Folder Include="changeControl\Tables\" />
+    <Folder Include="changeControl\Stored Procedures\" />
+    <Folder Include="Security\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="synonym_UPDATE.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="holidayHomes_empty">
+      <DefaultValue>holidayHomes_empty</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\tab_rate.sql" />
+    <Build Include="dbo\Tables\tab_property2amenity.sql" />
+    <Build Include="dbo\Tables\tab_property.sql" />
+    <Build Include="dbo\Tables\tab_photo.sql" />
+    <Build Include="dbo\Tables\tab_amenity.sql" />
+    <Build Include="changeData\Tables\tab_rate.sql" />
+    <Build Include="changeData\Tables\tab_photo.sql" />
+    <Build Include="changeData\Tables\tab_amenity.sql" />
+    <Build Include="changeData\Tables\tab_property2amenity.sql" />
+    <Build Include="changeData\Tables\tab_property.sql" />
+    <Build Include="changeControl\Tables\tab_rate_change.sql" />
+    <Build Include="changeControl\Tables\tab_photo_change.sql" />
+    <Build Include="changeControl\Tables\tab_property2amenity_change.sql" />
+    <Build Include="changeControl\Tables\tab_amenity_change.sql" />
+    <Build Include="changeControl\Tables\tab_property_change.sql" />
+    <Build Include="dbo\Stored Procedures\propertySearch.sql" />
+    <Build Include="dbo\Stored Procedures\propertyRandomSearch.sql" />
+    <Build Include="dbo\Stored Procedures\proc_db_tableusage.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="changeControl\Stored Procedures\proc_changeData_merge_rate_to_dbo.sql" />
+    <Build Include="changeControl\Stored Procedures\proc_changeData_merge_photo_to_dbo.sql" />
+    <Build Include="changeControl\Stored Procedures\proc_changeData_merge_property2amenity_to_dbo.sql" />
+    <Build Include="changeControl\Stored Procedures\proc_changeData_merge_amenity_to_dbo.sql" />
+    <Build Include="changeControl\Stored Procedures\proc_changeData_merge_property_to_dbo.sql" />
+    <Build Include="Security\changeData.sql" />
+    <Build Include="Security\changeControl.sql" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>holidayHomes_build</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{9f1be4f5-49a3-4693-9791-27e08d61d3bc}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>holidayHomes_build</RootNamespace>
+    <AssemblyName>holidayHomes_build</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Latin1_General_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <IncludeSchemaNameInFileName>True</IncludeSchemaNameInFileName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="staging\" />
+    <Folder Include="staging\Tables\" />
+    <Folder Include="housetrip\" />
+    <Folder Include="housetrip\Tables\" />
+    <Folder Include="waytostay\" />
+    <Folder Include="waytostay\Tables\" />
+    <Folder Include="import\" />
+    <Folder Include="import\Tables\" />
+    <Folder Include="holidayHomes\" />
+    <Folder Include="holidayHomes\Tables\" />
+    <Folder Include="homeaway\" />
+    <Folder Include="homeaway\Tables\" />
+    <Folder Include="housetrip\Stored Procedures\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="staging\Stored Procedures\" />
+    <Folder Include="waytostay\Stored Procedures\" />
+    <Folder Include="import\Stored Procedures\" />
+    <Folder Include="Security\" />
+    <Folder Include="changeControl\" />
+    <Folder Include="changeControl\Tables\" />
+    <Folder Include="roomorama\" />
+    <Folder Include="roomorama\Tables\" />
+    <Folder Include="flipkey\" />
+    <Folder Include="flipkey\Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="staging\Tables\tab_property2amenity.sql" />
+    <Build Include="staging\Tables\tab_photo.sql" />
+    <Build Include="housetrip\Tables\imp_photo.sql" />
+    <Build Include="staging\Tables\tab_amenity.sql" />
+    <Build Include="waytostay\Tables\imp_concatfloors.sql" />
+    <Build Include="housetrip\Tables\imp_property2amenity.sql" />
+    <Build Include="housetrip\Tables\imp_property2photo.sql" />
+    <Build Include="housetrip\Tables\imp_property.sql" />
+    <Build Include="import\Tables\tab_source.sql" />
+    <Build Include="housetrip\Tables\imp_amenity.sql" />
+    <Build Include="import\Tables\tab_run.sql" />
+    <Build Include="staging\Tables\tab_rate.sql" />
+    <Build Include="import\Tables\tab_file.sql" />
+    <Build Include="import\Tables\tab_runLog.sql" />
+    <Build Include="import\Tables\tab_runFile.sql" />
+    <Build Include="holidayHomes\Tables\tab_amenity.sql" />
+    <Build Include="holidayHomes\Tables\tab_property.sql" />
+    <Build Include="waytostay\Tables\imp_apartment.sql" />
+    <Build Include="waytostay\Tables\imp_general.sql" />
+    <Build Include="waytostay\Tables\imp_location.sql" />
+    <Build Include="waytostay\Tables\imp_client_reviews.sql" />
+    <Build Include="waytostay\Tables\imp_payment.sql" />
+    <Build Include="waytostay\Tables\imp_checkin_checkout_conditions.sql" />
+    <Build Include="waytostay\Tables\imp_late_checkin.sql" />
+    <Build Include="waytostay\Tables\imp_price_from.sql" />
+    <Build Include="waytostay\Tables\imp_general_amenities.sql" />
+    <Build Include="waytostay\Tables\imp_amenity.sql" />
+    <Build Include="waytostay\Tables\imp_rooms_and_amenities.sql" />
+    <Build Include="waytostay\Tables\imp_rooms.sql" />
+    <Build Include="waytostay\Tables\imp_room.sql" />
+    <Build Include="holidayHomes\Tables\tab_property2amenity.sql" />
+    <Build Include="waytostay\Tables\imp_basic_information.sql" />
+    <Build Include="waytostay\Tables\imp_facilities.sql" />
+    <Build Include="homeaway\Tables\imp_author.sql" />
+    <Build Include="waytostay\Tables\imp_floors.sql" />
+    <Build Include="homeaway\Tables\imp_category.sql" />
+    <Build Include="waytostay\Tables\imp_floor.sql" />
+    <Build Include="homeaway\Tables\imp_content.sql" />
+    <Build Include="waytostay\Tables\imp_permissions.sql" />
+    <Build Include="homeaway\Tables\imp_data.sql" />
+    <Build Include="waytostay\Tables\imp_media.sql" />
+    <Build Include="homeaway\Tables\imp_entry.sql" />
+    <Build Include="waytostay\Tables\imp_img.sql" />
+    <Build Include="holidayHomes\Tables\tab_photo.sql" />
+    <Build Include="homeaway\Tables\imp_link.sql" />
+    <Build Include="waytostay\Tables\imp_services.sql" />
+    <Build Include="homeaway\Tables\imp_listing.sql" />
+    <Build Include="waytostay\Tables\imp_service.sql" />
+    <Build Include="homeaway\Tables\imp_rate.sql" />
+    <Build Include="waytostay\Tables\imp_offers.sql" />
+    <Build Include="homeaway\Tables\imp_rates.sql" />
+    <Build Include="waytostay\Tables\imp_offer.sql" />
+    <Build Include="homeaway\Tables\imp_region.sql" />
+    <Build Include="holidayHomes\Tables\tab_rate.sql" />
+    <Build Include="staging\Tables\tab_property.sql" />
+    <Build Include="homeaway\Tables\imp_regions.sql" />
+    <Build Include="homeaway\Tables\imp_subtitle.sql" />
+    <Build Include="homeaway\Tables\imp_title.sql" />
+    <Build Include="housetrip\Stored Procedures\proc_getPropertyAmenities.sql" />
+    <Build Include="staging\Stored Procedures\proc_setImportHashKeys.sql" />
+    <Build Include="waytostay\Stored Procedures\proc_getPermissionServiceAmenities.sql" />
+    <Build Include="waytostay\Stored Procedures\proc_concatenateFloors.sql" />
+    <Build Include="import\Stored Procedures\proc_registerFile.sql" />
+    <Build Include="Security\holidayHomes.sql" />
+    <Build Include="Security\homeaway.sql" />
+    <Build Include="Security\housetrip.sql" />
+    <Build Include="Security\import.sql" />
+    <Build Include="Security\staging.sql" />
+    <Build Include="Security\waytostay.sql" />
+    <Build Include="import\Tables\import.tab_country.sql" />
+    <Build Include="changeControl\Tables\changeControl.tab_rate_change.sql" />
+    <Build Include="changeControl\Tables\changeControl.tab_photo_change.sql" />
+    <Build Include="changeControl\Tables\changeControl.tab_property2amenity_change.sql" />
+    <Build Include="changeControl\Tables\changeControl.tab_amenity_change.sql" />
+    <Build Include="changeControl\Tables\changeControl.tab_property_change.sql" />
+    <Build Include="staging\Stored Procedures\staging.proc_staging_merge_rate_to_holidayHomes.sql" />
+    <Build Include="staging\Stored Procedures\staging.proc_staging_merge_property_to_holidayHomes.sql" />
+    <Build Include="staging\Stored Procedures\staging.proc_staging_merge_photo_to_holidayHomes.sql" />
+    <Build Include="staging\Stored Procedures\staging.proc_staging_merge_amenity_to_holidayHomes.sql" />
+    <Build Include="dbo\Stored Procedures\dbo.proc_db_tableusage.sql">
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\changeControl.sql" />
+    <Build Include="roomorama\Tables\roomorama.imp_photo.sql" />
+    <Build Include="roomorama\Tables\roomorama.imp_property.sql" />
+    <Build Include="roomorama\Tables\roomorama.imp_image.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_property.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_bathroom.sql" />
+    <Build Include="Security\roomorama.sql" />
+    <Build Include="Security\flipkey.sql" />
+  </ItemGroup>
+</Project>

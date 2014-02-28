@@ -1,0 +1,13 @@
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes.dacpac
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes.dll
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes.pdb
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\Model.xml
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\refactor.xml
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\postdeploy.sql
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\predeploy.sql
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.dll
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.pdb
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes_empty.dll
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes_empty.pdb
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes_empty.dacpac
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.sqlprojResolveAssemblyReference.cache

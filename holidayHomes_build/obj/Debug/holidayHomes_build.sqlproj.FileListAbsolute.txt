@@ -1,0 +1,5 @@
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes_build\bin\Debug\holidayHomes_build.dacpac
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes_build\bin\Debug\holidayHomes_build.dll
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes_build\bin\Debug\holidayHomes_build.pdb
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes_build\obj\Debug\holidayHomes_build.dll
+C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes_build\obj\Debug\holidayHomes_build.pdb
