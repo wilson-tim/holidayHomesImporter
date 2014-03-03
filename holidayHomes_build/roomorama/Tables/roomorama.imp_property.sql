@@ -35,7 +35,7 @@
     [airport-pickupRate]      NVARCHAR (20)    NULL,
     [car-rentalAvailable]     BIT              NULL,
     [car-rentalRate]          NVARCHAR (20)    NULL,
-    [conciergAvailable]       BIT              NULL,
+    [conciergeAvailable]       BIT              NULL,
     [conciergeRate]           NVARCHAR (20)    NULL,
     [check-in-time]           NVARCHAR (255)   NULL,
     [check-out-time]          NVARCHAR (255)   NULL,

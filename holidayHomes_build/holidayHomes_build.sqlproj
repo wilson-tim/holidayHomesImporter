@@ -88,6 +88,7 @@
     <Folder Include="dbo\Functions\" />
     <Folder Include="Assemblies\" />
     <Folder Include="roomorama\Stored Procedures\" />
+    <Folder Include="dbo\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="staging\Tables\tab_property2amenity.sql" />
@@ -175,7 +176,6 @@
     <Build Include="Security\changeControl.sql" />
     <Build Include="roomorama\Tables\roomorama.imp_photo.sql" />
     <Build Include="roomorama\Tables\roomorama.imp_property.sql" />
-    <Build Include="roomorama\Tables\roomorama.imp_image.sql" />
     <Build Include="flipkey\Tables\flipkey.imp_property.sql" />
     <Build Include="flipkey\Tables\flipkey.imp_bathroom.sql" />
     <Build Include="Security\roomorama.sql" />
@@ -199,5 +199,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\clrUtilities.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="holidayHomes_build.refactorlog" />
   </ItemGroup>
 </Project>

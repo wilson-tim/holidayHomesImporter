@@ -8,13 +8,13 @@
   DTS:DTSID="{07C13B39-9BCF-4BEE-8481-BB62B32351CD}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="299"
-  DTS:VersionGUID="{D1839C46-3C07-421C-8DC5-B740D22CD0E1}">
+  DTS:VersionBuild="342"
+  DTS:VersionGUID="{218590EB-F175-4E2B-9236-805C7F776815}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{366DA287-D756-426F-8FC4-29308B08B455}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{E1B6CE17-AF3B-46B8-8E9E-97B6ABBDC764}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -100,7 +100,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="3"
-        DTS:Name="ParameterValue">0</DTS:Property>
+        DTS:Name="ParameterValue">3</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -110,7 +110,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="3"
-        DTS:Name="ParameterValue">0</DTS:Property>
+        DTS:Name="ParameterValue">3</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -120,7 +120,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="3"
-        DTS:Name="ParameterValue">0</DTS:Property>
+        DTS:Name="ParameterValue">4</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -173,6 +173,16 @@
       DTS:ObjectName="csvFileName">
       <DTS:VariableValue
         DTS:DataType="8">tba</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D99E02B6-F726-463D-B578-B9C79FF16225}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="Internal"
+      DTS:ObjectName="periodType">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -350,13 +360,13 @@
   </DTS:LoggingOptions>
   <DTS:Executables>
     <DTS:Executable
-      DTS:refId="Package\convert bit fields and split amenities list to amenities"
+      DTS:refId="Package\clear imp and staging tables REMOVE AFTER TESTING"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:Description="Execute SQL Task"
-      DTS:DTSID="{9dd4bb30-55a3-4fbf-a9dd-a9d88b15f13c}"
+      DTS:DTSID="{f186c262-2c9b-4454-b7d7-a78d8f869738}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:LocaleID="-1"
-      DTS:ObjectName="convert bit fields and split amenities list to amenities"
+      DTS:ObjectName="clear imp and staging tables REMOVE AFTER TESTING"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
       DTS:ThreadHint="0">
       <DTS:Variables />
@@ -365,12 +375,37 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="EXEC roomorama.proc_getPropertyAmenities @runId = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="TRUNCATE TABLE roomorama.imp_amenity;&#xA;TRUNCATE TABLE roomorama.imp_photo;&#xA;TRUNCATE TABLE roomorama.imp_property;&#xA;&#xA;TRUNCATE TABLE staging.tab_property2amenity;&#xA;TRUNCATE TABLE staging.tab_photo;&#xA;TRUNCATE TABLE staging.tab_rate;&#xA;DELETE FROM staging.tab_property;&#xA;DELETE FROM staging.tab_amenity;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\convert bit fields and split amenities list to imp_amenity table"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9dd4bb30-55a3-4fbf-a9dd-a9d88b15f13c}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="convert bit fields and split amenities list to imp_amenity table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
+          SQLTask:SqlStatementSource="EXEC roomorama.proc_getPropertyAmenities @runId = ?, @fileId = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="@runId"
             SQLTask:DtsVariableName="$Package::runId"
             SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="2"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="@fileId"
+            SQLTask:DtsVariableName="$Package::fileId"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
             SQLTask:ParameterSize="-1" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
@@ -379,7 +414,6 @@
       DTS:refId="Package\copy to FK staging tables"
       DTS:CreationName="SSIS.Pipeline.3"
       DTS:Description="Data Flow Task"
-      DTS:Disabled="True"
       DTS:DTSID="{84A3220C-D71A-4997-A53F-DC3F28BE2071}"
       DTS:ExecutableType="SSIS.Pipeline.3"
       DTS:LocaleID="-1"
@@ -392,432 +426,6 @@
         <pipeline
           version="1">
           <components>
-            <component
-              refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo"
-              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
-              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-              description="OLE DB Source"
-              name="NOT DONE QRY roomorama photo"
-              usesDispositions="true"
-              version="7">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset"></property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the variable that contains the name of the database object used to open a rowset."
-                  name="OpenRowsetVariable"></property>
-                <property
-                  dataType="System.String"
-                  description="The SQL command to be executed."
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT sourceId
-, runId
-, externalId = CAST(CONCAT(propertyId, unitId) AS BIGINT)
-, imageURL
-, 1 AS position
-FROM homeaway.imp_listing
-WHERE runId = ?
-AND fileId = ?</property>
-                <property
-                  dataType="System.String"
-                  description="The variable that contains the SQL command to be executed."
-                  name="SqlCommandVariable"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Forces the use of the DefaultCodePage property value when describing character data."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the mode used to access the database."
-                  name="AccessMode"
-                  typeConverter="AccessMode">2</property>
-                <property
-                  dataType="System.String"
-                  description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{B2B20C45-A893-46E5-A160-5C37848A50D3};"Parameter1:Input",{B3FE4C7E-5A16-499E-A605-EDEB81303B82};</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Connections[OleDbConnection]"
-                  connectionManagerID="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[holidayHomes_build_new]"
-                  description="The OLE DB runtime connection used to access the database."
-                  name="OleDbConnection" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output]"
-                  name="OLE DB Source Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[sourceId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[sourceId]"
-                      name="sourceId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[runId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[runId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[runId]"
-                      name="runId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[imageURL]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[imageURL]"
-                      length="2000"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[imageURL]"
-                      name="imageURL"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[position]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[position]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[position]"
-                      name="position"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[externalId]"
-                      dataType="i8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[externalId]"
-                      name="externalId"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
-                      dataType="i4"
-                      name="sourceId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[runId]"
-                      dataType="i4"
-                      name="runId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[imageURL]"
-                      dataType="wstr"
-                      length="2000"
-                      name="imageURL" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[position]"
-                      dataType="i4"
-                      name="position" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      dataType="i8"
-                      name="externalId" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output]"
-                  isErrorOut="true"
-                  name="OLE DB Source Error Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[sourceId]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[sourceId]"
-                      name="sourceId" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[runId]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[runId]"
-                      name="runId" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      dataType="i8"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      name="externalId" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[imageURL]"
-                      dataType="wstr"
-                      length="2000"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[imageURL]"
-                      name="imageURL" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[position]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[position]"
-                      name="position" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
-              refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates"
-              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
-              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
-              description="OLE DB Source"
-              name="NOT DONE QRY roomorama rates"
-              usesDispositions="true"
-              version="7">
-              <properties>
-                <property
-                  dataType="System.Int32"
-                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                  name="CommandTimeout">0</property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset"></property>
-                <property
-                  dataType="System.String"
-                  description="Specifies the variable that contains the name of the database object used to open a rowset."
-                  name="OpenRowsetVariable"></property>
-                <property
-                  dataType="System.String"
-                  description="The SQL command to be executed."
-                  name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT l.sourceId
-, l.runId
-, externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
-, r.[from]
-, r.[to]
-, r.currencyUnit
-, r.periodType
-FROM homeaway.imp_listing l
-LEFT OUTER JOIN homeaway.imp_rates rs
-	ON rs.listing_id = l.listing_Id
-	AND rs.runId = l.runId
-	AND rs.fileId = l.fileId
-LEFT OUTER JOIN homeaway.imp_rate r
-	ON r.rates_id = rs.rates_id
-	AND r.runId = rs.runId
-	AND r.fileId = rs.fileId
-WHERE l.runId = ?
-AND l.fileId = ?
-AND r.rates_id IS NOT NULL;</property>
-                <property
-                  dataType="System.String"
-                  description="The variable that contains the SQL command to be executed."
-                  name="SqlCommandVariable"></property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the column code page to use when code page information is unavailable from the data source."
-                  name="DefaultCodePage">1252</property>
-                <property
-                  dataType="System.Boolean"
-                  description="Forces the use of the DefaultCodePage property value when describing character data."
-                  name="AlwaysUseDefaultCodePage">false</property>
-                <property
-                  dataType="System.Int32"
-                  description="Specifies the mode used to access the database."
-                  name="AccessMode"
-                  typeConverter="AccessMode">2</property>
-                <property
-                  dataType="System.String"
-                  description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{B2B20C45-A893-46E5-A160-5C37848A50D3};"Parameter1:Input",{B3FE4C7E-5A16-499E-A605-EDEB81303B82};</property>
-              </properties>
-              <connections>
-                <connection
-                  refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Connections[OleDbConnection]"
-                  connectionManagerID="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[holidayHomes_build_new]"
-                  description="The OLE DB runtime connection used to access the database."
-                  name="OleDbConnection" />
-              </connections>
-              <outputs>
-                <output
-                  refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output]"
-                  name="OLE DB Source Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[sourceId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[sourceId]"
-                      name="sourceId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[periodType]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[periodType]"
-                      length="255"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[periodType]"
-                      name="periodType"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[from]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[from]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[from]"
-                      name="from"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[runId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[runId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[runId]"
-                      name="runId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[to]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[to]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[to]"
-                      name="to"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[currencyUnit]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[currencyUnit]"
-                      length="3"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[currencyUnit]"
-                      name="currencyUnit"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[externalId]"
-                      dataType="i8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[externalId]"
-                      name="externalId"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
-                  <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
-                      dataType="i4"
-                      name="sourceId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[periodType]"
-                      dataType="wstr"
-                      length="255"
-                      name="periodType" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[from]"
-                      dataType="r8"
-                      name="from" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[runId]"
-                      dataType="i4"
-                      name="runId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[to]"
-                      dataType="r8"
-                      name="to" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[currencyUnit]"
-                      dataType="wstr"
-                      length="3"
-                      name="currencyUnit" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      dataType="i8"
-                      name="externalId" />
-                  </externalMetadataColumns>
-                </output>
-                <output
-                  refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output]"
-                  isErrorOut="true"
-                  name="OLE DB Source Error Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[sourceId]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[sourceId]"
-                      name="sourceId" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[periodType]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[periodType]"
-                      name="periodType" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      dataType="i8"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      name="externalId" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[from]"
-                      dataType="r8"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[from]"
-                      name="from" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[to]"
-                      dataType="r8"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[to]"
-                      name="to" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[currencyUnit]"
-                      dataType="wstr"
-                      length="3"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[currencyUnit]"
-                      name="currencyUnit" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[runId]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[runId]"
-                      name="runId" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
             <component
               refId="Package\copy to FK staging tables\QRY roomorama imp_property2amenity"
               componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
@@ -843,10 +451,13 @@ AND r.rates_id IS NOT NULL;</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT imp_am.sourceId, imp_am.runId, imp_am.id, am.amenityId
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT imp_am.sourceId
+, imp_am.runId
+, imp_am.id
+, am.amenityId
 FROM roomorama.imp_amenity imp_am
 INNER JOIN staging.tab_amenity am
-	ON am.amenityValue = imp_am.amenityValue
+ON am.amenityValue = imp_am.amenityValue
 WHERE imp_am.runId = ?
 AND imp_am.fileId = ?;</property>
                 <property
@@ -988,6 +599,426 @@ AND imp_am.fileId = ?;</property>
               </outputs>
             </component>
             <component
+              refId="Package\copy to FK staging tables\QRY roomorama photo"
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="QRY roomorama photo"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT imp_photo.sourceId
+, imp_photo.runId
+, imp_property.[id] AS externalId
+, imp_photo.imageURL
+, imp_photo.position
+FROM roomorama.imp_photo
+INNER JOIN roomorama.imp_property
+ON imp_property.room_Id = imp_photo.room_Id
+WHERE imp_photo.runId = ?
+AND imp_photo.fileId = ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{5DF8955B-A697-47F6-9545-8B5E673D3433};"Parameter1:Input",{89E309FF-508A-4CD2-BCD9-35B2936B867F};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\copy to FK staging tables\QRY roomorama photo.Connections[OleDbConnection]"
+                  connectionManagerID="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[holidayHomes_build_new]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[sourceId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[sourceId]"
+                      name="sourceId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[runId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[runId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[runId]"
+                      name="runId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[imageURL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[imageURL]"
+                      length="2000"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[imageURL]"
+                      name="imageURL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[position]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[position]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[position]"
+                      name="position"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[externalId]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[externalId]"
+                      name="externalId"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
+                      dataType="i4"
+                      name="sourceId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[runId]"
+                      dataType="i4"
+                      name="runId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[imageURL]"
+                      dataType="wstr"
+                      length="2000"
+                      name="imageURL" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[position]"
+                      dataType="numeric"
+                      name="position"
+                      precision="28"
+                      scale="10" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      dataType="numeric"
+                      name="externalId"
+                      precision="28"
+                      scale="10" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[sourceId]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[sourceId]"
+                      name="sourceId" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[runId]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[runId]"
+                      name="runId" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      dataType="numeric"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      name="externalId"
+                      precision="28"
+                      scale="10" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[imageURL]"
+                      dataType="wstr"
+                      length="2000"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[imageURL]"
+                      name="imageURL" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[position]"
+                      dataType="numeric"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[position]"
+                      name="position"
+                      precision="28"
+                      scale="10" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\copy to FK staging tables\QRY roomorama rates"
+              componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="QRY roomorama rates"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT sourceId
+, runId
+, [id]
+, price
+, [currency-code] = LEFT([currency-code], 3)
+, [periodType]
+FROM roomorama.imp_property
+WHERE runId = ?
+AND fileId = ?</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{5DF8955B-A697-47F6-9545-8B5E673D3433};"Parameter1:Input",{89E309FF-508A-4CD2-BCD9-35B2936B867F};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\copy to FK staging tables\QRY roomorama rates.Connections[OleDbConnection]"
+                  connectionManagerID="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[holidayHomes_build_new]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[sourceId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[sourceId]"
+                      name="sourceId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[runId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[runId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[runId]"
+                      name="runId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[id]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[id]"
+                      name="id"
+                      precision="28"
+                      scale="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[price]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[price]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[price]"
+                      name="price"
+                      precision="28"
+                      scale="10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[currency-code]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[currency-code]"
+                      length="25"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[currency-code]"
+                      name="currency-code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[periodType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[periodType]"
+                      length="255"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[periodType]"
+                      name="periodType"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[sourceId]"
+                      dataType="i4"
+                      name="sourceId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[runId]"
+                      dataType="i4"
+                      name="runId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[id]"
+                      dataType="numeric"
+                      name="id"
+                      precision="28"
+                      scale="10" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[price]"
+                      dataType="numeric"
+                      name="price"
+                      precision="28"
+                      scale="10" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[currency-code]"
+                      dataType="wstr"
+                      length="3"
+                      name="currency-code" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].ExternalColumns[periodType]"
+                      dataType="wstr"
+                      length="255"
+                      name="periodType" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[sourceId]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[sourceId]"
+                      name="sourceId" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[runId]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[runId]"
+                      name="runId" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[id]"
+                      dataType="numeric"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[id]"
+                      name="id"
+                      precision="28"
+                      scale="10" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[price]"
+                      dataType="numeric"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[price]"
+                      name="price"
+                      precision="28"
+                      scale="10" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[currency-code]"
+                      dataType="wstr"
+                      length="3"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[currency-code]"
+                      name="currency-code" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[periodType]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[periodType]"
+                      name="periodType" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\copy to FK staging tables\staging tab_photo"
               componentClassID="{4ADA7EAA-136C-4215-8098-D7A7C27FC0D1}"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
@@ -1064,32 +1095,32 @@ AND imp_am.fileId = ?;</property>
                       cachedDataType="i4"
                       cachedName="sourceId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[sourceId]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[sourceId]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[runId]"
                       cachedDataType="i4"
                       cachedName="runId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[runId]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[runId]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[position]"
                       cachedDataType="i4"
                       cachedName="position"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[position]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[position]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[position]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[imageURL]"
                       cachedDataType="wstr"
                       cachedLength="2000"
                       cachedName="imageURL"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[url]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[imageURL]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[imageURL]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[externalId]"
                       cachedDataType="i8"
                       cachedName="externalId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output].Columns[externalId]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output].Columns[externalId]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1250,17 +1281,17 @@ AND imp_am.fileId = ?;</property>
                       dataType="i4"
                       name="sourceId" />
                     <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
-                      name="externalId" />
-                    <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[amenityId]"
-                      dataType="i8"
+                      dataType="i4"
                       name="amenityId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
                       dataType="i4"
                       name="runId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
+                      dataType="i4"
+                      name="externalId" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1366,52 +1397,46 @@ AND imp_am.fileId = ?;</property>
                       cachedDataType="i4"
                       cachedName="sourceId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[sourceId]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[sourceId]" />
+                    <inputColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[runId]"
+                      cachedDataType="i4"
+                      cachedName="runId"
+                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[runId]" />
+                    <inputColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[currency-code]"
+                      cachedDataType="wstr"
+                      cachedLength="25"
+                      cachedName="currency-code"
+                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[currencyCode]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[currency-code]" />
+                    <inputColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[id]"
+                      cachedDataType="numeric"
+                      cachedName="id"
+                      cachedPrecision="28"
+                      cachedScale="10"
+                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[id]" />
+                    <inputColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[price]"
+                      cachedDataType="numeric"
+                      cachedName="price"
+                      cachedPrecision="28"
+                      cachedScale="10"
+                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[from]"
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[price]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[periodType]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="periodType"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[periodType]" />
-                    <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[from]"
-                      cachedDataType="r8"
-                      cachedName="from"
-                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[from]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[from]" />
-                    <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[runId]"
-                      cachedDataType="i4"
-                      cachedName="runId"
-                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[runId]" />
-                    <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[to]"
-                      cachedDataType="r8"
-                      cachedName="to"
-                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[to]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[to]" />
-                    <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[currencyUnit]"
-                      cachedDataType="wstr"
-                      cachedLength="3"
-                      cachedName="currencyUnit"
-                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[currencyCode]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[currencyUnit]" />
-                    <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[externalId]"
-                      cachedDataType="i8"
-                      cachedName="externalId"
-                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output].Columns[externalId]" />
+                      lineageId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output].Columns[periodType]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[rateId]"
-                      dataType="i8"
-                      name="rateId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
                       dataType="i4"
@@ -1421,18 +1446,9 @@ AND imp_am.fileId = ?;</property>
                       dataType="i8"
                       name="externalId" />
                     <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
-                      dataType="wstr"
-                      length="255"
-                      name="periodType" />
-                    <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[from]"
                       dataType="r8"
                       name="from" />
-                    <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[to]"
-                      dataType="r8"
-                      name="to" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[currencyCode]"
                       dataType="wstr"
@@ -1442,6 +1458,19 @@ AND imp_am.fileId = ?;</property>
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
                       dataType="i4"
                       name="runId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[rateId]"
+                      dataType="i8"
+                      name="rateId" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
+                      dataType="wstr"
+                      length="255"
+                      name="periodType" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[to]"
+                      dataType="r8"
+                      name="to" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1476,12 +1505,12 @@ AND imp_am.fileId = ?;</property>
               refId="Package\copy to FK staging tables.Paths[OLE DB Source Output]"
               endId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
-              startId="Package\copy to FK staging tables\NOT DONE QRY roomorama photo.Outputs[OLE DB Source Output]" />
+              startId="Package\copy to FK staging tables\QRY roomorama photo.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\copy to FK staging tables.Paths[OLE DB Source Output1]"
               endId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
-              startId="Package\copy to FK staging tables\NOT DONE QRY roomorama rates.Outputs[OLE DB Source Output]" />
+              startId="Package\copy to FK staging tables\QRY roomorama rates.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\copy to FK staging tables.Paths[OLE DB Source Output2]"
               endId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input]"
@@ -1495,7 +1524,6 @@ AND imp_am.fileId = ?;</property>
       DTS:refId="Package\copy to PK staging tables"
       DTS:CreationName="SSIS.Pipeline.3"
       DTS:Description="Data Flow Task"
-      DTS:Disabled="True"
       DTS:DTSID="{E43E3C63-8826-4492-B1A2-AD5F6B79B723}"
       DTS:ExecutableType="SSIS.Pipeline.3"
       DTS:LocaleID="-1"
@@ -1537,7 +1565,7 @@ AND imp_am.fileId = ?;</property>
 , runId
 , [id]
 , title
-, typeOfProperty = ISNULL(subtype + ' ', '') + [type]
+, typeOfProperty = LEFT((ISNULL(subtype + ' ', '') + [type]), 50)
 , url
 , [num-rooms]
 , [num-bathrooms]
@@ -1547,7 +1575,7 @@ AND imp_am.fileId = ?;</property>
 , [currency-code] = LEFT([currency-code], 25)
 , [description]
 , city
-, [country-code]
+, [country-code] = LEFT([country-code], 2)
 , lat
 , lng
 , [check-in-time]
@@ -1892,7 +1920,7 @@ AND fileId = ?</property>
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[country-code]"
                       dataType="wstr"
-                      length="255"
+                      length="2"
                       name="country-code" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[lat]"
@@ -1934,7 +1962,7 @@ AND fileId = ?</property>
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[typeOfProperty]"
                       dataType="wstr"
-                      length="511"
+                      length="50"
                       name="typeOfProperty" />
                   </externalMetadataColumns>
                 </output>
@@ -1970,7 +1998,7 @@ AND fileId = ?</property>
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[typeOfProperty]"
                       dataType="wstr"
-                      length="511"
+                      length="50"
                       lineageId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[typeOfProperty]"
                       name="typeOfProperty" />
                     <outputColumn
@@ -2033,7 +2061,7 @@ AND fileId = ?</property>
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[country-code]"
                       dataType="wstr"
-                      length="255"
+                      length="2"
                       lineageId="Package\copy to PK staging tables\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[country-code]"
                       name="country-code" />
                     <outputColumn
@@ -2760,6 +2788,28 @@ AND fileId = ?</property>
                           name="FriendlyExpression">@[$Package::sourceId]</property>
                       </properties>
                     </outputColumn>
+                    <outputColumn
+                      refId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[periodType]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[periodType]"
+                      name="periodType"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[Internal::periodType]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[Internal::periodType]</property>
+                      </properties>
+                    </outputColumn>
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -3458,12 +3508,6 @@ AND fileId = ?</property>
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[car-rentalRate]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[car-rentalRate]" />
                     <inputColumn
-                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[conciergAvailable]"
-                      cachedDataType="bool"
-                      cachedName="conciergAvailable"
-                      externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergAvailable]"
-                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergAvailable]" />
-                    <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[conciergeRate]"
                       cachedDataType="wstr"
                       cachedLength="20"
@@ -3590,6 +3634,18 @@ AND fileId = ?</property>
                       cachedName="sourceId"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
                       lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[sourceId]" />
+                    <inputColumn
+                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[periodType]"
+                      cachedDataType="wstr"
+                      cachedName="periodType"
+                      externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
+                      lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[periodType]" />
+                    <inputColumn
+                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[conciergeAvailable]"
+                      cachedDataType="bool"
+                      cachedName="conciergeAvailable"
+                      externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeAvailable]"
+                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeAvailable]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3781,10 +3837,6 @@ AND fileId = ?</property>
                       length="20"
                       name="car-rentalRate" />
                     <externalMetadataColumn
-                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergAvailable]"
-                      dataType="bool"
-                      name="conciergAvailable" />
-                    <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeRate]"
                       dataType="wstr"
                       length="20"
@@ -3874,6 +3926,15 @@ AND fileId = ?</property>
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
                       dataType="i4"
                       name="sourceId" />
+                    <externalMetadataColumn
+                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeAvailable]"
+                      dataType="bool"
+                      name="conciergeAvailable" />
+                    <externalMetadataColumn
+                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
+                      dataType="wstr"
+                      length="255"
+                      name="periodType" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -4607,13 +4668,13 @@ AND fileId = ?</property>
                       name="car-rentalRate"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergAvailable]"
+                      refId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeAvailable]"
                       dataType="bool"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[conciergAvailable]"
-                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergAvailable]"
-                      name="conciergAvailable"
+                      externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[conciergeAvailable]"
+                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeAvailable]"
+                      name="conciergeAvailable"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeRate]"
@@ -5164,9 +5225,9 @@ AND fileId = ?</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn
-                      refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[conciergAvailable]"
+                      refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[conciergeAvailable]"
                       dataType="bool"
-                      name="conciergAvailable">
+                      name="conciergeAvailable">
                       <properties>
                         <property
                           dataType="System.String"
@@ -5576,11 +5637,11 @@ AND fileId = ?</property>
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].Columns[car-rentalRate]"
                       name="car-rentalRate" />
                     <outputColumn
-                      refId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].Columns[conciergAvailable]"
+                      refId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].Columns[conciergeAvailable]"
                       dataType="nText"
-                      externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].ExternalColumns[conciergAvailable]"
-                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].Columns[conciergAvailable]"
-                      name="conciergAvailable" />
+                      externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].ExternalColumns[conciergeAvailable]"
+                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].Columns[conciergeAvailable]"
+                      name="conciergeAvailable" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].Columns[conciergeRate]"
                       dataType="nText"
@@ -5837,9 +5898,9 @@ AND fileId = ?</property>
                       dataType="nText"
                       name="car-rentalRate" />
                     <externalMetadataColumn
-                      refId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].ExternalColumns[conciergAvailable]"
+                      refId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].ExternalColumns[conciergeAvailable]"
                       dataType="nText"
-                      name="conciergAvailable" />
+                      name="conciergeAvailable" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room Error Output].ExternalColumns[conciergeRate]"
                       dataType="nText"
@@ -5953,7 +6014,6 @@ AND fileId = ?</property>
       DTS:refId="Package\insert tab_runFile"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:Description="insert meta.import.tab_runFile"
-      DTS:Disabled="True"
       DTS:DTSID="{6EC8BE88-465F-40D7-BEEE-44F0CA6616C0}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:LocaleID="-1"
@@ -5992,7 +6052,6 @@ AND fileId = ?</property>
       DTS:refId="Package\Log raw import counts"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:Description="Execute SQL Task"
-      DTS:Disabled="True"
       DTS:DTSID="{FDA0F6C7-27EF-49B1-AD06-AF3F4D6CD07F}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:LocaleID="-1"
@@ -6108,7 +6167,7 @@ AND fileId = ?</property>
       DTS:From="Package\Log raw import counts"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\convert bit fields and split amenities list to amenities" />
+      DTS:To="Package\convert bit fields and split amenities list to imp_amenity table" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -6145,7 +6204,7 @@ AND fileId = ?</property>
       DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
       DTS:CreationName=""
       DTS:DTSID="{D9F2066A-F761-40CC-831C-F24EC55AF19B}"
-      DTS:From="Package\convert bit fields and split amenities list to amenities"
+      DTS:From="Package\convert bit fields and split amenities list to imp_amenity table"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 6"
       DTS:To="Package\merge imp_amenities to staging tab_amenity" />
@@ -6157,6 +6216,14 @@ AND fileId = ?</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 7"
       DTS:To="Package\copy to PK staging tables" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{A6330613-AF52-4C4F-9BE4-B5A5A08E0AFC}"
+      DTS:From="Package\clear imp and staging tables REMOVE AFTER TESTING"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Set xslXmlFullPath" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -6171,32 +6238,48 @@ AND fileId = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="336,42"
+          Id="Package\clear imp and staging tables REMOVE AFTER TESTING"
+          TopLeft="35,385.5" />
+        <NodeLayout
+          Size="368,42"
+          Id="Package\convert bit fields and split amenities list to imp_amenity table"
+          TopLeft="8.70329126259739,806.406728019813" />
+        <NodeLayout
           Size="197,42"
           Id="Package\copy to FK staging tables"
-          TopLeft="90.7672857795735,690.228097350496" />
+          TopLeft="91.7672857795735,1032.7280973505" />
         <NodeLayout
           Size="198,42"
           Id="Package\copy to PK staging tables"
-          TopLeft="90.2672857795735,611.560391017252" />
+          TopLeft="91.2672857795735,954.060391017252" />
         <NodeLayout
           Size="197,42"
           Id="Package\import XML to imp tables"
-          TopLeft="96,308.603337913384" />
+          TopLeft="97,651.103337913384" />
         <NodeLayout
           Size="136,44"
           Id="Package\insert tab_runFile"
-          TopLeft="121.267285779573,785.331763665556" />
+          TopLeft="122.267285779573,1127.83176366556" />
         <NodeLayout
           Size="185,42"
           Id="Package\Log raw import counts"
-          TopLeft="96.7672857795735,392.33410831719" />
+          TopLeft="97.7672857795735,734.83410831719" />
+        <NodeLayout
+          Size="292,42"
+          Id="Package\merge imp_amenities to staging tab_amenity"
+          TopLeft="48.4579179925943,887.59453805975" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Set xslXmlFullPath"
+          TopLeft="116.233984677153,474.810393147033" />
         <NodeLayout
           Size="217,42"
           Id="Package\XML Task XSL transformation"
-          TopLeft="89,224.603337913384" />
+          TopLeft="90,567.103337913384" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="196,266.603337913384">
+          TopLeft="197,609.103337913384">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -6217,8 +6300,30 @@ AND fileId = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="191.485288521085,776.83410831719">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.572619702623"
+              Start="0,0"
+              End="0,22.072619702623">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.072619702623" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="189.267285779574,653.560391017252">
+          TopLeft="190.267285779574,996.060391017252">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -6240,7 +6345,7 @@ AND fileId = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="189.267285779573,732.228097350497">
+          TopLeft="190.267285779573,1074.7280973505">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -6262,7 +6367,7 @@ AND fileId = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="191.883642889787,350.603337913384">
+          TopLeft="192.883642889787,693.103337913384">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -6282,20 +6387,9 @@ AND fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="Transform XML data using XSL&#xA;1. to change ...&lt;image&gt;&lt;image&gt;... nested structure,&#xA;which SSIS refuses to process, to ...&lt;image&gt;&lt;imageUrl&gt;...&#xA;2. Also to flatten host, services and conditions nodes"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="333,88"
-          Id="95f4f36c-e6ed-43df-b02f-c809cfb3556f"
-          TopLeft="330,202.603337913384" />
-        <NodeLayout
-          Size="165,42"
-          Id="Package\Set xslXmlFullPath"
-          TopLeft="115.233984677153,132.310393147033" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="197.616992338576,174.310393147033">
+          TopLeft="198.616992338576,516.810393147033">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -6315,57 +6409,20 @@ AND fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="path of XSL destination == &lt;filename&gt;_flat.xml&#xD;&#xA;This transformed file is the one imported."
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="280,60"
-          Id="79bbd8ea-9ebe-4589-870b-bbc0d80f6b23"
-          TopLeft="302.887641460369,122.317367785241" />
-        <NodeLayout
-          Size="326,42"
-          Id="Package\convert bit fields and split amenities list to amenities"
-          TopLeft="27.7032912625974,464.906728019813" />
-        <NodeLayout
-          Size="292,42"
-          Id="Package\merge imp_amenities to staging tab_amenity"
-          TopLeft="47.4579179925943,545.09453805975" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="189.985288521085,434.33410831719">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,30.5726197026234"
-              Start="0,0"
-              End="0,23.0726197026234">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,23.0726197026234" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 6]"
-          TopLeft="192.080604627596,506.906728019813">
+          TopLeft="193.580604627596,848.406728019813">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,38.1878100399361"
+              EndConnector="0,39.1878100399369"
               Start="0,0"
-              End="0,30.6878100399361">
+              End="0,31.6878100399369">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.6878100399361" />
+                    End="0,31.6878100399369" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6376,18 +6433,18 @@ AND fileId = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="191.362601886084,587.09453805975">
+          TopLeft="192.362601886084,929.59453805975">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,24.4658529575025"
+              EndConnector="0,24.465852957502"
               Start="0,0"
-              End="0,16.9658529575025">
+              End="0,16.965852957502">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16.9658529575025" />
+                    End="0,16.965852957502" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6396,6 +6453,49 @@ AND fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="200.866992338576,427.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.310393147033"
+              Start="0,0"
+              End="0,39.810393147033">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.810393147033" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Transform XML data using XSL&#xA;1. to change ...&lt;image&gt;&lt;image&gt;... nested structure,&#xA;which SSIS refuses to process, to ...&lt;image&gt;&lt;imageUrl&gt;...&#xA;2. Also to flatten host, services and conditions nodes"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="333,88"
+          Id="95f4f36c-e6ed-43df-b02f-c809cfb3556f"
+          TopLeft="331,545.103337913384" />
+        <AnnotationLayout
+          Text="path of XSL destination == &lt;filename&gt;_flat.xml&#xA;This transformed file is the one imported."
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="280,56"
+          Id="79bbd8ea-9ebe-4589-870b-bbc0d80f6b23"
+          TopLeft="330.887641460369,466.817367785241" />
+        <AnnotationLayout
+          Text="FOR TESTING PURPOSES...&#xA;&#xA;@sourceId has been assigned the value 4&#xA;&#xA;INSERT INTO import.tab_source&#xA;(sourceId,sourceName,ssisPackageName,ssisPackageType,subFolder,fileSpecMask,isActive,createDate,lastModifiedDate)&#xA;VALUES&#xA;(4,'roomorama','roomorama_import.dtsx','standard','\004_roomorama','*.xml',1,GETDATE(),GETDATE())&#xA;&#xA;INSERT import.tab_file&#xA;(sourceId, fullPath, [fileName])&#xA;VALUES&#xA;(&lt;sourceId&gt;,'C:\DATA\roomorama\roomorama_12.xml','roomorama_12.xml')&#xA;... then check what value of @fileId has been generated and assign it&#xA;&#xA;INSERT INTO import.tab_run&#xA;(rootFolder,runDescription,createDate)&#xA;VALUES&#xA;('C:\DATA\roomorama','Test',GETDATE())&#xA;... then check what value of @runId has been generated and assign it"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="660,343"
+          Id="35111395-e553-42bb-ba1a-95a494a9f0e4"
+          TopLeft="58.75,11.75" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -6405,89 +6505,21 @@ AND fileId = ?</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="187,42"
+          Id="Package\copy to FK staging tables\QRY roomorama photo"
+          TopLeft="347.59701341566,91.0996142962397" />
+        <NodeLayout
           Size="156,42"
           Id="Package\copy to FK staging tables\staging tab_rate"
           TopLeft="618.611525818278,203.339938820598" />
         <NodeLayout
+          Size="184,42"
+          Id="Package\copy to FK staging tables\QRY roomorama rates"
+          TopLeft="609.106781075922,90.835194078241" />
+        <NodeLayout
           Size="164,42"
           Id="Package\copy to FK staging tables\staging tab_photo"
           TopLeft="359.365758764794,203.104784047033" />
-        <NodeLayout
-          Size="239,42"
-          Id="Package\copy to FK staging tables\NOT DONE QRY roomorama rates"
-          TopLeft="609.106781075922,90.835194078241" />
-        <NodeLayout
-          Size="243,42"
-          Id="Package\copy to FK staging tables\NOT DONE QRY roomorama photo"
-          TopLeft="347.59701341566,91.0996142962397" />
-        <EdgeLayout
-          Id="Package\copy to FK staging tables.Paths[OLE DB Source Output1]"
-          TopLeft="728.606781075922,132.835194078241">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-31.995255257644,70.504744742357"
-              Start="0,0"
-              End="-31.995255257644,63.004744742357">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,31.2523723711785" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,31.2523723711785"
-                    Point2="0,35.2523723711785"
-                    Point3="-4,35.2523723711785" />
-                  <mssgle:LineSegment
-                    End="-27.995255257644,35.2523723711785" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-27.995255257644,35.2523723711785"
-                    Point2="-31.995255257644,35.2523723711785"
-                    Point3="-31.995255257644,39.2523723711785" />
-                  <mssgle:LineSegment
-                    End="-31.995255257644,63.004744742357" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to FK staging tables.Paths[OLE DB Source Output]"
-          TopLeft="469.09701341566,133.09961429624">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-27.731254650866,70.0051697507933"
-              Start="0,0"
-              End="-27.731254650866,62.5051697507933">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,31.0025848753967" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,31.0025848753967"
-                    Point2="0,35.0025848753967"
-                    Point3="-4,35.0025848753967" />
-                  <mssgle:LineSegment
-                    End="-23.731254650866,35.0025848753967" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-23.731254650866,35.0025848753967"
-                    Point2="-27.731254650866,35.0025848753967"
-                    Point3="-27.731254650866,39.0025848753967" />
-                  <mssgle:LineSegment
-                    End="-27.731254650866,62.5051697507933" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <NodeLayout
           Size="266,42"
           Id="Package\copy to FK staging tables\QRY roomorama imp_property2amenity"
@@ -6518,9 +6550,61 @@ AND fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to FK staging tables.Paths[OLE DB Source Output1]"
+          TopLeft="698.8591534471,132.835194078241">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.504744742357"
+              Start="0,0"
+              End="0,63.004744742357">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.004744742357" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to FK staging tables.Paths[OLE DB Source Output]"
+          TopLeft="441.231386090227,133.09961429624">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.0051697507933"
+              Start="0,0"
+              End="0,62.5051697507933">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,62.5051697507933" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\QRY roomorama photo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\copy to FK staging tables\staging tab_rate">
     <Properties>
@@ -6531,6 +6615,14 @@ AND fileId = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\QRY roomorama rates">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -6548,7 +6640,7 @@ AND fileId = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\NOT DONE QRY roomorama rates">
+    design-time-name="Package\copy to FK staging tables\QRY roomorama imp_property2amenity">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6556,10 +6648,15 @@ AND fileId = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\NOT DONE QRY roomorama photo">
+    design-time-name="Package\copy to FK staging tables\staging tab_property2amenity">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -6567,36 +6664,29 @@ AND fileId = ?</property>
     design-time-name="Package\copy to PK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="177,42"
           Id="Package\copy to PK staging tables\staging tab_property"
-          TopLeft="466.162871382111,395.161580279821" />
+          TopLeft="162.162871382111,277.161580279821" />
         <NodeLayout
           Size="234,42"
           Id="Package\copy to PK staging tables\QRY roomorama property source"
-          TopLeft="432.824973456809,181.840440165212" />
-        <AnnotationLayout
-          Text="country column contains mix of countryCodes and countryNames,&#xA;so splitting, looking up counterpart and unioning"
-          ParentId="Package\copy to PK staging tables"
-          FontInfo="{assembly:Null}"
-          Size="378,56"
-          Id="9caa657e-83a2-434f-898d-21f656a75a17"
-          TopLeft="845,287" />
+          TopLeft="126.824973456809,62.840440165212" />
         <EdgeLayout
           Id="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
-          TopLeft="552.24392241946,223.840440165212">
+          TopLeft="247.24392241946,104.840440165212">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,171.321140114609"
+              EndConnector="0,172.321140114609"
               Start="0,0"
-              End="0,163.821140114609">
+              End="0,164.821140114609">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,163.821140114609" />
+                    End="0,164.821140114609" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6608,6 +6698,14 @@ AND fileId = ?</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to PK staging tables\QRY roomorama property source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\copy to PK staging tables\staging tab_property">
     <Properties>
@@ -6621,23 +6719,11 @@ AND fileId = ?</property>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to PK staging tables\QRY roomorama property source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\import XML to imp tables">
     <LayoutInfo>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="162,42"
-          Id="Package\import XML to imp tables\Merge Join image"
-          TopLeft="574,185" />
         <NodeLayout
           Size="130,42"
           Id="Package\import XML to imp tables\Row Count"
@@ -6651,53 +6737,35 @@ AND fileId = ?</property>
           Id="Package\import XML to imp tables\OLE DB Destination imp_property"
           TopLeft="194,388" />
         <NodeLayout
-          Size="209,42"
-          Id="Package\import XML to imp tables\Add Columns to image data"
-          TopLeft="546,281" />
-        <NodeLayout
           Size="527,42"
           Id="Package\import XML to imp tables\XML Source"
           TopLeft="233,61" />
         <NodeLayout
+          Size="209,42"
+          Id="Package\import XML to imp tables\Add Columns to image data"
+          TopLeft="546,281" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\import XML to imp tables\Merge Join image"
+          TopLeft="574,185" />
+        <NodeLayout
           Size="205,42"
           Id="Package\import XML to imp tables\Add Columns to room data"
-          TopLeft="204,281" />
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
-          TopLeft="309.5,323">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,65"
-              Start="0,0"
-              End="0,57.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,57.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="212,293" />
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Row Count Output 1]"
-          TopLeft="319.25,220">
+          TopLeft="317.25,220">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,61"
+              EndConnector="0,73"
               Start="0,0"
-              End="0,53.5">
+              End="0,65.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,53.5" />
+                    End="0,65.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6846,6 +6914,35 @@ AND fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
+          TopLeft="313.5,335">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <AnnotationLayout
+          Text="Add column periodType&#xD;&#xA;assigned from variable Internal::periodType&#xD;&#xA;because staging.tab_rate.periodType may not be null"
+          ParentId="Package\import XML to imp tables"
+          FontInfo="{assembly:Null}"
+          Size="308,72"
+          Id="c5051bb3-6589-45df-b309-e69f4a3fba2c"
+          TopLeft="11,210" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -6864,27 +6961,6 @@ AND fileId = ?</property>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\import XML to imp tables\OLE DB Destination imp_property">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\QRY roomorama imp_property2amenity">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\staging tab_property2amenity">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

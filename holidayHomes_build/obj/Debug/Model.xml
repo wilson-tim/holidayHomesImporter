@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="clrUtilities.dll" />
-			<Metadata Name="FileName" Value="C:\GIT\COMPAREANDSHARE\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\ASSEMBLIES\CLRUTILITIES.DLL" />
+			<Metadata Name="FileName" Value="C:\USERS\ADMIN\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\ASSEMBLIES\CLRUTILITIES.DLL" />
 			<Metadata Name="AssemblyName" Value="clrUtilities" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="dbo" />
@@ -24,7 +24,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="clr.dll" />
-			<Metadata Name="FileName" Value="C:\GIT\COMPAREANDSHARE\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\OBJ\DEBUG\CLR.DLL" />
+			<Metadata Name="FileName" Value="C:\USERS\ADMIN\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\OBJ\DEBUG\CLR.DLL" />
 			<Metadata Name="AssemblyName" Value="clr" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -32,7 +32,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\obj\Debug\clr.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\obj\Debug\clr.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -7944,142 +7944,6 @@ END]]></Value>
 				</Entry>
 			</Relationship>
 		</Element>
-		<Element Type="SqlTable" Name="[roomorama].[imp_image]">
-			<Property Name="IsAnsiNullsOn" Value="True" />
-			<Relationship Name="Columns">
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[images_Id]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Precision" Value="20" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[numeric]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[room_Id]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Precision" Value="20" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[numeric]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[caption]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="255" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[position]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Scale" Value="10" />
-									<Property Name="Precision" Value="28" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[decimal]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[imageUrl]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Property Name="Length" Value="2000" />
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[runId]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[fileId]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_image].[sourceId]">
-						<Relationship Name="TypeSpecifier">
-							<Entry>
-								<Element Type="SqlTypeSpecifier">
-									<Relationship Name="Type">
-										<Entry>
-											<References ExternalSource="BuiltIns" Name="[int]" />
-										</Entry>
-									</Relationship>
-								</Element>
-							</Entry>
-						</Relationship>
-					</Element>
-				</Entry>
-			</Relationship>
-			<Relationship Name="Schema">
-				<Entry>
-					<References Name="[roomorama]" />
-				</Entry>
-			</Relationship>
-		</Element>
 		<Element Type="SqlTable" Name="[roomorama].[imp_photo]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
 			<Relationship Name="Columns">
@@ -8803,7 +8667,7 @@ END]]></Value>
 					</Element>
 				</Entry>
 				<Entry>
-					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_property].[conciergAvailable]">
+					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_property].[conciergeAvailable]">
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -9138,19 +9002,19 @@ BEGIN
 		, cleaningAvailable
 		, [airport-pickupAvailable]
 		, [car-rentalAvailable]
-		, conciergAvailable
+		, conciergeAvailable
 		FROM roomorama.imp_property p
 		WHERE runId = @runId
 		AND fileId = @fileId
 	) src
 	UNPIVOT (
-		[enabled] FOR sourceAmenityValue IN (cleaningAvailable, [airport-pickupAvailable], [car-rentalAvailable], conciergAvailable)
+		[enabled] FOR sourceAmenityValue IN (cleaningAvailable, [airport-pickupAvailable], [car-rentalAvailable], conciergeAvailable)
 	) as unpvt
 	WHERE [enabled] = 1
 UNION ALL
 	SELECT DISTINCT sourceId, runId, fileId, split.Item as sourceAmenityValue, [id]
 	FROM roomorama.imp_property prop
-	CROSS APPLY dbo.SplitString(amenities, ',') AS split
+	CROSS APPLY dbo.SplitString(amenities, ', ') AS split
 	WHERE prop.runId = @runId
 	AND prop.fileId = @fileId
 
@@ -9201,7 +9065,7 @@ END]]></Value>
 					<References Name="[roomorama].[imp_property].[car-rentalAvailable]" />
 				</Entry>
 				<Entry>
-					<References Name="[roomorama].[imp_property].[conciergAvailable]" />
+					<References Name="[roomorama].[imp_property].[conciergeAvailable]" />
 				</Entry>
 				<Entry>
 					<References Name="[roomorama].[proc_getPropertyAmenities].[@runId]" />
@@ -9219,7 +9083,7 @@ END]]></Value>
 					<References Name="[roomorama].[imp_property].[car-rentalAvailable]" />
 				</Entry>
 				<Entry>
-					<References Name="[roomorama].[imp_property].[conciergAvailable]" />
+					<References Name="[roomorama].[imp_property].[conciergeAvailable]" />
 				</Entry>
 				<Entry>
 					<References Name="[roomorama].[proc_getPropertyAmenities].[PV1].[unpvt].[sourceId]" />
@@ -9356,7 +9220,7 @@ END]]></Value>
 			</Relationship>
 			<Annotation Type="SysCommentsObjectAnnotation">
 				<Property Name="CreateOffset" Value="536" />
-				<Property Name="Length" Value="1603" />
+				<Property Name="Length" Value="1606" />
 				<Property Name="StartLine" Value="1" />
 				<Property Name="StartColumn" Value="1" />
 				<Property Name="HeaderContents" Value=" --------------------------------------------------------------------------------------------&#xD;&#xA;--&#x9;2014-02-28 MC&#xD;&#xA;--&#x9;roomorama.proc_getPropertyAmenities&#xD;&#xA;--  &#xD;&#xA;--  unpivots BIT fields in roomorama property table (feed) to convert them to amenities&#xD;&#xA;--&#x9;and splits roomorama.imp_property.amenities into normalised form using CLR function dbo.SplitString&#xD;&#xA;-- &#xD;&#xA;-- notes&#xD;&#xA;--&#x9;&#x9;NULLs from unpivot will be excluded as only matching where bit is set&#xD;&#xA;--------------------------------------------------------------------------------------------&#xD;&#xA;CREATE PROCEDURE roomorama.proc_getPropertyAmenities&#xD;&#xA;  @runId INT&#xD;&#xA;, @fileId INT&#xD;&#xA;AS" />

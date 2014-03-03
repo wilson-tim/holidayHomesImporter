@@ -8,7 +8,7 @@
   DTS:DTSID="{913E5BA5-FD2A-4856-AA0B-6B1A122F610C}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{51E5C039-6255-4152-8086-6877C730E221}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{0F6FA448-9244-4EE7-AB2B-DA3C7DB66B68}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager

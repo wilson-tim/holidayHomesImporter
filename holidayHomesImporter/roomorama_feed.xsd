@@ -125,7 +125,7 @@
 					</xs:restriction>
 				</xs:simpleType>
 			  </xs:element>
-			  <xs:element minOccurs="0" name="conciergAvailable" type="xs:boolean" />
+			  <xs:element minOccurs="0" name="conciergeAvailable" type="xs:boolean" />
 			  <xs:element minOccurs="0" name="conciergeRate" >
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
