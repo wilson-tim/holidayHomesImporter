@@ -7,7 +7,7 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{359FFE83-74C1-463D-B525-CED52415592F}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{BFD41B2B-DDDE-47A1-8F4B-68C6EBD7D850}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{4B16DA5C-312E-4345-A941-0071B2B477DE}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>

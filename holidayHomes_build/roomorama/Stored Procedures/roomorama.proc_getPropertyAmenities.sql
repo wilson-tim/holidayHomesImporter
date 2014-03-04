@@ -24,19 +24,19 @@ BEGIN
 		, cleaningAvailable
 		, [airport-pickupAvailable]
 		, [car-rentalAvailable]
-		, conciergAvailable
+		, conciergeAvailable
 		FROM roomorama.imp_property p
 		WHERE runId = @runId
 		AND fileId = @fileId
 	) src
 	UNPIVOT (
-		[enabled] FOR sourceAmenityValue IN (cleaningAvailable, [airport-pickupAvailable], [car-rentalAvailable], conciergAvailable)
+		[enabled] FOR sourceAmenityValue IN (cleaningAvailable, [airport-pickupAvailable], [car-rentalAvailable], conciergeAvailable)
 	) as unpvt
 	WHERE [enabled] = 1
 UNION ALL
 	SELECT DISTINCT sourceId, runId, fileId, split.Item as sourceAmenityValue, [id]
 	FROM roomorama.imp_property prop
-	CROSS APPLY dbo.SplitString(amenities, ',') AS split
+	CROSS APPLY dbo.SplitString(amenities, ', ') AS split
 	WHERE prop.runId = @runId
 	AND prop.fileId = @fileId
 
