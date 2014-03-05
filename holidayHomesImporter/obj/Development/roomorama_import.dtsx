@@ -8,13 +8,13 @@
   DTS:DTSID="{07C13B39-9BCF-4BEE-8481-BB62B32351CD}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="342"
-  DTS:VersionGUID="{218590EB-F175-4E2B-9236-805C7F776815}">
+  DTS:VersionBuild="348"
+  DTS:VersionGUID="{36A70EF4-D8CE-4AF3-9724-6F5A5AD1D8B9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{E1B6CE17-AF3B-46B8-8E9E-97B6ABBDC764}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{3DFAFB02-C7C8-414F-8FD1-6EDC3A23C17F}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -125,17 +125,6 @@
     <DTS:PackageParameter
       DTS:CreationName=""
       DTS:DataType="8"
-      DTS:Description="full file path of transformed XML data feed"
-      DTS:DTSID="{D65F8D13-2E12-4B85-A236-41B1FF1D5832}"
-      DTS:ObjectName="xmlxsltFullPath"
-      DTS:Required="True">
-      <DTS:Property
-        DTS:DataType="8"
-        DTS:Name="ParameterValue">C:\DATA\roomorama\roomorama_xslt.xml</DTS:Property>
-    </DTS:PackageParameter>
-    <DTS:PackageParameter
-      DTS:CreationName=""
-      DTS:DataType="8"
       DTS:Description="XSD file name"
       DTS:DTSID="{F30EBD1F-F348-4B6D-8E48-1909B542ADC0}"
       DTS:ObjectName="xsdFileName">
@@ -148,8 +137,7 @@
       DTS:DataType="8"
       DTS:Description="XSL file name"
       DTS:DTSID="{D961AA5C-2DA9-4B50-95D1-DA3301532AA5}"
-      DTS:ObjectName="xslFileName"
-      DTS:Required="True">
+      DTS:ObjectName="xslFileName">
       <DTS:Property
         DTS:DataType="8"
         DTS:Name="ParameterValue">roomorama.xsl</DTS:Property>
@@ -181,8 +169,7 @@
       DTS:Namespace="Internal"
       DTS:ObjectName="periodType">
       <DTS:VariableValue
-        DTS:DataType="8"
-        xml:space="preserve"></DTS:VariableValue>
+        DTS:DataType="8">nightly</DTS:VariableValue>
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
@@ -359,25 +346,6 @@
     </DTS:SelectedLogProviders>
   </DTS:LoggingOptions>
   <DTS:Executables>
-    <DTS:Executable
-      DTS:refId="Package\clear imp and staging tables REMOVE AFTER TESTING"
-      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{f186c262-2c9b-4454-b7d7-a78d8f869738}"
-      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="clear imp and staging tables REMOVE AFTER TESTING"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:LoggingOptions
-        DTS:FilterKind="0" />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE roomorama.imp_amenity;&#xA;TRUNCATE TABLE roomorama.imp_photo;&#xA;TRUNCATE TABLE roomorama.imp_property;&#xA;&#xA;TRUNCATE TABLE staging.tab_property2amenity;&#xA;TRUNCATE TABLE staging.tab_photo;&#xA;TRUNCATE TABLE staging.tab_rate;&#xA;DELETE FROM staging.tab_property;&#xA;DELETE FROM staging.tab_amenity;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\convert bit fields and split amenities list to imp_amenity table"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
@@ -1282,7 +1250,7 @@ AND fileId = ?</property>
                       name="sourceId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[amenityId]"
-                      dataType="i4"
+                      dataType="i8"
                       name="amenityId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
@@ -1290,7 +1258,7 @@ AND fileId = ?</property>
                       name="runId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i4"
+                      dataType="i8"
                       name="externalId" />
                   </externalMetadataColumns>
                 </input>
@@ -2793,6 +2761,7 @@ AND fileId = ?</property>
                       dataType="wstr"
                       errorOrTruncationOperation="Computation"
                       errorRowDisposition="FailComponent"
+                      length="255"
                       lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[periodType]"
                       name="periodType"
                       truncationRowDisposition="FailComponent">
@@ -2801,13 +2770,13 @@ AND fileId = ?</property>
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Expression"
-                          name="Expression">@[Internal::periodType]</property>
+                          name="Expression">(DT_WSTR,255)@[Internal::periodType]</property>
                         <property
                           containsID="true"
                           dataType="System.String"
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
-                          name="FriendlyExpression">@[Internal::periodType]</property>
+                          name="FriendlyExpression">(DT_WSTR,255)@[Internal::periodType]</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -3635,17 +3604,18 @@ AND fileId = ?</property>
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
                       lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[sourceId]" />
                     <inputColumn
-                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[periodType]"
-                      cachedDataType="wstr"
-                      cachedName="periodType"
-                      externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
-                      lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[periodType]" />
-                    <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[conciergeAvailable]"
                       cachedDataType="bool"
                       cachedName="conciergeAvailable"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeAvailable]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeAvailable]" />
+                    <inputColumn
+                      refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[periodType]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="periodType"
+                      externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
+                      lineageId="Package\import XML to imp tables\Add Columns to room data.Outputs[Derived Column Output].Columns[periodType]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -6216,14 +6186,6 @@ AND fileId = ?</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 7"
       DTS:To="Package\copy to PK staging tables" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
-      DTS:CreationName=""
-      DTS:DTSID="{A6330613-AF52-4C4F-9BE4-B5A5A08E0AFC}"
-      DTS:From="Package\clear imp and staging tables REMOVE AFTER TESTING"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 8"
-      DTS:To="Package\Set xslXmlFullPath" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -6237,10 +6199,6 @@ AND fileId = ?</property>
     <LayoutInfo>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="336,42"
-          Id="Package\clear imp and staging tables REMOVE AFTER TESTING"
-          TopLeft="35,385.5" />
         <NodeLayout
           Size="368,42"
           Id="Package\convert bit fields and split amenities list to imp_amenity table"
@@ -6453,28 +6411,6 @@ AND fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 8]"
-          TopLeft="200.866992338576,427.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,47.310393147033"
-              Start="0,0"
-              End="0,39.810393147033">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,39.810393147033" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <AnnotationLayout
           Text="Transform XML data using XSL&#xA;1. to change ...&lt;image&gt;&lt;image&gt;... nested structure,&#xA;which SSIS refuses to process, to ...&lt;image&gt;&lt;imageUrl&gt;...&#xA;2. Also to flatten host, services and conditions nodes"
           ParentId="Package"
@@ -6489,13 +6425,6 @@ AND fileId = ?</property>
           Size="280,56"
           Id="79bbd8ea-9ebe-4589-870b-bbc0d80f6b23"
           TopLeft="330.887641460369,466.817367785241" />
-        <AnnotationLayout
-          Text="FOR TESTING PURPOSES...&#xA;&#xA;@sourceId has been assigned the value 4&#xA;&#xA;INSERT INTO import.tab_source&#xA;(sourceId,sourceName,ssisPackageName,ssisPackageType,subFolder,fileSpecMask,isActive,createDate,lastModifiedDate)&#xA;VALUES&#xA;(4,'roomorama','roomorama_import.dtsx','standard','\004_roomorama','*.xml',1,GETDATE(),GETDATE())&#xA;&#xA;INSERT import.tab_file&#xA;(sourceId, fullPath, [fileName])&#xA;VALUES&#xA;(&lt;sourceId&gt;,'C:\DATA\roomorama\roomorama_12.xml','roomorama_12.xml')&#xA;... then check what value of @fileId has been generated and assign it&#xA;&#xA;INSERT INTO import.tab_run&#xA;(rootFolder,runDescription,createDate)&#xA;VALUES&#xA;('C:\DATA\roomorama','Test',GETDATE())&#xA;... then check what value of @runId has been generated and assign it"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="660,343"
-          Id="35111395-e553-42bb-ba1a-95a494a9f0e4"
-          TopLeft="58.75,11.75" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -6937,7 +6866,7 @@ AND fileId = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
-          Text="Add column periodType&#xD;&#xA;assigned from variable Internal::periodType&#xD;&#xA;because staging.tab_rate.periodType may not be null"
+          Text="Add column periodType&#xA;assigned from variable Internal::periodType&#xA;because staging.tab_rate.periodType may not be null"
           ParentId="Package\import XML to imp tables"
           FontInfo="{assembly:Null}"
           Size="308,72"

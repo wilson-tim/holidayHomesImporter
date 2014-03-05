@@ -54,6 +54,7 @@
     [hostUrl]                 NVARCHAR (2000)  NULL,
     [runId]                   INT              NULL,
     [fileId]                  INT              NULL,
-    [sourceId]                INT              NULL
+    [sourceId]                INT              NULL, 
+    [periodType] NVARCHAR(255) NULL
 );
 

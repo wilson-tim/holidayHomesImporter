@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="clrUtilities.dll" />
-			<Metadata Name="FileName" Value="C:\USERS\ADMIN\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\ASSEMBLIES\CLRUTILITIES.DLL" />
+			<Metadata Name="FileName" Value="C:\GIT\COMPAREANDSHARE\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\ASSEMBLIES\CLRUTILITIES.DLL" />
 			<Metadata Name="AssemblyName" Value="clrUtilities" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="dbo" />
@@ -24,7 +24,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="clr.dll" />
-			<Metadata Name="FileName" Value="C:\USERS\ADMIN\DOCUMENTS\VISUAL STUDIO 2012\PROJECTS\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\OBJ\DEBUG\CLR.DLL" />
+			<Metadata Name="FileName" Value="C:\GIT\COMPAREANDSHARE\HOLIDAYHOMESIMPORTER\HOLIDAYHOMES_BUILD\OBJ\DEBUG\CLR.DLL" />
 			<Metadata Name="AssemblyName" Value="clr" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -32,7 +32,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\obj\Debug\clr.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\obj\Debug\clr.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -8973,6 +8973,22 @@ END]]></Value>
 									<Relationship Name="Type">
 										<Entry>
 											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[roomorama].[imp_property].[periodType]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
 										</Entry>
 									</Relationship>
 								</Element>
