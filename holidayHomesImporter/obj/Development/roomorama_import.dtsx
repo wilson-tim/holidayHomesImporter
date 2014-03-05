@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{E1B6CE17-AF3B-46B8-8E9E-97B6ABBDC764}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{246E486A-6020-4DBD-AD4B-AC20C6A18CA5}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
