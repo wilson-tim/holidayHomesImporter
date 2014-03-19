@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [staging].[tab_photo] (
     [photoId]    BIGINT          IDENTITY (1, 1) NOT NULL,
     [sourceId]   INT             NOT NULL,
-    [externalId] BIGINT          NOT NULL,
+    [externalId] NVARCHAR (100)  NOT NULL,
     [position]   INT             NULL,
     [url]        NVARCHAR (2000) NULL,
     [runId]      INT             NOT NULL,

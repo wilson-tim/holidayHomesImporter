@@ -3,11 +3,11 @@
 -- Create date: 20/12/2013
 -- Description:	Generate random property results (for when you hit the site for the first time)
 -- =============================================
-CREATE PROCEDURE dbo.propertyRandomSearch
+CREATE PROCEDURE [dbo].[propertyRandomSearch]
 @countryCode VARCHAR(2) = NULL
 AS
 BEGIN
-	SELECT top(10) pro.name, pro.description, pro.latitude, pro.longitude, pro.propertyId, pro.externalURL, pro.numberOfProperBedrooms, pro.maximumNumberOfPeople, pro.averageRating, pho.url, pro.countryCode, pro.cityName, pro.sourceId, pro.externalId, pro.regionName, pro.minimumPricePerNight, pro.currencyCode, '' AS partner, '' AS internalURL, '' AS urlSafeName
+	SELECT top(10) pro.name, pro.description, pro.latitude, pro.longitude, pro.propertyId, pro.externalURL, pro.numberOfProperBedrooms, pro.maximumNumberOfPeople, pro.averageRating, pho.url, pro.countryCode, pro.cityName, pro.sourceId, pro.externalId, pro.regionName, pro.minimumPricePerNight, pro.currencyCode, '' AS partner, '' AS internalURL, '' AS urlSafeName, '' AS logoURL
 		FROM tab_property pro 
 		CROSS APPLY
 			(

@@ -2,7 +2,7 @@
     [propertyId]                            BIGINT          NOT NULL,
     [sourceId]                              INT             NOT NULL,
     [runId]                                 INT             NOT NULL,
-    [externalId]                            BIGINT          NOT NULL,
+    [externalId]                            NVARCHAR (200)  NOT NULL,
     [thumbnailUrl]                          NVARCHAR (2000) NULL,
     [externalURL]                           NVARCHAR (2000) NOT NULL,
     [description]                           NVARCHAR (4000) NULL,

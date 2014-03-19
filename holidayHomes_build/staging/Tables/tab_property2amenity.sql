@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [staging].[tab_property2amenity] (
     [sourceId]   INT    NOT NULL,
-    [externalId] BIGINT NOT NULL,
+    [externalId] NVARCHAR (100)  NOT NULL,
     [amenityId]  BIGINT NOT NULL,
     [runId]      INT    NOT NULL,
     CONSTRAINT [PK_staging_tab_property2amenity] PRIMARY KEY CLUSTERED ([sourceId] ASC, [externalId] ASC, [amenityId] ASC),

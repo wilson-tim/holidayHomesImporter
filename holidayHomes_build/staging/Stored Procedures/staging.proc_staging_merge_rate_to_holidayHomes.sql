@@ -8,6 +8,7 @@
 --	
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
+--	2014-03-16 v03 changed datatype of @tmp_property_changedRates.externalId to NVARCHAR(200)
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_rate_to_holidayHomes]
   @runId INT
@@ -47,7 +48,7 @@ BEGIN
 	SELECT @runId, 'info', messageContent = 'tab_rate INSERT:' + LTRIM(STR(@@ROWCOUNT))
 
 	-- table to capture list of properties with changed rates
-	DECLARE @tmp_property_changedrates TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId BIGINT NOT NULL);
+	DECLARE @tmp_property_changedRates TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
 
 	--update checksums for existing properties and output list into above table
 	MERGE INTO holidayHomes.tab_property AS p
@@ -61,11 +62,11 @@ BEGIN
 	WHEN MATCHED THEN 
 	UPDATE SET ratesChecksum = imp.ratesChecksum
 	OUTPUT $action, DELETED.propertyId, imp.sourceId, imp.externalId
-	INTO @tmp_property_changedrates ([action], propertyId, sourceId, externalId);
+	INTO @tmp_property_changedRates ([action], propertyId, sourceId, externalId);
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
-	USING @tmp_property_changedrates chg
+	USING @tmp_property_changedRates chg
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
@@ -75,7 +76,7 @@ BEGIN
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
 	, messageContent = 'tab_property rates Changed:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedrates;
+	FROM @tmp_property_changedRates;
 
 	--merge new mappings with existing records (isolated with CTE)
 	-- capture changes in changeControl.tab_rate_change for deployment
@@ -83,13 +84,13 @@ BEGIN
 	(
 		SELECT r.rateId, r.propertyId, r.periodType, r.[from], r.[to], r.[currencyCode], r.runId
 		FROM holidayHomes.tab_rate r
-		INNER JOIN @tmp_property_changedrates chg
+		INNER JOIN @tmp_property_changedRates chg
 		ON chg.propertyId = r.propertyId
 	)
 	MERGE INTO r
 	USING (
 		SELECT chg.propertyId, stg_r.periodType, stg_r.[from], stg_r.[to], stg_r.[currencyCode], stg_r.runId
-		FROM @tmp_property_changedrates chg
+		FROM @tmp_property_changedRates chg
 		INNER JOIN staging.tab_rate stg_r
 			ON stg_r.sourceId = chg.sourceId
 			AND stg_r.externalId = chg.externalId

@@ -8,6 +8,7 @@
 --	
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
+--	2014-03-16 v03 changed datatype of @tmp_property_changedPhotos.externalId to NVARCHAR(200)
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_photo_to_holidayHomes]
   @runId INT
@@ -40,20 +41,20 @@ BEGIN
 	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT))
 
 	-- table to capture list of properties with changed photos
-	DECLARE @tmp_property_changedPhotos TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId BIGINT NOT NULL);
+	DECLARE @tmp_property_changedPhotos TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
 
 	--update checksums for existing properties and output list into above table
 	MERGE INTO holidayHomes.tab_property AS p
 	USING (
 		SELECT sourceId, externalId, photosChecksum
 		FROM staging.tab_property
-	) AS imp
-	ON imp.sourceId = p.sourceId
-	AND imp.externalId = p.externalId
-	AND imp.photosChecksum <> p.photosChecksum
+	) AS stgp
+	ON stgp.sourceId = p.sourceId
+	AND stgp.externalId = p.externalId
+	AND stgp.photosChecksum <> p.photosChecksum
 	WHEN MATCHED THEN 
-	UPDATE SET photosChecksum = imp.photosChecksum
-	OUTPUT $action, DELETED.propertyId, imp.sourceId, imp.externalId INTO @tmp_property_changedphotos ([action], propertyId, sourceId, externalId);
+	UPDATE SET photosChecksum = stgp.photosChecksum
+	OUTPUT $action, DELETED.propertyId, stgp.sourceId, stgp.externalId INTO @tmp_property_changedphotos ([action], propertyId, sourceId, externalId);
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc

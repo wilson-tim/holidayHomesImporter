@@ -26,11 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-<<<<<<< HEAD
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="0MOJL+LZhA==" SSIS:IV="fct/in1JYsY=">l/MMOGa9/jA1ZMx5spYt6ZZ0mKQwekgip6JufkJUrlUQEoZOWbsd3Z+reBe3wfMUewiYqpUZS0ZLZL8UlpFSVaRRxGSzvHUaBM1PZlI6u8zRGdeRdaiY2w0/p4SEUs+YAqZpKufgpgbak/OshClsqAXIlf82O3GwXuldC5t7HyMTtMk2HFyjcw==</SSIS:Property>
-=======
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="C/+Ogs3ofg==" SSIS:IV="cDGDNDjTZTQ=">8OrW4eqHc6RUekeI2QYZ84xCBiB43JBKTAG/2HhPIqi6nJQyOkF9dnG8fQs5KpadnWf2izwOCYq7PnFqmjKRPDxfIwrrqN+ibv1pEvUC34zJzTfFaQetUOFqjxaHyq6Pqqs2au8iNyJDGc+tYV+OMpW8asm+KqiQjyl/XpPqTJhaukdk6v06Rw==</SSIS:Property>
->>>>>>> tim00001
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="Ty5zWxDutQ==" SSIS:IV="HdPXVHHr4Ck=">pKmvQV0eFBY41sQK8tNkXYzbL/Dvmgr8NZi+RmTxz3a0xdIsxO3OTc/oUqHXYw20XNtWRFvyskxMF8quOJmXEXG1JCl9WsmPhlvKsOU/B5CoOoO06bdjoyw9hJ3l0nPC7ko8baptJEBphZoF78+bQ41g4HFBwHKww8YvN6gWjsw726o4g49pVw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -41,8 +37,6 @@
           <SSIS:Package SSIS:Name="_importController.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="_feedDaemon.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="_import_template.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="homeaway_import_xslt.dtsx" SSIS:EntryPoint="1" />
-          <SSIS:Package SSIS:Name="flipkey_import_xslt.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="flipkey_import.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="roomorama_import.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
@@ -428,10 +422,10 @@
                 <SSIS:Property SSIS:Name="Name">waytostay_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">90</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">93</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{28D48949-0F9C-4192-B88D-0EEE3ED03E06}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{1D6E5AC9-7022-4600-9D27-08B2AC1187D5}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -502,10 +496,10 @@
                 <SSIS:Property SSIS:Name="Name">homeaway_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">77</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">79</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{55CD8172-8CF1-4081-B5A4-19A38B3E19D6}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{C0321807-91FC-4EA8-901F-3D10A2D9F7EC}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -576,10 +570,10 @@
                 <SSIS:Property SSIS:Name="Name">housetrip_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">205</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">207</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1FD59C5C-CAA7-49F2-ACF7-E68A133817E6}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{6D1779F0-3F84-4C27-A862-7576D181B8C1}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -650,10 +644,10 @@
                 <SSIS:Property SSIS:Name="Name">_importController</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">243</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">247</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{921B8DF8-43E1-4885-B7C6-A553B26D1455}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{FEF4EDB2-E9ED-4D19-B16D-4A1C229313FC}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -667,10 +661,10 @@
                 <SSIS:Property SSIS:Name="Name">feedDaemon</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">79</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">81</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{50702D46-6494-40B8-8DD5-ECEA9200CED1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9C15EE5A-6875-43CD-A2CE-DEFAA3BF0975}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -690,6 +684,19 @@
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="fileOperation">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{7BC9C32D-45A9-4EB9-BA80-FDAD10C97AA2}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">1==Move, 10==copy</SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
                 <SSIS:Parameter SSIS:Name="sourceRootFolder">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">{FB464C7B-2C3B-4B9B-A560-997EBBDCB027}</SSIS:Property>
@@ -699,7 +706,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">U:\Data\</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Data\accommodation</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -779,192 +786,16 @@
                 </SSIS:Parameter>
               </SSIS:Parameters>
             </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="homeaway_import_xslt.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{52FD42A6-FF02-4F41-B2AC-0B7A7BFB4F4C}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">homeaway_import_xslt</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">91</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{89882E48-6B89-4A19-A33A-60C23C8877A9}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">2</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters>
-                <SSIS:Parameter SSIS:Name="fileFullPath">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{F5AE78AA-C058-4264-804E-FA7475F7AF51}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Data\homeaway\homeaway_264.xml</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="fileId">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{06B7DC87-B5EB-435E-BDA6-A8279A08F5F3}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="runId">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{6091C70E-9435-4E96-A915-89E80881EF14}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="sourceId">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{21F17FE2-5D47-41C4-9FB8-CBED4ED7BDD5}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="xsltFileName">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{7519442C-426B-4377-9A70-0400BDEADD17}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">homeaway_xml2csv.xsl</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-              </SSIS:Parameters>
-            </SSIS:PackageMetaData>
-            <SSIS:PackageMetaData SSIS:Name="flipkey_import_xslt.dtsx">
-              <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{ED2F927D-0FC9-40DC-ACB4-3F60C7DCF3AE}</SSIS:Property>
-                <SSIS:Property SSIS:Name="Name">homeaway_import_xslt</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">117</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionComments">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1A11858D-33C5-471D-9788-1BD8BE85833B}</SSIS:Property>
-                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
-                <SSIS:Property SSIS:Name="Description">
-                </SSIS:Property>
-                <SSIS:Property SSIS:Name="ProtectionLevel">2</SSIS:Property>
-              </SSIS:Properties>
-              <SSIS:Parameters>
-                <SSIS:Parameter SSIS:Name="fileFullPath">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{E27580A1-1771-4F1A-B8FD-D71B1672185A}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Matt\Dropbox\Work\CompareAndShare\sources\flipKey\XSLT\property_data_10.xml</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="fileId">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{86BE362A-BB93-48FC-9006-F9D30D068E44}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="runId">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{67FF452F-85EA-4F35-BB3A-8475915F6275}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="sourceId">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{0285E83E-2DAA-4AA0-8837-4EC866B8DC75}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="xsltFileName">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{A11FBFE3-A234-4003-B658-011DAD82E846}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">flipkey_xml2csv_test.xsl</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-              </SSIS:Parameters>
-            </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="flipkey_import.dtsx">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">{913E5BA5-FD2A-4856-AA0B-6B1A122F610C}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">flipkey_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">180</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">232</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{72C3C877-56A4-417F-9141-72EE6C0E2824}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{F057BC20-1528-486B-B0D9-8E684E6CF55C}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -980,7 +811,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\DATA\flipkey\flipkey_test.xml</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\DATA\flipkey\property_data_48.xml</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1026,19 +857,6 @@
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="xmlxsltFullPath">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">{CAC761A8-50DE-499A-ABB7-8EDCFA17857B}</SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">full file path of transformed XML data feed</SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\DATA\flipkey\flipkey_xslt.xml</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
                 <SSIS:Parameter SSIS:Name="xsdFileName">
                   <SSIS:Properties>
                     <SSIS:Property SSIS:Name="ID">{27813CF8-7730-41EC-9AEE-6ABD3455853B}</SSIS:Property>
@@ -1073,10 +891,10 @@
                 <SSIS:Property SSIS:Name="Name">roomorama</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">348</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">414</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{36A70EF4-D8CE-4AF3-9724-6F5A5AD1D8B9}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{363B6F06-E9FA-4F11-92C1-25A14ECEC82C}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1092,7 +910,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\DATA\roomorama\roomorama_12.xml</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Data\roomorama\roomorama_full_2.xml</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1106,7 +924,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">3</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1120,7 +938,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">3</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1134,7 +952,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">4</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -1193,28 +1011,20 @@
       <FullPath>roomorama.xsl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>homeaway_xml2csv_test - with any namespace.xsl</Name>
-      <FullPath>homeaway_xml2csv_test - with any namespace.xsl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>homeaway_xml2csv_test - with referenced namespace.xsl</Name>
-      <FullPath>homeaway_xml2csv_test - with referenced namespace.xsl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>homeaway_xml2csv.xsl</Name>
-      <FullPath>homeaway_xml2csv.xsl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>flipkey_xml2csv_test.xsl</Name>
-      <FullPath>flipkey_xml2csv_test.xsl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>roomorama_specification_v01.xlsx</Name>
       <FullPath>roomorama_specification_v01.xlsx</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>homeaway_specification_v01.xlsx</Name>
       <FullPath>homeaway_specification_v01.xlsx</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>flipkey_feed.xsd</Name>
+      <FullPath>flipkey_feed.xsd</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>flipkey.xsl</Name>
+      <FullPath>flipkey.xsl</FullPath>
     </ProjectItem>
   </Miscellaneous>
   <Configurations>

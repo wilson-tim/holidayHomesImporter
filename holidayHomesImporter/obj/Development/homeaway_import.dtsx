@@ -8,13 +8,13 @@
   DTS:DTSID="{BA9FADA0-E8B7-46D3-A0C2-4347D0BADBED}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="homeaway_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="77"
-  DTS:VersionGUID="{55CD8172-8CF1-4081-B5A4-19A38B3E19D6}">
+  DTS:VersionBuild="79"
+  DTS:VersionGUID="{C0321807-91FC-4EA8-901F-3D10A2D9F7EC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\homeaway_import_{43BE73F1-54C8-43DF-8F81-03A74E06F8D6}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\homeaway_import_{2EC084FD-3244-4BA4-862A-9CA63A0792D3}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -304,7 +304,7 @@
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT l.sourceId
 , l.runId
-, externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
+, externalId = CAST(CONCAT(l.propertyId, '-', l.unitId) AS NVARCHAR(100))
 , l.imageURL
 , 1 AS position
 FROM homeaway.imp_listing l
@@ -312,7 +312,7 @@ FROM homeaway.imp_listing l
 LEFT OUTER JOIN staging.tab_photo stgp
 	ON stgp.sourceId = l.sourceId
 	AND stgp.runId = l.runId
-	AND stgp.externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
+	AND stgp.externalId = CAST(CONCAT(l.propertyId, '-', l.unitId) AS NVARCHAR(100))
 WHERE l.runId = ?
 AND l.fileId = ?
 AND stgp.externalId IS NULL;</property>
@@ -390,10 +390,11 @@ AND stgp.externalId IS NULL;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Output].Columns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
                       lineageId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Output].Columns[externalId]"
                       name="externalId"
                       truncationRowDisposition="FailComponent" />
@@ -419,7 +420,8 @@ AND stgp.externalId IS NULL;</property>
                       name="position" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                   </externalMetadataColumns>
                 </output>
@@ -440,7 +442,8 @@ AND stgp.externalId IS NULL;</property>
                       name="runId" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       lineageId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
                       name="externalId" />
                     <outputColumn
@@ -498,7 +501,7 @@ AND stgp.externalId IS NULL;</property>
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT l.sourceId
 , l.runId
-, externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
+, externalId = CAST(CONCAT(l.propertyId, '-', l.unitId) AS NVARCHAR(100))
 , r.[from]
 , r.[to]
 , r.currencyUnit
@@ -516,7 +519,7 @@ LEFT OUTER JOIN homeaway.imp_rate r
 LEFT OUTER JOIN staging.tab_rate stgr
 	ON stgr.sourceId = l.sourceId
 	AND stgr.runId = l.runId
-	AND stgr.externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
+	AND stgr.externalId =CAST(CONCAT(l.propertyId, '-', l.unitId) AS NVARCHAR(100))
 WHERE l.runId = ?
 AND l.fileId = ?
 AND r.rates_id IS NOT NULL
@@ -614,10 +617,11 @@ AND stgr.externalId IS NULL;</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Output].Columns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
                       lineageId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Output].Columns[externalId]"
                       name="externalId"
                       truncationRowDisposition="FailComponent" />
@@ -652,7 +656,8 @@ AND stgr.externalId IS NULL;</property>
                       name="currencyUnit" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                   </externalMetadataColumns>
                 </output>
@@ -674,7 +679,8 @@ AND stgr.externalId IS NULL;</property>
                       name="periodType" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       lineageId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Error Output].Columns[externalId]"
                       name="externalId" />
                     <outputColumn
@@ -814,7 +820,8 @@ AND stgr.externalId IS NULL;</property>
                       lineageId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Output].Columns[imageURL]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[externalId]"
-                      cachedDataType="i8"
+                      cachedDataType="wstr"
+                      cachedLength="100"
                       cachedName="externalId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
                       lineageId="Package\copy to FK staging tables\QRY homeaway photo.Outputs[OLE DB Source Output].Columns[externalId]" />
@@ -836,7 +843,8 @@ AND stgr.externalId IS NULL;</property>
                       name="url" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[position]"
@@ -986,7 +994,8 @@ AND stgr.externalId IS NULL;</property>
                       lineageId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Output].Columns[currencyUnit]" />
                     <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[externalId]"
-                      cachedDataType="i8"
+                      cachedDataType="wstr"
+                      cachedLength="100"
                       cachedName="externalId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
                       lineageId="Package\copy to FK staging tables\QRY homeaway rates.Outputs[OLE DB Source Output].Columns[externalId]" />
@@ -1003,7 +1012,8 @@ AND stgr.externalId IS NULL;</property>
                       name="sourceId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
@@ -1472,8 +1482,7 @@ where [refTable].[countryCode2] = ?</property>
 , d.postalCode
 , e.sourceId
 , e.runId
--- below is the only unique combination I could find :-|
-, externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
+, externalId = CAST(CONCAT(l.propertyId, '-', l.unitId) AS NVARCHAR(100))
 , l.url
 , l.thumbnailURL
 , l.headline
@@ -1505,7 +1514,7 @@ LEFT OUTER JOIN homeaway.imp_rate r
 LEFT OUTER JOIN staging.tab_property stgp
 	ON stgp.sourceId = e.sourceId
 	AND stgp.runId = l.runId
-	AND stgp.externalId = CAST(CONCAT(l.propertyId, l.unitId) AS BIGINT)
+	AND stgp.externalId = CAST(CONCAT(l.propertyId, '-', l.unitId) AS NVARCHAR(100))
 WHERE e.runId = ?
 AND e.fileId = ?
 AND stgp.externalId IS NULL
@@ -1702,10 +1711,11 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
                       lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[externalId]"
                       name="externalId"
                       truncationRowDisposition="FailComponent" />
@@ -1788,7 +1798,8 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       name="currencyUnit" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                   </externalMetadataColumns>
                 </output>
@@ -1854,7 +1865,8 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       name="runId" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Error Output].Columns[externalId]"
                       name="externalId" />
                     <outputColumn
@@ -2179,7 +2191,8 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryCode2]" />
                     <inputColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[externalId]"
-                      cachedDataType="i8"
+                      cachedDataType="wstr"
+                      cachedLength="100"
                       cachedName="externalId"
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]" />
@@ -2196,7 +2209,8 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       name="runId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
@@ -2506,6 +2520,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                   name="Union All Input 1">
                   <inputColumns>
                     <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[propertyType]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="propertyType"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[propertyType]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[propertyType]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
                       refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[bedrooms]"
                       cachedDataType="i4"
                       cachedName="bedrooms"
@@ -2570,6 +2598,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                           dataType="System.Int32"
                           description="Output column lineage ID"
                           name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[state]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[country]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="country"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[country]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[country]}</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -2641,6 +2683,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       </properties>
                     </inputColumn>
                     <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[headline]"
+                      cachedDataType="wstr"
+                      cachedLength="2000"
+                      cachedName="headline"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[headline]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[headline]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
                       refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[description]"
                       cachedDataType="wstr"
                       cachedLength="4000"
@@ -2682,6 +2738,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       </properties>
                     </inputColumn>
                     <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[externalId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="externalId"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[externalId]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
                       refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[typeOfProperty]"
                       cachedDataType="wstr"
                       cachedLength="50"
@@ -2710,6 +2780,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       </properties>
                     </inputColumn>
                     <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[countryName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="countryName"
+                      lineageId="Package\copy to PK staging tables\Lookup CountryName.Outputs[Lookup Match Output].Columns[countryName]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryName]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
                       refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[countryCode2]"
                       cachedDataType="wstr"
                       cachedLength="2"
@@ -2723,19 +2807,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                           name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryCode2]}</property>
                       </properties>
                     </inputColumn>
-                    <inputColumn
-                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 1].Columns[externalId]"
-                      cachedDataType="i8"
-                      cachedName="externalId"
-                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[externalId]">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Output column lineage ID"
-                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]}</property>
-                      </properties>
-                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -2744,6 +2815,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                   hasSideEffects="true"
                   name="Union All Input 2">
                   <inputColumns>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[propertyType]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="propertyType"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[propertyType]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[propertyType]}</property>
+                      </properties>
+                    </inputColumn>
                     <inputColumn
                       refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[bedrooms]"
                       cachedDataType="i4"
@@ -2809,6 +2894,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                           dataType="System.Int32"
                           description="Output column lineage ID"
                           name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[state]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[country]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="country"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[country]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[country]}</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -2880,6 +2979,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       </properties>
                     </inputColumn>
                     <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[headline]"
+                      cachedDataType="wstr"
+                      cachedLength="2000"
+                      cachedName="headline"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[headline]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[headline]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
                       refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[description]"
                       cachedDataType="wstr"
                       cachedLength="4000"
@@ -2918,6 +3031,20 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                           dataType="System.Int32"
                           description="Output column lineage ID"
                           name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[currencyUnit]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[externalId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="externalId"
+                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[externalId]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]}</property>
                       </properties>
                     </inputColumn>
                     <inputColumn
@@ -2963,16 +3090,17 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       </properties>
                     </inputColumn>
                     <inputColumn
-                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[externalId]"
-                      cachedDataType="i8"
-                      cachedName="externalId"
-                      lineageId="Package\copy to PK staging tables\QRY homeaway property sources.Outputs[OLE DB Source Output].Columns[externalId]">
+                      refId="Package\copy to PK staging tables\Union All.Inputs[Union All Input 2].Columns[countryName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="countryName"
+                      lineageId="Package\copy to PK staging tables\Lookup CountryCode.Outputs[Lookup Match Output].Columns[countryName]">
                       <properties>
                         <property
                           containsID="true"
                           dataType="System.Int32"
                           description="Output column lineage ID"
-                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]}</property>
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryName]}</property>
                       </properties>
                     </inputColumn>
                   </inputColumns>
@@ -2991,6 +3119,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                   refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1]"
                   name="Union All Output 1">
                   <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[propertyType]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[propertyType]"
+                      name="propertyType" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[bedrooms]"
                       dataType="i4"
@@ -3018,6 +3152,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       length="255"
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[state]"
                       name="state" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[country]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[country]"
+                      name="country" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[postalCode]"
                       dataType="wstr"
@@ -3047,6 +3187,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[thumbnailURL]"
                       name="thumbnailURL" />
                     <outputColumn
+                      refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[headline]"
+                      dataType="wstr"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[headline]"
+                      name="headline" />
+                    <outputColumn
                       refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[description]"
                       dataType="wstr"
                       length="4000"
@@ -3064,6 +3210,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[currencyUnit]"
                       name="currencyUnit" />
                     <outputColumn
+                      refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]"
+                      name="externalId" />
+                    <outputColumn
                       refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[typeOfProperty]"
                       dataType="wstr"
                       length="50"
@@ -3076,16 +3228,17 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[name]"
                       name="name" />
                     <outputColumn
+                      refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryName]"
+                      name="countryName" />
+                    <outputColumn
                       refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryCode2]"
                       dataType="wstr"
                       length="2"
                       lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[countryCode2]"
                       name="countryCode2" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]"
-                      dataType="i8"
-                      lineageId="Package\copy to PK staging tables\Union All.Outputs[Union All Output 1].Columns[externalId]"
-                      name="externalId" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -9799,13 +9952,9 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="121,42"
-          Id="Package\copy to PK staging tables\Union All"
-          TopLeft="602.734149112611,472.026448251914" />
-        <NodeLayout
           Size="177,42"
           Id="Package\copy to PK staging tables\staging tab_property"
-          TopLeft="582.497703791133,563.674557544636" />
+          TopLeft="572.497703791133,563.674557544636" />
         <NodeLayout
           Size="180,42"
           Id="Package\copy to PK staging tables\Lookup CountryName"
@@ -9826,122 +9975,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           Size="177,42"
           Id="Package\copy to PK staging tables\Lookup CountryCode"
           TopLeft="690.829417788066,364.912103142204" />
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[Union All Output 1]"
-          TopLeft="667.115926451872,514.026448251914">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,49.6481092927214"
-              Start="0,0"
-              End="0,42.1481092927214">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,42.1481092927214" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
-          TopLeft="670.226058940523,141.929687632961">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,47.451642015775"
-              Start="0,0"
-              End="0,39.951642015775">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,39.951642015775" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[Lookup Match Output1]"
-          TopLeft="779.329417788066,406.912103142204">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-97.2619353421209,65.1143451097106"
-              Start="0,0"
-              End="-97.2619353421209,57.6143451097106">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.5587394369086" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,34.5587394369086"
-                    Point2="0,38.5587394369086"
-                    Point3="-4,38.5587394369086" />
-                  <mssgle:LineSegment
-                    End="-93.2619353421209,38.5587394369086" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-93.2619353421209,38.5587394369086"
-                    Point2="-97.2619353421209,38.5587394369086"
-                    Point3="-97.2619353421209,42.5587394369086" />
-                  <mssgle:LineSegment
-                    End="-97.2619353421209,57.6143451097106" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-96.8223543898105,43.5587394369086,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[Lookup Match Output]"
-          TopLeft="520.358723751519,409.407217032318">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="124.042092027759,62.6192312195968"
-              Start="0,0"
-              End="124.042092027759,55.1192312195968">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,33.0812086993697" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,33.0812086993697"
-                    Point2="0,37.0812086993697"
-                    Point3="4,37.0812086993697" />
-                  <mssgle:LineSegment
-                    End="120.042092027759,37.0812086993697" />
-                  <mssgle:CubicBezierSegment
-                    Point1="120.042092027759,37.0812086993697"
-                    Point2="124.042092027759,37.0812086993697"
-                    Point3="124.042092027759,41.0812086993697" />
-                  <mssgle:LineSegment
-                    End="124.042092027759,55.1192312195968" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="13.8296592951295,42.0812086993697,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\copy to PK staging tables.Paths[isCountryName]"
           TopLeft="704.643608894291,323.06816170708">
@@ -10043,6 +10076,126 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           Size="378,56"
           Id="9caa657e-83a2-434f-898d-21f656a75a17"
           TopLeft="845,287" />
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
+          TopLeft="670.226058940522,141.929687632961">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.4516420157752"
+              Start="0,0"
+              End="0,39.9516420157752">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.9516420157752" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="121,42"
+          Id="Package\copy to PK staging tables\Union All"
+          TopLeft="598,459" />
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Lookup Match Output]"
+          TopLeft="520.358723751519,409.407217032318">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="138.141276248481,49.592782967682"
+              Start="0,0"
+              End="138.141276248481,42.092782967682">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.796391483841" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.796391483841"
+                    Point2="0,24.796391483841"
+                    Point3="4,24.796391483841" />
+                  <mssgle:LineSegment
+                    End="134.141276248481,24.796391483841" />
+                  <mssgle:CubicBezierSegment
+                    Point1="134.141276248481,24.796391483841"
+                    Point2="138.141276248481,24.796391483841"
+                    Point3="138.141276248481,28.796391483841" />
+                  <mssgle:LineSegment
+                    End="138.141276248481,42.092782967682" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="20.8792514054905,29.796391483841,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Lookup Match Output1]"
+          TopLeft="779.329417788066,406.912103142204">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-101.996084454733,52.087896857796"
+              Start="0,0"
+              End="-101.996084454733,44.587896857796">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8448720381402" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.8448720381402"
+                    Point2="0,30.8448720381402"
+                    Point3="-4,30.8448720381402" />
+                  <mssgle:LineSegment
+                    End="-97.9960844547327,30.8448720381402" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-97.9960844547327,30.8448720381402"
+                    Point2="-101.996084454733,30.8448720381402"
+                    Point3="-101.996084454733,34.8448720381402" />
+                  <mssgle:LineSegment
+                    End="-101.996084454733,44.587896857796" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.1894289461164,35.8448720381402,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Union All Output 1]"
+          TopLeft="659.748851895567,501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62.6745575446359"
+              Start="0,0"
+              End="0,55.1745575446359">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.1745575446359" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>

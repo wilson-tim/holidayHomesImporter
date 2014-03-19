@@ -69,6 +69,7 @@
     <Folder Include="changeControl\Tables\" />
     <Folder Include="changeControl\Stored Procedures\" />
     <Folder Include="Security\" />
+    <Folder Include="dbo\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="synonym_UPDATE.sql" />
@@ -108,5 +109,9 @@
     <Build Include="Security\changeData.sql" />
     <Build Include="Security\changeControl.sql" />
     <Build Include="dbo\Tables\utils_numbers_1.sql" />
+    <Build Include="Security\cands.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="cands_login.sql" />
+    <Build Include="dbo\Functions\func_getLatLongDistance.sql" />
   </ItemGroup>
 </Project>

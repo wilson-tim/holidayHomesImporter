@@ -294,7 +294,7 @@
 	  	  <attributesFrontdesk_id><xsl:apply-templates select="@*|node()" /></attributesFrontdesk_id>
     </xsl:template>
     <xsl:template match="property_data/property/property_attributes/property_id">
-	  	  <property_id><xsl:apply-templates select="@*|node()" /></property_id>
+	  	  <attributesProperty_id><xsl:apply-templates select="@*|node()" /></attributesProperty_id>
     </xsl:template>
 
 	<!-- Rename property_calendar node -->

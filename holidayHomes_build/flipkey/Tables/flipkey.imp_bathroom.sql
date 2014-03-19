@@ -1,9 +1,12 @@
 ﻿CREATE TABLE [flipkey].[imp_bathroom] (
-    [sourceId]    INT             NOT NULL,
-    [runId]       INT             NOT NULL,
-    [fileId]      INT             NOT NULL,
-    [property_Id] INT             NOT NULL,
-    [type]        NVARCHAR (255)  NOT NULL,
-    [description] NVARCHAR (4000) NOT NULL
+    [property_bathrooms_Id] BIGINT         NOT NULL,
+    [property_Id]           BIGINT         NOT NULL,
+    [type]                  NVARCHAR (50)  NULL,
+    [description]           NVARCHAR (4000) NULL,
+    [runId]                 INT            NOT NULL,
+    [fileId]                INT            NOT NULL,
+    [sourceId]              INT            NOT NULL
 );
+
+
 

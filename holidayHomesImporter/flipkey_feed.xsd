@@ -130,7 +130,7 @@
 								<xs:element minOccurs="0" name="description">
 									<xs:simpleType>
 										<xs:restriction base="xs:string">
-											<xs:maxLength value="255"/>
+											<xs:maxLength value="4000"/>
 										</xs:restriction>
 									</xs:simpleType>
 								</xs:element>
@@ -160,7 +160,7 @@
 							<xs:element minOccurs="0" name="description">
 							  <xs:simpleType>
 								<xs:restriction base="xs:string">
-									<xs:maxLength value="255"/>
+									<xs:maxLength value="4000"/>
 								</xs:restriction>
 							  </xs:simpleType>
 							</xs:element>
@@ -174,7 +174,7 @@
 							<xs:element minOccurs="0" name="base_url" >
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
-										<xs:maxLength value="255"/>
+										<xs:maxLength value="2000"/>
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
@@ -257,7 +257,7 @@
 								  <xs:element name="description" >
 									<xs:simpleType>
 										<xs:restriction base="xs:string">
-											<xs:maxLength value="255"/>
+											<xs:maxLength value="4000"/>
 										</xs:restriction>
 									</xs:simpleType>
 								  </xs:element>
@@ -352,7 +352,7 @@
                             <xs:element minOccurs="0" name="description" >
 							  <xs:simpleType>
 								<xs:restriction base="xs:string">
-									<xs:maxLength value="255"/>
+									<xs:maxLength value="4000"/>
 								</xs:restriction>
 							  </xs:simpleType>
 							</xs:element>
@@ -419,7 +419,7 @@
 							<xs:element name="description" >
 							  <xs:simpleType>
 								<xs:restriction base="xs:string">
-									<xs:maxLength value="255"/>
+									<xs:maxLength value="4000"/>
 								</xs:restriction>
 							  </xs:simpleType>
 							</xs:element>
@@ -438,14 +438,14 @@
 									<xs:element name="baseurl" >
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
-												<xs:maxLength value="255"/>
+												<xs:maxLength value="2000"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
 									<xs:element name="description" >
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
-												<xs:maxLength value="255"/>
+												<xs:maxLength value="4000"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -474,7 +474,13 @@
 										</xs:simpleType>
 									</xs:element>
 									<xs:element name="video_source_updated" type="xs:dateTime"/>
-									<xs:element name="video_thumb_filename" type="xs:dateTime"/>
+									<xs:element name="video_thumb_filename" >
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:maxLength value="255"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
@@ -551,7 +557,13 @@
                               <xs:element minOccurs="0" name="per_person_per_night" type="xs:decimal" />
                               <xs:element minOccurs="0" name="minimum_length" type="xs:integer" />
 							  <!-- 0-6, 0= Sunday, the day that a stay must start/end, not used very much -->
-                              <xs:element minOccurs="0" name="turn_day" type="xs:integer" />
+                              <xs:element minOccurs="0" name="turn_day" >
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:maxLength value="255"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
                               <xs:element minOccurs="0" name="month_max_rate" type="xs:decimal" />
                               <xs:element minOccurs="0" name="per_person_over_amount" type="xs:decimal" />
                               <xs:element minOccurs="0" name="is_changeover_day_defined" >

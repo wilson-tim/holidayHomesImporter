@@ -13,8 +13,8 @@
   DTS:ObjectName="_importController"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="243"
-  DTS:VersionGUID="{921B8DF8-43E1-4885-B7C6-A553B26D1455}">
+  DTS:VersionBuild="247"
+  DTS:VersionGUID="{FEF4EDB2-E9ED-4D19-B16D-4A1C229313FC}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\_importController_{E35E040C-E4C1-4C33-8AAE-122063CA21D0}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\_importController_{F9A8BCB3-3010-4A61-B7B0-9CF42D59A4E2}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -1970,10 +1970,11 @@ WHERE runId = ?</property>
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].Columns[externalId]"
                           name="externalId"
                           truncationRowDisposition="FailComponent" />
@@ -1999,7 +2000,8 @@ WHERE runId = ?</property>
                           name="propertyId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           name="externalId" />
                       </externalMetadataColumns>
                     </output>
@@ -2031,7 +2033,8 @@ WHERE runId = ?</property>
                           name="propertyId" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Error Output].Columns[externalId]"
                           name="externalId" />
                         <outputColumn
@@ -2635,7 +2638,8 @@ WHERE runId = ?</property>
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[propertyId]" />
                         <inputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].Columns[externalId]"
-                          cachedDataType="i8"
+                          cachedDataType="wstr"
+                          cachedLength="100"
                           cachedName="externalId"
                           externalMetadataColumnId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[externalId]" />
@@ -2882,7 +2886,8 @@ WHERE runId = ?</property>
                           name="runId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="200"
                           name="externalId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
@@ -3788,10 +3793,11 @@ AND pc.runID = ?;</property>
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[externalId]"
                           name="externalId"
                           truncationRowDisposition="FailComponent" />
@@ -4143,7 +4149,8 @@ AND pc.runID = ?;</property>
                           name="propertyId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           name="externalId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
@@ -4325,7 +4332,8 @@ AND pc.runID = ?;</property>
                           name="propertyId" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Error Output].Columns[externalId]"
                           name="externalId" />
                         <outputColumn
@@ -6113,6 +6121,36 @@ VALUES ("
                               Language="CSharp"
                               ReadOnlyVariables="System::ErrorCode,System::ErrorDescription,System::SourceName,Internal::fileName,System::PackageName,Internal::runId,Internal::sourceId,Internal::ssisPackageName,$Project::SETTINGS_emailPassword,$Project::SETTINGS_emailPort,$Project::SETTINGS_emailSendFrom,$Project::SETTINGS_emailSendTo,$Project::SETTINGS_emailServer,$Project::SETTINGS_emailUser,$Project::SETTINGS_emailSendFromName">
                               <ProjectItem
+                                Name="Properties\AssemblyInfo.cs"
+                                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_4ff4f3be897d4d92a740e88a93d3189f")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_4ff4f3be897d4d92a740e88a93d3189f")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+                              <ProjectItem
                                 Name="Properties\Resources.resx"
                                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -6231,35 +6269,6 @@ VALUES ("
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
-                              <ProjectItem
-                                Name="Properties\Settings.Designer.cs"
-                                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Settings.get_Default():ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Sett" +
-    "ings")]
-
-namespace ST_4ff4f3be897d4d92a740e88a93d3189f.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
                               <ProjectItem
                                 Name="ST_4ff4f3be897d4d92a740e88a93d3189f.csproj"
                                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -6613,35 +6622,34 @@ namespace ST_4ff4f3be897d4d92a740e88a93d3189f
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
                               <ProjectItem
-                                Name="Properties\AssemblyInfo.cs"
-                                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
+                                Name="Properties\Settings.Designer.cs"
+                                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
 
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_4ff4f3be897d4d92a740e88a93d3189f")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_4ff4f3be897d4d92a740e88a93d3189f")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Settings.get_Default():ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Sett" +
+    "ings")]
 
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+namespace ST_4ff4f3be897d4d92a740e88a93d3189f.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
                               <ProjectItem
                                 Name="Properties\Settings.settings"
                                 Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
@@ -7692,15 +7700,6 @@ VALUES ("
               Language="CSharp"
               ReadOnlyVariables="System::ErrorCode,System::ErrorDescription,System::SourceName,System::PackageName,Internal::runId,$Project::SETTINGS_emailPassword,$Project::SETTINGS_emailPort,$Project::SETTINGS_emailSendFrom,$Project::SETTINGS_emailSendTo,$Project::SETTINGS_emailServer,$Project::SETTINGS_emailUser,$Project::SETTINGS_emailSendFromName">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -7819,6 +7818,35 @@ VALUES ("
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Settings.get_Default():ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Sett" +
+    "ings")]
+
+namespace ST_4ff4f3be897d4d92a740e88a93d3189f.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
               <ProjectItem
                 Name="ScriptMain.cs"
                 Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
@@ -8070,35 +8098,6 @@ namespace ST_4ff4f3be897d4d92a740e88a93d3189f
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Settings.get_Default():ST_4ff4f3be897d4d92a740e88a93d3189f.Properties.Sett" +
-    "ings")]
-
-namespace ST_4ff4f3be897d4d92a740e88a93d3189f.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\AssemblyInfo.cs"
                 Encoding="UTF8"><![CDATA[using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -8128,6 +8127,15 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -9252,28 +9260,24 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="123,42"
+          Size="NaN,NaN"
           Id="Package.EventHandlers[OnError]\Log Error"
-          TopLeft="23,5.5" />
+          TopLeft="NaN,NaN" />
         <NodeLayout
-          Size="158,42"
+          Size="NaN,NaN"
           Id="Package.EventHandlers[OnError]\Send Error Email"
-          TopLeft="5.50000000000001,107.5" />
+          TopLeft="NaN,NaN" />
         <EdgeLayout
           Id="Package.EventHandlers[OnError].PrecedenceConstraints[Constraint]"
-          TopLeft="84.5,47.5">
+          TopLeft="NaN,NaN">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="{assembly:Null}"
               Start="0,0"
-              End="0,52.5">
+              End="0,0">
               <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
+                <assembly:Null />
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
@@ -9308,6 +9312,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_photo_change"
           TopLeft="232.45764313092,229.728835960446" />
         <NodeLayout
+          Size="286,42"
+          Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change"
+          TopLeft="605.902643392399,229.728835960446" />
+        <NodeLayout
           Size="350,42"
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property2amenity_change"
           TopLeft="387.620945531002,55.851685101496" />
@@ -9323,10 +9331,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="305,42"
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_amenity_change"
           TopLeft="739.652053746751,55.851685101496" />
-        <NodeLayout
-          Size="286,42"
-          Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change"
-          TopLeft="605.902643392399,229.728835960446" />
         <NodeLayout
           Size="279,42"
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\PROD changeControl tab_amenity_change"
@@ -9497,6 +9501,19 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property2amenity_change">
     <Properties>
       <Property>
@@ -9537,19 +9554,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_amenity_change">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

@@ -12,8 +12,8 @@
   DTS:ObjectName="feedDaemon"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="79"
-  DTS:VersionGUID="{50702D46-6494-40B8-8DD5-ECEA9200CED1}">
+  DTS:VersionBuild="81"
+  DTS:VersionGUID="{9C15EE5A-6875-43CD-A2CE-DEFAA3BF0975}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\feedDaemon_{505D81C5-8B78-4559-AD4A-B2D8E350114B}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\feedDaemon_{95E77C22-4C25-428C-A6B7-255A99795E96}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -56,6 +56,17 @@
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:Description="1==Move, 10==copy"
+      DTS:DTSID="{7BC9C32D-45A9-4EB9-BA80-FDAD10C97AA2}"
+      DTS:ObjectName="fileOperation"
+      DTS:Required="True">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">1</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
       DTS:DataType="8"
       DTS:Description="location to scan for new files"
       DTS:DTSID="{FB464C7B-2C3B-4B9B-A560-997EBBDCB027}"
@@ -63,7 +74,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="8"
-        DTS:Name="ParameterValue">U:\Data\</DTS:Property>
+        DTS:Name="ParameterValue">C:\Data\accommodation</DTS:Property>
     </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables>
@@ -1289,18 +1300,20 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                 DTS:FilterKind="0" />
               <DTS:Executables>
                 <DTS:Executable
-                  DTS:refId="Package\Loop through importSubfolders\create subfolder, move files\Loop through sourceFolder, move files\Move File"
+                  DTS:refId="Package\Loop through importSubfolders\create subfolder, move files\Loop through sourceFolder, move files\Move or Copy File"
                   DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
                   DTS:Description="File System Task"
                   DTS:DTSID="{ADFA75AF-642C-41A2-A650-F2017DCA4B58}"
                   DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.FileSystemTask.FileSystemTask, Microsoft.SqlServer.FileSystemTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
                   DTS:LocaleID="-1"
-                  DTS:ObjectName="Move File"
+                  DTS:ObjectName="Move or Copy File"
                   DTS:TaskContact="File System Task;Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
                   DTS:ThreadHint="1">
                   <DTS:Variables />
                   <DTS:LoggingOptions
                     DTS:FilterKind="0" />
+                  <DTS:PropertyExpression
+                    DTS:Name="Operation">@[$Package::fileOperation]</DTS:PropertyExpression>
                   <DTS:ObjectData>
                     <FileSystemData
                       TaskOperationType="MoveFile"
@@ -2334,14 +2347,21 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           Id="Package\Loop through importSubfolders\create subfolder, move files\create destinationSubfolder"
           TopLeft="9,115" />
         <NodeLayout
-          Size="123,42"
-          Id="Package\Loop through importSubfolders\create subfolder, move files\Loop through sourceFolder, move files\Move File"
+          Size="163,42"
+          Id="Package\Loop through importSubfolders\create subfolder, move files\Loop through sourceFolder, move files\Move or Copy File"
           TopLeft="13,19" />
+        <AnnotationLayout
+          Text="Package:fileOperation&#xD;&#xA;1==Move&#xD;&#xA;10==Copy"
+          ParentId="Package\Loop through importSubfolders\create subfolder, move files\Loop through sourceFolder, move files"
+          FontInfo="{assembly:Null}"
+          Size="145,72"
+          Id="5e7d4981-98f7-48ee-82c3-ee9a04931e27"
+          TopLeft="23,73" />
         <ContainerLayout
           HeaderHeight="43.924528301886795"
           IsExpanded="True"
-          PanelSize="182,77"
-          Size="182,121"
+          PanelSize="182,150"
+          Size="182,194"
           Id="Package\Loop through importSubfolders\create subfolder, move files\Loop through sourceFolder, move files"
           TopLeft="22.8703250235313,188.586352647014" />
         <NodeLayout
@@ -2354,14 +2374,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,31.5863526470142"
+              EndConnector="0,31.586352647014"
               Start="0,0"
-              End="0,24.0863526470142">
+              End="0,24.086352647014">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,24.0863526470142" />
+                    End="0,24.086352647014" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2395,8 +2415,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="224,325"
-          Size="224,368"
+          PanelSize="222,404"
+          Size="222,447"
           Id="Package\Loop through importSubfolders\create subfolder, move files"
           TopLeft="362.5,203.5" />
         <EdgeLayout
@@ -2437,25 +2457,37 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Loop through importSubfolders.PrecedenceConstraints[Constraint 1]"
-          TopLeft="473.666666666667,55.5">
+          TopLeft="414.833333333333,55.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,148"
+              EndConnector="58.6666666666667,148"
               Start="0,0"
-              End="0,140.5">
+              End="58.6666666666667,140.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,140.5" />
+                    End="0,55.570385818561" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,55.570385818561"
+                    Point2="0,59.570385818561"
+                    Point3="4,59.570385818561" />
+                  <mssgle:LineSegment
+                    End="54.6666666666667,59.570385818561" />
+                  <mssgle:CubicBezierSegment
+                    Point1="54.6666666666667,59.570385818561"
+                    Point2="58.6666666666667,59.570385818561"
+                    Point3="58.6666666666667,63.570385818561" />
+                  <mssgle:LineSegment
+                    End="58.6666666666667,140.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-158.26685546875,62.25,316.5337109375,16"
+              BoundingBox="-128.933522135417,64.570385818561,316.5337109375,16"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -2465,9 +2497,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="102,75.5"
+              EndConnector="102,115"
               Start="0,0"
-              End="94.5,75.5">
+              End="94.5,115">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -2478,13 +2510,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                     Point2="51,0"
                     Point3="51,4" />
                   <mssgle:LineSegment
-                    End="51,71.5" />
+                    End="51,111" />
                   <mssgle:CubicBezierSegment
-                    Point1="51,71.5"
-                    Point2="51,75.5"
-                    Point3="55,75.5" />
+                    Point1="51,111"
+                    Point2="51,115"
+                    Point3="55,115" />
                   <mssgle:LineSegment
-                    End="94.5,75.5" />
+                    End="94.5,115" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2503,8 +2535,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <ContainerLayout
           HeaderHeight="43.924528301886795"
           IsExpanded="True"
-          PanelSize="637,626"
-          Size="637,670"
+          PanelSize="637,740"
+          Size="637,784"
           Id="Package\Loop through importSubfolders"
           TopLeft="200.616303443151,15.30409482252" />
         <NodeLayout
@@ -2539,9 +2571,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="33.3621881284423,82.97088335325"
+              EndConnector="33.3621881284423,139.97088335325"
               Start="0,0"
-              End="25.8621881284423,82.97088335325">
+              End="25.8621881284423,139.97088335325">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -2552,13 +2584,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                     Point2="16.6810940642211,0"
                     Point3="16.6810940642211,4" />
                   <mssgle:LineSegment
-                    End="16.6810940642211,78.97088335325" />
+                    End="16.6810940642211,135.97088335325" />
                   <mssgle:CubicBezierSegment
-                    Point1="16.6810940642211,78.97088335325"
-                    Point2="16.6810940642211,82.97088335325"
-                    Point3="20.6810940642211,82.97088335325" />
+                    Point1="16.6810940642211,135.97088335325"
+                    Point2="16.6810940642211,139.97088335325"
+                    Point3="20.6810940642211,139.97088335325" />
                   <mssgle:LineSegment
-                    End="25.8621881284423,82.97088335325" />
+                    End="25.8621881284423,139.97088335325" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2569,13 +2601,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="837.616303443151,350.30409482252">
+          TopLeft="837.616303443151,407.30409482252">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="146.383696556849,-174.35774295808"
+              EndConnector="146.383696556849,-231.35774295808"
               Start="0,0"
-              End="138.883696556849,-174.35774295808">
+              End="138.883696556849,-231.35774295808">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -2586,13 +2618,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                     Point2="73.1918482784245,0"
                     Point3="73.1918482784245,-4" />
                   <mssgle:LineSegment
-                    End="73.1918482784245,-170.35774295808" />
+                    End="73.1918482784245,-227.35774295808" />
                   <mssgle:CubicBezierSegment
-                    Point1="73.1918482784245,-170.35774295808"
-                    Point2="73.1918482784245,-174.35774295808"
-                    Point3="77.1918482784245,-174.35774295808" />
+                    Point1="73.1918482784245,-227.35774295808"
+                    Point2="73.1918482784245,-231.35774295808"
+                    Point3="77.1918482784245,-231.35774295808" />
                   <mssgle:LineSegment
-                    End="138.883696556849,-174.35774295808" />
+                    End="138.883696556849,-231.35774295808" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -2610,7 +2642,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     design-time-name="Package.EventHandlers[OnError]">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="123,42"
           Id="Package.EventHandlers[OnError]\Log Error"
@@ -2638,7 +2670,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
