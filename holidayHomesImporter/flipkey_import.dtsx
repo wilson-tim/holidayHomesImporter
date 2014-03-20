@@ -13,8 +13,8 @@
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="311"
-  DTS:VersionGUID="{4C969E28-5746-4599-B64D-7A780E00EF3A}">
+  DTS:VersionBuild="335"
+  DTS:VersionGUID="{54F5822F-4880-41F6-97DC-114508D59F56}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{491C9163-EE94-433D-A3A2-8F29A833FCA7}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{7741E86C-7275-4D35-8D1E-B66831C8215B}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -447,88 +447,6 @@
               </outputs>
             </component>
             <component
-              refId="Package\copy to FK staging tables\Derived Column url2000"
-              componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}"
-              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-              name="Derived Column url2000"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\copy to FK staging tables\Derived Column url2000.Inputs[Derived Column Input]"
-                  description="Input to the Derived Column Transformation"
-                  name="Derived Column Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\copy to FK staging tables\Derived Column url2000.Inputs[Derived Column Input].Columns[url]"
-                      cachedDataType="wstr"
-                      cachedLength="2256"
-                      cachedName="url"
-                      lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[url]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Output]"
-                  description="Default Output of the Derived Column Transformation"
-                  exclusionGroup="1"
-                  name="Derived Column Output"
-                  synchronousInputId="Package\copy to FK staging tables\Derived Column url2000.Inputs[Derived Column Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Output].Columns[url2000]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      length="2000"
-                      lineageId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Output].Columns[url2000]"
-                      name="url2000"
-                      truncationRowDisposition="FailComponent">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">(DT_WSTR,2000)#{Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[url]}</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">(DT_WSTR,2000)url</property>
-                      </properties>
-                    </outputColumn>
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Error Output]"
-                  description="Error Output of the Derived Column Transformation"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Derived Column Error Output"
-                  synchronousInputId="Package\copy to FK staging tables\Derived Column url2000.Inputs[Derived Column Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
-            <component
               refId="Package\copy to FK staging tables\QRY flipkey imp_amenity"
               componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
@@ -553,8 +471,8 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">-- There are duplicate amenities in the original data
--- so filtering out the duplicates...
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">-- Duplicate amenities are generated by the amenityValue assignment step
+-- so filtering them out...
 SELECT
 sourceId
 , runId
@@ -571,14 +489,8 @@ FROM
   ON pr.runId = ? AND pr.sourceId = ? AND pr.property_Id = imp_am.property_Id
   INNER JOIN staging.tab_amenity am
   ON am.amenityValue = imp_am.amenityValue
-  -- prevent duplicates from PK violations
-  LEFT OUTER JOIN staging.tab_property2amenity stgp
-  ON stgp.sourceId = imp_am.sourceId
-    AND stgp.runId = imp_am.runId
-    AND stgp.externalId = pr.externalId
   WHERE imp_am.runId = ?
-    AND imp_am.fileId = ?
-    AND stgp.externalId IS NULL) innerselect
+    AND imp_am.fileId = ?) innerselect
 WHERE rownum = 1</property>
                 <property
                   dataType="System.String"
@@ -745,7 +657,10 @@ WHERE rownum = 1</property>
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT ph.sourceId
 	, ph.runId
 	, pr.externalId
-	, url = LEFT(ph.base_url + '/' + photo_file_name, 2000)
+	, thumbnailUrl = (CASE
+		WHEN ph.base_url IS NOT NULL AND ph.largest_image_prefix IS NOT NULL THEN LEFT(('http://images1.flipkey.com/img/photos/' + ph.base_url + '/' + ph.largest_image_prefix + '_' + ph.photo_file_name), 2000)
+		ELSE NULL
+	END)
 	, ph.[order]
 FROM flipkey.imp_property pr
 LEFT OUTER JOIN flipkey.imp_photo ph 
@@ -818,16 +733,6 @@ AND pr.fileId = ?;</property>
                       name="externalId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[url]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].ExternalColumns[url]"
-                      length="2256"
-                      lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[url]"
-                      name="url"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[order]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -835,6 +740,16 @@ AND pr.fileId = ?;</property>
                       externalMetadataColumnId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].ExternalColumns[order]"
                       lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[order]"
                       name="order"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      length="2000"
+                      lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -853,14 +768,14 @@ AND pr.fileId = ?;</property>
                       length="100"
                       name="externalId" />
                     <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].ExternalColumns[url]"
-                      dataType="wstr"
-                      length="2000"
-                      name="url" />
-                    <externalMetadataColumn
                       refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].ExternalColumns[order]"
                       dataType="i4"
                       name="order" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      name="thumbnailUrl" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -885,11 +800,11 @@ AND pr.fileId = ?;</property>
                       lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
                       name="externalId" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Error Output].Columns[url]"
+                      refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
                       dataType="wstr"
                       length="2000"
-                      lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Error Output].Columns[url]"
-                      name="url" />
+                      lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Error Output].Columns[order]"
                       dataType="i4"
@@ -1232,12 +1147,12 @@ AND pr.fileId = ?;</property>
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[position]"
                       lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[order]" />
                     <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[url2000]"
+                      refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[thumbnailUrl]"
                       cachedDataType="wstr"
                       cachedLength="2000"
-                      cachedName="url2000"
+                      cachedName="thumbnailUrl"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[url]"
-                      lineageId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Output].Columns[url2000]" />
+                      lineageId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output].Columns[thumbnailUrl]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1627,11 +1542,6 @@ AND pr.fileId = ?;</property>
               name="Derived Column Output"
               startId="Package\copy to FK staging tables\Derived Column periodTypeUnicode.Outputs[Derived Column Output]" />
             <path
-              refId="Package\copy to FK staging tables.Paths[Derived Column Output1]"
-              endId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\copy to FK staging tables\Derived Column url2000.Outputs[Derived Column Output]" />
-            <path
               refId="Package\copy to FK staging tables.Paths[OLE DB Source Output]"
               endId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
@@ -1643,7 +1553,7 @@ AND pr.fileId = ?;</property>
               startId="Package\copy to FK staging tables\QRY flipkey imp_rate.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\copy to FK staging tables.Paths[OLE DB Source Output2]"
-              endId="Package\copy to FK staging tables\Derived Column url2000.Inputs[Derived Column Input]"
+              endId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input]"
               name="OLE DB Source Output"
               startId="Package\copy to FK staging tables\QRY flipkey imp_photo.Outputs[OLE DB Source Output]" />
           </paths>
@@ -1666,6 +1576,88 @@ AND pr.fileId = ?;</property>
         <pipeline
           version="1">
           <components>
+            <component
+              refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000"
+              componentClassID="{49928E82-9C4E-49F0-AABE-3812B82707EC}"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column thumbnailUrl2000"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Inputs[Derived Column Input].Columns[thumbnailUrl]"
+                      cachedDataType="wstr"
+                      cachedLength="2305"
+                      cachedName="thumbnailUrl"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Output].Columns[thumbnailUrl2000]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Output].Columns[thumbnailUrl2000]"
+                      name="thumbnailUrl2000"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_WSTR,2000)#{Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_WSTR,2000)thumbnailUrl</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
             <component
               refId="Package\copy to PK staging tables\QRY flipkey property source"
               componentClassID="{165A526D-D5DE-47FF-96A6-F8274C19826B}"
@@ -1694,7 +1686,10 @@ AND pr.fileId = ?;</property>
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT p.sourceId
 , p.runId
 , p.externalId
-, pho.base_url
+, thumbnailUrl = (CASE
+    WHEN pho.base_url IS NOT NULL AND pho.largest_image_prefix IS NOT NULL THEN LEFT(('http://images1.flipkey.com/img/photos/' + pho.base_url + '/' + pho.largest_image_prefix + '_' + pho.photo_file_name), 2000)
+	ELSE NULL
+END)
 , p.detailsUrl
 , p.propertyDescription
 , p.detailsName
@@ -1704,16 +1699,19 @@ AND pr.fileId = ?;</property>
 , countryCode = (SELECT TOP 1 countryCode2 FROM import.tab_country WHERE import.tab_country.countryName LIKE p.addressCountry)
 , p.addressLatitude
 , p.addressLongitude
-, p.rateDay_min_rate
+, minimum_rate = ISNULL(ISNULL(p.rateDay_min_rate, p.rateWeek_min_rate), p.rateMonth_min_rate)
 , currencyCode = LEFT(detailsCurrency, 3)
 , p.detailsBedroom_count
 , p.detailsBathroom_count
-, p.rateMinimum_length
+, minimum_length = ISNULL(p.rateMinimum_length, p.detailsMinimum_stay)
 , p.review_count
+, p.detailsOccupancy
+, p.addressZip
+, p.attributesModified
 FROM flipkey.imp_property p
 OUTER APPLY
 (
-	SELECT TOP 1 flipkey.imp_photo.base_url
+	SELECT TOP 1 flipkey.imp_photo.base_url, flipkey.imp_photo.largest_image_prefix, flipkey.imp_photo.photo_file_name
 	FROM flipkey.imp_photo
 	WHERE flipkey.imp_photo.runId = p.runId
 		AND flipkey.imp_photo.fileId = p.fileId
@@ -1790,16 +1788,6 @@ AND stgp.externalId IS NULL</property>
                       length="100"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[externalId]"
                       name="externalId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[base_url]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[base_url]"
-                      length="2000"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[base_url]"
-                      name="base_url"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsUrl]"
@@ -1880,17 +1868,6 @@ AND stgp.externalId IS NULL</property>
                       name="addressLongitude"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[rateDay_min_rate]"
-                      dataType="numeric"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[rateDay_min_rate]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[rateDay_min_rate]"
-                      name="rateDay_min_rate"
-                      precision="10"
-                      scale="2"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsBedroom_count]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -1909,15 +1886,6 @@ AND stgp.externalId IS NULL</property>
                       name="detailsBathroom_count"
                       precision="10"
                       scale="2"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[rateMinimum_length]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[rateMinimum_length]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[rateMinimum_length]"
-                      name="rateMinimum_length"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[countryCode]"
@@ -1948,6 +1916,64 @@ AND stgp.externalId IS NULL</property>
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[currencyCode]"
                       name="currencyCode"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      length="2305"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsOccupancy]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[detailsOccupancy]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsOccupancy]"
+                      name="detailsOccupancy"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[minimum_length]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[minimum_length]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[minimum_length]"
+                      name="minimum_length"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressZip]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[addressZip]"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressZip]"
+                      name="addressZip"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[attributesModified]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[attributesModified]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[attributesModified]"
+                      name="attributesModified"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[minimum_rate]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[minimum_rate]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[minimum_rate]"
+                      name="minimum_rate"
+                      precision="10"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1964,11 +1990,6 @@ AND stgp.externalId IS NULL</property>
                       dataType="wstr"
                       length="100"
                       name="externalId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[base_url]"
-                      dataType="wstr"
-                      length="2000"
-                      name="base_url" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[detailsUrl]"
                       dataType="wstr"
@@ -2008,12 +2029,6 @@ AND stgp.externalId IS NULL</property>
                       dataType="r8"
                       name="addressLongitude" />
                     <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[rateDay_min_rate]"
-                      dataType="numeric"
-                      name="rateDay_min_rate"
-                      precision="10"
-                      scale="2" />
-                    <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[detailsBedroom_count]"
                       dataType="i4"
                       name="detailsBedroom_count" />
@@ -2023,10 +2038,6 @@ AND stgp.externalId IS NULL</property>
                       name="detailsBathroom_count"
                       precision="10"
                       scale="2" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[rateMinimum_length]"
-                      dataType="i4"
-                      name="rateMinimum_length" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[countryCode]"
                       dataType="wstr"
@@ -2041,6 +2052,34 @@ AND stgp.externalId IS NULL</property>
                       dataType="wstr"
                       length="3"
                       name="currencyCode" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      name="thumbnailUrl" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[detailsOccupancy]"
+                      dataType="i4"
+                      name="detailsOccupancy" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[minimum_length]"
+                      dataType="i4"
+                      name="minimum_length" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[addressZip]"
+                      dataType="wstr"
+                      length="255"
+                      name="addressZip" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[attributesModified]"
+                      dataType="dbTimeStamp"
+                      name="attributesModified" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].ExternalColumns[minimum_rate]"
+                      dataType="numeric"
+                      name="minimum_rate"
+                      precision="10"
+                      scale="2" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2065,11 +2104,11 @@ AND stgp.externalId IS NULL</property>
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[externalId]"
                       name="externalId" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[base_url]"
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
                       dataType="wstr"
                       length="2000"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[base_url]"
-                      name="base_url" />
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[detailsUrl]"
                       dataType="wstr"
@@ -2123,10 +2162,10 @@ AND stgp.externalId IS NULL</property>
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[addressLongitude]"
                       name="addressLongitude" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[rateDay_min_rate]"
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[minimum_rate]"
                       dataType="numeric"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[rateDay_min_rate]"
-                      name="rateDay_min_rate"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[minimum_rate]"
+                      name="minimum_rate"
                       precision="10"
                       scale="2" />
                     <outputColumn
@@ -2148,15 +2187,31 @@ AND stgp.externalId IS NULL</property>
                       precision="10"
                       scale="2" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[rateMinimum_length]"
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[minimum_length]"
                       dataType="i4"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[rateMinimum_length]"
-                      name="rateMinimum_length" />
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[minimum_length]"
+                      name="minimum_length" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[review_count]"
                       dataType="i4"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[review_count]"
                       name="review_count" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[detailsOccupancy]"
+                      dataType="i4"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[detailsOccupancy]"
+                      name="detailsOccupancy" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[addressZip]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[addressZip]"
+                      name="addressZip" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[attributesModified]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[attributesModified]"
+                      name="attributesModified" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -2266,12 +2321,19 @@ AND stgp.externalId IS NULL</property>
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[externalId]" />
                     <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[base_url]"
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[countryCode]"
                       cachedDataType="wstr"
-                      cachedLength="2000"
-                      cachedName="base_url"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[base_url]" />
+                      cachedLength="2"
+                      cachedName="countryCode"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[countryCode]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[countryCode]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[currencyCode]"
+                      cachedDataType="wstr"
+                      cachedLength="3"
+                      cachedName="currencyCode"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[currencyCode]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[currencyCode]" />
                     <inputColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[detailsUrl]"
                       cachedDataType="wstr"
@@ -2308,17 +2370,30 @@ AND stgp.externalId IS NULL</property>
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[cityName]"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressCity]" />
                     <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[addressState]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="addressState"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[stateName]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressState]" />
+                    <inputColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[addressLatitude]"
                       cachedDataType="r8"
                       cachedName="addressLatitude"
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[latitude]"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressLatitude]" />
                     <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[rateMinimum_length]"
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[addressLongitude]"
+                      cachedDataType="r8"
+                      cachedName="addressLongitude"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[longitude]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressLongitude]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[detailsBedroom_count]"
                       cachedDataType="i4"
-                      cachedName="rateMinimum_length"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[minimumDaysOfStay]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[rateMinimum_length]" />
+                      cachedName="detailsBedroom_count"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[numberOfProperBedrooms]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsBedroom_count]" />
                     <inputColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[detailsBathroom_count]"
                       cachedDataType="numeric"
@@ -2328,52 +2403,51 @@ AND stgp.externalId IS NULL</property>
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[numberOfBathrooms]"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsBathroom_count]" />
                     <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[detailsBedroom_count]"
-                      cachedDataType="i4"
-                      cachedName="detailsBedroom_count"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[numberOfProperBedrooms]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsBedroom_count]" />
-                    <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[rateDay_min_rate]"
-                      cachedDataType="numeric"
-                      cachedName="rateDay_min_rate"
-                      cachedPrecision="10"
-                      cachedScale="2"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[minimumPricePerNight]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[rateDay_min_rate]" />
-                    <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[addressState]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="addressState"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[stateName]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressState]" />
-                    <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[addressLongitude]"
-                      cachedDataType="r8"
-                      cachedName="addressLongitude"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[longitude]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressLongitude]" />
-                    <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[countryCode]"
-                      cachedDataType="wstr"
-                      cachedLength="2"
-                      cachedName="countryCode"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[countryCode]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[countryCode]" />
-                    <inputColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[review_count]"
                       cachedDataType="i4"
                       cachedName="review_count"
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[reviewsCount]"
                       lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[review_count]" />
                     <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[currencyCode]"
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[thumbnailUrl2000]"
                       cachedDataType="wstr"
-                      cachedLength="3"
-                      cachedName="currencyCode"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[currencyCode]"
-                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[currencyCode]" />
+                      cachedLength="2000"
+                      cachedName="thumbnailUrl2000"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
+                      lineageId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Output].Columns[thumbnailUrl2000]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[detailsOccupancy]"
+                      cachedDataType="i4"
+                      cachedName="detailsOccupancy"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[maximumNumberOfPeople]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[detailsOccupancy]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[minimum_length]"
+                      cachedDataType="i4"
+                      cachedName="minimum_length"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[minimumDaysOfStay]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[minimum_length]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[addressZip]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="addressZip"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[postcode]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[addressZip]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[attributesModified]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="attributesModified"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[lastUpdated]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[attributesModified]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[minimum_rate]"
+                      cachedDataType="numeric"
+                      cachedName="minimum_rate"
+                      cachedPrecision="10"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[minimumPricePerNight]"
+                      lineageId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output].Columns[minimum_rate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2577,8 +2651,13 @@ AND stgp.externalId IS NULL</property>
           </components>
           <paths>
             <path
-              refId="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
+              refId="Package\copy to PK staging tables.Paths[Derived Column Output]"
               endId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
+              endId="Package\copy to PK staging tables\Derived Column thumbnailUrl2000.Inputs[Derived Column Input]"
               name="OLE DB Source Output"
               startId="Package\copy to PK staging tables\QRY flipkey property source.Outputs[OLE DB Source Output]" />
           </paths>
@@ -16847,24 +16926,24 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables\XML Source.Outputs[booked_date]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output11]"
+              endId="Package\import XML to imp tables\flipkey imp_calendar.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\Add columns to calendar.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output10]"
               endId="Package\import XML to imp tables\flipkey imp_bedroom.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to bedroom.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output10]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output9]"
               endId="Package\import XML to imp tables\flipkey imp_amenity.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to amenity.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output9]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output8]"
               endId="Package\import XML to imp tables\flipkey imp_photo.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to photo.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output8]"
-              endId="Package\import XML to imp tables\flipkey imp_bathroom.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\Add columns to bathroom.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output6]"
               endId="Package\import XML to imp tables\flipkey imp_fee.Inputs[OLE DB Destination Input]"
@@ -16872,9 +16951,9 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables\Add columns to fee.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output7]"
-              endId="Package\import XML to imp tables\flipkey imp_calendar.Inputs[OLE DB Destination Input]"
+              endId="Package\import XML to imp tables\flipkey imp_bathroom.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\import XML to imp tables\Add columns to calendar.Outputs[Derived Column Output]" />
+              startId="Package\import XML to imp tables\Add columns to bathroom.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output4]"
               endId="Package\import XML to imp tables\flipkey imp_default_rate.Inputs[OLE DB Destination Input]"
@@ -16882,84 +16961,84 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables\Add columns to default_rate.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output3]"
-              endId="Package\import XML to imp tables\flipkey imp_booked_date.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\Add columns to booked_date.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output2]"
               endId="Package\import XML to imp tables\flipkey imp_property.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to property.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output1]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output2]"
               endId="Package\import XML to imp tables\flipkey imp_video.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to video.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output1]"
               endId="Package\import XML to imp tables\flipkey imp_rate.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to rate.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output5]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output]"
               endId="Package\import XML to imp tables\flipkey imp_theme.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\Add columns to theme.Outputs[Derived Column Output]" />
             <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output5]"
+              endId="Package\import XML to imp tables\flipkey imp_booked_date.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\Add columns to booked_date.Outputs[Derived Column Output]" />
+            <path
               refId="Package\import XML to imp tables.Paths[Merge Join Output6]"
-              endId="Package\import XML to imp tables\Add columns to bedroom.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables\MJ bedrooms.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output9]"
-              endId="Package\import XML to imp tables\Add columns to amenity.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables\MJ amenities.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output8]"
-              endId="Package\import XML to imp tables\Add columns to default_rate.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables\MJ default_rates.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output7]"
               endId="Package\import XML to imp tables\Add columns to theme.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables\MJ themes.Outputs[Merge Join Output]" />
             <path
+              refId="Package\import XML to imp tables.Paths[Merge Join Output9]"
+              endId="Package\import XML to imp tables\Add columns to bedroom.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables\MJ bedrooms.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Merge Join Output8]"
+              endId="Package\import XML to imp tables\Add columns to amenity.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables\MJ amenities.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Merge Join Output7]"
+              endId="Package\import XML to imp tables\Add columns to default_rate.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables\MJ default_rates.Outputs[Merge Join Output]" />
+            <path
               refId="Package\import XML to imp tables.Paths[Merge Join Output5]"
+              endId="Package\import XML to imp tables\Add columns to rate.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables\MJ rates.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Merge Join Output10]"
               endId="Package\import XML to imp tables\Add columns to bathroom.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables\MJ bathrooms.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output10]"
-              endId="Package\import XML to imp tables\Add columns to booked_date.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables\MJ booked_dates.Outputs[Merge Join Output]" />
-            <path
               refId="Package\import XML to imp tables.Paths[Merge Join Output3]"
-              endId="Package\import XML to imp tables\Add columns to calendar.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables\MJ calendars.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output2]"
               endId="Package\import XML to imp tables\Add columns to video.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables\MJ videos.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output1]"
+              refId="Package\import XML to imp tables.Paths[Merge Join Output2]"
               endId="Package\import XML to imp tables\Add columns to fee.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables\MJ fees.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output]"
+              refId="Package\import XML to imp tables.Paths[Merge Join Output1]"
               endId="Package\import XML to imp tables\Add columns to photo.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables\MJ photos.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Merge Join Output4]"
-              endId="Package\import XML to imp tables\Add columns to rate.Inputs[Derived Column Input]"
+              refId="Package\import XML to imp tables.Paths[Merge Join Output]"
+              endId="Package\import XML to imp tables\Add columns to calendar.Inputs[Derived Column Input]"
               name="Merge Join Output"
-              startId="Package\import XML to imp tables\MJ rates.Outputs[Merge Join Output]" />
+              startId="Package\import XML to imp tables\MJ calendars.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Merge Join Output4]"
+              endId="Package\import XML to imp tables\Add columns to booked_date.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables\MJ booked_dates.Outputs[Merge Join Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[property]"
               endId="Package\import XML to imp tables\Row Count.Inputs[Row Count Input 1]"
@@ -17083,6 +17162,7 @@ AND stgp.externalId IS NULL</property>
       DTS:refId="Package\insert tab_runFile"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:Description="insert meta.import.tab_runFile"
+      DTS:Disabled="True"
       DTS:DTSID="{0B332433-F975-44A9-A5FA-ECCD1A0C39E6}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
       DTS:LocaleID="-1"
@@ -17370,38 +17450,46 @@ AND stgp.externalId IS NULL</property>
         <NodeLayout
           Size="197,42"
           Id="Package\copy to FK staging tables"
-          TopLeft="98.7672857795735,734.624759437112" />
+          TopLeft="98.7672857795735,736.624759437112" />
         <NodeLayout
           Size="198,42"
           Id="Package\copy to PK staging tables"
-          TopLeft="96.2672857795735,638.957053103868" />
+          TopLeft="96.2672857795735,640.957053103868" />
         <NodeLayout
           Size="197,42"
           Id="Package\import XML to imp tables"
-          TopLeft="101,141" />
+          TopLeft="101,143" />
         <NodeLayout
           Size="136,44"
           Id="Package\insert tab_runFile"
-          TopLeft="125.267285779573,832.728425752172" />
+          TopLeft="125.267285779573,834.728425752172" />
         <NodeLayout
           Size="185,42"
           Id="Package\Log raw import counts"
-          TopLeft="103.767285779574,211.730770403806" />
+          TopLeft="104.767285779574,230.730770403806" />
         <NodeLayout
           Size="285,42"
           Id="Package\merge imp_amenity to staging tab_amenity"
-          TopLeft="60,536" />
+          TopLeft="60,538" />
+        <NodeLayout
+          Size="288,42"
+          Id="Package\populate imp_amenity amenityValue column"
+          TopLeft="60,419" />
+        <NodeLayout
+          Size="274,42"
+          Id="Package\populate imp_property externalId column"
+          TopLeft="63,317" />
         <NodeLayout
           Size="165,42"
           Id="Package\Set xslXmlFullPath"
-          TopLeft="113,5" />
+          TopLeft="113,7" />
         <NodeLayout
           Size="217,42"
           Id="Package\XML Task XSL transformation"
-          TopLeft="87,75" />
+          TopLeft="87,77" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="195.5,47">
+          TopLeft="195.5,49">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17422,8 +17510,30 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="198.633642889787,272.730770403806">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.269229596194"
+              Start="0,0"
+              End="0,36.769229596194">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.769229596194" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="196.267285779574,680.957053103868">
+          TopLeft="196.267285779574,682.957053103868">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17445,7 +17555,7 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="195.267285779573,776.624759437112">
+          TopLeft="195.267285779573,778.624759437112">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17467,7 +17577,7 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="197.5,117">
+          TopLeft="197.5,119">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17489,18 +17599,18 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="197.883642889787,183">
+          TopLeft="198.383642889787,185">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,28.730770403806"
+              EndConnector="0,45.730770403806"
               Start="0,0"
-              End="0,21.230770403806">
+              End="0,38.230770403806">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.230770403806" />
+                    End="0,38.230770403806" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -17511,7 +17621,7 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 6]"
-          TopLeft="198.883642889787,578">
+          TopLeft="198.883642889787,580">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17531,20 +17641,9 @@ AND stgp.externalId IS NULL</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="path of XSL destination == &lt;filename&gt;_flat.xml&#xA;This transformed file is the one imported."
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="280,56"
-          Id="d21cffb8-41f4-4be6-88f8-7d611e8587fe"
-          TopLeft="381,21" />
-        <NodeLayout
-          Size="288,42"
-          Id="Package\populate imp_amenity amenityValue column"
-          TopLeft="60,417" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="203.25,459">
+          TopLeft="203.25,461">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17564,35 +17663,9 @@ AND stgp.externalId IS NULL</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="274,42"
-          Id="Package\populate imp_property externalId column"
-          TopLeft="63,315" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="198.133642889787,253.730770403806">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,61.269229596194"
-              Start="0,0"
-              End="0,53.769229596194">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,53.769229596194" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 8]"
-          TopLeft="202,357">
+          TopLeft="202,359">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -17612,6 +17685,27 @@ AND stgp.externalId IS NULL</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <AnnotationLayout
+          Text="path of XSL destination == &lt;filename&gt;_flat.xml&#xA;This transformed file is the one imported."
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="280,56"
+          Id="d21cffb8-41f4-4be6-88f8-7d611e8587fe"
+          TopLeft="433,0" />
+        <AnnotationLayout
+          Text="Determining the best quality amenityValue data&#xD;&#xA;does mean that duplicate records are created.&#xD;&#xA;These are filtered out in the FK step below&#xD;&#xA;using an appropriate SELECT query."
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="282,88"
+          Id="fa042553-d9af-4892-b752-cc76195eed32"
+          TopLeft="445,398" />
+        <AnnotationLayout
+          Text="QRY flipkey imp_amenity selection&#xD;&#xA;skips duplicate amenityValue's."
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="211,60"
+          Id="560c1fc2-3b4f-494b-b86c-9f4afcc11be1"
+          TopLeft="457,724" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -17621,39 +17715,25 @@ AND stgp.externalId IS NULL</property>
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="197,42"
+          Id="Package\copy to FK staging tables\QRY flipkey imp_amenity"
+          TopLeft="75,91" />
+        <NodeLayout
           Size="220,42"
           Id="Package\copy to FK staging tables\staging tab_property2amenity"
           TopLeft="65,200" />
         <NodeLayout
-          Size="197,42"
-          Id="Package\copy to FK staging tables\QRY flipkey imp_amenity"
-          TopLeft="75,91" />
-        <EdgeLayout
-          Id="Package\copy to FK staging tables.Paths[OLE DB Source Output]"
-          TopLeft="174.25,133">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,67"
-              Start="0,0"
-              End="0,59.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,59.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          Size="156,42"
+          Id="Package\copy to FK staging tables\staging tab_rate"
+          TopLeft="631,273" />
         <NodeLayout
           Size="187,42"
           Id="Package\copy to FK staging tables\QRY flipkey imp_photo"
           TopLeft="371,90" />
+        <NodeLayout
+          Size="247,42"
+          Id="Package\copy to FK staging tables\Derived Column periodTypeUnicode"
+          TopLeft="588,175" />
         <NodeLayout
           Size="178,42"
           Id="Package\copy to FK staging tables\QRY flipkey imp_rate"
@@ -17662,14 +17742,6 @@ AND stgp.externalId IS NULL</property>
           Size="164,42"
           Id="Package\copy to FK staging tables\staging tab_photo"
           TopLeft="383,272" />
-        <NodeLayout
-          Size="156,42"
-          Id="Package\copy to FK staging tables\staging tab_rate"
-          TopLeft="631,273" />
-        <NodeLayout
-          Size="247,42"
-          Id="Package\copy to FK staging tables\Derived Column periodTypeUnicode"
-          TopLeft="588,175" />
         <EdgeLayout
           Id="Package\copy to FK staging tables.Paths[OLE DB Source Output1]"
           TopLeft="712.25,133">
@@ -17684,6 +17756,28 @@ AND stgp.externalId IS NULL</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to FK staging tables.Paths[OLE DB Source Output]"
+          TopLeft="174.25,133">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -17714,46 +17808,20 @@ AND stgp.externalId IS NULL</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="193,42"
-          Id="Package\copy to FK staging tables\Derived Column url2000"
-          TopLeft="369,176" />
         <EdgeLayout
           Id="Package\copy to FK staging tables.Paths[OLE DB Source Output2]"
-          TopLeft="465,132">
+          TopLeft="464.75,132">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44"
+              EndConnector="0,140"
               Start="0,0"
-              End="0,36.5">
+              End="0,132.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to FK staging tables.Paths[Derived Column Output1]"
-          TopLeft="465.25,218">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,54"
-              Start="0,0"
-              End="0,46.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,46.5" />
+                    End="0,132.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -17765,6 +17833,14 @@ AND stgp.externalId IS NULL</property>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\QRY flipkey imp_amenity">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\copy to FK staging tables\staging tab_property2amenity">
     <Properties>
@@ -17779,10 +17855,44 @@ AND stgp.externalId IS NULL</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\QRY flipkey imp_amenity">
+    design-time-name="Package\copy to FK staging tables\staging tab_rate">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\QRY flipkey imp_photo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\QRY flipkey imp_rate">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\staging tab_photo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -17790,29 +17900,55 @@ AND stgp.externalId IS NULL</property>
     design-time-name="Package\copy to PK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="177,42"
-          Id="Package\copy to PK staging tables\staging tab_property"
-          TopLeft="192,263" />
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="210,42"
           Id="Package\copy to PK staging tables\QRY flipkey property source"
-          TopLeft="170,131" />
+          TopLeft="173,49" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\copy to PK staging tables\staging tab_property"
+          TopLeft="186,266" />
+        <NodeLayout
+          Size="240,42"
+          Id="Package\copy to PK staging tables\Derived Column thumbnailUrl2000"
+          TopLeft="158,156" />
         <EdgeLayout
           Id="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
-          TopLeft="277.75,173">
+          TopLeft="278,91">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,90"
+              EndConnector="0,65"
               Start="0,0"
-              End="0,82.5">
+              End="0,57.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,82.5" />
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Derived Column Output]"
+          TopLeft="276.25,198">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -17832,36 +17968,23 @@ AND stgp.externalId IS NULL</property>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to PK staging tables\staging tab_property">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\import XML to imp tables">
     <LayoutInfo>
       <GraphLayout
         Capacity="128" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
+          Size="157,42"
+          Id="Package\import XML to imp tables\MJ default_rates"
+          TopLeft="573,708" />
+        <NodeLayout
           Size="161,42"
-          Id="Package\import XML to imp tables\MJ booked_dates"
-          TopLeft="569,981" />
+          Id="Package\import XML to imp tables\flipkey imp_video"
+          TopLeft="1022,615" />
         <NodeLayout
           Size="193,42"
           Id="Package\import XML to imp tables\flipkey imp_default_rate"
           TopLeft="1039,706" />
-        <NodeLayout
-          Size="157,42"
-          Id="Package\import XML to imp tables\MJ default_rates"
-          TopLeft="573,708" />
         <NodeLayout
           Size="180,42"
           Id="Package\import XML to imp tables\Add columns to video"
@@ -17883,6 +18006,10 @@ AND stgp.externalId IS NULL</property>
           Id="Package\import XML to imp tables\MJ videos"
           TopLeft="585,614" />
         <NodeLayout
+          Size="129,42"
+          Id="Package\import XML to imp tables\MJ themes"
+          TopLeft="587,892" />
+        <NodeLayout
           Size="178,42"
           Id="Package\import XML to imp tables\flipkey imp_bedroom"
           TopLeft="1019,352" />
@@ -17899,9 +18026,13 @@ AND stgp.externalId IS NULL</property>
           Id="Package\import XML to imp tables\Add columns to calendar"
           TopLeft="788,1072" />
         <NodeLayout
-          Size="170,42"
-          Id="Package\import XML to imp tables\Add columns to fee"
-          TopLeft="783,525" />
+          Size="181,42"
+          Id="Package\import XML to imp tables\flipkey imp_bathroom"
+          TopLeft="1017,195" />
+        <NodeLayout
+          Size="142,42"
+          Id="Package\import XML to imp tables\MJ bedrooms"
+          TopLeft="583,352" />
         <NodeLayout
           Size="176,42"
           Id="Package\import XML to imp tables\flipkey imp_calendar"
@@ -17915,18 +18046,6 @@ AND stgp.externalId IS NULL</property>
           Id="Package\import XML to imp tables\Add columns to booked_date"
           TopLeft="784,975" />
         <NodeLayout
-          Size="129,42"
-          Id="Package\import XML to imp tables\MJ themes"
-          TopLeft="587,892" />
-        <NodeLayout
-          Size="161,42"
-          Id="Package\import XML to imp tables\flipkey imp_video"
-          TopLeft="1022,615" />
-        <NodeLayout
-          Size="181,42"
-          Id="Package\import XML to imp tables\flipkey imp_bathroom"
-          TopLeft="1017,195" />
-        <NodeLayout
           Size="154,42"
           Id="Package\import XML to imp tables\flipkey imp_rate"
           TopLeft="1035,793" />
@@ -17939,25 +18058,25 @@ AND stgp.externalId IS NULL</property>
           Id="Package\import XML to imp tables\flipkey imp_fee"
           TopLeft="1019,521" />
         <NodeLayout
+          Size="134,42"
+          Id="Package\import XML to imp tables\XML Source"
+          TopLeft="298,108" />
+        <NodeLayout
           Size="195,42"
           Id="Package\import XML to imp tables\Add columns to property"
           TopLeft="774,113" />
-        <NodeLayout
-          Size="197,42"
-          Id="Package\import XML to imp tables\Add columns to bedroom"
-          TopLeft="775,353" />
         <NodeLayout
           Size="145,42"
           Id="Package\import XML to imp tables\MJ bathrooms"
           TopLeft="579,192" />
         <NodeLayout
+          Size="140,42"
+          Id="Package\import XML to imp tables\MJ calendars"
+          TopLeft="577,1072" />
+        <NodeLayout
           Size="130,42"
           Id="Package\import XML to imp tables\Row Count"
           TopLeft="589,111" />
-        <NodeLayout
-          Size="142,42"
-          Id="Package\import XML to imp tables\MJ bedrooms"
-          TopLeft="583,352" />
         <NodeLayout
           Size="197,42"
           Id="Package\import XML to imp tables\flipkey imp_booked_date"
@@ -17975,29 +18094,33 @@ AND stgp.externalId IS NULL</property>
           Id="Package\import XML to imp tables\Add columns to bathroom"
           TopLeft="774,196" />
         <NodeLayout
-          Size="140,42"
-          Id="Package\import XML to imp tables\MJ calendars"
-          TopLeft="577,1072" />
-        <NodeLayout
           Size="166,42"
           Id="Package\import XML to imp tables\flipkey imp_theme"
           TopLeft="1036,889" />
         <NodeLayout
-          Size="173,42"
-          Id="Package\import XML to imp tables\flipkey imp_amenity"
-          TopLeft="1015,438" />
+          Size="197,42"
+          Id="Package\import XML to imp tables\Add columns to bedroom"
+          TopLeft="775,353" />
         <NodeLayout
           Size="140,42"
           Id="Package\import XML to imp tables\MJ amenities"
           TopLeft="583,435" />
         <NodeLayout
+          Size="173,42"
+          Id="Package\import XML to imp tables\flipkey imp_amenity"
+          TopLeft="1015,438" />
+        <NodeLayout
+          Size="170,42"
+          Id="Package\import XML to imp tables\Add columns to fee"
+          TopLeft="783,525" />
+        <NodeLayout
           Size="193,42"
           Id="Package\import XML to imp tables\Add columns to amenity"
           TopLeft="777,436" />
         <NodeLayout
-          Size="134,42"
-          Id="Package\import XML to imp tables\XML Source"
-          TopLeft="298,108" />
+          Size="161,42"
+          Id="Package\import XML to imp tables\MJ booked_dates"
+          TopLeft="569,981" />
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Row Count Output 1]"
           TopLeft="719,133">
@@ -18802,116 +18925,6 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output10]"
-          TopLeft="730,999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="54,0"
-              Start="0,0"
-              End="46.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="46.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output9]"
-          TopLeft="723,456.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="54,0"
-              Start="0,0"
-              End="46.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="46.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output8]"
-          TopLeft="730,728.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="53,0"
-              Start="0,0"
-              End="45.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="45.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output7]"
-          TopLeft="716,912">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="73,0"
-              Start="0,0"
-              End="65.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="65.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output6]"
-          TopLeft="725,373.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="50,0"
-              Start="0,0"
-              End="42.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="42.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output5]"
           TopLeft="724,215">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -18933,7 +18946,95 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output4]"
+          Id="Package\import XML to imp tables.Paths[Merge Join Output9]"
+          TopLeft="725,373.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="50,0"
+              Start="0,0"
+              End="42.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="42.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output8]"
+          TopLeft="723,456.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="54,0"
+              Start="0,0"
+              End="46.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="46.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output7]"
+          TopLeft="730,728.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="53,0"
+              Start="0,0"
+              End="45.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="45.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output6]"
+          TopLeft="716,912">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="73,0"
+              Start="0,0"
+              End="65.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="65.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output5]"
           TopLeft="704,818.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -18955,19 +19056,19 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output3]"
-          TopLeft="717,1093">
+          Id="Package\import XML to imp tables.Paths[Merge Join Output4]"
+          TopLeft="730,999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="71,0"
+              EndConnector="54,0"
               Start="0,0"
-              End="63.5,0">
+              End="46.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="63.5,0" />
+                    End="46.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -18977,7 +19078,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output2]"
+          Id="Package\import XML to imp tables.Paths[Merge Join Output3]"
           TopLeft="710,635.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -18999,7 +19100,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output1]"
+          Id="Package\import XML to imp tables.Paths[Merge Join Output2]"
           TopLeft="704,545">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19021,7 +19122,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output]"
+          Id="Package\import XML to imp tables.Paths[Merge Join Output1]"
           TopLeft="709,295">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19043,7 +19144,51 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output]"
+          TopLeft="717,1093">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71,0"
+              Start="0,0"
+              End="63.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="63.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output11]"
+          TopLeft="983,1092">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="51,0"
+              Start="0,0"
+              End="43.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="43.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output10]"
           TopLeft="972,373.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19065,7 +19210,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output10]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output9]"
           TopLeft="970,458">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19087,7 +19232,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output9]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output8]"
           TopLeft="975,296">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19109,7 +19254,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output8]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output7]"
           TopLeft="975,216.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19122,28 +19267,6 @@ AND stgp.externalId IS NULL</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="34.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output7]"
-          TopLeft="983,1092">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="51,0"
-              Start="0,0"
-              End="43.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="43.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -19176,18 +19299,18 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output5]"
-          TopLeft="974,910.5">
+          TopLeft="1000,994.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="62,0"
+              EndConnector="39,0"
               Start="0,0"
-              End="54.5,0">
+              End="31.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="54.5,0" />
+                    End="31.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -19220,28 +19343,6 @@ AND stgp.externalId IS NULL</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
-          TopLeft="1000,994.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="39,0"
-              Start="0,0"
-              End="31.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="31.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
           TopLeft="969,134">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19263,7 +19364,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
           TopLeft="965,636">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19285,7 +19386,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
           TopLeft="960,815.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -19298,6 +19399,28 @@ AND stgp.externalId IS NULL</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="67.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
+          TopLeft="974,910.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="62,0"
+              Start="0,0"
+              End="54.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="54.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -19367,6 +19490,19 @@ AND stgp.externalId IS NULL</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\import XML to imp tables\flipkey imp_video">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\import XML to imp tables\flipkey imp_default_rate">
     <Properties>
       <Property>
@@ -19406,33 +19542,20 @@ AND stgp.externalId IS NULL</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\import XML to imp tables\flipkey imp_calendar">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\import XML to imp tables\flipkey imp_video">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\import XML to imp tables\flipkey imp_bathroom">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\import XML to imp tables\flipkey imp_calendar">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -19523,36 +19646,7 @@ AND stgp.externalId IS NULL</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\QRY flipkey imp_photo">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\QRY flipkey imp_rate">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\staging tab_photo">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\staging tab_rate">
+    design-time-name="Package\copy to PK staging tables\staging tab_property">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
