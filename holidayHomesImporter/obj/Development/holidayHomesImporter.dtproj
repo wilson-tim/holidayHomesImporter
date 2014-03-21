@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="7vNi5YXV1g==" SSIS:IV="tGvJJaVURaA=">qRtfJLJRR5mQp4gQcMSyAqv50TeHux7Z1coyaCDB1X1gbhXdA4Q6Xjwr9Q2tTYlpSVB6Cj7m+lRQzFdCV7ZJoVpoq5A26QkYhVGsxmTD5QnSDL8MYFuRGAUKUGtDvdGujGbO7fO4msqWxRSOBrvk6BSKmayq+BdMy8mMlmy57efY/2l1rkDDew==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="ImYVKHQWFQ==" SSIS:IV="cogS8z5t8yk=">yxZTyorzXdr4+C1g7Ra+TjQGfW73Tgqrk2XqWy8iz1NX0KBDzmbuScABItVOLJarU4jxOCQOTOYC1l0xEkWdH2qbbNvRZXVLIGBiKj8ugl9fkCFjhHV1XnTyZ53ZcYLrbW7IY0BsKfAby+OQieK3UkKXgDvjxdmixWFJo8mtXaCUpYLeh9PuWQ==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -792,10 +792,10 @@
                 <SSIS:Property SSIS:Name="Name">flipkey_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">355</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">386</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{E6D46DE5-A96D-42D3-A3F0-C3275C6A2363}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{1E5CB6E3-7EFC-454B-AE8A-FFF05CB99EF2}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -825,7 +825,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">5</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">46</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
