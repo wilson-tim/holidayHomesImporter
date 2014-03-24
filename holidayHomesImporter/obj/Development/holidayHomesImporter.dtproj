@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="PPXrTO0ATw==" SSIS:IV="Afzt2t4rbyg=">ciP42ix3QgC7AQQH2Y+BjdVrYAasFhg91eB/ZqJn+m5idnmuRxJoFPLFdsRI3prS7moe41j7T2zmeedLmsYteYMtxuOEbH+TIrz42AMQehYS0PIQ5Yhu0mCJ5JJmMS21d1Px+999+5KnwV4Pwl1VsBvBct2Mm4+e9iUN6jdiay9HKLZVykQoRQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="1B8FLuXSsw==" SSIS:IV="HHr98WIj95A=">2Xu2XUGntG2tcm0lTTLeXcBp57voRpEvjOYshEgnazi/5MDo+4qViM+dpZH7ddQUP/BMOsLaBw5TVtZutQIpQlIxLAU+Sb+EV+awfPksFkdDdE7jH9PmUvanjQXhR8dVWJtGuGTF//dKZQgjE2Iq2moJycF4e3oZ/mXNqp4BJRSp+RBTTMU76A==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -644,10 +644,10 @@
                 <SSIS:Property SSIS:Name="Name">_importController</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">251</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">265</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{90974999-6AF7-43DA-A670-97DC56B8FAD1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{67083031-E5F5-4E6F-A70A-1A1B3A780E2D}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -792,10 +792,10 @@
                 <SSIS:Property SSIS:Name="Name">flipkey_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">395</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">405</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{3A894798-7C31-4E8C-AF43-A89DE74BDEA2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{B0A88DC4-E3C7-4623-9F03-B88610759CD5}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -877,7 +877,7 @@
                     </SSIS:Property>
                     <SSIS:Property SSIS:Name="Description">XSL file name</SSIS:Property>
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Value">flipkey.xsl</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
