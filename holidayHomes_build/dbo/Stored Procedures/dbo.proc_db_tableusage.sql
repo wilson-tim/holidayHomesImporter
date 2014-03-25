@@ -23,8 +23,10 @@ create table #tmp_tableInfo
 
 declare Curs cursor fast_forward
 for
-select TABLE_SCHEMA + '.' + TABLE_NAME from INFORMATION_SCHEMA.TABLES where TABLE_TYPE = 'BASE TABLE'
-and (@nameFilter is null or TABLE_NAME like '%'+@nameFilter+'%')
+SELECT sch.name + '.' + tab.name
+FROM sys.schemas sch
+INNER JOIN sys.tables tab ON tab.schema_id = sch.schema_id
+WHERE (@nameFilter IS NULL OR sch.name LIKE '%'+@nameFilter+'%' OR tab.name LIKE '%'+@nameFilter+'%' )
 
 OPEN Curs
 FETCH Curs INTO	@tablename

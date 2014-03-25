@@ -42,7 +42,7 @@ BEGIN
 
 	-- insert the single floor entries first
 	INSERT waytostay.imp_concatfloors ( sourceId, runId, fileId, basic_information_id, concatfloors)
-	SELECT f.sourceId, f.runId, f.fileId, fc.basic_information_id, f.[Floor]
+	SELECT f.sourceId, f.runId, f.fileId, fc.basic_information_id, f.[floor]
 	FROM @tmp_floorCount fc
 	INNER JOIN waytostay.imp_floor f
 		ON f.runId = fc.runId
@@ -54,7 +54,7 @@ BEGIN
 	;WITH partitioned AS
 	(
 		SELECT fc.sourceId, fc.runId, fc.fileId, fc.basic_information_id, f.[floor]
-		, ROW_NUMBER() OVER (PARTITION BY fc.basic_information_id, fc.fileId ORDER BY f.[Floor]) AS iteration
+		, ROW_NUMBER() OVER (PARTITION BY fc.basic_information_id, fc.fileId ORDER BY f.[floor]) AS iteration
 		, COUNT(*) OVER (PARTITION BY fc.basic_information_id, fc.fileId) AS maxRow
 		FROM @tmp_floorCount fc
 		INNER JOIN waytostay.imp_floor f

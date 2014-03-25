@@ -54,21 +54,21 @@ BEGIN
 	AND stgp.photosChecksum <> p.photosChecksum
 	WHEN MATCHED THEN 
 	UPDATE SET photosChecksum = stgp.photosChecksum
-	OUTPUT $action, DELETED.propertyId, stgp.sourceId, stgp.externalId INTO @tmp_property_changedphotos ([action], propertyId, sourceId, externalId);
+	OUTPUT $action, DELETED.propertyId, stgp.sourceId, stgp.externalId INTO @tmp_property_changedPhotos ([action], propertyId, sourceId, externalId);
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
-	USING @tmp_property_changedphotos chg
+	USING @tmp_property_changedPhotos chg
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
-	VALUES  ( @runId, [action], sourceId, propertyId, externalId );
+	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
 	, messageContent = 'tab_property Photos Changed:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedphotos;
+	FROM @tmp_property_changedPhotos;
 
 	--merge new mappings with existing records (isolated with CTE)
 	-- capture changes in changeControl.tab_photo_change for deployment

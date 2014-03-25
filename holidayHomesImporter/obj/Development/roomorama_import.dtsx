@@ -8,13 +8,13 @@
   DTS:DTSID="{07C13B39-9BCF-4BEE-8481-BB62B32351CD}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="397"
-  DTS:VersionGUID="{99740B1E-FCD6-4F11-B0CE-20EF9C36FA96}">
+  DTS:VersionBuild="414"
+  DTS:VersionGUID="{363B6F06-E9FA-4F11-92C1-25A14ECEC82C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{43C7907C-286C-4908-997F-24E22B113687}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{9CEA0B4F-1F28-40A5-9965-A17C4307B100}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -39,7 +39,7 @@
         DTS:Name="ConnectionString">@[$Package::fileFullPath]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Data\roomorama\roomorama_test_units.xml" />
+          DTS:ConnectionString="C:\Data\roomorama\roomorama_full_2.xml" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -64,7 +64,7 @@
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:FileUsageType="1"
-          DTS:ConnectionString="C:\DATA\roomorama\roomorama_test_units_flat.xml" />
+          DTS:ConnectionString="C:\Data\roomorama\compareandshare-a0ab674a1446d2071a28ebf9184efa132e0d5a2c0a7c48ba4735dc5d1c2bdcdf_flat_2.xml" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -90,7 +90,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="8"
-        DTS:Name="ParameterValue">C:\Data\roomorama\roomorama_test_units.xml</DTS:Property>
+        DTS:Name="ParameterValue">C:\Data\roomorama\roomorama_full_2.xml</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -155,15 +155,6 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
-      DTS:DTSID="{7F86F77A-41F2-48B7-B4BE-8C8981FAA648}"
-      DTS:IncludeInDebugDump="2345"
-      DTS:Namespace="Internal"
-      DTS:ObjectName="csvFileName">
-      <DTS:VariableValue
-        DTS:DataType="8">C:\DATA\roomorama\roomorama_test_units_flat.xml</DTS:VariableValue>
-    </DTS:Variable>
-    <DTS:Variable
-      DTS:CreationName=""
       DTS:DTSID="{D99E02B6-F726-463D-B578-B9C79FF16225}"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="Internal"
@@ -196,7 +187,7 @@
       DTS:Namespace="Internal"
       DTS:ObjectName="xslXmlFullPath">
       <DTS:VariableValue
-        DTS:DataType="8">C:\DATA\roomorama\roomorama_test_units_flat.xml</DTS:VariableValue>
+        DTS:DataType="8">C:\Data\roomorama\compareandshare-a0ab674a1446d2071a28ebf9184efa132e0d5a2c0a7c48ba4735dc5d1c2bdcdf_flat_2.xml</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:LoggingOptions
@@ -1745,7 +1736,7 @@ AND p.[multi-unit] = 1</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[floor]"
-                      length="10"
+                      length="50"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].Columns[floor]"
                       name="floor"
                       truncationRowDisposition="FailComponent" />
@@ -1924,7 +1915,7 @@ AND p.[multi-unit] = 1</property>
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       name="floor" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[price]"
@@ -2054,7 +2045,7 @@ AND p.[multi-unit] = 1</property>
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[floor]"
                       name="floor" />
                     <outputColumn
@@ -2332,7 +2323,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[floor]"
-                      length="10"
+                      length="50"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].Columns[floor]"
                       name="floor"
                       truncationRowDisposition="FailComponent" />
@@ -2511,7 +2502,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       name="floor" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[price]"
@@ -2641,7 +2632,7 @@ AND [multi-unit] = 0</property>
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[floor]"
                       name="floor" />
                     <outputColumn
@@ -2837,7 +2828,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\copy to PK staging tables (imp_property)\staging tab_property.Inputs[OLE DB Destination Input].Columns[floor]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="50"
                       cachedName="floor"
                       externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[floor]"
                       lineageId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[floor]" />
@@ -3308,7 +3299,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\copy to PK staging tables (imp_property)\Union All.Inputs[Union All Input 1].Columns[floor]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="50"
                       cachedName="floor"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].Columns[floor]">
                       <properties>
@@ -3628,7 +3619,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\copy to PK staging tables (imp_property)\Union All.Inputs[Union All Input 2].Columns[floor]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="50"
                       cachedName="floor"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].Columns[floor]">
                       <properties>
@@ -3884,7 +3875,7 @@ AND [multi-unit] = 0</property>
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       lineageId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[floor]"
                       name="floor" />
                     <outputColumn
@@ -4134,32 +4125,6 @@ AND [multi-unit] = 0</property>
                   refId="Package\import XML to imp tables\Add Columns to room data.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\import XML to imp tables\Add Columns to room data.Inputs[Derived Column Input].Columns[cancellation-policy]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="cancellation-policy"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[cancellation-policy]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">(DT_WSTR,255)#{Package\import XML to imp tables\XML Source.Outputs[room].Columns[cancellation-policy]}</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">(DT_WSTR,255)[cancellation-policy]</property>
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
@@ -4471,7 +4436,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\Merge Join image.Inputs[Merge Join Right Input].Columns[caption]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="2000"
                       cachedName="caption"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[image].Columns[caption]" />
                     <inputColumn
@@ -4534,7 +4499,7 @@ AND [multi-unit] = 0</property>
                     <outputColumn
                       refId="Package\import XML to imp tables\Merge Join image.Outputs[Merge Join Output].Columns[caption]"
                       dataType="wstr"
-                      length="255"
+                      length="2000"
                       lineageId="Package\import XML to imp tables\Merge Join image.Outputs[Merge Join Output].Columns[caption]"
                       name="caption">
                       <properties>
@@ -5012,7 +4977,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_photo.Inputs[OLE DB Destination Input].Columns[caption]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="2000"
                       cachedName="caption"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_photo.Inputs[OLE DB Destination Input].ExternalColumns[caption]"
                       lineageId="Package\import XML to imp tables\Merge Join image.Outputs[Merge Join Output].Columns[caption]" />
@@ -5055,7 +5020,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_photo.Inputs[OLE DB Destination Input].ExternalColumns[caption]"
                       dataType="wstr"
-                      length="255"
+                      length="2000"
                       name="caption" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_photo.Inputs[OLE DB Destination Input].ExternalColumns[position]"
@@ -5253,7 +5218,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[floor]"
                       cachedDataType="wstr"
-                      cachedLength="10"
+                      cachedLength="50"
                       cachedName="floor"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[floor]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[floor]" />
@@ -5389,7 +5354,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[cleaningRate]"
                       cachedDataType="wstr"
-                      cachedLength="20"
+                      cachedLength="255"
                       cachedName="cleaningRate"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[cleaningRate]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[cleaningRate]" />
@@ -5408,7 +5373,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[airport-pickupRate]"
                       cachedDataType="wstr"
-                      cachedLength="20"
+                      cachedLength="255"
                       cachedName="airport-pickupRate"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[airport-pickupRate]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[airport-pickupRate]" />
@@ -5421,7 +5386,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[car-rentalRate]"
                       cachedDataType="wstr"
-                      cachedLength="20"
+                      cachedLength="255"
                       cachedName="car-rentalRate"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[car-rentalRate]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[car-rentalRate]" />
@@ -5434,7 +5399,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[conciergeRate]"
                       cachedDataType="wstr"
-                      cachedLength="20"
+                      cachedLength="255"
                       cachedName="conciergeRate"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeRate]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeRate]" />
@@ -5462,7 +5427,7 @@ AND [multi-unit] = 0</property>
                     <inputColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].Columns[cancellation-policy]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="4000"
                       cachedName="cancellation-policy"
                       externalMetadataColumnId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[cancellation-policy]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[cancellation-policy]" />
@@ -5616,7 +5581,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       name="floor" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[num-double-beds]"
@@ -5721,7 +5686,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[cleaningRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="cleaningRate" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[cleaningRequired]"
@@ -5734,7 +5699,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[airport-pickupRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="airport-pickupRate" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[car-rentalAvailable]"
@@ -5743,7 +5708,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[car-rentalRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="car-rentalRate" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeAvailable]"
@@ -5752,7 +5717,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[conciergeRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="conciergeRate" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[check-in-time]"
@@ -5772,7 +5737,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[cancellation-policy]"
                       dataType="wstr"
-                      length="2000"
+                      length="4000"
                       name="cancellation-policy" />
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\OLE DB Destination imp_property.Inputs[OLE DB Destination Input].ExternalColumns[multi-unit]"
@@ -6849,7 +6814,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[image].ExternalColumns[caption]"
-                      length="255"
+                      length="2000"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[image].Columns[caption]"
                       name="caption"
                       truncationRowDisposition="IgnoreFailure" />
@@ -6890,7 +6855,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[image].ExternalColumns[caption]"
                       dataType="wstr"
-                      length="255"
+                      length="2000"
                       name="caption">
                       <properties>
                         <property
@@ -7209,7 +7174,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[floor]"
-                      length="10"
+                      length="50"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[floor]"
                       name="floor"
                       truncationRowDisposition="FailComponent" />
@@ -7312,7 +7277,7 @@ AND [multi-unit] = 0</property>
                       length="4000"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[description]"
                       name="description"
-                      truncationRowDisposition="FailComponent" />
+                      truncationRowDisposition="IgnoreFailure" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[city]"
                       dataType="wstr"
@@ -7405,7 +7370,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[cleaningRate]"
-                      length="20"
+                      length="255"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[cleaningRate]"
                       name="cleaningRate"
                       truncationRowDisposition="FailComponent" />
@@ -7433,7 +7398,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[airport-pickupRate]"
-                      length="20"
+                      length="255"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[airport-pickupRate]"
                       name="airport-pickupRate"
                       truncationRowDisposition="FailComponent" />
@@ -7452,7 +7417,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[car-rentalRate]"
-                      length="20"
+                      length="255"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[car-rentalRate]"
                       name="car-rentalRate"
                       truncationRowDisposition="FailComponent" />
@@ -7471,7 +7436,7 @@ AND [multi-unit] = 0</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[conciergeRate]"
-                      length="20"
+                      length="255"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[conciergeRate]"
                       name="conciergeRate"
                       truncationRowDisposition="FailComponent" />
@@ -7504,17 +7469,17 @@ AND [multi-unit] = 0</property>
                       length="4000"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[check-in-instructions]"
                       name="check-in-instructions"
-                      truncationRowDisposition="FailComponent" />
+                      truncationRowDisposition="IgnoreFailure" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[cancellation-policy]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[cancellation-policy]"
-                      length="255"
+                      length="4000"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[cancellation-policy]"
                       name="cancellation-policy"
-                      truncationRowDisposition="FailComponent" />
+                      truncationRowDisposition="IgnoreFailure" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].Columns[multi-unit]"
                       dataType="bool"
@@ -7727,7 +7692,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[floor]"
                       dataType="wstr"
-                      length="10"
+                      length="50"
                       name="floor">
                       <properties>
                         <property
@@ -7943,7 +7908,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[cleaningRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="cleaningRate">
                       <properties>
                         <property
@@ -7974,7 +7939,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[airport-pickupRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="airport-pickupRate">
                       <properties>
                         <property
@@ -7995,7 +7960,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[car-rentalRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="car-rentalRate">
                       <properties>
                         <property
@@ -8016,7 +7981,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[conciergeRate]"
                       dataType="wstr"
-                      length="20"
+                      length="255"
                       name="conciergeRate">
                       <properties>
                         <property
@@ -8060,7 +8025,7 @@ AND [multi-unit] = 0</property>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[room].ExternalColumns[cancellation-policy]"
                       dataType="wstr"
-                      length="255"
+                      length="4000"
                       name="cancellation-policy">
                       <properties>
                         <property
@@ -9482,7 +9447,7 @@ AND [multi-unit] = 0</property>
     design-time-name="Package\copy to PK staging tables (imp_property)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="234,42"
           Id="Package\copy to PK staging tables (imp_property)\QRY roomorama property source"
@@ -9495,19 +9460,26 @@ AND [multi-unit] = 0</property>
           Size="276,42"
           Id="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source"
           TopLeft="483,39" />
+        <AnnotationLayout
+          Text="mutually exclusive union of imp_property.[multi-unit] = 0 or 1"
+          ParentId="Package\copy to PK staging tables (imp_property)"
+          FontInfo="{assembly:Null}"
+          Size="355,40"
+          Id="3c8b3e51-933d-4856-8406-cc89d09cc0b9"
+          TopLeft="552.807697397703,152.107817616946" />
         <NodeLayout
           Size="121,42"
           Id="Package\copy to PK staging tables (imp_property)\Union All"
-          TopLeft="412,150" />
+          TopLeft="416,150" />
         <EdgeLayout
           Id="Package\copy to PK staging tables (imp_property).Paths[OLE DB Source Output]"
           TopLeft="328,84">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="144.5,66"
+              EndConnector="120.5,66"
               Start="0,0"
-              End="144.5,58.5">
+              End="120.5,58.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -9518,13 +9490,47 @@ AND [multi-unit] = 0</property>
                     Point2="0,33"
                     Point3="4,33" />
                   <mssgle:LineSegment
-                    End="140.5,33" />
+                    End="116.5,33" />
                   <mssgle:CubicBezierSegment
-                    Point1="140.5,33"
-                    Point2="144.5,33"
-                    Point3="144.5,37" />
+                    Point1="116.5,33"
+                    Point2="120.5,33"
+                    Point3="120.5,37" />
                   <mssgle:LineSegment
-                    End="144.5,58.5" />
+                    End="120.5,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to PK staging tables (imp_property).Paths[OLE DB Source Output1]"
+          TopLeft="621,81">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-125.666666666667,69"
+              Start="0,0"
+              End="-125.666666666667,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.8597063621533" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.8597063621533"
+                    Point2="0,40.8597063621533"
+                    Point3="-4,40.8597063621533" />
+                  <mssgle:LineSegment
+                    End="-121.666666666667,40.8597063621533" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-121.666666666667,40.8597063621533"
+                    Point2="-125.666666666667,40.8597063621533"
+                    Point3="-125.666666666667,44.8597063621533" />
+                  <mssgle:LineSegment
+                    End="-125.666666666667,61.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -9535,7 +9541,7 @@ AND [multi-unit] = 0</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\copy to PK staging tables (imp_property).Paths[Union All Output 1]"
-          TopLeft="476,192">
+          TopLeft="478,192">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -9555,47 +9561,6 @@ AND [multi-unit] = 0</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables (imp_property).Paths[OLE DB Source Output1]"
-          TopLeft="621,81">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-129.666666666667,69"
-              Start="0,0"
-              End="-129.666666666667,61.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,36.8597063621533" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,36.8597063621533"
-                    Point2="0,40.8597063621533"
-                    Point3="-4,40.8597063621533" />
-                  <mssgle:LineSegment
-                    End="-125.666666666667,40.8597063621533" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-125.666666666667,40.8597063621533"
-                    Point2="-129.666666666667,40.8597063621533"
-                    Point3="-129.666666666667,44.8597063621533" />
-                  <mssgle:LineSegment
-                    End="-129.666666666667,61.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <AnnotationLayout
-          Text="mutually exclusive union of imp_property.[multi-unit] = 0 or 1"
-          ParentId="Package\copy to PK staging tables (imp_property)"
-          FontInfo="{assembly:Null}"
-          Size="355,40"
-          Id="3c8b3e51-933d-4856-8406-cc89d09cc0b9"
-          TopLeft="552.807697397703,152.107817616946" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -9634,280 +9599,48 @@ AND [multi-unit] = 0</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="237,42"
-          Id="Package\import XML to imp tables\OLE DB Destination imp_property"
-          TopLeft="620,389" />
-        <NodeLayout
           Size="162,42"
           Id="Package\import XML to imp tables\Merge Join image"
-          TopLeft="1008,187" />
-        <NodeLayout
-          Size="224,42"
-          Id="Package\import XML to imp tables\OLE DB Destination imp_photo"
-          TopLeft="982,389" />
-        <NodeLayout
-          Size="151,42"
-          Id="Package\import XML to imp tables\Merge Join unit"
-          TopLeft="1326,188" />
-        <NodeLayout
-          Size="130,42"
-          Id="Package\import XML to imp tables\Row Count"
-          TopLeft="679,178" />
-        <NodeLayout
-          Size="130,42"
-          Id="Package\import XML to imp tables\XML Source"
-          TopLeft="1037,24" />
+          TopLeft="601,187" />
         <NodeLayout
           Size="215,42"
           Id="Package\import XML to imp tables\OLE DB Destination imp_unit"
-          TopLeft="1296,391" />
+          TopLeft="889,391" />
         <NodeLayout
-          Size="199,42"
-          Id="Package\import XML to imp tables\Add Columns to unit data"
-          TopLeft="1303,284" />
+          Size="130,42"
+          Id="Package\import XML to imp tables\XML Source"
+          TopLeft="630,24" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\import XML to imp tables\OLE DB Destination imp_photo"
+          TopLeft="575,389" />
+        <NodeLayout
+          Size="237,42"
+          Id="Package\import XML to imp tables\OLE DB Destination imp_property"
+          TopLeft="211,390" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\import XML to imp tables\Merge Join unit"
+          TopLeft="919,188" />
+        <NodeLayout
+          Size="130,42"
+          Id="Package\import XML to imp tables\Row Count"
+          TopLeft="272,178" />
         <NodeLayout
           Size="209,42"
           Id="Package\import XML to imp tables\Add Columns to image data"
-          TopLeft="989,281" />
+          TopLeft="582,281" />
+        <NodeLayout
+          Size="199,42"
+          Id="Package\import XML to imp tables\Add Columns to unit data"
+          TopLeft="896,284" />
         <NodeLayout
           Size="205,42"
           Id="Package\import XML to imp tables\Add Columns to room data"
-          TopLeft="636,293" />
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output]"
-          TopLeft="1091.25,229">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,52"
-              Start="0,0"
-              End="0,44.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,44.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[images]"
-          TopLeft="1102,66">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-13,121"
-              Start="0,0"
-              End="-13,113.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,56.5"
-                    Point2="0,60.5"
-                    Point3="-4,60.5" />
-                  <mssgle:LineSegment
-                    End="-9,60.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-9,60.5"
-                    Point2="-13,60.5"
-                    Point3="-13,64.5" />
-                  <mssgle:LineSegment
-                    End="-13,113.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-22.691171875,65.5,32.38234375,11.384765625"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[image]"
-          TopLeft="1102,66">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-13,121"
-              Start="0,0"
-              End="-13,113.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,56.5"
-                    Point2="0,60.5"
-                    Point3="-4,60.5" />
-                  <mssgle:LineSegment
-                    End="-9,60.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-9,60.5"
-                    Point2="-13,60.5"
-                    Point3="-13,64.5" />
-                  <mssgle:LineSegment
-                    End="-13,113.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-20.42494140625,65.5,27.8498828125,11.384765625"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
-          TopLeft="738.5,335">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,54"
-              Start="0,0"
-              End="0,46.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,46.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
-          TopLeft="1403,326">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,65"
-              Start="0,0"
-              End="0,57.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,57.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
-          TopLeft="1093.75,323">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,66"
-              Start="0,0"
-              End="0,58.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,58.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[units]"
-          TopLeft="1132.5,66">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="269,122"
-              Start="0,0"
-              End="269,114.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,38.3015075376884" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,38.3015075376884"
-                    Point2="0,42.3015075376884"
-                    Point3="4,42.3015075376884" />
-                  <mssgle:LineSegment
-                    End="265,42.3015075376884" />
-                  <mssgle:CubicBezierSegment
-                    Point1="265,42.3015075376884"
-                    Point2="269,42.3015075376884"
-                    Point3="269,46.3015075376884" />
-                  <mssgle:LineSegment
-                    End="269,114.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="123.28126953125,47.3015075376884,22.4374609375,9.470703125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[unit]"
-          TopLeft="1132.5,66">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="269,122"
-              Start="0,0"
-              End="269,114.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,38.3015075376884" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,38.3015075376884"
-                    Point2="0,42.3015075376884"
-                    Point3="4,42.3015075376884" />
-                  <mssgle:LineSegment
-                    End="265,42.3015075376884" />
-                  <mssgle:CubicBezierSegment
-                    Point1="265,42.3015075376884"
-                    Point2="269,42.3015075376884"
-                    Point3="269,46.3015075376884" />
-                  <mssgle:LineSegment
-                    End="269,114.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="125.4224609375,47.3015075376884,18.155078125,9.470703125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="229,293" />
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Row Count Output 1]"
-          TopLeft="741.25,220">
+          TopLeft="334.25,220">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -9929,7 +9662,7 @@ AND [multi-unit] = 0</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[room]"
-          TopLeft="1071.5,66">
+          TopLeft="664.5,66">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -9965,7 +9698,7 @@ AND [multi-unit] = 0</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output1]"
-          TopLeft="1402,230">
+          TopLeft="995,230">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -9985,18 +9718,250 @@ AND [multi-unit] = 0</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output]"
+          TopLeft="684.25,229">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52"
+              Start="0,0"
+              End="0,44.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[images]"
+          TopLeft="683,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-25,121"
+              Start="0,0"
+              End="-25,113.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56.5"
+                    Point2="0,60.5"
+                    Point3="-4,60.5" />
+                  <mssgle:LineSegment
+                    End="-21,60.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-21,60.5"
+                    Point2="-25,60.5"
+                    Point3="-25,64.5" />
+                  <mssgle:LineSegment
+                    End="-25,113.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-28.691171875,65.5,32.38234375,11.384765625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[image]"
+          TopLeft="695,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="24,121"
+              Start="0,0"
+              End="24,113.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56.5"
+                    Point2="0,60.5"
+                    Point3="4,60.5" />
+                  <mssgle:LineSegment
+                    End="20,60.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="20,60.5"
+                    Point2="24,60.5"
+                    Point3="24,64.5" />
+                  <mssgle:LineSegment
+                    End="24,113.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-1.92494140625,65.5,27.8498828125,11.384765625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
+          TopLeft="330.5,335">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
+          TopLeft="996,326">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,65"
+              Start="0,0"
+              End="0,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
+          TopLeft="686.75,323">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[units]"
+          TopLeft="734,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="217.5,122"
+              Start="0,0"
+              End="217.5,114.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,68.3015075376884" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,68.3015075376884"
+                    Point2="0,72.3015075376884"
+                    Point3="4,72.3015075376884" />
+                  <mssgle:LineSegment
+                    End="213.5,72.3015075376884" />
+                  <mssgle:CubicBezierSegment
+                    Point1="213.5,72.3015075376884"
+                    Point2="217.5,72.3015075376884"
+                    Point3="217.5,76.3015075376884" />
+                  <mssgle:LineSegment
+                    End="217.5,114.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="97.53126953125,77.3015075376884,22.4374609375,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[unit]"
+          TopLeft="744.5,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="250,122"
+              Start="0,0"
+              End="250,114.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,57.3015075376885" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,57.3015075376885"
+                    Point2="0,61.3015075376885"
+                    Point3="4,61.3015075376885" />
+                  <mssgle:LineSegment
+                    End="246,61.3015075376885" />
+                  <mssgle:CubicBezierSegment
+                    Point1="246,61.3015075376885"
+                    Point2="250,61.3015075376885"
+                    Point3="250,65.3015075376885" />
+                  <mssgle:LineSegment
+                    End="250,114.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="115.9224609375,66.3015075376885,18.155078125,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <AnnotationLayout
           Text="Add column periodType&#xA;assigned from variable Internal::periodType&#xA;because staging.tab_rate.periodType may not be null"
           ParentId="Package\import XML to imp tables"
           FontInfo="{assembly:Null}"
           Size="308,72"
           Id="c5051bb3-6589-45df-b309-e69f4a3fba2c"
-          TopLeft="435,210" />
+          TopLeft="9,212" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\import XML to imp tables\OLE DB Destination imp_property">
+    design-time-name="Package\import XML to imp tables\OLE DB Destination imp_unit">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -10022,7 +9987,7 @@ AND [multi-unit] = 0</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\import XML to imp tables\OLE DB Destination imp_unit">
+    design-time-name="Package\import XML to imp tables\OLE DB Destination imp_property">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

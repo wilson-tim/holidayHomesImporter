@@ -70,7 +70,7 @@ BEGIN
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
-	VALUES  ( @runId, [action], sourceId, propertyId, externalId );
+	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
