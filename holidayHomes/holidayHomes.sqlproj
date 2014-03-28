@@ -100,6 +100,8 @@
     <Build Include="dbo\Stored Procedures\propertyRandomSearch.sql" />
     <Build Include="dbo\Stored Procedures\proc_db_tableusage.sql">
       <QuotedIdentifier>Off</QuotedIdentifier>
+      <SuppressTSqlWarnings>
+      </SuppressTSqlWarnings>
     </Build>
     <Build Include="changeControl\Stored Procedures\proc_changeData_merge_rate_to_dbo.sql" />
     <Build Include="changeControl\Stored Procedures\proc_changeData_merge_photo_to_dbo.sql" />
@@ -113,5 +115,14 @@
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="cands_login.sql" />
     <Build Include="dbo\Functions\func_getLatLongDistance.sql" />
+    <Build Include="dbo\Stored Procedures\propertyAreaSearch.sql" />
+    <Build Include="dbo\Tables\tab_propertyLatLong.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
   </ItemGroup>
 </Project>

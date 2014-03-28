@@ -10,6 +10,7 @@
 --  2014-02-20 TW added parameter sourceIds (null or single sourceId or comma delimited list of sourceIds)
 --                requires the utils_numbers table
 --  2014-03-07 TW added parameter numberOfBedrooms
+--  2014-03-13 JP added parameter countryCode
 -- =============================================
 CREATE PROCEDURE [dbo].[propertySearch]
 -- Add the parameters for the stored procedure here
