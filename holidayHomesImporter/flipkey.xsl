@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output method="xml"/>
 
@@ -6,6 +5,7 @@
 	04/03/2014  TW  New XSL file for FlipKey data import
 	                Correcting XML record structure inconsistency
 	05/03/2014  TW  Sort out duplicate naming of property_calendar nodes
+	31/03/2014  MC  removed <?xml declaration as was causing error
 -->
 	
 <!-- Copy every line as is, except where it matches the conditions below -->

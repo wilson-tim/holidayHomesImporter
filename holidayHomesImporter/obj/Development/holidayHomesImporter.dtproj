@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="w0kSP3kECg==" SSIS:IV="LiIZ5oJrDZA=">Fk+19zzS1+tu2wV7Jv/14yLy3oyIo3YqkJgv2Mo+pYpPzcKNuX7KAfJGGsZIghfT0vs8Zjb6Y7paSYWAQa2j19sxktg2EHWxPTq/+4ZFcHuebLXsniTkxHzA3Ywb85zT1nH6elSZUrGYwWtspf7Bh7DSmMqnt7PFTn5OQ8AylpOtie0rv520nQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="O6BBaxAwjQ==" SSIS:IV="81jfbqd1Jy8=">oukKXilDjDnvZPLjJF0XhGnUT0BUow0l/g5wbP/shT2Uq4AVHFvIYgOPLmeMYSeO5mwI0SGwiZoEtxj7mpk4F4giA09sFlv0K4lASRlihl32aTw3M85QyZ+ut5kOasIG9TJNLHexJ0ydPraM3LUFsDK+UcxtJhx3UL4sDUugVfKqtuonwzb8bg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -793,10 +793,10 @@
                 <SSIS:Property SSIS:Name="Name">flipkey_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">232</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">411</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{F057BC20-1528-486B-B0D9-8E684E6CF55C}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{1F92F021-5B67-49B8-98A0-C3398AC00253}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -878,7 +878,7 @@
                     </SSIS:Property>
                     <SSIS:Property SSIS:Name="Description">XSL file name</SSIS:Property>
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Value">flipkey.xsl</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
@@ -1043,6 +1043,10 @@
     <ProjectItem>
       <Name>flipkey.xsl</Name>
       <FullPath>flipkey.xsl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>flipkey_specification_v01.xlsx</Name>
+      <FullPath>flipkey_specification_v01.xlsx</FullPath>
     </ProjectItem>
   </Miscellaneous>
   <Configurations>

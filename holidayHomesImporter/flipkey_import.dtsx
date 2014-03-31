@@ -8,13 +8,13 @@
   DTS:DTSID="{913E5BA5-FD2A-4856-AA0B-6B1A122F610C}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="409"
-  DTS:VersionGUID="{BC13C011-4369-4AB3-81B1-DF3C3F56C12A}">
+  DTS:VersionBuild="411"
+  DTS:VersionGUID="{1F92F021-5B67-49B8-98A0-C3398AC00253}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{759D7838-8091-4C52-A914-A7FBF98AD5FD}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{6A7FEC73-5F1B-4296-8EB6-4EBEDE90C7B4}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -417,7 +417,7 @@ FROM
   WHERE imp_am.runId = ?
     AND imp_am.fileId = ?) innerselect
 -- prevent duplicates from PK violations
-LEFT OUTER JOIN staging.tab_property2amenity stgp
+LEFT OUTER JOIN staging.tab_property2amenity stgp WITH (NOLOCK)
 	ON stgp.sourceId = innerselect.sourceId
 	AND stgp.runId = innerselect.runId
 	AND stgp.externalId = innerselect.externalId
@@ -2876,6 +2876,7 @@ AND stgp.externalId IS NULL</property>
     <DTS:Executable
       DTS:refId="Package\import XML to imp tables"
       DTS:CreationName="SSIS.Pipeline.3"
+      DTS:DelayValidation="True"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{01E237FD-AD2D-487A-A69D-1ADE8F9DB334}"
       DTS:ExecutableType="SSIS.Pipeline.3"
@@ -27321,119 +27322,119 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables (original)\XML Source.Outputs[booked_date]" />
             <path
               refId="Package\import XML to imp tables (original).Paths[Derived Column Output11]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_bedroom.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to bedroom.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_amenity.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to amenity.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_photo.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to photo.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_bathroom.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to bathroom.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_fee.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to fee.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_calendar.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to calendar.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_default_rate.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to default_rate.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_booked_date.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to booked_date.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_property.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to property.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_video.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to video.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_rate.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to rate.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
               endId="Package\import XML to imp tables (original)\flipkey imp_theme.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables (original)\Add columns to theme.Outputs[Derived Column Output]" />
             <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_rate.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to rate.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_video.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to video.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_property.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to property.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_default_rate.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to default_rate.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_booked_date.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to booked_date.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_fee.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to fee.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_bathroom.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to bathroom.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_photo.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to photo.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_amenity.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to amenity.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_bedroom.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to bedroom.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_calendar.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to calendar.Outputs[Derived Column Output]" />
+            <path
               refId="Package\import XML to imp tables (original).Paths[Merge Join Output6]"
-              endId="Package\import XML to imp tables (original)\Add columns to theme.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ themes.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
-              endId="Package\import XML to imp tables (original)\Add columns to bedroom.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ bedrooms.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
-              endId="Package\import XML to imp tables (original)\Add columns to amenity.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ amenities.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
-              endId="Package\import XML to imp tables (original)\Add columns to default_rate.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ default_rates.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
-              endId="Package\import XML to imp tables (original)\Add columns to booked_date.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ booked_dates.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
-              endId="Package\import XML to imp tables (original)\Add columns to rate.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ rates.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
               endId="Package\import XML to imp tables (original)\Add columns to video.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables (original)\MJ videos.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
-              endId="Package\import XML to imp tables (original)\Add columns to fee.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ fees.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
-              endId="Package\import XML to imp tables (original)\Add columns to photo.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ photos.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output]"
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
               endId="Package\import XML to imp tables (original)\Add columns to calendar.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables (original)\MJ calendars.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
+              endId="Package\import XML to imp tables (original)\Add columns to photo.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ photos.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
+              endId="Package\import XML to imp tables (original)\Add columns to fee.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ fees.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
+              endId="Package\import XML to imp tables (original)\Add columns to rate.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ rates.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
               endId="Package\import XML to imp tables (original)\Add columns to bathroom.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables (original)\MJ bathrooms.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
+              endId="Package\import XML to imp tables (original)\Add columns to default_rate.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ default_rates.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
+              endId="Package\import XML to imp tables (original)\Add columns to amenity.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ amenities.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
+              endId="Package\import XML to imp tables (original)\Add columns to bedroom.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ bedrooms.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output]"
+              endId="Package\import XML to imp tables (original)\Add columns to theme.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ themes.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+              endId="Package\import XML to imp tables (original)\Add columns to booked_date.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ booked_dates.Outputs[Merge Join Output]" />
             <path
               refId="Package\import XML to imp tables (original).Paths[property]"
               endId="Package\import XML to imp tables (original)\Row Count.Inputs[Row Count Input 1]"
@@ -27735,6 +27736,7 @@ AND stgp.externalId IS NULL</property>
     <DTS:Executable
       DTS:refId="Package\XML Task XSL transformation"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.XMLTask.XMLTask, Microsoft.SqlServer.XMLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DelayValidation="True"
       DTS:Description="XML Task"
       DTS:DTSID="{70E20F6C-BB62-471F-B727-EB3C66EF24D4}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.XMLTask.XMLTask, Microsoft.SqlServer.XMLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
@@ -28238,7 +28240,7 @@ AND stgp.externalId IS NULL</property>
     design-time-name="Package\copy to FK staging tables (photos)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="164,42"
           Id="Package\copy to FK staging tables (photos)\staging tab_photo"
@@ -28266,7 +28268,9 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -28297,7 +28301,7 @@ AND stgp.externalId IS NULL</property>
     design-time-name="Package\copy to FK staging tables (rates)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="156,42"
           Id="Package\copy to FK staging tables (rates)\staging tab_rate"
@@ -28329,7 +28333,9 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -28351,7 +28357,9 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -28469,21 +28477,41 @@ AND stgp.externalId IS NULL</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="163,42"
-          Id="Package\import XML to imp tables\flipkey imp_photo"
-          TopLeft="1018,276" />
-        <NodeLayout
           Size="176,42"
           Id="Package\import XML to imp tables\flipkey imp_property"
           TopLeft="1018,113" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\import XML to imp tables\flipkey imp_rate"
+          TopLeft="1035,793" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\import XML to imp tables\Add columns to property"
+          TopLeft="774,113" />
         <NodeLayout
           Size="134,42"
           Id="Package\import XML to imp tables\XML Source"
           TopLeft="298,108" />
         <NodeLayout
-          Size="195,42"
-          Id="Package\import XML to imp tables\Add columns to property"
-          TopLeft="774,113" />
+          Size="118,42"
+          Id="Package\import XML to imp tables\MJ rates"
+          TopLeft="586,799" />
+        <NodeLayout
+          Size="140,42"
+          Id="Package\import XML to imp tables\MJ amenities"
+          TopLeft="583,435" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\import XML to imp tables\flipkey imp_amenity"
+          TopLeft="1015,438" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\import XML to imp tables\flipkey imp_photo"
+          TopLeft="1018,276" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\import XML to imp tables\Add columns to photo"
+          TopLeft="772,274" />
         <NodeLayout
           Size="130,42"
           Id="Package\import XML to imp tables\Row Count"
@@ -28493,17 +28521,9 @@ AND stgp.externalId IS NULL</property>
           Id="Package\import XML to imp tables\MJ photos"
           TopLeft="582,274" />
         <NodeLayout
-          Size="203,42"
-          Id="Package\import XML to imp tables\Add columns to photo"
-          TopLeft="772,274" />
-        <NodeLayout
-          Size="140,42"
-          Id="Package\import XML to imp tables\MJ amenities"
-          TopLeft="583,435" />
-        <NodeLayout
-          Size="173,42"
-          Id="Package\import XML to imp tables\flipkey imp_amenity"
-          TopLeft="1015,438" />
+          Size="174,42"
+          Id="Package\import XML to imp tables\Add columns to rate"
+          TopLeft="786,796" />
         <NodeLayout
           Size="193,42"
           Id="Package\import XML to imp tables\Add columns to amenity"
@@ -28528,6 +28548,78 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[property_rates]"
+          TopLeft="317.75,150">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="327.25,649"
+              Start="0,0"
+              End="327.25,641.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,143.755043227666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,143.755043227666"
+                    Point2="0,147.755043227666"
+                    Point3="4,147.755043227666" />
+                  <mssgle:LineSegment
+                    End="323.25,147.755043227666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="323.25,147.755043227666"
+                    Point2="327.25,147.755043227666"
+                    Point3="327.25,151.755043227666" />
+                  <mssgle:LineSegment
+                    End="327.25,641.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="130.73080078125,152.755043227666,65.7883984375,11.033203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[property_rate]"
+          TopLeft="317.75,150">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="327.25,649"
+              Start="0,0"
+              End="327.25,641.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,143.755043227666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,143.755043227666"
+                    Point2="0,147.755043227666"
+                    Point3="4,147.755043227666" />
+                  <mssgle:LineSegment
+                    End="323.25,147.755043227666" />
+                  <mssgle:CubicBezierSegment
+                    Point1="323.25,147.755043227666"
+                    Point2="327.25,147.755043227666"
+                    Point3="327.25,151.755043227666" />
+                  <mssgle:LineSegment
+                    End="327.25,641.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="132.99703125,152.755043227666,61.2559375,11.033203125"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -28699,6 +28791,28 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Merge Join Output2]"
+          TopLeft="704,818.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="82,0"
+              Start="0,0"
+              End="74.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="74.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output1]"
           TopLeft="709,295">
           <EdgeLayout.Curve>
@@ -28734,6 +28848,28 @@ AND stgp.externalId IS NULL</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="46.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
+          TopLeft="960,815.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75,0"
+              Start="0,0"
+              End="67.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="67.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -28829,134 +28965,6 @@ AND stgp.externalId IS NULL</property>
           Size="253,40"
           Id="32020027-3175-4ceb-9cd3-ae67ed2d52e3"
           TopLeft="29,1135" />
-        <NodeLayout
-          Size="154,42"
-          Id="Package\import XML to imp tables\flipkey imp_rate"
-          TopLeft="1035,793" />
-        <NodeLayout
-          Size="174,42"
-          Id="Package\import XML to imp tables\Add columns to rate"
-          TopLeft="786,796" />
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
-          TopLeft="960,815.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="75,0"
-              Start="0,0"
-              End="67.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="67.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="118,42"
-          Id="Package\import XML to imp tables\MJ rates"
-          TopLeft="586,799" />
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[property_rate]"
-          TopLeft="317.75,150">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="327.25,649"
-              Start="0,0"
-              End="327.25,641.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,143.755043227666" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,143.755043227666"
-                    Point2="0,147.755043227666"
-                    Point3="4,147.755043227666" />
-                  <mssgle:LineSegment
-                    End="323.25,147.755043227666" />
-                  <mssgle:CubicBezierSegment
-                    Point1="323.25,147.755043227666"
-                    Point2="327.25,147.755043227666"
-                    Point3="327.25,151.755043227666" />
-                  <mssgle:LineSegment
-                    End="327.25,641.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="132.99703125,152.755043227666,61.2559375,11.033203125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[property_rates]"
-          TopLeft="317.75,150">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="327.25,649"
-              Start="0,0"
-              End="327.25,641.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,143.755043227666" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,143.755043227666"
-                    Point2="0,147.755043227666"
-                    Point3="4,147.755043227666" />
-                  <mssgle:LineSegment
-                    End="323.25,147.755043227666" />
-                  <mssgle:CubicBezierSegment
-                    Point1="323.25,147.755043227666"
-                    Point2="327.25,147.755043227666"
-                    Point3="327.25,151.755043227666" />
-                  <mssgle:LineSegment
-                    End="327.25,641.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="130.73080078125,152.755043227666,65.7883984375,11.033203125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Merge Join Output2]"
-          TopLeft="704,818.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="82,0"
-              Start="0,0"
-              End="74.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="74.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -29171,7 +29179,9 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -29955,117 +29965,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
-          TopLeft="730,999">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="54,0"
-              Start="0,0"
-              End="46.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="46.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
-          TopLeft="709,295">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="63,0"
-              Start="0,0"
-              End="55.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="55.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
-          TopLeft="704,545">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="79,0"
-              Start="0,0"
-              End="71.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="71.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
-          TopLeft="710,635.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="75,0"
-              Start="0,0"
-              End="67.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="67.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output]"
-          TopLeft="717,1093">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="71,0"
-              Start="0,0"
-              End="63.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="63.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
           TopLeft="724,215">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30083,11 +29983,109 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
+          TopLeft="717,1093">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71,0"
+              Start="0,0"
+              End="63.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="63.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
+          TopLeft="709,295">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="63,0"
+              Start="0,0"
+              End="55.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="55.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
+          TopLeft="704,545">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="79,0"
+              Start="0,0"
+              End="71.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="71.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output6]"
+          TopLeft="710,635.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75,0"
+              Start="0,0"
+              End="67.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="67.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
           TopLeft="704,818.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30105,33 +30103,37 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output6]"
-          TopLeft="716,912">
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+          TopLeft="730,999">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="73,0"
+              EndConnector="54,0"
               Start="0,0"
-              End="65.5,0">
+              End="46.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="65.5,0" />
+                    End="46.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
           TopLeft="730,728.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30149,11 +30151,13 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
           TopLeft="723,456.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30171,11 +30175,13 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
           TopLeft="725,373.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30193,99 +30199,37 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output]"
-          TopLeft="960,815.5">
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output]"
+          TopLeft="716,912">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="75,0"
+              EndConnector="73,0"
               Start="0,0"
-              End="67.5,0">
+              End="65.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="67.5,0" />
+                    End="65.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
-          TopLeft="965,636">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="57,0"
-              Start="0,0"
-              End="49.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="49.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
-          TopLeft="969,134">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="49,0"
-              Start="0,0"
-              End="41.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="41.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
-          TopLeft="1000,994.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="39,0"
-              Start="0,0"
-              End="31.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="31.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output11]"
           TopLeft="974,910.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30303,11 +30247,109 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
+          TopLeft="960,815.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="75,0"
+              Start="0,0"
+              End="67.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="67.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
+          TopLeft="965,636">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="57,0"
+              Start="0,0"
+              End="49.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="49.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
+          TopLeft="969,134">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="49,0"
+              Start="0,0"
+              End="41.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="41.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
+          TopLeft="1000,994.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="39,0"
+              Start="0,0"
+              End="31.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="31.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
           TopLeft="995,727.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30325,55 +30367,13 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output11]"
-          TopLeft="972,373.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="47,0"
-              Start="0,0"
-              End="39.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="39.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
-          TopLeft="953,544">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="66,0"
-              Start="0,0"
-              End="58.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="58.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
           TopLeft="983,1092">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30391,11 +30391,37 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
+          TopLeft="953,544">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="66,0"
+              Start="0,0"
+              End="58.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="58.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
           TopLeft="975,216.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30413,11 +30439,13 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
           TopLeft="975,296">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30435,11 +30463,13 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
           TopLeft="970,458">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30457,7 +30487,33 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output]"
+          TopLeft="972,373.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="47,0"
+              Start="0,0"
+              End="39.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="39.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -30500,21 +30556,21 @@ AND stgp.externalId IS NULL</property>
           Text="ignore truncation failure TRUE:&#xA;&#xA;property propertyDescription&#xA;"
           ParentId="Package\import XML to imp tables (original)"
           FontInfo="{assembly:Null}"
-          Size="191,88"
+          Size="191,NaN"
           Id="050c2690-3262-46cc-b2fd-14802499a811"
           TopLeft="0,30" />
         <AnnotationLayout
           Text="Cosmetic annotation to create more space"
           ParentId="Package\import XML to imp tables (original)"
           FontInfo="{assembly:Null}"
-          Size="253,40"
+          Size="253,NaN"
           Id="6d6f72b9-b0d9-441d-876b-92b3dc829739"
           TopLeft="1262,32" />
         <AnnotationLayout
           Text="Cosmetic annotation to create more space"
           ParentId="Package\import XML to imp tables (original)"
           FontInfo="{assembly:Null}"
-          Size="253,40"
+          Size="253,NaN"
           Id="32020027-3175-4ceb-9cd3-ae67ed2d52e3"
           TopLeft="29,1135" />
       </GraphLayout>

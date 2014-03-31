@@ -7,7 +7,7 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{300E2B3A-210B-4AF7-9C7F-FE3AAEEE6E05}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="_import_template"
   DTS:PackageType="5"
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\_import_template_{5E811F2D-EA65-4F3A-968F-9670CEB0B74C}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\_import_template_{89653C6B-D253-4640-B41F-04D15FE4193A}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>

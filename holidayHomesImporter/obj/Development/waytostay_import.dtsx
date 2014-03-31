@@ -7,7 +7,7 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{996E1756-91F2-4D9E-B487-5EC06260872E}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.3369.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="waytostay_import"
   DTS:PackageType="5"
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\waytostay_import_{1FE05126-0084-4603-BC31-DEF0AF43FC3D}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\waytostay_import_{18A98B37-4272-4992-ACC9-9CA1AC45B18A}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
