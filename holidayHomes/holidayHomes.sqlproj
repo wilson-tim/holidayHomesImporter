@@ -117,6 +117,7 @@
     <Build Include="dbo\Functions\func_getLatLongDistance.sql" />
     <Build Include="dbo\Stored Procedures\propertyAreaSearch.sql" />
     <Build Include="dbo\Tables\tab_propertyLatLong.sql" />
+    <Build Include="dbo\Stored Procedures\proc_refreshData_tab_propertyLatLong.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
