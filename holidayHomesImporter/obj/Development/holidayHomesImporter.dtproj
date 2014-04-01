@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="O6BBaxAwjQ==" SSIS:IV="81jfbqd1Jy8=">oukKXilDjDnvZPLjJF0XhGnUT0BUow0l/g5wbP/shT2Uq4AVHFvIYgOPLmeMYSeO5mwI0SGwiZoEtxj7mpk4F4giA09sFlv0K4lASRlihl32aTw3M85QyZ+ut5kOasIG9TJNLHexJ0ydPraM3LUFsDK+UcxtJhx3UL4sDUugVfKqtuonwzb8bg==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="rwvNLE1Z7Q==" SSIS:IV="q/vyeo387Xo=">h2tLei2erk4zHENfBMjPMyiHyUOMI0gwx9fOqK9SXpGcvec9W5xW1+/Jk6yJyeTF4WEk4dydKeVWnCBLxRvrhjqwAGEz9ceCuhfS1AwsZwKr56pAM80VqN6Y7Ur9qZwt1M5szUmVCvh993Fd/52cnxzQamf4Q22RXg8ESuh8/0wsP9f8IAu4Iw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -793,10 +793,10 @@
                 <SSIS:Property SSIS:Name="Name">flipkey_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">411</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">410</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1F92F021-5B67-49B8-98A0-C3398AC00253}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{64AC8BC7-7268-400B-A712-C115CD5BD716}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -892,10 +892,10 @@
                 <SSIS:Property SSIS:Name="Name">roomorama</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">414</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">418</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{363B6F06-E9FA-4F11-92C1-25A14ECEC82C}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{60325437-AEC0-414B-AD08-504E687B0470}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -911,7 +911,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Data\roomorama\roomorama_full_2.xml</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\Data\roomorama\roomorama_full.xml</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
