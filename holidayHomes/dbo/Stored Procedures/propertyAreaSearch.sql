@@ -13,6 +13,7 @@
 --  2014-03-13 TW added parameter countryCode
 --  2014-03-27 TW added parameters for latitude / longitude / radius / imperial units
 --  2014-03-28 TW renamed as propertyAreaSearch to preserve the original propertySearch
+--  2014-04-02 TW include properties without latitude and longitude in geographic search results
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
@@ -79,7 +80,8 @@ BEGIN
   totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
    (ORDER BY CASE
-    WHEN @orderBy = 'distance' THEN POWER(-1, @orderDESC) * (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion)
+    WHEN @orderBy = 'distance' AND (latitude IS NULL OR longitude IS NULL) AND (@searchCriteria IS NOT NULL) THEN 999
+    WHEN @orderBy = 'distance' AND (latitude IS NOT NULL AND longitude IS NOT NULL) THEN POWER(-1, @orderDESC) * (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion)
     WHEN @orderBy = 'beds'     THEN POWER(-1, @orderDESC) * maximumNumberOfPeople 
     WHEN @orderBy = 'rating'   THEN POWER(-1, @orderDESC) * ISNULL(averageRating, 0.1)
    WHEN @orderBy = 'price'    THEN POWER(-1, @orderDESC) * ISNULL(minimumPricePerNight, 100000)
@@ -167,13 +169,17 @@ BEGIN
 		 AND ( SUBSTRING(',' + @sourceIds + ',', number, 1) = ',' )
 		)
 	   )
-	   AND
+	  AND
 		(
-			(pro.latitude IS NULL OR pro.longitude IS NULL) AND ((@radius IS NULL OR @radius = 0) AND (@swLatitude IS NULL AND @neLatitude IS NULL))
+			(pro.latitude IS NULL OR pro.longitude IS NULL)
+			AND
+			(@searchCriteria IS NOT NULL)
 		OR
 			(
 			-- Radius not passed: restrict to bounding box of min / max latitude and longitude
-			(@radius IS NULL OR @radius = 0) AND (pro.latitude IS NOT NULL AND pro.longitude IS NOT NULL)
+			(pro.latitude IS NOT NULL AND pro.longitude IS NOT NULL)
+			AND
+			(@radius IS NULL OR @radius = 0)
 			AND
 			@swLatitude <= pro.Latitude
 			AND
@@ -193,16 +199,8 @@ BEGIN
 		)
 	 ) mainselect
  ORDER BY rowNum
- /**
- ORDER BY
-    CASE WHEN @orderBy = 'distance' THEN POWER(-1, @orderDESC) * dbo.func_getLatLongDistance(@centralLatitude, @centralLongitude, pro.latitude, pro.longitude, @imperial)
-		WHEN @orderBy = 'beds'      THEN POWER(-1, @orderDESC) * pro.maximumNumberOfPeople
-		WHEN @orderBy = 'rating'    THEN POWER(-1, @orderDESC) * ISNULL(pro.averageRating, 0.1)
-		WHEN @orderBy = 'price'     THEN POWER(-1, @orderDESC) * ISNULL(pro.minimumPricePerNight, 100000)
-		ELSE -pro.propertyId
-	END
- **/
  OFFSET (@RecsPerPage * (@Page - 1)) ROWS
  FETCH NEXT @RecsPerPage ROWS ONLY;
 
 END
+GO
