@@ -13,8 +13,8 @@
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="411"
-  DTS:VersionGUID="{1F92F021-5B67-49B8-98A0-C3398AC00253}">
+  DTS:VersionBuild="412"
+  DTS:VersionGUID="{C10077B9-A1EC-4F96-8B15-58CABC6D5E29}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{6A7FEC73-5F1B-4296-8EB6-4EBEDE90C7B4}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{2FC0E102-B483-460C-BD8F-C150A24C186E}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -770,7 +770,7 @@ INNER JOIN flipkey.imp_property pr
 	AND ph.fileId = pr.fileId
 	AND ph.property_Id = pr.property_Id
 -- prevent duplicates from PK violations
-LEFT OUTER JOIN staging.tab_photo stgp
+LEFT OUTER JOIN staging.tab_photo stgp WITH (NOLOCK)
 	ON stgp.sourceId = ph.sourceId
 	AND stgp.runId = ph.runId
 	AND stgp.externalId = pr.externalId
@@ -1348,7 +1348,7 @@ WHERE r.runId = ? AND r.fileId = ?
 ) innerselect
 ) innerselectall
 -- prevent duplicates from PK violations
-LEFT OUTER JOIN staging.tab_rate stgr
+LEFT OUTER JOIN staging.tab_rate stgr WITH (NOLOCK)
 	ON stgr.sourceId = innerselectall.sourceId
 	AND stgr.runId = innerselectall.runId
 	AND stgr.externalId = innerselectall.externalId
@@ -1928,7 +1928,7 @@ OUTER APPLY
 	ORDER BY flipkey.imp_photo.[order]
 ) pho
 -- prevent duplicates from PK violations
-LEFT OUTER JOIN staging.tab_property stgp
+LEFT OUTER JOIN staging.tab_property stgp WITH (NOLOCK)
 	ON stgp.sourceId = p.sourceId
 	AND stgp.runId = p.runId
 	AND stgp.externalId = p.externalId
@@ -27322,119 +27322,119 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables (original)\XML Source.Outputs[booked_date]" />
             <path
               refId="Package\import XML to imp tables (original).Paths[Derived Column Output11]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_theme.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to theme.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_rate.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to rate.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_video.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to video.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_property.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to property.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_default_rate.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to default_rate.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_booked_date.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to booked_date.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_fee.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to fee.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_bathroom.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to bathroom.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_photo.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to photo.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_amenity.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to amenity.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output]"
-              endId="Package\import XML to imp tables (original)\flipkey imp_bedroom.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables (original)\Add columns to bedroom.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
               endId="Package\import XML to imp tables (original)\flipkey imp_calendar.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables (original)\Add columns to calendar.Outputs[Derived Column Output]" />
             <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_bedroom.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to bedroom.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_amenity.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to amenity.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_photo.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to photo.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_fee.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to fee.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_bathroom.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to bathroom.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_default_rate.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to default_rate.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_property.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to property.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_video.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to video.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_rate.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to rate.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_theme.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to theme.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
+              endId="Package\import XML to imp tables (original)\flipkey imp_booked_date.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables (original)\Add columns to booked_date.Outputs[Derived Column Output]" />
+            <path
               refId="Package\import XML to imp tables (original).Paths[Merge Join Output6]"
-              endId="Package\import XML to imp tables (original)\Add columns to video.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ videos.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
-              endId="Package\import XML to imp tables (original)\Add columns to calendar.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ calendars.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
-              endId="Package\import XML to imp tables (original)\Add columns to photo.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ photos.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
-              endId="Package\import XML to imp tables (original)\Add columns to fee.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ fees.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
-              endId="Package\import XML to imp tables (original)\Add columns to rate.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ rates.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
-              endId="Package\import XML to imp tables (original)\Add columns to bathroom.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ bathrooms.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
               endId="Package\import XML to imp tables (original)\Add columns to default_rate.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables (original)\MJ default_rates.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
-              endId="Package\import XML to imp tables (original)\Add columns to amenity.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ amenities.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
-              endId="Package\import XML to imp tables (original)\Add columns to bedroom.Inputs[Derived Column Input]"
-              name="Merge Join Output"
-              startId="Package\import XML to imp tables (original)\MJ bedrooms.Outputs[Merge Join Output]" />
-            <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output]"
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
               endId="Package\import XML to imp tables (original)\Add columns to theme.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables (original)\MJ themes.Outputs[Merge Join Output]" />
             <path
-              refId="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
+              endId="Package\import XML to imp tables (original)\Add columns to bedroom.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ bedrooms.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
+              endId="Package\import XML to imp tables (original)\Add columns to amenity.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ amenities.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
+              endId="Package\import XML to imp tables (original)\Add columns to bathroom.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ bathrooms.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
               endId="Package\import XML to imp tables (original)\Add columns to booked_date.Inputs[Derived Column Input]"
               name="Merge Join Output"
               startId="Package\import XML to imp tables (original)\MJ booked_dates.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
+              endId="Package\import XML to imp tables (original)\Add columns to fee.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ fees.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
+              endId="Package\import XML to imp tables (original)\Add columns to photo.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ photos.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
+              endId="Package\import XML to imp tables (original)\Add columns to calendar.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ calendars.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output]"
+              endId="Package\import XML to imp tables (original)\Add columns to video.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ videos.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+              endId="Package\import XML to imp tables (original)\Add columns to rate.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\import XML to imp tables (original)\MJ rates.Outputs[Merge Join Output]" />
             <path
               refId="Package\import XML to imp tables (original).Paths[property]"
               endId="Package\import XML to imp tables (original)\Row Count.Inputs[Row Count Input 1]"
@@ -28240,7 +28240,7 @@ AND stgp.externalId IS NULL</property>
     design-time-name="Package\copy to FK staging tables (photos)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="164,42"
           Id="Package\copy to FK staging tables (photos)\staging tab_photo"
@@ -28268,9 +28268,7 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -28301,7 +28299,7 @@ AND stgp.externalId IS NULL</property>
     design-time-name="Package\copy to FK staging tables (rates)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="156,42"
           Id="Package\copy to FK staging tables (rates)\staging tab_rate"
@@ -28333,9 +28331,7 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -28357,9 +28353,7 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -29965,7 +29959,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
           TopLeft="724,215">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -29989,7 +29983,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
           TopLeft="717,1093">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30013,7 +30007,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
           TopLeft="709,295">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30037,7 +30031,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
           TopLeft="704,545">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30061,7 +30055,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output6]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output]"
           TopLeft="710,635.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30085,7 +30079,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output5]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
           TopLeft="704,818.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30109,7 +30103,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output4]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output10]"
           TopLeft="730,999">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30133,7 +30127,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output3]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output6]"
           TopLeft="730,728.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30157,7 +30151,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output2]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output7]"
           TopLeft="723,456.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30181,7 +30175,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output1]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output8]"
           TopLeft="725,373.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30205,7 +30199,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Merge Join Output]"
+          Id="Package\import XML to imp tables (original).Paths[Merge Join Output9]"
           TopLeft="716,912">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30229,7 +30223,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output11]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output]"
           TopLeft="974,910.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30253,7 +30247,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
           TopLeft="960,815.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30277,7 +30271,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
           TopLeft="965,636">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30301,7 +30295,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
           TopLeft="969,134">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30325,7 +30319,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
           TopLeft="1000,994.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30349,7 +30343,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
           TopLeft="995,727.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30373,7 +30367,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output5]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output11]"
           TopLeft="983,1092">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30397,7 +30391,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output4]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output6]"
           TopLeft="953,544">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30421,7 +30415,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output3]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output7]"
           TopLeft="975,216.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30445,7 +30439,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output2]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output8]"
           TopLeft="975,296">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30469,7 +30463,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output1]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output9]"
           TopLeft="970,458">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -30493,7 +30487,7 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables (original).Paths[Derived Column Output]"
+          Id="Package\import XML to imp tables (original).Paths[Derived Column Output10]"
           TopLeft="972,373.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
