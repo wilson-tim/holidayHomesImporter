@@ -14,10 +14,11 @@
 --  2014-03-27 TW added parameters for latitude / longitude / radius / imperial units
 --  2014-03-28 TW renamed as propertyAreaSearch to preserve the original propertySearch
 --  2014-04-02 TW include properties without latitude and longitude in geographic search results
+--  2014-04-03 TW revision of 02/02/2014 was not quite right
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
-  @searchCriteria VARCHAR(150) = NULL
+  @searchCriteria VARCHAR(150)
 , @typeOfProperty VARCHAR(15) = NULL
 , @countryCode VARCHAR(2) = NULL
 , @sleeps int = 1
@@ -33,7 +34,7 @@ CREATE PROCEDURE [dbo].[propertyAreaSearch]
 , @imperial bit = 0
 , @Page int
 , @RecsPerPage int
-, @orderBy VARCHAR(15) = 'beds'
+, @orderBy VARCHAR(15) = 'distance'
 , @orderDESC BIT = 0
 AS
 BEGIN
@@ -80,11 +81,11 @@ BEGIN
   totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
    (ORDER BY CASE
-    WHEN @orderBy = 'distance' AND (latitude IS NULL OR longitude IS NULL) AND (@searchCriteria IS NOT NULL) THEN 999
+    WHEN @orderBy = 'distance' AND (latitude IS NULL OR longitude IS NULL) THEN 999
     WHEN @orderBy = 'distance' AND (latitude IS NOT NULL AND longitude IS NOT NULL) THEN POWER(-1, @orderDESC) * (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion)
     WHEN @orderBy = 'beds'     THEN POWER(-1, @orderDESC) * maximumNumberOfPeople 
     WHEN @orderBy = 'rating'   THEN POWER(-1, @orderDESC) * ISNULL(averageRating, 0.1)
-   WHEN @orderBy = 'price'    THEN POWER(-1, @orderDESC) * ISNULL(minimumPricePerNight, 100000)
+    WHEN @orderBy = 'price'    THEN POWER(-1, @orderDESC) * ISNULL(minimumPricePerNight, 100000)
     ELSE -propertyId
    END)
   , name
@@ -144,9 +145,7 @@ BEGIN
 	  WHERE   tab_photo.propertyId = pro.propertyId
 	 ) pho
 	 WHERE
-	  ( @searchCriteria IS NULL OR pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria )
-	  AND ( @countryCode IS NULL OR pro.countryCode = @countryCode )
-	  AND ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
+	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
 	  AND ( pro.maximumNumberOfPeople >= ISNULL(@sleeps, 1) )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
 	  AND
@@ -171,9 +170,18 @@ BEGIN
 	   )
 	  AND
 		(
+			(
+			-- Condition for including records with NULL latitude / longitude
 			(pro.latitude IS NULL OR pro.longitude IS NULL)
 			AND
-			(@searchCriteria IS NOT NULL)
+			(
+			-- searchCriteria is required
+			((pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria ) AND (pro.latitude IS NULL AND pro.longitude IS NULL))
+			AND
+			-- countryCode is optional
+			(@countryCode IS NULL OR (pro.countryCode = @countryCode AND (pro.latitude IS NULL AND pro.longitude IS NULL)))
+			)
+			)
 		OR
 			(
 			-- Radius not passed: restrict to bounding box of min / max latitude and longitude
