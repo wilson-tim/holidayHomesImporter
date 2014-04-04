@@ -11,12 +11,15 @@
 --                requires the utils_numbers table
 --  2014-03-07 TW added parameter numberOfBedrooms
 --  2014-03-13 JP added parameter countryCode
+--  2014-04-04 TW price order now uses prices converted to GBP (using new table utils_currencyLookup)
+--                added parameter localCurrencyCode
 -- =============================================
 CREATE PROCEDURE [dbo].[propertySearch]
 -- Add the parameters for the stored procedure here
   @searchCriteria VARCHAR(150) = NULL
 , @typeOfProperty VARCHAR(15) = NULL
 , @countryCode VARCHAR(2) = NULL
+, @localCurrencyCode nvarchar(3) = 'GBP'
 , @sleeps int = 1
 , @numberOfBedrooms int = NULL
 , @sourceIds varchar(MAX) = NULL
@@ -47,15 +50,43 @@ BEGIN
 	SET @orderBy = 'beds'
  END
 
+ IF @localCurrencyCode = '' OR @localCurrencyCode IS NULL
+ BEGIN
+	SET @localCurrencyCode = 'GBP'
+ END
+
  -- here is the main select
  SELECT totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
    (ORDER BY CASE
     WHEN @orderBy = 'beds' THEN POWER(-1, @orderDESC) * pro.maximumNumberOfPeople 
     WHEN @orderBy = 'rating' THEN POWER(-1, @orderDESC)* ISNULL(pro.averageRating, 0.1)
-    WHEN @orderBy = 'price' THEN POWER(-1, @orderDESC) * ISNULL(pro.minimumPricePerNight, 100000)
-    ELSE -pro.propertyId
-   END)
+    WHEN @orderBy = 'price'
+		AND
+		(
+		minimumPricePerNight IS NULL
+		OR
+		ABS(minimumPricePerNight) = 0
+		OR
+		currencyCode IS NULL
+		OR
+		currency.rate IS NULL
+		)
+		THEN POWER(-1, @orderDESC) * 999999
+    WHEN @orderBy = 'price'
+		AND
+		(
+		minimumPricePerNight IS NOT NULL
+		AND
+		ABS(minimumPricePerNight) > 0
+		AND
+		currencyCode IS NOT NULL
+		AND
+		currency.rate IS NOT NULL
+		)
+		THEN POWER(-1, @orderDESC) * (minimumPricePerNight / currency.rate)
+    ELSE -propertyId
+   END) -- end of ORDER BY CASE
   , pro.name
   , pro.[description]
   , pro.latitude
@@ -73,7 +104,23 @@ BEGIN
   , pro.regionName
   , pro.minimumPricePerNight
   , pro.currencyCode
-  , '' AS partner
+  , minimumPricePerNightLocal =
+    CASE
+		WHEN
+			(
+			minimumPricePerNight IS NULL
+			OR
+			ABS(minimumPricePerNight) = 0
+			OR
+			currencyCode IS NULL
+			OR
+			currency.rate IS NULL
+			)
+			THEN 0
+		ELSE
+			(minimumPricePerNight / currency.rate)
+    END
+  , '' AS [partner]
   , '' AS internalURL
   , '' AS urlSafeName
   , '' AS logoURL
@@ -83,6 +130,8 @@ BEGIN
   FROM    tab_photo
   WHERE   tab_photo.propertyId = pro.propertyId
  ) pho
+ LEFT OUTER JOIN dbo.utils_currencyLookup currency
+ ON currency.id = currencyCode AND currency.localId = @localCurrencyCode
  WHERE
   ( @searchCriteria IS NULL OR pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria )
   AND ( @countryCode IS NULL OR pro.countryCode = @countryCode )

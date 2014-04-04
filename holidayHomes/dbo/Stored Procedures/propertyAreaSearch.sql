@@ -16,15 +16,14 @@
 --  2014-04-02 TW include properties without latitude and longitude in geographic search results
 --  2014-04-03 TW revision of 02/02/2014 was not quite right
 --  2014-04-04 TW price order now uses prices converted to GBP (using new table utils_currencyLookup)
+--                added parameter localCurrencyCode
 -- =============================================
-IF OBJECT_ID (N'dbo.propertyAreaSearch', N'P') IS NOT NULL
-    DROP PROCEDURE [dbo].[propertyAreaSearch];
-GO
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
   @searchCriteria VARCHAR(150)
 , @typeOfProperty VARCHAR(15) = NULL
 , @countryCode VARCHAR(2) = NULL
+, @localCurrencyCode nvarchar(3) = 'GBP'
 , @sleeps int = 1
 , @numberOfBedrooms int = NULL
 , @sourceIds varchar(MAX) = NULL
@@ -80,6 +79,11 @@ BEGIN
 	SET @conversion = 1000.000;
  END
 
+ IF @localCurrencyCode = '' OR @localCurrencyCode IS NULL
+ BEGIN
+	SET @localCurrencyCode = 'GBP'
+ END
+
  -- all the slow stuff on the outside working on the smallest possible dataset
  SELECT
   totalCount = COUNT(1) OVER ()
@@ -88,7 +92,7 @@ BEGIN
     WHEN @orderBy = 'distance'
 		AND
 		(latitude IS NULL OR longitude IS NULL) 
-		THEN 999
+		THEN POWER(-1, @orderDESC) * 999
     WHEN @orderBy = 'distance'
 		AND
 		(latitude IS NOT NULL AND longitude IS NOT NULL)
@@ -104,19 +108,9 @@ BEGIN
 		OR
 		currencyCode IS NULL
 		OR
-		(currency.rate IS NULL AND currencyCode <> 'GBP')
+		currency.rate IS NULL
 		)
-		THEN 999999
-    WHEN @orderBy = 'price'
-		AND
-		(
-		minimumPricePerNight IS NOT NULL
-		AND
-		ABS(minimumPricePerNight) > 0
-		AND
-		currencyCode ='GBP'
-		)
-		THEN POWER(-1, @orderDESC) * minimumPricePerNight
+		THEN POWER(-1, @orderDESC) * 999999
     WHEN @orderBy = 'price'
 		AND
 		(
@@ -148,7 +142,7 @@ BEGIN
   , regionName
   , minimumPricePerNight
   , currencyCode
-  , minimumPricePerNightGBP =
+  , minimumPricePerNightLocal =
     CASE
 		WHEN
 			(
@@ -158,18 +152,9 @@ BEGIN
 			OR
 			currencyCode IS NULL
 			OR
-			(currency.rate IS NULL AND currencyCode <> 'GBP')
+			currency.rate IS NULL
 			)
-			THEN 9999999999
-		WHEN
-			(
-			minimumPricePerNight IS NOT NULL
-			AND
-			ABS(minimumPricePerNight) > 0
-			AND
-			currencyCode ='GBP'
-			)
-			THEN minimumPricePerNight
+			THEN 0
 		ELSE
 			(minimumPricePerNight / currency.rate)
     END
@@ -213,20 +198,6 @@ BEGIN
 	  WHERE   tab_photo.propertyId = pro.propertyId
 	 ) pho
 	 WHERE
-	 /***
-	  (
-		@searchCriteria IS NULL
-		OR
-		((pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria ) AND (pro.latitude IS NULL AND pro.longitude IS NULL))
-	  )
-	  AND
-	  (
-		@countryCode IS NULL
-		OR
-		(pro.countryCode = @countryCode AND (pro.latitude IS NULL AND pro.longitude IS NULL))
-	  )
-	  AND
-	 ***/
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
 	  AND ( pro.maximumNumberOfPeople >= ISNULL(@sleeps, 1) )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
@@ -289,7 +260,7 @@ BEGIN
 		)
 	 ) mainselect
  LEFT OUTER JOIN dbo.utils_currencyLookup currency
- ON currency.id = currencyCode
+ ON currency.id = currencyCode AND currency.localId = @localCurrencyCode
  ORDER BY rowNum
  OFFSET (@RecsPerPage * (@Page - 1)) ROWS
  FETCH NEXT @RecsPerPage ROWS ONLY;
