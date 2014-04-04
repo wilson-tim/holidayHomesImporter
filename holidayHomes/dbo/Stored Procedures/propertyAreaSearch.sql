@@ -15,7 +15,11 @@
 --  2014-03-28 TW renamed as propertyAreaSearch to preserve the original propertySearch
 --  2014-04-02 TW include properties without latitude and longitude in geographic search results
 --  2014-04-03 TW revision of 02/02/2014 was not quite right
+--  2014-04-04 TW price order now uses prices converted to GBP (using new table utils_currencyLookup)
 -- =============================================
+IF OBJECT_ID (N'dbo.propertyAreaSearch', N'P') IS NOT NULL
+    DROP PROCEDURE [dbo].[propertyAreaSearch];
+GO
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
   @searchCriteria VARCHAR(150)
@@ -26,11 +30,11 @@ CREATE PROCEDURE [dbo].[propertyAreaSearch]
 , @sourceIds varchar(MAX) = NULL
 , @centralLatitude float
 , @centralLongitude float
-, @swLatitude float
-, @swLongitude float
-, @neLatitude float
-, @neLongitude float
-, @radius decimal(18,2) = 0
+, @swLatitude float = 0
+, @swLongitude float = 0
+, @neLatitude float = 0
+, @neLongitude float = 0
+, @radius decimal(18,2)
 , @imperial bit = 0
 , @Page int
 , @RecsPerPage int
@@ -81,13 +85,52 @@ BEGIN
   totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
    (ORDER BY CASE
-    WHEN @orderBy = 'distance' AND (latitude IS NULL OR longitude IS NULL) THEN 999
-    WHEN @orderBy = 'distance' AND (latitude IS NOT NULL AND longitude IS NOT NULL) THEN POWER(-1, @orderDESC) * (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion)
+    WHEN @orderBy = 'distance'
+		AND
+		(latitude IS NULL OR longitude IS NULL) 
+		THEN 999
+    WHEN @orderBy = 'distance'
+		AND
+		(latitude IS NOT NULL AND longitude IS NOT NULL)
+		THEN POWER(-1, @orderDESC) * (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion)
     WHEN @orderBy = 'beds'     THEN POWER(-1, @orderDESC) * maximumNumberOfPeople 
     WHEN @orderBy = 'rating'   THEN POWER(-1, @orderDESC) * ISNULL(averageRating, 0.1)
-    WHEN @orderBy = 'price'    THEN POWER(-1, @orderDESC) * ISNULL(minimumPricePerNight, 100000)
+    WHEN @orderBy = 'price'
+		AND
+		(
+		minimumPricePerNight IS NULL
+		OR
+		ABS(minimumPricePerNight) = 0
+		OR
+		currencyCode IS NULL
+		OR
+		(currency.rate IS NULL AND currencyCode <> 'GBP')
+		)
+		THEN 999999
+    WHEN @orderBy = 'price'
+		AND
+		(
+		minimumPricePerNight IS NOT NULL
+		AND
+		ABS(minimumPricePerNight) > 0
+		AND
+		currencyCode ='GBP'
+		)
+		THEN POWER(-1, @orderDESC) * minimumPricePerNight
+    WHEN @orderBy = 'price'
+		AND
+		(
+		minimumPricePerNight IS NOT NULL
+		AND
+		ABS(minimumPricePerNight) > 0
+		AND
+		currencyCode IS NOT NULL
+		AND
+		currency.rate IS NOT NULL
+		)
+		THEN POWER(-1, @orderDESC) * (minimumPricePerNight / currency.rate)
     ELSE -propertyId
-   END)
+   END) -- end of ORDER BY CASE
   , name
   , [description]
   , latitude
@@ -105,6 +148,31 @@ BEGIN
   , regionName
   , minimumPricePerNight
   , currencyCode
+  , minimumPricePerNightGBP =
+    CASE
+		WHEN
+			(
+			minimumPricePerNight IS NULL
+			OR
+			ABS(minimumPricePerNight) = 0
+			OR
+			currencyCode IS NULL
+			OR
+			(currency.rate IS NULL AND currencyCode <> 'GBP')
+			)
+			THEN 9999999999
+		WHEN
+			(
+			minimumPricePerNight IS NOT NULL
+			AND
+			ABS(minimumPricePerNight) > 0
+			AND
+			currencyCode ='GBP'
+			)
+			THEN minimumPricePerNight
+		ELSE
+			(minimumPricePerNight / currency.rate)
+    END
   , (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion) AS distance
   , [partner]
   , internalURL
@@ -145,6 +213,20 @@ BEGIN
 	  WHERE   tab_photo.propertyId = pro.propertyId
 	 ) pho
 	 WHERE
+	 /***
+	  (
+		@searchCriteria IS NULL
+		OR
+		((pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria ) AND (pro.latitude IS NULL AND pro.longitude IS NULL))
+	  )
+	  AND
+	  (
+		@countryCode IS NULL
+		OR
+		(pro.countryCode = @countryCode AND (pro.latitude IS NULL AND pro.longitude IS NULL))
+	  )
+	  AND
+	 ***/
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
 	  AND ( pro.maximumNumberOfPeople >= ISNULL(@sleeps, 1) )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
@@ -206,6 +288,8 @@ BEGIN
 			)
 		)
 	 ) mainselect
+ LEFT OUTER JOIN dbo.utils_currencyLookup currency
+ ON currency.id = currencyCode
  ORDER BY rowNum
  OFFSET (@RecsPerPage * (@Page - 1)) ROWS
  FETCH NEXT @RecsPerPage ROWS ONLY;
