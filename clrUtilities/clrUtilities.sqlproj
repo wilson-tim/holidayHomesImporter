@@ -75,4 +75,7 @@
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
     </ArtifactReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="enable_CLR_integration.sql" />
+  </ItemGroup>
 </Project>

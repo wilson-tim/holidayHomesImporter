@@ -214,6 +214,7 @@
   <ItemGroup>
     <None Include="Assemblies\clrUtilities.dll" />
     <None Include="Snapshots\holidayHomes_build_20140313_16-40-30.dacpac" />
+    <None Include="check_import_progress_query.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="holidayHomes_build.refactorlog" />
