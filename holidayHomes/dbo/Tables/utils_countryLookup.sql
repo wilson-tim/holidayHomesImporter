@@ -2,7 +2,7 @@
     [id]               INT            IDENTITY (1, 1) NOT NULL,
     [iso2]             CHAR (2)       NOT NULL,
     [longName]         NVARCHAR (100) NOT NULL,
-    [searchTerm]       NVARCHAR (100) NULL,
+    [searchTerm]       NVARCHAR (100) NOT NULL,
     [centralLatitude]  FLOAT (53)     NULL,
     [centralLongitude] FLOAT (53)     NULL,
     [swLatitude]       FLOAT (53)     NULL,
