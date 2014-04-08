@@ -17,6 +17,7 @@
 --  2014-04-03 TW revision of 02/02/2014 was not quite right
 --  2014-04-04 TW price order now uses prices converted to GBP (using new table utils_currencyLookup)
 --                added parameter localCurrencyCode
+--  2014-04-08 JP added parameter maxSleeps
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
@@ -25,6 +26,7 @@ CREATE PROCEDURE [dbo].[propertyAreaSearch]
 , @countryCode VARCHAR(2) = NULL
 , @localCurrencyCode nvarchar(3) = 'GBP'
 , @sleeps int = 1
+, @maxSleeps int = NULL
 , @numberOfBedrooms int = NULL
 , @sourceIds varchar(MAX) = NULL
 , @centralLatitude float
@@ -200,6 +202,7 @@ BEGIN
 	 WHERE
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
 	  AND ( pro.maximumNumberOfPeople >= ISNULL(@sleeps, 1) )
+	  AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
 	  AND
 	   (
