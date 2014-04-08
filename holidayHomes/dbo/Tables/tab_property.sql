@@ -44,6 +44,28 @@
 GO
 
 CREATE NONCLUSTERED INDEX [NCI_propertyAreaSearch]
-    ON [dbo].[tab_property]([sourceId] ASC, [longitude] ASC, [latitude] ASC, [typeOfProperty] ASC, [countryCode] ASC, [numberOfProperBedrooms] ASC, [regionName] ASC, [currencyCode] ASC)
-    INCLUDE([propertyId], [externalId], [thumbnailUrl], [externalURL], [description], [name], [cityName], [minimumPricePerNight], [averageRating], [maximumNumberOfPeople]);
+    ON [dbo].[tab_property]
+(
+	[sourceId] ASC,
+	[maximumNumberOfPeople] ASC,
+	[longitude] ASC,
+	[latitude] ASC,
+	[typeOfProperty] ASC,
+	[numberOfProperBedrooms] ASC,
+	[countryCode] ASC,
+	[cityName] ASC,
+	[currencyCode] ASC
+)
+INCLUDE
+(
+ 	[propertyId],
+	[externalId],
+	[thumbnailUrl],
+	[externalURL],
+	[description],
+	[name],
+	[regionName],
+	[minimumPricePerNight],
+	[averageRating]
+) WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF) ON [PRIMARY]
 GO

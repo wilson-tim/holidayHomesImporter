@@ -70,10 +70,12 @@
     <Folder Include="changeControl\Stored Procedures\" />
     <Folder Include="Security\" />
     <Folder Include="dbo\Functions\" />
+    <Folder Include="Assemblies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="synonym_UPDATE.sql" />
     <None Include="dbo\createtable_utils_numbers.sql" />
+    <None Include="Assemblies\clrUtilities.dll" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="holidayHomes_empty">
@@ -121,6 +123,7 @@
     <Build Include="dbo\Stored Procedures\proc_refreshData_tab_propertyLatLong.sql" />
     <Build Include="dbo\Tables\utils_countryLookup.sql" />
     <Build Include="dbo\Tables\utils_currencyLookup.sql" />
+    <Build Include="dbo\Functions\SplitString.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
@@ -128,5 +131,15 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
     </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="clrUtilities">
+      <HintPath>Assemblies\clrUtilities.dll</HintPath>
+      <SqlAssemblyName>clrUtilities</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>SAFE</SqlPermissionSet>
+    </Reference>
   </ItemGroup>
 </Project>

@@ -42,7 +42,12 @@ BEGIN
   SET @sourceId = CAST(@sourceIds AS int);
  END
 
- IF @sourceIds IS NULL
+ IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) > 0
+ BEGIN
+  SET @sourceId = 0;
+ END
+
+IF @sourceIds IS NULL
  BEGIN
   SET @sourceId = NULL;
  END
@@ -73,6 +78,8 @@ BEGIN
 		currencyCode IS NULL
 		OR
 		currency.rate IS NULL
+		OR
+		currency.rate = 0
 		)
 		THEN POWER(-1, @orderDESC) * 999999
     WHEN @orderBy = 'price'
@@ -85,6 +92,8 @@ BEGIN
 		currencyCode IS NOT NULL
 		AND
 		currency.rate IS NOT NULL
+		AND
+		currency.rate > 0
 		)
 		THEN POWER(-1, @orderDESC) * (minimumPricePerNight / currency.rate)
     ELSE -propertyId
@@ -117,6 +126,8 @@ BEGIN
 			currencyCode IS NULL
 			OR
 			currency.rate IS NULL
+			OR
+			currency.rate = 0
 			)
 			THEN 0
 		ELSE
@@ -148,18 +159,23 @@ BEGIN
    sourceId = @sourceId
    OR
    sourceId IN
-    /*
-    * There is no SELECT ... WHERE ... IN (@variable) construct in T-SQL
-    * so need to convert @sourceIds into a result set which T-SQL can use.
-    * Requires the utils_numbers table
-    */
-    (
-    SELECT CAST( SUBSTRING(',' + @sourceIds + ',', number + 1
-     , CHARINDEX(',', ',' + @sourceIds + ',', number + 1) - number -1) AS int )
-    FROM utils_numbers
-    WHERE ( number <= LEN(',' + @sourceIds + ',') - 1 )
-     AND ( SUBSTRING(',' + @sourceIds + ',', number, 1) = ',' )
-    )
+		/*
+		* There is no SELECT ... WHERE ... IN (@variable) construct in T-SQL
+		* so need to convert @sourceIds into a result set which T-SQL can use.
+		* Requires the utils_numbers table
+		*/
+		/*
+		(
+		SELECT CAST( SUBSTRING(',' + @sourceIds + ',', number + 1
+		 , CHARINDEX(',', ',' + @sourceIds + ',', number + 1) - number -1) AS int )
+		FROM utils_numbers
+		WHERE ( number <= LEN(',' + @sourceIds + ',') - 1 )
+		 AND ( SUBSTRING(',' + @sourceIds + ',', number, 1) = ',' )
+		)
+		*/
+		(
+		SELECT split.Item FROM dbo.SplitString(@sourceIds, ',') AS split
+		)
    )
  ORDER BY rowNum
  OFFSET (@RecsPerPage * (@Page - 1)) ROWS
