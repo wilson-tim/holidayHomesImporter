@@ -18,3 +18,4 @@ C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holida
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\clr.pdb
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\clrUtilities.dll
 C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\bin\Debug\master.dacpac
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\master.dacpac
