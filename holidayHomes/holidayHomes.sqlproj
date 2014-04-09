@@ -78,6 +78,10 @@
     <None Include="Assemblies\clrUtilities.dll" />
   </ItemGroup>
   <ItemGroup>
+    <SqlCmdVariable Include="holidayHomes_build">
+      <DefaultValue>holidayHomes_build</DefaultValue>
+      <Value>$(SqlCmdVar__2)</Value>
+    </SqlCmdVariable>
     <SqlCmdVariable Include="holidayHomes_empty">
       <DefaultValue>holidayHomes_empty</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
@@ -124,6 +128,7 @@
     <Build Include="dbo\Tables\utils_countryLookup.sql" />
     <Build Include="dbo\Tables\utils_currencyLookup.sql" />
     <Build Include="dbo\Functions\SplitString.sql" />
+    <Build Include="dbo\Stored Procedures\proc_updateHomeAwayLatLong.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
@@ -141,5 +146,14 @@
       <SqlOwnerName>dbo</SqlOwnerName>
       <SqlPermissionSet>SAFE</SqlPermissionSet>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\holidayHomes_build\holidayHomes_build.sqlproj">
+      <Name>holidayHomes_build</Name>
+      <Project>{9f1be4f5-49a3-4693-9791-27e08d61d3bc}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseSqlCmdVariable>holidayHomes_build</DatabaseSqlCmdVariable>
+    </ProjectReference>
   </ItemGroup>
 </Project>
