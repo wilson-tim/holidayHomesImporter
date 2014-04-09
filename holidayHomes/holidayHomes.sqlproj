@@ -153,7 +153,7 @@
       <Project>{9f1be4f5-49a3-4693-9791-27e08d61d3bc}</Project>
       <Private>True</Private>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseSqlCmdVariable>holidayHomes_build</DatabaseSqlCmdVariable>
+      <DatabaseVariableLiteralValue>holidayHomes_build</DatabaseVariableLiteralValue>
     </ProjectReference>
   </ItemGroup>
 </Project>
