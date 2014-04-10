@@ -76,6 +76,7 @@
     <None Include="synonym_UPDATE.sql" />
     <None Include="dbo\createtable_utils_numbers.sql" />
     <None Include="Assemblies\clrUtilities.dll" />
+    <None Include="dbo\populate facet tables static data.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="holidayHomes_build">
@@ -129,6 +130,12 @@
     <Build Include="dbo\Tables\utils_currencyLookup.sql" />
     <Build Include="dbo\Functions\SplitString.sql" />
     <Build Include="dbo\Stored Procedures\proc_updateHomeAwayLatLong.sql" />
+    <Build Include="dbo\Tables\tab_propertyFacts.sql" />
+    <Build Include="dbo\Tables\tab_propertyFacets.sql" />
+    <Build Include="dbo\Tables\tab_propertyTypeFacets.sql" />
+    <Build Include="dbo\Tables\tab_amenityFacets.sql" />
+    <Build Include="dbo\Tables\tab_amenityFacetsLookup.sql" />
+    <Build Include="dbo\Stored Procedures\proc_update_tab_propertyFacts.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
