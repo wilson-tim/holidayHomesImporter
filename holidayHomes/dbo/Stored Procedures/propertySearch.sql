@@ -62,6 +62,8 @@ IF @sourceIds IS NULL
 	SET @localCurrencyCode = 'GBP'
  END
 
+ SET @sleeps = ISNULL(@sleeps, 1);
+
  -- here is the main select
  SELECT totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
@@ -149,7 +151,7 @@ IF @sourceIds IS NULL
   ( @searchCriteria IS NULL OR pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria )
   AND ( @countryCode IS NULL OR pro.countryCode = @countryCode )
   AND ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
-  AND ( pro.maximumNumberOfPeople >= ISNULL(@sleeps, 1) )
+  AND ( pro.maximumNumberOfPeople >= @sleeps )
   AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
   AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
   AND

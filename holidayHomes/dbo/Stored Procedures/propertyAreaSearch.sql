@@ -18,6 +18,7 @@
 --  2014-04-04 TW price order now uses prices converted to GBP (using new table utils_currencyLookup)
 --                added parameter localCurrencyCode
 --  2014-04-08 JP added parameter maxSleeps
+--  2014-04-11 TW optimised: new variable @centralLatLongGeo
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
@@ -48,7 +49,8 @@ BEGIN
  SET NOCOUNT ON;
 
  DECLARE @sourceId int
-	, @conversion decimal(10,4);
+	, @conversion decimal(10,4)
+	, @centralLatLongGeo geography;
 
  IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
  BEGIN
@@ -91,7 +93,14 @@ BEGIN
 	SET @localCurrencyCode = 'GBP'
  END
 
- -- all the slow stuff on the outside working on the smallest possible dataset
+ IF @centralLatitude IS NOT NULL AND @centralLongitude IS NOT NULL
+ BEGIN
+	SET @centralLatLongGeo = geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326);
+ END
+
+ SET @sleeps = ISNULL(@sleeps, 1);
+
+-- all the slow stuff on the outside working on the smallest possible dataset
  SELECT
   totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
@@ -171,7 +180,7 @@ BEGIN
 		ELSE
 			(minimumPricePerNight / currency.rate)
     END
-  , (geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion) AS distance
+  , (geodata.STDistance(@centralLatLongGeo) / @conversion) AS distance
   , [partner]
   , internalURL
   , urlSafeName
@@ -212,7 +221,7 @@ BEGIN
 	 ) pho
 	 WHERE
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
-	  AND ( pro.maximumNumberOfPeople >= ISNULL(@sleeps, 1) )
+	  AND ( pro.maximumNumberOfPeople >= @sleeps )
 	  AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
 	  AND
@@ -274,7 +283,7 @@ BEGIN
 			-- Radius passed: restrict to radial distance from central latitude and longitude
 			(pro.latitude IS NOT NULL AND pro.longitude IS NOT NULL)
 			AND
-			@radius >= (latlong.geodata.STDistance(geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326)) / @conversion)
+			@radius >= (latlong.geodata.STDistance(@centralLatLongGeo) / @conversion)
 			)
 		)
 	 ) mainselect
