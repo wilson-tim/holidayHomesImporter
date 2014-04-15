@@ -1,5 +1,13 @@
 ﻿-- 10/04/2014 TW Note that data for dbo.tab_amenityFacetsLookup needs to be determined and input manually
 
+/***
+
+SELECT DISTINCT amenityId, amenityValue
+FROM dbo.tab_amenity
+ORDER BY amenityValue
+
+***/
+
 INSERT [dbo].[tab_amenityFacets] ([amenityFacetId], [amenityFacetName], [amenitySpecial]) VALUES (1, N'Swimming Pool', 0)
 INSERT [dbo].[tab_amenityFacets] ([amenityFacetId], [amenityFacetName], [amenitySpecial]) VALUES (2, N'BBQ', 0)
 INSERT [dbo].[tab_amenityFacets] ([amenityFacetId], [amenityFacetName], [amenitySpecial]) VALUES (3, N'Internet Access', 0)
