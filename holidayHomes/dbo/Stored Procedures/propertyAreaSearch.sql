@@ -19,6 +19,7 @@
 --                added parameter localCurrencyCode
 --  2014-04-08 JP added parameter maxSleeps
 --  2014-04-11 TW optimised: new variable @centralLatLongGeo
+--  2014-04-14 TW added parameters minPrice, maxPrice (both in GBP)
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
@@ -30,6 +31,8 @@ CREATE PROCEDURE [dbo].[propertyAreaSearch]
 , @maxSleeps int = NULL
 , @numberOfBedrooms int = NULL
 , @sourceIds varchar(MAX) = NULL
+, @minPrice int = 1
+, @maxPrice int = 10000
 , @centralLatitude float
 , @centralLongitude float
 , @swLatitude float = 0
@@ -50,7 +53,8 @@ BEGIN
 
  DECLARE @sourceId int
 	, @conversion decimal(10,4)
-	, @centralLatLongGeo geography;
+	, @centralLatLongGeo geography
+	, @localRate float;
 
  IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
  BEGIN
@@ -100,7 +104,19 @@ BEGIN
 
  SET @sleeps = ISNULL(@sleeps, 1);
 
--- all the slow stuff on the outside working on the smallest possible dataset
+ IF @localCurrencyCode IS NOT NULL AND @localCurrencyCode <> ''
+ BEGIN
+	 SELECT @localRate = rate
+		FROM dbo.utils_currencyLookup
+		WHERE id = 'GBP'
+			AND localId = @localCurrencyCode;
+ END
+ ELSE
+ BEGIN
+	SET @localRate = 1;
+ END
+
+ -- all the slow stuff on the outside working on the smallest possible dataset
  SELECT
   totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
@@ -219,11 +235,36 @@ BEGIN
 	  FROM    tab_photo
 	  WHERE   tab_photo.propertyId = pro.propertyId
 	 ) pho
+	 LEFT OUTER JOIN dbo.utils_currencyLookup curr
+	 ON curr.id = currencyCode AND curr.localId = @localCurrencyCode
 	 WHERE
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
 	  AND ( pro.maximumNumberOfPeople >= @sleeps )
 	  AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
+	  AND (
+			(
+			@minPrice IS NULL
+			OR
+			@maxPrice IS NULL
+			OR
+			minimumPricePerNight IS NULL
+			OR
+			ABS(minimumPricePerNight) = 0
+			OR
+			currencyCode IS NULL
+			OR
+			curr.rate IS NULL
+			OR
+			curr.rate = 0
+			)
+			OR
+			(
+			(@minPrice / @localRate) <= (minimumPricePerNight / curr.rate)
+			AND
+			(@maxPrice / @localRate) >= (minimumPricePerNight / curr.rate)
+			)
+		)
 	  AND
 	   (
 	   @sourceId IS NULL

@@ -14,6 +14,7 @@
 --  2014-04-04 TW price order now uses prices converted to GBP (using new table utils_currencyLookup)
 --                added parameter localCurrencyCode
 --  2014-04-08 JP added parameter maxSleeps
+--  2014-04-14 TW added parameters minPrice, maxPrice (both in GBP)
 -- =============================================
 CREATE PROCEDURE [dbo].[propertySearch]
 -- Add the parameters for the stored procedure here
@@ -25,6 +26,8 @@ CREATE PROCEDURE [dbo].[propertySearch]
 , @maxSleeps int = NULL
 , @numberOfBedrooms int = NULL
 , @sourceIds varchar(MAX) = NULL
+, @minPrice int = 1
+, @maxPrice int = 10000
 , @Page int
 , @RecsPerPage int
 , @orderBy VARCHAR(15) = 'beds'
@@ -35,7 +38,8 @@ BEGIN
  -- interfering with SELECT statements.
  SET NOCOUNT ON;
 
- DECLARE @sourceId int;
+ DECLARE @sourceId int
+	, @localRate float;
 
  IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
  BEGIN
@@ -63,6 +67,18 @@ IF @sourceIds IS NULL
  END
 
  SET @sleeps = ISNULL(@sleeps, 1);
+ 
+ IF @localCurrencyCode IS NOT NULL AND @localCurrencyCode <> ''
+ BEGIN
+	 SELECT @localRate = rate
+		FROM dbo.utils_currencyLookup
+		WHERE id = 'GBP'
+			AND localId = @localCurrencyCode;
+ END
+ ELSE
+ BEGIN
+	SET @localRate = 1;
+ END
 
  -- here is the main select
  SELECT totalCount = COUNT(1) OVER ()
@@ -154,6 +170,29 @@ IF @sourceIds IS NULL
   AND ( pro.maximumNumberOfPeople >= @sleeps )
   AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
   AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
+  AND (
+		(
+		@minPrice IS NULL
+		OR
+		@maxPrice IS NULL
+		OR
+		minimumPricePerNight IS NULL
+		OR
+		ABS(minimumPricePerNight) = 0
+		OR
+		currencyCode IS NULL
+		OR
+		currency.rate IS NULL
+		OR
+		currency.rate = 0
+		)
+		OR
+		(
+		(@minPrice / @localRate) <= (minimumPricePerNight / currency.rate)
+		AND
+		(@maxPrice / @localRate) >= (minimumPricePerNight / currency.rate)
+		)
+	)
   AND
    (
    @sourceId IS NULL
