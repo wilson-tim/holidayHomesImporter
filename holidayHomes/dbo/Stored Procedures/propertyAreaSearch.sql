@@ -20,6 +20,8 @@
 --  2014-04-08 JP added parameter maxSleeps
 --  2014-04-11 TW optimised: new variable @centralLatLongGeo
 --  2014-04-14 TW added parameters minPrice, maxPrice (both in GBP)
+--  2014-04-15 TW added faceted search criteria parameters @amenityFacets, @specReqFacets, @propertyTypeFacets
+--                (each passed as comma delimited lists, e.g. '1,7,10')
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearch]
 -- Add the parameters for the stored procedure here
@@ -41,6 +43,9 @@ CREATE PROCEDURE [dbo].[propertyAreaSearch]
 , @neLongitude float = 0
 , @radius decimal(18,2)
 , @imperial bit = 0
+, @amenityFacets varchar(200) = NULL
+, @specReqFacets varchar(200) = NULL
+, @propertyTypeFacets varchar(200) = NULL
 , @Page int
 , @RecsPerPage int
 , @orderBy VARCHAR(15) = 'distance'
@@ -54,7 +59,11 @@ BEGIN
  DECLARE @sourceId int
 	, @conversion decimal(10,4)
 	, @centralLatLongGeo geography
-	, @localRate float;
+	, @localRate float
+	, @amenityFacetCount int
+	, @specReqFacetCount int
+	, @propertyTypeFacetCount int
+	, @totalFacetCount int;
 
  IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
  BEGIN
@@ -92,17 +101,17 @@ BEGIN
 	SET @conversion = 1000.000;
  END
 
- IF @localCurrencyCode = '' OR @localCurrencyCode IS NULL
- BEGIN
-	SET @localCurrencyCode = 'GBP'
- END
-
  IF @centralLatitude IS NOT NULL AND @centralLongitude IS NOT NULL
  BEGIN
 	SET @centralLatLongGeo = geography::STGeomFromText('POINT(' + CONVERT(varchar(100), @centralLongitude) + ' ' + CONVERT(varchar(100), @centralLatitude) + ')', 4326);
  END
 
  SET @sleeps = ISNULL(@sleeps, 1);
+
+ IF @localCurrencyCode = '' OR @localCurrencyCode IS NULL
+ BEGIN
+	SET @localCurrencyCode = 'GBP'
+ END
 
  IF @localCurrencyCode IS NOT NULL AND @localCurrencyCode <> ''
  BEGIN
@@ -115,6 +124,41 @@ BEGIN
  BEGIN
 	SET @localRate = 1;
  END
+
+ IF @amenityFacets IS NULL OR @amenityFacets = ''
+ BEGIN
+	SET @amenityFacets = '';
+ END 
+ 
+ SET @amenityFacetCount = LEN(@amenityFacets) - LEN(REPLACE(@amenityFacets, ',', ''));
+ IF LEN(@amenityFacets) > 0
+ BEGIN
+	SET @amenityFacetCount = @amenityFacetCount + 1;
+ END
+
+ IF @specReqFacets IS NULL OR @specReqFacets = ''
+ BEGIN
+	SET @specReqFacets = '';
+ END 
+ 
+ SET @specReqFacetCount = LEN(@specReqFacets) - LEN(REPLACE(@specReqFacets, ',', ''));
+ IF LEN(@specReqFacets) > 0
+ BEGIN
+	SET @specReqFacetCount = @specReqFacetCount + 1;
+ END
+
+ IF @propertyTypeFacets IS NULL OR @propertyTypeFacets = ''
+ BEGIN
+	SET @propertyTypeFacets = '';
+ END 
+ 
+ SET @propertyTypeFacetCount = LEN(@propertyTypeFacets) - LEN(REPLACE(@propertyTypeFacets, ',', ''));
+ IF LEN(@propertyTypeFacets) > 0
+ BEGIN
+	SET @propertyTypeFacetCount = @propertyTypeFacetCount + 1;
+ END
+
+ SET @totalFacetCount = @amenityFacetCount + @specReqFacetCount + @propertyTypeFacetCount;
 
  -- all the slow stuff on the outside working on the smallest possible dataset
  SELECT
@@ -222,21 +266,86 @@ BEGIN
 	  , pro.regionName
 	  , pro.minimumPricePerNight
 	  , pro.currencyCode
-	  , latlong.geodata
+	  , (geography::STGeomFromText('POINT(' + CONVERT(varchar(100), pro.longitude) + ' ' + CONVERT(varchar(100), pro.latitude) + ')', 4326)) AS geodata
 	  , '' AS [partner]
 	  , '' AS internalURL
 	  , '' AS urlSafeName
 	  , '' AS logoURL
 	 FROM dbo.tab_property pro
+	 /* VERY SLOW
 	 INNER JOIN dbo.tab_propertyLatLong latlong
 	 ON pro.propertyId = latlong.propertyId
+	 */
 	 OUTER APPLY (
-	  SELECT  TOP 1 tab_photo.url
-	  FROM    tab_photo
-	  WHERE   tab_photo.propertyId = pro.propertyId
+	  SELECT  TOP 1 dbo.tab_photo.url
+	  FROM    dbo.tab_photo
+	  WHERE   dbo.tab_photo.propertyId = pro.propertyId
 	 ) pho
 	 LEFT OUTER JOIN dbo.utils_currencyLookup curr
 	 ON curr.id = currencyCode AND curr.localId = @localCurrencyCode
+	 OUTER APPLY (
+		-- In conjunction with the WHERE clause below
+		-- this OUTER APPLY in fact operates as a conditional CROSS APPLY
+		-- condition is TRUE if one or more facet ids are passed
+
+		-- INTERSECT enforces AND logic across amenities, special requirements and property types
+
+		-- AND logic within amenity categories
+		SELECT pf.propertyId
+		FROM dbo.tab_propertyFacts pf
+		WHERE pro.propertyId = pf.propertyId
+			AND propertyFacetId = 1
+			AND (
+				(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+				OR
+				@amenityFacets = ''
+				)
+		-- GROUP BY... HAVING... enforces match on all ids (AND) within @amenityFacets
+		GROUP BY pf.propertyId
+		HAVING (
+			COUNT(DISTINCT facetId) = @amenityFacetCount
+			AND
+			@amenityFacets <> ''
+			)
+			OR
+			(@amenityFacets = '')
+
+		INTERSECT
+
+		-- AND logic within special requirements categories
+		SELECT pf.propertyId
+		FROM dbo.tab_propertyFacts pf
+		WHERE pro.propertyId = pf.propertyId
+			AND propertyFacetId = 2
+			AND (
+				(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+				OR
+				@specReqFacets = ''
+				)
+		-- GROUP BY... HAVING... enforces match on all ids (AND) within @specReqFacets
+		GROUP BY pf.propertyId
+		HAVING (
+			COUNT(DISTINCT facetId) = @specReqFacetCount
+			AND 
+			@specReqFacets <> ''
+			)
+			OR
+			(@specReqFacets = '')
+
+		INTERSECT
+
+		-- OR logic within property type categories
+		SELECT pf.propertyId
+		FROM dbo.tab_propertyFacts pf
+		WHERE pro.propertyId = pf.propertyId
+			AND propertyFacetId = 3
+			AND (
+				(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+				OR
+				@propertyTypeFacets = ''
+				)
+		-- no GROUP BY... HAVING... so can match any id (OR) within @propertyTypeFacets
+	 ) facts  -- end of OUTER APPLY
 	 WHERE
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
 	  AND ( pro.maximumNumberOfPeople >= @sleeps )
@@ -324,9 +433,20 @@ BEGIN
 			-- Radius passed: restrict to radial distance from central latitude and longitude
 			(pro.latitude IS NOT NULL AND pro.longitude IS NOT NULL)
 			AND
+			/* VERY SLOW
 			@radius >= (latlong.geodata.STDistance(@centralLatLongGeo) / @conversion)
+			*/
+			@radius >= (geography::STGeomFromText('POINT(' + CONVERT(varchar(100), pro.longitude) + ' ' + CONVERT(varchar(100), pro.latitude) + ')', 4326).STDistance(@centralLatLongGeo) / @conversion)
 			)
 		)
+	  AND
+	   (
+	   -- No facet selections passed, ignore OUTER APPLY on dbo.tab_propertyFacts
+	   @totalFacetCount = 0
+	   OR
+	   -- Facet selections passed, filter OUTER APPLY on dbo.tab_propertyFacts to simulate CROSS APPLY
+	   (@totalFacetCount > 0 AND facts.propertyId IS NOT NULL)
+	   )
 	 ) mainselect
  LEFT OUTER JOIN dbo.utils_currencyLookup currency
  ON currency.id = currencyCode AND currency.localId = @localCurrencyCode

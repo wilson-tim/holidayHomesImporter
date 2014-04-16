@@ -15,6 +15,8 @@
 --                added parameter localCurrencyCode
 --  2014-04-08 JP added parameter maxSleeps
 --  2014-04-14 TW added parameters minPrice, maxPrice (both in GBP)
+--  2014-04-15 TW added faceted search criteria parameters @amenityFacets, @specReqFacets, @propertyTypeFacets
+--                (each passed as comma delimited lists, e.g. '1,7,10')
 -- =============================================
 CREATE PROCEDURE [dbo].[propertySearch]
 -- Add the parameters for the stored procedure here
