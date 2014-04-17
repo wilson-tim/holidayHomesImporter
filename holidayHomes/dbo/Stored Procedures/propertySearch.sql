@@ -27,9 +27,12 @@ CREATE PROCEDURE [dbo].[propertySearch]
 , @sleeps int = 1
 , @maxSleeps int = NULL
 , @numberOfBedrooms int = NULL
-, @sourceIds varchar(MAX) = NULL
+, @sourceIds varchar(200) = NULL
 , @minPrice int = 1
 , @maxPrice int = 10000
+, @amenityFacets varchar(200) = NULL
+, @specReqFacets varchar(200) = NULL
+, @propertyTypeFacets varchar(200) = NULL
 , @Page int
 , @RecsPerPage int
 , @orderBy VARCHAR(15) = 'beds'
@@ -41,7 +44,11 @@ BEGIN
  SET NOCOUNT ON;
 
  DECLARE @sourceId int
-	, @localRate float;
+	, @localRate float
+	, @amenityFacetCount int
+	, @specReqFacetCount int
+	, @propertyTypeFacetCount int
+	, @totalFacetCount int;
 
  IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
  BEGIN
@@ -68,8 +75,6 @@ IF @sourceIds IS NULL
 	SET @localCurrencyCode = 'GBP'
  END
 
- SET @sleeps = ISNULL(@sleeps, 1);
- 
  IF @localCurrencyCode IS NOT NULL AND @localCurrencyCode <> ''
  BEGIN
 	 SELECT @localRate = rate
@@ -81,6 +86,43 @@ IF @sourceIds IS NULL
  BEGIN
 	SET @localRate = 1;
  END
+
+ SET @sleeps = ISNULL(@sleeps, 1);
+ 
+ IF @amenityFacets IS NULL OR @amenityFacets = ''
+ BEGIN
+	SET @amenityFacets = '';
+ END 
+ 
+ SET @amenityFacetCount = LEN(@amenityFacets) - LEN(REPLACE(@amenityFacets, ',', ''));
+ IF LEN(@amenityFacets) > 0
+ BEGIN
+	SET @amenityFacetCount = @amenityFacetCount + 1;
+ END
+
+ IF @specReqFacets IS NULL OR @specReqFacets = ''
+ BEGIN
+	SET @specReqFacets = '';
+ END 
+ 
+ SET @specReqFacetCount = LEN(@specReqFacets) - LEN(REPLACE(@specReqFacets, ',', ''));
+ IF LEN(@specReqFacets) > 0
+ BEGIN
+	SET @specReqFacetCount = @specReqFacetCount + 1;
+ END
+
+ IF @propertyTypeFacets IS NULL OR @propertyTypeFacets = ''
+ BEGIN
+	SET @propertyTypeFacets = '';
+ END 
+ 
+ SET @propertyTypeFacetCount = LEN(@propertyTypeFacets) - LEN(REPLACE(@propertyTypeFacets, ',', ''));
+ IF LEN(@propertyTypeFacets) > 0
+ BEGIN
+	SET @propertyTypeFacetCount = @propertyTypeFacetCount + 1;
+ END
+
+ SET @totalFacetCount = @amenityFacetCount + @specReqFacetCount + @propertyTypeFacetCount;
 
  -- here is the main select
  SELECT totalCount = COUNT(1) OVER ()
@@ -116,7 +158,7 @@ IF @sourceIds IS NULL
 		currency.rate > 0
 		)
 		THEN POWER(-1, @orderDESC) * (minimumPricePerNight / currency.rate)
-    ELSE -propertyId
+    ELSE -pro.propertyId
    END) -- end of ORDER BY CASE
   , pro.name
   , pro.[description]
@@ -127,7 +169,7 @@ IF @sourceIds IS NULL
   , pro.numberOfProperBedrooms
   , pro.maximumNumberOfPeople
   , pro.averageRating
-  , pho.url
+  , ISNULL(pro.thumbnailUrl, pho.url) AS url
   , pro.countryCode
   , pro.cityName
   , pro.sourceId
@@ -157,14 +199,77 @@ IF @sourceIds IS NULL
   , '' AS internalURL
   , '' AS urlSafeName
   , '' AS logoURL
- FROM tab_property pro
+ FROM dbo.tab_property pro
  CROSS APPLY (
-  SELECT  TOP 1 tab_photo.url
-  FROM    tab_photo
-  WHERE   tab_photo.propertyId = pro.propertyId
+  SELECT  TOP 1 dbo.tab_photo.url
+  FROM    dbo.tab_photo
+  WHERE   dbo.tab_photo.propertyId = pro.propertyId
  ) pho
  LEFT OUTER JOIN dbo.utils_currencyLookup currency
  ON currency.id = currencyCode AND currency.localId = @localCurrencyCode
+ OUTER APPLY (
+    -- In conjunction with the WHERE clause below
+	-- this OUTER APPLY in fact operates as a conditional CROSS APPLY
+	-- condition is TRUE if one or more facet ids are passed
+
+	-- INTERSECT enforces AND logic across amenities, special requirements and property types
+
+	-- AND logic within amenity categories
+	SELECT pf.propertyId
+	FROM dbo.tab_propertyFacts pf
+	WHERE pro.propertyId = pf.propertyId
+		AND propertyFacetId = 1
+		AND (
+			(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+			OR
+			@amenityFacets = ''
+			)
+	-- GROUP BY... HAVING... enforces match on all ids (AND) within @amenityFacets
+	GROUP BY pf.propertyId
+	HAVING (
+		COUNT(DISTINCT facetId) = @amenityFacetCount
+		AND
+		@amenityFacets <> ''
+		)
+		OR
+		(@amenityFacets = '')
+
+	INTERSECT
+
+	-- AND logic within special requirements categories
+	SELECT pf.propertyId
+	FROM dbo.tab_propertyFacts pf
+	WHERE pro.propertyId = pf.propertyId
+		AND propertyFacetId = 2
+		AND (
+			(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+			OR
+			@specReqFacets = ''
+			)
+	-- GROUP BY... HAVING... enforces match on all ids (AND) within @specReqFacets
+	GROUP BY pf.propertyId
+	HAVING (
+		COUNT(DISTINCT facetId) = @specReqFacetCount
+		AND 
+		@specReqFacets <> ''
+		)
+		OR
+		(@specReqFacets = '')
+
+	INTERSECT
+
+	-- OR logic within property type categories
+	SELECT pf.propertyId
+	FROM dbo.tab_propertyFacts pf
+	WHERE pro.propertyId = pf.propertyId
+		AND propertyFacetId = 3
+		AND (
+			(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+			OR
+			@propertyTypeFacets = ''
+			)
+	-- no GROUP BY... HAVING... so can match any id (OR) within @propertyTypeFacets
+ ) facts  -- end of OUTER APPLY
  WHERE
   ( @searchCriteria IS NULL OR pro.cityName LIKE @searchCriteria OR pro.regionName LIKE @searchCriteria )
   AND ( @countryCode IS NULL OR pro.countryCode = @countryCode )
@@ -202,23 +307,17 @@ IF @sourceIds IS NULL
    sourceId = @sourceId
    OR
    sourceId IN
-		/*
-		* There is no SELECT ... WHERE ... IN (@variable) construct in T-SQL
-		* so need to convert @sourceIds into a result set which T-SQL can use.
-		* Requires the utils_numbers table
-		*/
-		/*
-		(
-		SELECT CAST( SUBSTRING(',' + @sourceIds + ',', number + 1
-		 , CHARINDEX(',', ',' + @sourceIds + ',', number + 1) - number -1) AS int )
-		FROM utils_numbers
-		WHERE ( number <= LEN(',' + @sourceIds + ',') - 1 )
-		 AND ( SUBSTRING(',' + @sourceIds + ',', number, 1) = ',' )
-		)
-		*/
 		(
 		SELECT split.Item FROM dbo.SplitString(@sourceIds, ',') AS split
 		)
+   )
+   AND
+   (
+   -- No facet selections passed, ignore OUTER APPLY on dbo.tab_propertyFacts
+   @totalFacetCount = 0
+   OR
+   -- Facet selections passed, filter OUTER APPLY on dbo.tab_propertyFacts to simulate CROSS APPLY
+   (@totalFacetCount > 0 AND facts.propertyId IS NOT NULL)
    )
  ORDER BY rowNum
  OFFSET (@RecsPerPage * (@Page - 1)) ROWS
