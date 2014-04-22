@@ -10,6 +10,7 @@
 --                (each passed as comma delimited lists, e.g. '1,7,10')
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearchFacetCounts]
+-- Add the parameters for the stored procedure here
   @searchCriteria VARCHAR(150)
 , @typeOfProperty VARCHAR(15) = NULL
 , @countryCode VARCHAR(2) = NULL
@@ -138,7 +139,7 @@ BEGIN
 	  , COUNT(*) AS facetCount
  FROM
 	 (
-	 SELECT  -- could have DISTINCT here but ROW_NUMBER() OVER... seems to be faster
+	 SELECT
 	    facts.propertyId
 	  , facts.propertyFacetId
 	  , facts.propertyFacetName
@@ -152,6 +153,7 @@ BEGIN
 	 */
 	 
 	 FROM dbo.tab_property pro
+
 	 INNER JOIN dbo.tab_propertyFacts facts
 	 ON pro.propertyId = facts.propertyId
 	 
@@ -161,73 +163,10 @@ BEGIN
 	 */
 	 LEFT OUTER JOIN dbo.utils_currencyLookup curr
 	 ON curr.id = currencyCode AND curr.localId = @localCurrencyCode
-	 OUTER APPLY (
-		-- In conjunction with the WHERE clause below
-		-- this OUTER APPLY in fact operates as a conditional CROSS APPLY
-		-- condition is TRUE if one or more facet ids are passed
-
-		-- INTERSECT enforces AND logic across amenities, special requirements and property types
-
-		-- AND logic within amenity categories
-		SELECT pf.propertyId
-		FROM dbo.tab_propertyFacts pf
-		WHERE facts.propertyId = pf.propertyId
-			AND propertyFacetId = 1
-			AND (
-				(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
-				OR
-				@amenityFacets = ''
-				)
-		-- GROUP BY... HAVING... enforces match on all ids (AND) within @amenityFacets
-		GROUP BY pf.propertyId
-		HAVING (
-			COUNT(DISTINCT facetId) = @amenityFacetCount
-			AND
-			@amenityFacets <> ''
-			)
-			OR
-			(@amenityFacets = '')
-
-		INTERSECT
-
-		-- AND logic within special requirements categories
-		SELECT pf.propertyId
-		FROM dbo.tab_propertyFacts pf
-		WHERE facts.propertyId = pf.propertyId
-			AND propertyFacetId = 2
-			AND (
-				(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
-				OR
-				@specReqFacets = ''
-				)
-		-- GROUP BY... HAVING... enforces match on all ids (AND) within @specReqFacets
-		GROUP BY pf.propertyId
-		HAVING (
-			COUNT(DISTINCT facetId) = @specReqFacetCount
-			AND 
-			@specReqFacets <> ''
-			)
-			OR
-			(@specReqFacets = '')
-
-		INTERSECT
-
-		-- OR logic within property type categories
-		SELECT pf.propertyId
-		FROM dbo.tab_propertyFacts pf
-		WHERE facts.propertyId = pf.propertyId
-			AND propertyFacetId = 3
-			AND (
-				(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
-				OR
-				@propertyTypeFacets = ''
-				)
-		-- no GROUP BY... HAVING... so can match any id (OR) within @propertyTypeFacets
-	 ) outerApplyFacts  -- end of OUTER APPLY
 	 WHERE
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
-	  AND ( pro.maximumNumberOfPeople >= @sleeps )
-	  AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
+	  AND ( @sleeps IS NULL OR pro.maximumNumberOfPeople >= @sleeps )
+      AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
 	  AND (
 			(
@@ -305,14 +244,80 @@ BEGIN
 			@radius >= (geography::STGeomFromText('POINT(' + CONVERT(varchar(100), pro.longitude) + ' ' + CONVERT(varchar(100), pro.latitude) + ')', 4326).STDistance(@centralLatLongGeo) / @conversion)
 			)
 		)
-	   AND
-	   (
-	   -- No facet selections passed, ignore OUTER APPLY on dbo.tab_propertyFacts
-	   @totalFacetCount = 0
-	   OR
-	   -- Facet selections passed, filter OUTER APPLY on dbo.tab_propertyFacts to simulate CROSS APPLY
-	   (@totalFacetCount > 0 AND outerApplyFacts.propertyId IS NOT NULL)
-	   )
+	  -- Enforce AND logic across amenities, special requirements and property types
+	  AND
+		(
+		@amenityFacetCount = 0
+		OR
+		pro.propertyId IN
+			(
+			-- AND logic within amenity categories
+			SELECT pf.propertyId
+			FROM dbo.tab_propertyFacts pf
+			WHERE pro.propertyId = pf.propertyId
+				AND propertyFacetId = 1
+				AND (
+					(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+					OR
+					@amenityFacets = ''
+					)
+			-- GROUP BY... HAVING... enforces match on all ids (AND) within @amenityFacets
+			GROUP BY pf.propertyId
+			HAVING (
+				COUNT(DISTINCT facetId) = @amenityFacetCount
+				AND
+				@amenityFacets <> ''
+				)
+				OR
+				(@amenityFacets = '')
+				)
+			)
+	  AND
+		(
+		@specReqFacetCount = 0
+		OR
+		pro.propertyId IN
+			(
+			-- AND logic within special requirements categories
+			SELECT pf.propertyId
+			FROM dbo.tab_propertyFacts pf
+			WHERE pro.propertyId = pf.propertyId
+				AND propertyFacetId = 2
+				AND (
+					(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+					OR
+					@specReqFacets = ''
+					)
+			-- GROUP BY... HAVING... enforces match on all ids (AND) within @specReqFacets
+			GROUP BY pf.propertyId
+			HAVING (
+				COUNT(DISTINCT facetId) = @specReqFacetCount
+				AND 
+				@specReqFacets <> ''
+				)
+				OR
+				(@specReqFacets = '')
+			)
+		)
+	  AND
+		(
+		@propertyTypeFacetCount = 0
+		OR
+		pro.propertyId IN
+			(
+			-- OR logic within property type categories
+			SELECT pf.propertyId
+			FROM dbo.tab_propertyFacts pf
+			WHERE pro.propertyId = pf.propertyId
+				AND propertyFacetId = 3
+				AND (
+					(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+					OR
+					@propertyTypeFacets = ''
+					)
+			-- no GROUP BY... HAVING... so can match any id (OR) within @propertyTypeFacets
+			)
+		)
 	 ) mainselect
 -- Using 'INNER JOIN dbo.tab_propertyFacts facts' instead of LEFT OUTER JOIN to avoid WHERE
 -- WHERE mainselect.propertyFacetId IS NOT NULL
