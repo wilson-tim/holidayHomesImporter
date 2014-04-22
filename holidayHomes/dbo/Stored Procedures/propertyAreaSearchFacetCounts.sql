@@ -45,23 +45,20 @@ BEGIN
 	, @amenityFacetCount int
 	, @specReqFacetCount int
 	, @propertyTypeFacetCount int
-	, @totalFacetCount int;
+	, @totalFacetCount int
+	, @sourceIdCount int;
 
- IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
+ IF @sourceIds IS NULL OR @sourceIds = ''
  BEGIN
-  SET @sourceId = CAST(@sourceIds AS int);
- END
-
- IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) > 0
- BEGIN
-  SET @sourceId = 0;
- END
-
- IF @sourceIds IS NULL
- BEGIN
-  SET @sourceId = NULL;
- END
+	SET @sourceIds = '';
+ END 
  
+ SET @sourceIdCount = LEN(@sourceIds) - LEN(REPLACE(@sourceIds, ',', ''));
+ IF LEN(@sourceIds) > 0
+ BEGIN
+	SET @sourceIdCount = @sourceIdCount + 1;
+ END
+
  IF @imperial = 1
  BEGIN
 	SET @conversion = 1609.344;
@@ -165,7 +162,7 @@ BEGIN
 	 ON curr.id = currencyCode AND curr.localId = @localCurrencyCode
 	 WHERE
 	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
-	  AND ( @sleeps IS NULL OR pro.maximumNumberOfPeople >= @sleeps )
+      AND ( @sleeps IS NULL OR pro.maximumNumberOfPeople >= @sleeps  )
       AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
 	  AND (
@@ -193,16 +190,12 @@ BEGIN
 		)
 	  AND
 	   (
-	   @sourceId IS NULL
-	   OR
-	   sourceId = @sourceId
-	   OR
-	   (
-	   sourceId IN
-		(
-		SELECT split.Item FROM dbo.SplitString(@sourceIds, ',') AS split
-		)
-	   )
+       @sourceIdCount = 0
+       OR
+       sourceId IN
+		    (
+		    SELECT split.Item FROM dbo.SplitString(@sourceIds, ',') AS split
+		    )
 	   )
 	  AND
 		(

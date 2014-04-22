@@ -63,23 +63,20 @@ BEGIN
 	, @amenityFacetCount int
 	, @specReqFacetCount int
 	, @propertyTypeFacetCount int
-	, @totalFacetCount int;
+	, @totalFacetCount int
+	, @sourceIdCount int;
 
- IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) = 0
+ IF @sourceIds IS NULL OR @sourceIds = ''
  BEGIN
-  SET @sourceId = CAST(@sourceIds AS int);
- END
-
- IF @sourceIds IS NOT NULL AND CHARINDEX(',', @sourceIds, 0) > 0
- BEGIN
-  SET @sourceId = 0;
- END
-
- IF @sourceIds IS NULL
- BEGIN
-  SET @sourceId = NULL;
- END
+	SET @sourceIds = '';
+ END 
  
+ SET @sourceIdCount = LEN(@sourceIds) - LEN(REPLACE(@sourceIds, ',', ''));
+ IF LEN(@sourceIds) > 0
+ BEGIN
+	SET @sourceIdCount = @sourceIdCount + 1;
+ END
+
  IF @orderBy = '' OR @orderBy IS NULL
  BEGIN
 	IF @centralLatitude IS NOT NULL
@@ -313,14 +310,12 @@ BEGIN
 		)
 	  AND
 	   (
-	   @sourceId IS NULL
-	   OR
-	   sourceId = @sourceId
-	   OR
-	   sourceId IN
-		(
-		SELECT split.Item FROM dbo.SplitString(@sourceIds, ',') AS split
-		)
+       @sourceIdCount = 0
+       OR
+       sourceId IN
+		    (
+		    SELECT split.Item FROM dbo.SplitString(@sourceIds, ',') AS split
+		    )
 	   )
 	  AND
 		(
