@@ -125,7 +125,7 @@
     <Build Include="dbo\Functions\func_getLatLongDistance.sql" />
     <Build Include="dbo\Stored Procedures\propertyAreaSearch.sql" />
     <Build Include="dbo\Tables\tab_propertyLatLong.sql" />
-    <Build Include="dbo\Stored Procedures\proc_refreshData_tab_propertyLatLong.sql" />
+    <Build Include="dbo\Stored Procedures\proc_updateData_tab_propertyLatLong.sql" />
     <Build Include="dbo\Tables\utils_countryLookup.sql" />
     <Build Include="dbo\Tables\utils_currencyLookup.sql" />
     <Build Include="dbo\Functions\SplitString.sql" />
