@@ -121,7 +121,16 @@ BEGIN
 
  SET @totalFacetCount = @amenityFacetCount + @specReqFacetCount + @propertyTypeFacetCount;
 
- -- here is the main select
+ IF @minPrice IS NOT NULL
+ BEGIN
+	SET @minPrice = (@minPrice / @localRate);
+ END
+ IF @maxPrice IS NOT NULL
+ BEGIN
+	SET @maxPrice = (@maxPrice / @localRate);
+ END
+
+-- here is the main select
  SELECT totalCount = COUNT(1) OVER ()
   , rowNum = ROW_NUMBER() OVER
    (ORDER BY CASE
@@ -229,9 +238,9 @@ BEGIN
 		)
 		OR
 		(
-		(@minPrice / @localRate) <= (minimumPricePerNight / currency.rate)
+		@minPrice <= (minimumPricePerNight / currency.rate)
 		AND
-		(@maxPrice / @localRate) >= (minimumPricePerNight / currency.rate)
+		@maxPrice >= (minimumPricePerNight / currency.rate)
 		)
 	)
   AND

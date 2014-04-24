@@ -127,6 +127,15 @@ BEGIN
 
  SET @totalFacetCount = @amenityFacetCount + @specReqFacetCount + @propertyTypeFacetCount;
 
+ IF @minPrice IS NOT NULL
+ BEGIN
+	SET @minPrice = (@minPrice / @localRate);
+ END
+ IF @maxPrice IS NOT NULL
+ BEGIN
+	SET @maxPrice = (@maxPrice / @localRate);
+ END
+
 -- SELECTion time...
  SELECT
 	  propertyFacetId
@@ -183,9 +192,9 @@ BEGIN
 			)
 			OR
 			(
-			(@minPrice / @localRate) <= (minimumPricePerNight / curr.rate)
+			@minPrice <= (minimumPricePerNight / curr.rate)
 			AND
-			(@maxPrice / @localRate) >= (minimumPricePerNight / curr.rate)
+			@maxPrice >= (minimumPricePerNight / curr.rate)
 			)
 		)
 	  AND
@@ -200,8 +209,11 @@ BEGIN
 	  AND
 		(
 			(
-			-- Condition for including records with NULL latitude / longitude
+			-- Conditions for including records with NULL latitude / longitude
 			(pro.latitude IS NULL OR pro.longitude IS NULL)
+			AND
+			-- Not a map area search if radius passed
+			(@radius IS NOT NULL AND @radius > 0)
 			AND
 			(
 			-- searchCriteria is required
