@@ -253,61 +253,67 @@ BEGIN
 		)
    )
   -- Enforce AND logic across amenities, special requirements and property types
-  AND
+	AND
 	(
 	@amenityFacetCount = 0
 	OR
-	pro.propertyId IN
+	--pro.propertyId IN
 		(
 		-- AND logic within amenity categories
-		SELECT pf.propertyId
+		SELECT COUNT(pf.propertyId)
 		FROM dbo.tab_propertyFacts pf
 		WHERE pro.propertyId = pf.propertyId
 			AND propertyFacetId = 1
 			AND (
-				(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
-				OR
-				@amenityFacets = ''
+				--(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+				(facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+				--CHARINDEX(',' + LTRIM(RTRIM(STR(facetId))) + ',', ',' + @amenityFacets + ',') > 0
+				--OR
+				--@amenityFacets = ''
 				)
 		-- GROUP BY... HAVING... enforces match on all ids (AND) within @amenityFacets
 		GROUP BY pf.propertyId
 		HAVING (
 			COUNT(DISTINCT facetId) = @amenityFacetCount
-			AND
-			@amenityFacets <> ''
+			--AND
+			--@amenityFacets <> ''
+			--)
+			--OR
+			--(@amenityFacets = '')
 			)
-			OR
-			(@amenityFacets = '')
-			)
-		)
-  AND
+		) > 0
+	)
+	AND
 	(
 	@specReqFacetCount = 0
 	OR
-	pro.propertyId IN
+	--pro.propertyId IN
 		(
 		-- AND logic within special requirements categories
-		SELECT pf.propertyId
+		SELECT COUNT(pf.propertyId)
 		FROM dbo.tab_propertyFacts pf
 		WHERE pro.propertyId = pf.propertyId
 			AND propertyFacetId = 2
 			AND (
-				(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
-				OR
-				@specReqFacets = ''
+				--(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+				(facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+				--CHARINDEX(',' + LTRIM(RTRIM(STR(facetId))) + ',', ',' + @specReqFacets + ',') > 0
+				--OR
+				--@specReqFacets = ''
 				)
 		-- GROUP BY... HAVING... enforces match on all ids (AND) within @specReqFacets
 		GROUP BY pf.propertyId
 		HAVING (
 			COUNT(DISTINCT facetId) = @specReqFacetCount
-			AND 
-			@specReqFacets <> ''
+			--AND 
+			--@specReqFacets <> ''
+			--)
+			--OR
+			--(@specReqFacets = '')
 			)
-			OR
-			(@specReqFacets = '')
-		)
+		) > 0
 	)
-  AND
+	AND
 	(
 	@propertyTypeFacetCount = 0
 	OR
@@ -319,9 +325,11 @@ BEGIN
 		WHERE pro.propertyId = pf.propertyId
 			AND propertyFacetId = 3
 			AND (
-				(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
-				OR
-				@propertyTypeFacets = ''
+				--(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+				(facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+				--CHARINDEX(',' + LTRIM(RTRIM(STR(facetId))) + ',', ',' + @propertyTypeFacets + ',') > 0
+				--OR
+				--@propertyTypeFacets = ''
 				)
 		-- no GROUP BY... HAVING... so can match any id (OR) within @propertyTypeFacets
 		)

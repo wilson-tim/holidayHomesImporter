@@ -124,21 +124,22 @@ BEGIN
 	 SELECT
 	    facts.propertyId
 	  , facts.propertyFacetId
-	  , facts.propertyFacetName
+	  , MAX(facts.propertyFacetName) As propertyFacetName
 	  , facts.facetId
-	  , facts.facetName
-	  , rownum = ROW_NUMBER() OVER (PARTITION BY facts.propertyId, facts.propertyFacetId, facts.facetId ORDER BY facts.dataId)
-	 /*
+	  , MAX(facts.facetName) AS facetName
+	  --, rownum = ROW_NUMBER() OVER (PARTITION BY facts.propertyId, facts.propertyFacetId, facts.facetId ORDER BY facts.dataId)
+	 
 	 FROM dbo.tab_propertyFacts facts
+
 	 INNER JOIN dbo.tab_property pro
 	 ON pro.propertyId = facts.propertyId
-	 */
-
+	 
+	 /*
 	 FROM dbo.tab_property pro
 
 	 INNER JOIN dbo.tab_propertyFacts facts
 	 ON pro.propertyId = facts.propertyId
-
+	 */
 	 LEFT OUTER JOIN dbo.utils_currencyLookup currency
 	 ON currency.id = currencyCode AND currency.localId = @localCurrencyCode
  WHERE
@@ -185,55 +186,61 @@ BEGIN
 		(
 		@amenityFacetCount = 0
 		OR
-		pro.propertyId IN
+		--pro.propertyId IN
 			(
 			-- AND logic within amenity categories
-			SELECT pf.propertyId
+			SELECT COUNT(pf.propertyId)
 			FROM dbo.tab_propertyFacts pf
 			WHERE pro.propertyId = pf.propertyId
 				AND propertyFacetId = 1
 				AND (
-					(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
-					OR
-					@amenityFacets = ''
+					--(@amenityFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+					(facetId IN (SELECT split.Item FROM dbo.SplitString(@amenityFacets, ',') AS split))
+					--CHARINDEX(',' + LTRIM(RTRIM(STR(facetId))) + ',', ',' + @amenityFacets + ',') > 0
+					--OR
+					--@amenityFacets = ''
 					)
 			-- GROUP BY... HAVING... enforces match on all ids (AND) within @amenityFacets
 			GROUP BY pf.propertyId
 			HAVING (
 				COUNT(DISTINCT facetId) = @amenityFacetCount
-				AND
-				@amenityFacets <> ''
+				--AND
+				--@amenityFacets <> ''
+				--)
+				--OR
+				--(@amenityFacets = '')
 				)
-				OR
-				(@amenityFacets = '')
-				)
-			)
+			) > 0
+		)
 	  AND
 		(
 		@specReqFacetCount = 0
 		OR
-		pro.propertyId IN
+		--pro.propertyId IN
 			(
 			-- AND logic within special requirements categories
-			SELECT pf.propertyId
+			SELECT COUNT(pf.propertyId)
 			FROM dbo.tab_propertyFacts pf
 			WHERE pro.propertyId = pf.propertyId
 				AND propertyFacetId = 2
 				AND (
-					(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
-					OR
-					@specReqFacets = ''
+					--(@specReqFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+					(facetId IN (SELECT split.Item FROM dbo.SplitString(@specReqFacets, ',') AS split))
+					--CHARINDEX(',' + LTRIM(RTRIM(STR(facetId))) + ',', ',' + @specReqFacets + ',') > 0
+					--OR
+					--@specReqFacets = ''
 					)
 			-- GROUP BY... HAVING... enforces match on all ids (AND) within @specReqFacets
 			GROUP BY pf.propertyId
 			HAVING (
 				COUNT(DISTINCT facetId) = @specReqFacetCount
-				AND 
-				@specReqFacets <> ''
+				--AND 
+				--@specReqFacets <> ''
+				--)
+				--OR
+				--(@specReqFacets = '')
 				)
-				OR
-				(@specReqFacets = '')
-			)
+			) > 0
 		)
 	  AND
 		(
@@ -247,17 +254,20 @@ BEGIN
 			WHERE pro.propertyId = pf.propertyId
 				AND propertyFacetId = 3
 				AND (
-					(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
-					OR
-					@propertyTypeFacets = ''
+					--(@propertyTypeFacets <> '' AND facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+					(facetId IN (SELECT split.Item FROM dbo.SplitString(@propertyTypeFacets, ',') AS split))
+					--CHARINDEX(',' + LTRIM(RTRIM(STR(facetId))) + ',', ',' + @propertyTypeFacets + ',') > 0
+					--OR
+					--@propertyTypeFacets = ''
 					)
 			-- no GROUP BY... HAVING... so can match any id (OR) within @propertyTypeFacets
 			)
 		)
-   ) mainselect
+		GROUP BY facts.propertyId, facts.propertyFacetId, facts.facetId
+	 ) mainselect
 -- Using 'INNER JOIN dbo.tab_propertyFacts facts' instead of LEFT OUTER JOIN to avoid WHERE
 -- WHERE mainselect.propertyFacetId IS NOT NULL
- WHERE mainselect.rownum = 1
+-- WHERE mainselect.rownum = 1
  GROUP BY mainselect.propertyFacetId, mainselect.facetId
  ORDER BY mainselect.propertyFacetId, mainselect.facetId
 
