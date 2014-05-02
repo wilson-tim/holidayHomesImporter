@@ -295,7 +295,8 @@ BEGIN
 	 LEFT OUTER JOIN dbo.utils_currencyLookup curr
 	 ON curr.id = currencyCode AND curr.localId = @localCurrencyCode
 	 WHERE
-	  ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
+	  ( @countryCode IS NULL OR pro.countryCode = @countryCode )
+	  AND ( @typeOfProperty IS NULL OR pro.typeOfProperty = @typeOfProperty )
       AND ( @sleeps IS NULL OR pro.maximumNumberOfPeople >= @sleeps  )
       AND ( @maxSleeps IS NULL OR pro.maximumNumberOfPeople <= @maxSleeps )
 	  AND ( @numberOfBedrooms IS NULL OR numberOfProperBedrooms = @numberOfBedrooms )
