@@ -197,7 +197,6 @@
     <Build Include="flipkey\Tables\flipkey.imp_rate.sql" />
     <Build Include="flipkey\Tables\flipkey.imp_default_rate.sql" />
     <Build Include="dbo\Functions\dbo.func_getLatLongDistance.sql" />
-    <Build Include="dbo\Tables\dbo.homeAwayCoords.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

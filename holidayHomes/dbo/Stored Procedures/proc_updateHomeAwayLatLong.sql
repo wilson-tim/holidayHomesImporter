@@ -7,6 +7,7 @@
 --		
 -- History
 --	2014-04-09 TW New
+--  2014-05-12 TW Ignore bad data (impossible latitude and longitude values)
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[proc_updateHomeAwayLatLong]
 AS
@@ -47,12 +48,15 @@ BEGIN
 		+ ISNULL(CAST(minimumDaysOfStay AS NVARCHAR), 'NA')
 		)
 	FROM dbo.tab_property p
-	INNER JOIN holidayHomes_build.dbo.homeAwayCoords h
+	INNER JOIN dbo.homeAwayCoords h
 	ON
 		(
 		h.externalId = p.externalId
 		AND ISNULL(h.latitude, 0) <> 0
 		AND ISNULL(h.longitude, 0) <> 0
+		-- ignore bad data
+		AND ABS(ISNULL(h.latitude, 0)) <= 90
+		AND ABS(ISNULL(h.longitude, 0)) <= 180
 		)
 	WHERE p.sourceId = 2
 		AND ISNULL(p.latitude, 0) <> h.latitude
