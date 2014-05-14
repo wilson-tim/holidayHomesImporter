@@ -6,6 +6,10 @@
 	                Correcting XML record structure inconsistency
 	05/03/2014  TW  Sort out duplicate naming of property_calendar nodes
 	31/03/2014  MC  removed <?xml declaration as was causing error
+	12/05/2014  TW  Transform only the data required for importing
+	                and ignore the rest
+					(to reduce the checking and testing workload, also better performance)
+	13/05/2014  TW  New elements handicap_adapted, elder_elevator, children_over_five
 -->
 	
 <!-- Copy every line as is, except where it matches the conditions below -->
@@ -20,6 +24,15 @@
 	  <xsl:apply-templates/>
     </xsl:template>
 <!-- Extract and rename the contents of the property_details node -->
+    <xsl:template match="property_data/property/property_details/handicap_adapted">
+	  	  <detailsHandicap_adapted><xsl:apply-templates select="@*|node()" /></detailsHandicap_adapted>
+    </xsl:template>
+    <xsl:template match="property_data/property/property_details/elder_elevator">
+	  	  <detailsElder_elevator><xsl:apply-templates select="@*|node()" /></detailsElder_elevator>
+    </xsl:template>
+    <xsl:template match="property_data/property/property_details/children_over_five">
+	  	  <detailsChildren_over_five><xsl:apply-templates select="@*|node()" /></detailsChildren_over_five>
+    </xsl:template>
     <xsl:template match="property_data/property/property_details/check_in">
 	  	  <detailsCheck_in><xsl:apply-templates select="@*|node()" /></detailsCheck_in>
     </xsl:template>
@@ -81,36 +94,6 @@
 	</xsl:template>
 
     <xsl:template match="property_data/property/property_flags">
-<!-- Ignore the property_flags node -->
-	  <xsl:apply-templates/>
-    </xsl:template>
-<!-- Extract and rename the contents of the property_flags node -->
-    <xsl:template match="property_data/property/property_flags/calendar_export_url">
-	  	  <flagsCalendar_export_url><xsl:apply-templates select="@*|node()" /></flagsCalendar_export_url>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/rates_updated">
-	  	  <flagsRates_updated><xsl:apply-templates select="@*|node()" /></flagsRates_updated>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/last_booked_date">
-	  	  <flagsLast_booked_date><xsl:apply-templates select="@*|node()" /></flagsLast_booked_date>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/has_special">
-	  	  <flagsHas_special><xsl:apply-templates select="@*|node()" /></flagsHas_special>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/photos_updated">
-	  	  <flagsPhotos_updated><xsl:apply-templates select="@*|node()" /></flagsPhotos_updated>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/calendar_updated">
-	  	  <flagsCalendar_updated><xsl:apply-templates select="@*|node()" /></flagsCalendar_updated>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/is_tip">
-	  	  <flagsIs_tip><xsl:apply-templates select="@*|node()" /></flagsIs_tip>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/alt_photo_test">
-	  	  <flagsAlt_photo_test><xsl:apply-templates select="@*|node()" /></flagsAlt_photo_test>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_flags/alt_pdp_sprite_filename_v2">
-	  	  <flagsAlt_pdp_sprite_filename_v2><xsl:apply-templates select="@*|node()" /></flagsAlt_pdp_sprite_filename_v2>
     </xsl:template>
 		
     <xsl:template match="property_data/property/property_addresses">
@@ -164,7 +147,6 @@
     </xsl:template>
 <!-- Extract and rename the contents of the property_rate_summary node -->
     <xsl:template match="property_data/property/property_rate_summary/day_max_rate">
-	  	  <rateDay_max_rate><xsl:apply-templates select="@*|node()" /></rateDay_max_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/day_min_rate">
 	  	  <rateDay_min_rate><xsl:apply-templates select="@*|node()" /></rateDay_min_rate>
@@ -173,82 +155,26 @@
 	  	  <rateMinimum_length><xsl:apply-templates select="@*|node()" /></rateMinimum_length>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/month_max_rate">
-	  	  <rateMonth_max_rate><xsl:apply-templates select="@*|node()" /></rateMonth_max_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/month_min_rate">
 	  	  <rateMonth_min_rate><xsl:apply-templates select="@*|node()" /></rateMonth_min_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/week_max_rate">
-	  	  <rateWeek_max_rate><xsl:apply-templates select="@*|node()" /></rateWeek_max_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/week_min_rate">
 	  	  <rateWeek_min_rate><xsl:apply-templates select="@*|node()" /></rateWeek_min_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/user_day_max_rate">
-	  	  <rateUser_day_max_rate><xsl:apply-templates select="@*|node()" /></rateUser_day_max_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/user_day_min_rate">
-	  	  <rateUser_day_min_rate><xsl:apply-templates select="@*|node()" /></rateUser_day_min_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/user_month_max_rate">
-	  	  <rateUser_month_max_rate><xsl:apply-templates select="@*|node()" /></rateUser_month_max_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/user_month_min_rate">
-	  	  <rateUser_month_min_rate><xsl:apply-templates select="@*|node()" /></rateUser_month_min_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/user_week_max_rate">
-	  	  <rateUser_week_max_rate><xsl:apply-templates select="@*|node()" /></rateUser_week_max_rate>
     </xsl:template>
     <xsl:template match="property_data/property/property_rate_summary/user_week_min_rate">
-	  	  <rateUser_week_min_rate><xsl:apply-templates select="@*|node()" /></rateUser_week_min_rate>
-    </xsl:template>
-
-    <xsl:template match="property_data/property/property_special">
-<!-- Ignore the property_special node -->
-	  <xsl:apply-templates/>
-    </xsl:template>
-<!-- Extract and rename the contents of the property_special node -->
-    <xsl:template match="property_data/property/property_special/amt_off_per_night">
-	  	  <specialAmt_off_per_night><xsl:apply-templates select="@*|node()" /></specialAmt_off_per_night>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/amt_off_per_stay">
-	  	  <specialAmt_off_per_stay><xsl:apply-templates select="@*|node()" /></specialAmt_off_per_stay>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/currency">
-	  	  <specialCurrency><xsl:apply-templates select="@*|node()" /></specialCurrency>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/description">
-	  	  <specialDescription><xsl:apply-templates select="@*|node()" /></specialDescription>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/title">
-	  	  <specialTitle><xsl:apply-templates select="@*|node()" /></specialTitle>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/free_stuff_title">
-	  	  <specialFree_stuff_title><xsl:apply-templates select="@*|node()" /></specialFree_stuff_title>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/num_free_nights">
-	  	  <specialNum_free_nights><xsl:apply-templates select="@*|node()" /></specialNum_free_nights>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/out_of_num_nights">
-	  	  <specialOut_of_num_nights><xsl:apply-templates select="@*|node()" /></specialOut_of_num_nights>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/pct_off_rate">
-	  	  <specialPct_off_rate><xsl:apply-templates select="@*|node()" /></specialPct_off_rate>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/publish_start_date">
-	  	  <specialPublish_start_date><xsl:apply-templates select="@*|node()" /></specialPublish_start_date>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/publish_end_date">
-	  	  <specialPublish_end_date><xsl:apply-templates select="@*|node()" /></specialPublish_end_date>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/rental_start_date">
-	  	  <specialRental_start_date><xsl:apply-templates select="@*|node()" /></specialRental_start_date>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/rental_end_date">
-	  	  <specialRental_end_date><xsl:apply-templates select="@*|node()" /></specialRental_end_date>
-    </xsl:template>
-    <xsl:template match="property_data/property/property_special/special_type_description">
-	  	  <specialSpecial_type_description><xsl:apply-templates select="@*|node()" /></specialSpecial_type_description>
     </xsl:template>
 
 	<xsl:template match="property_data/property/property_attributes">
@@ -297,9 +223,81 @@
 	  	  <attributesProperty_id><xsl:apply-templates select="@*|node()" /></attributesProperty_id>
     </xsl:template>
 
-	<!-- Rename property_calendar node -->
-    <xsl:template match="property_data/property/property_calendar">
-	    <property_booked_dates><xsl:apply-templates select="@*|node()" /></property_booked_dates>
+<!-- START  12/05/2014  TW  Ignore various nodes / elements -->	
+    <xsl:template match="property_data/property/property_bathrooms">
     </xsl:template>
+
+    <xsl:template match="property_data/property/property_bedrooms">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_calendar">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_fees">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_videos">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_default_rates">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_themes">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_calendars">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/flagsCalendar_export_url">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsRates_updated">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsLast_booked_date">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsHas_special">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsPhotos_updated">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsIs_tip">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsCalendar_updated">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsAlt_photo_test">
+    </xsl:template>
+    <xsl:template match="property_data/property/flagsAlt_pdp_sprite_filename">
+    </xsl:template>
+
+    <xsl:template match="property_data/property/property_special">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/amt_off_per_night">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/amt_off_per_stay">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/currency">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/description">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/title">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/free_stuff_title">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/num_free_nights">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/out_of_num_nights">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/pct_off_rate">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/publish_start_date">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/publish_end_date">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/rental_start_date">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/rental_end_date">
+    </xsl:template>
+    <xsl:template match="property_data/property/property_special/special_type_description">
+    </xsl:template>
+
+<!-- END  12/05/2014  TW  Ignore various nodes / elements -->	
 
 </xsl:stylesheet>
