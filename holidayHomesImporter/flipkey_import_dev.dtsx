@@ -13,8 +13,8 @@
   DTS:ObjectName="flipkey_import_dev"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="537"
-  DTS:VersionGUID="{66A9337A-9140-496A-AB64-60D0828835E9}">
+  DTS:VersionBuild="539"
+  DTS:VersionGUID="{E2A1A720-5EAB-46FE-9B4D-0A75F9428F1A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1500,7 +1500,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_dev_{D0094238-9A2F-479B-AA7F-F2E738C54FDB}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_dev_{B5E06B77-A6F0-4E29-8D93-9209D2FC4B24}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -4911,8 +4911,8 @@ LEFT OUTER JOIN staging.tab_photo stgp WITH (NOLOCK)
 	ON stgp.sourceId = ph.sourceId
 	AND stgp.runId = ph.runId
 	AND stgp.externalId = pr.externalId
-WHERE pr.runId = ?
-AND pr.fileId = ?
+WHERE ph.runId = ?
+AND ph.fileId = ?
 AND stgp.externalId IS NULL</property>
                     <property
                       dataType="System.String"
@@ -19620,29 +19620,29 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
                   startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_rate.Outputs[OLE DB Destination Error Output]" />
                 <path
                   refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 04]"
-                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey XML Source property error log.Inputs[Flat File Destination Input]"
+                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_photo error log.Inputs[Flat File Destination Input]"
                   name="Output 0"
-                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey XML Source property error handler.Outputs[Output 0]" />
+                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_photo error handler.Outputs[Output 0]" />
                 <path
                   refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 03]"
-                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_rate error log.Inputs[Flat File Destination Input]"
-                  name="Output 0"
-                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_rate error handler.Outputs[Output 0]" />
-                <path
-                  refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 01]"
-                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_amenity error log.Inputs[Flat File Destination Input]"
-                  name="Output 0"
-                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_amenity error handler.Outputs[Output 0]" />
-                <path
-                  refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 0]"
                   endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_property error log.Inputs[Flat File Destination Input]"
                   name="Output 0"
                   startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_property error handler.Outputs[Output 0]" />
                 <path
-                  refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 02]"
-                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_photo error log.Inputs[Flat File Destination Input]"
+                  refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 01]"
+                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_rate error log.Inputs[Flat File Destination Input]"
                   name="Output 0"
-                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_photo error handler.Outputs[Output 0]" />
+                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_rate error handler.Outputs[Output 0]" />
+                <path
+                  refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 0]"
+                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey XML Source property error log.Inputs[Flat File Destination Input]"
+                  name="Output 0"
+                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey XML Source property error handler.Outputs[Output 0]" />
+                <path
+                  refId="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 02]"
+                  endId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_amenity error log.Inputs[Flat File Destination Input]"
+                  name="Output 0"
+                  startId="Package\Foreach Loop Container\import XML to imp tables\flipkey imp_amenity error handler.Outputs[Output 0]" />
                 <path
                   refId="Package\Foreach Loop Container\import XML to imp tables.Paths[property]"
                   endId="Package\Foreach Loop Container\import XML to imp tables\Row Count.Inputs[Row Count Input 1]"
@@ -19947,36 +19947,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=]]></arrayElement>
               Language="CSharp"
               ReadOnlyVariables="Internal::xslXmlFullPath,Internal::xmlFilePath,$Package::xslFileName,$Project::DIRECTORY_xslDirectory">
               <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -20095,6 +20065,35 @@ using System.Runtime.CompilerServices;
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Settings.get_Default():ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Sett" +
+    "ings")]
+
+namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
               <ProjectItem
                 Name="ST_400ec615145d48dbafaa2f61b6d9f8b7.csproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?><Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"><PropertyGroup><ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids><Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration><Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform><ProductVersion>8.0.30703</ProductVersion><SchemaVersion>2.0</SchemaVersion><ProjectGuid>{5470c6c1-feb1-4e68-9817-9741c2d2f3f7}</ProjectGuid><OutputType>Library</OutputType><AppDesignerFolder>Properties</AppDesignerFolder><RootNamespace>ST_d7e3d80826544eb4b79ba20d9b6890db</RootNamespace><AssemblyName>ST_400ec615145d48dbafaa2f61b6d9f8b7</AssemblyName><TargetFrameworkVersion>v4.0</TargetFrameworkVersion><FileAlignment>512</FileAlignment><ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Debug' "><DebugSymbols>true</DebugSymbols><DebugType>full</DebugType><Optimize>false</Optimize><OutputPath>.\bin\Debug\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineConstants>DEBUG;TRACE</DefineConstants><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><PropertyGroup Condition=" '$(Configuration)' == 'Release' "><DebugSymbols>false</DebugSymbols><Optimize>true</Optimize><OutputPath>.\bin\Release\</OutputPath><EnableUnmanagedDebugging>false</EnableUnmanagedDebugging><DefineConstants>TRACE</DefineConstants><ErrorReport>prompt</ErrorReport><WarningLevel>4</WarningLevel></PropertyGroup><ItemGroup><Reference Include="System" /><Reference Include="System.Data" /><Reference Include="System.Windows.Forms" /><Reference Include="System.Xml" /><Reference Include="Microsoft.SqlServer.ManagedDTS, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /><Reference Include="Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" /></ItemGroup><ItemGroup><AppDesigner Include="Properties\" /><Compile Include="Properties\AssemblyInfo.cs"><SubType>Code</SubType></Compile><EmbeddedResource Include="Properties\Resources.resx"><Generator>ResXFileCodeGenerator</Generator><LastGenOutput>Resources.Designer.cs</LastGenOutput></EmbeddedResource><Compile Include="Properties\Resources.Designer.cs"><AutoGen>True</AutoGen><DependentUpon>Resources.resx</DependentUpon></Compile><None Include="Properties\Settings.settings"><Generator>SettingsSingleFileGenerator</Generator><LastGenOutput>Settings.Designer.cs</LastGenOutput></None><Compile Include="Properties\Settings.Designer.cs"><AutoGen>True</AutoGen><DependentUpon>Settings.settings</DependentUpon></Compile><Compile Include="ScriptMain.cs"><SubType>Code</SubType></Compile></ItemGroup><!-- Include the build rules for a C# project.--><Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" /><ProjectExtensions><VisualStudio><FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}"><ProjectProperties HostName="ScriptTask" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="#HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\InstallDir#\devenv.exe" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" /><Host Name="ScriptTask" GeneratedNamespace="$safeprojectname" IconIndex=""></Host><ProjectClient><HostIdentifier>SSIS_ST110</HostIdentifier></ProjectClient></FlavorProperties></VisualStudio></ProjectExtensions></Project>]]></ProjectItem>
@@ -20255,34 +20254,35 @@ namespace ST_d7e3d80826544eb4b79ba20d9b6890db
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
 //
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
 
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Settings.get_Default():ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Sett" +
-    "ings")]
-
-namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Settings.settings"
                 Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
@@ -20902,6 +20902,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Id="Package\Clear log folder"
           TopLeft="410.666666666667,610" />
         <NodeLayout
+          Size="170,42"
+          Id="Package\clear staging tables"
+          TopLeft="400,261" />
+        <NodeLayout
           Size="254,42"
           Id="Package\copy to FK staging tables (amenities)"
           TopLeft="1353.43395244624,787.0535652832" />
@@ -20938,9 +20942,21 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Id="Package\Foreach Loop Container\copy to PK staging tables"
           TopLeft="103,658" />
         <NodeLayout
+          Size="361,42"
+          Id="Package\Foreach Loop Container\create and merge additional amenity data into imp_amenity"
+          TopLeft="18,509" />
+        <NodeLayout
           Size="197,42"
           Id="Package\Foreach Loop Container\import XML to imp tables"
           TopLeft="102,275.42880584609" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Foreach Loop Container\insert import tab_run"
+          TopLeft="430,19" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\Foreach Loop Container\Log filename (importDOTtab_runLog)"
+          TopLeft="419,192.660377358491" />
         <NodeLayout
           Size="285,42"
           Id="Package\Foreach Loop Container\merge imp_amenity to staging tab_amenity"
@@ -20954,6 +20970,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Id="Package\Foreach Loop Container\populate imp_property externalId column"
           TopLeft="59,364" />
         <NodeLayout
+          Size="338,42"
+          Id="Package\Foreach Loop Container\register new file (importDOTtab_file and assigns fileId)"
+          TopLeft="384,119" />
+        <NodeLayout
           Size="157,42"
           Id="Package\Foreach Loop Container\Set xmlFileName"
           TopLeft="106,21" />
@@ -20965,6 +20985,40 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="148,42"
           Id="Package\Foreach Loop Container\XSL Transform"
           TopLeft="124.489493859086,194.515728730391" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="216.666666666667,116.42880584609">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="302.833333333333,-55.42880584609"
+              Start="0,0"
+              End="302.833333333333,-47.92880584609">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-18.4909200191818" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-18.4909200191818"
+                    Point2="0,-22.4909200191818"
+                    Point3="4,-22.4909200191818" />
+                  <mssgle:LineSegment
+                    End="298.833333333333,-22.4909200191818" />
+                  <mssgle:CubicBezierSegment
+                    Point1="298.833333333333,-22.4909200191818"
+                    Point2="302.833333333333,-22.4909200191818"
+                    Point3="302.833333333333,-26.4909200191818" />
+                  <mssgle:LineSegment
+                    End="302.833333333333,-47.92880584609" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 1]"
           TopLeft="187.5,63">
@@ -20979,6 +21033,94 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,45.92880584609" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 10]"
+          TopLeft="201.5,551">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 11]"
+          TopLeft="550,161">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.6603773584911"
+              Start="0,0"
+              End="0,24.1603773584911">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.1603773584911" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 12]"
+          TopLeft="419,214.588053044441">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-146.510506140914,0"
+              Start="0,0"
+              End="-139.010506140914,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-139.010506140914,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 13]"
+          TopLeft="550.5,61">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -21045,6 +21187,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,31.413077115699" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 5]"
+          TopLeft="200.75,485">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24"
+              Start="0,0"
+              End="0,16.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -21133,166 +21297,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,32.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="361,42"
-          Id="Package\Foreach Loop Container\create and merge additional amenity data into imp_amenity"
-          TopLeft="18,509" />
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 5]"
-          TopLeft="200.75,485">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,24"
-              Start="0,0"
-              End="0,16.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,16.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 10]"
-          TopLeft="201.5,551">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,28"
-              Start="0,0"
-              End="0,20.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="338,42"
-          Id="Package\Foreach Loop Container\register new file (importDOTtab_file and assigns fileId)"
-          TopLeft="384,119" />
-        <NodeLayout
-          Size="256,42"
-          Id="Package\Foreach Loop Container\Log filename (importDOTtab_runLog)"
-          TopLeft="419,192.660377358491" />
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 11]"
-          TopLeft="550,161">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,31.6603773584911"
-              Start="0,0"
-              End="0,24.1603773584911">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,24.1603773584911" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 12]"
-          TopLeft="419,214.588053044441">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-146.510506140914,0"
-              Start="0,0"
-              End="-139.010506140914,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-139.010506140914,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="179,42"
-          Id="Package\Foreach Loop Container\insert import tab_run"
-          TopLeft="430,19" />
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
-          TopLeft="216.666666666667,116.42880584609">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="302.833333333333,-55.42880584609"
-              Start="0,0"
-              End="302.833333333333,-47.92880584609">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,-18.4909200191818" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,-18.4909200191818"
-                    Point2="0,-22.4909200191818"
-                    Point3="4,-22.4909200191818" />
-                  <mssgle:LineSegment
-                    End="298.833333333333,-22.4909200191818" />
-                  <mssgle:CubicBezierSegment
-                    Point1="298.833333333333,-22.4909200191818"
-                    Point2="302.833333333333,-22.4909200191818"
-                    Point3="302.833333333333,-26.4909200191818" />
-                  <mssgle:LineSegment
-                    End="302.833333333333,-47.92880584609" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint 13]"
-          TopLeft="550.5,61">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,58"
-              Start="0,0"
-              End="0,50.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,50.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -21409,6 +21413,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 11]"
+          TopLeft="489.166666666667,652">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="1479.01728577957,709.719192283291">
           <EdgeLayout.Curve>
@@ -21466,6 +21492,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="485.333333333333,303">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,82"
+              Start="0,0"
+              End="0,74.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,74.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -21576,54 +21624,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="211,56"
           Id="560c1fc2-3b4f-494b-b86c-9f4afcc11be1"
           TopLeft="1124.33333333333,780.76213917942" />
-        <NodeLayout
-          Size="170,42"
-          Id="Package\clear staging tables"
-          TopLeft="400,261" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="485.333333333333,303">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,82"
-              Start="0,0"
-              End="0,74.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,74.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 11]"
-          TopLeft="489.166666666667,652">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,75"
-              Start="0,0"
-              End="0,67.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,67.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -22557,7 +22557,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 04]"
+          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 0]"
           TopLeft="832,42">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -22579,7 +22579,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 03]"
+          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 01]"
           TopLeft="1788,353.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -22601,7 +22601,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 02]"
+          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 04]"
           TopLeft="1801,455.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -22623,7 +22623,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 01]"
+          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 02]"
           TopLeft="1804,262">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -22645,7 +22645,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 0]"
+          Id="Package\Foreach Loop Container\import XML to imp tables.Paths[Output 03]"
           TopLeft="1806,159">
           <EdgeLayout.Curve>
             <mssgle:Curve
