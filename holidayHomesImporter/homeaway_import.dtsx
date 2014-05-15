@@ -13,8 +13,8 @@
   DTS:ObjectName="homeaway_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="87"
-  DTS:VersionGUID="{2FC2D346-4A1A-48C7-91FB-970845D96EAD}">
+  DTS:VersionBuild="83"
+  DTS:VersionGUID="{7B690D66-D61E-445A-9A5E-567CF0BA969D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\homeaway_import_{C7B5F25D-CA28-4434-97F0-C6ADAB064E5A}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\homeaway_import_{9B37CA98-5753-4C4A-BA51-AA4C6CAD30F5}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -82,7 +82,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="3"
-        DTS:Name="ParameterValue">0</DTS:Property>
+        DTS:Name="ParameterValue">2</DTS:Property>
     </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables>
@@ -5402,13 +5402,13 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[propertyType]" />
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].Columns[bathrooms]"
-                      cachedDataType="i1"
+                      cachedDataType="i4"
                       cachedName="bathrooms"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].ExternalColumns[bathrooms]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[bathrooms]" />
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].Columns[bedrooms]"
-                      cachedDataType="i1"
+                      cachedDataType="i4"
                       cachedName="bedrooms"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].ExternalColumns[bedrooms]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[bedrooms]" />
@@ -5441,13 +5441,13 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[postalCode]" />
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].Columns[showerRooms]"
-                      cachedDataType="i1"
+                      cachedDataType="i4"
                       cachedName="showerRooms"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].ExternalColumns[showerRooms]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[showerRooms]" />
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].Columns[sleeps]"
-                      cachedDataType="i1"
+                      cachedDataType="i4"
                       cachedName="sleeps"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].ExternalColumns[sleeps]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[sleeps]" />
@@ -5460,7 +5460,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[state]" />
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].Columns[wc]"
-                      cachedDataType="i1"
+                      cachedDataType="i4"
                       cachedName="wc"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input].ExternalColumns[wc]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[wc]" />
@@ -6941,7 +6941,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_subtitle.Inputs[OLE DB Destination Input].Columns[text]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="4000"
                       cachedName="text"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_subtitle.Inputs[OLE DB Destination Input].ExternalColumns[text]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[subtitle].Columns[text]" />
@@ -7098,7 +7098,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     <inputColumn
                       refId="Package\import XML to imp tables\homeaway imp_title.Inputs[OLE DB Destination Input].Columns[text]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="4000"
                       cachedName="text"
                       externalMetadataColumnId="Package\import XML to imp tables\homeaway imp_title.Inputs[OLE DB Destination Input].ExternalColumns[text]"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[title].Columns[text]" />
@@ -7261,7 +7261,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[subtitle].ExternalColumns[text]"
-                      length="255"
+                      length="4000"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[subtitle].Columns[text]"
                       name="text"
                       truncationRowDisposition="FailComponent" />
@@ -7282,7 +7282,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[subtitle].ExternalColumns[text]"
                       dataType="wstr"
-                      length="255"
+                      length="4000"
                       name="text">
                       <properties>
                         <property
@@ -8092,7 +8092,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                   <outputColumns>
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[wc]"
-                      dataType="i1"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[wc]"
@@ -8121,7 +8121,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[sleeps]"
-                      dataType="i1"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[sleeps]"
@@ -8140,7 +8140,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[bedrooms]"
-                      dataType="i1"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[bedrooms]"
@@ -8149,7 +8149,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[bathrooms]"
-                      dataType="i1"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[bathrooms]"
@@ -8168,7 +8168,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].Columns[showerRooms]"
-                      dataType="i1"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[showerRooms]"
@@ -8199,12 +8199,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     isUsed="True">
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[wc]"
-                      dataType="i1"
+                      dataType="i4"
                       name="wc">
                       <properties>
                         <property
                           dataType="System.String"
-                          name="CLRType">System.SByte</property>
+                          name="CLRType">System.Int32</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn
@@ -8231,12 +8231,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[sleeps]"
-                      dataType="i1"
+                      dataType="i4"
                       name="sleeps">
                       <properties>
                         <property
                           dataType="System.String"
-                          name="CLRType">System.SByte</property>
+                          name="CLRType">System.Int32</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn
@@ -8252,22 +8252,22 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[bedrooms]"
-                      dataType="i1"
+                      dataType="i4"
                       name="bedrooms">
                       <properties>
                         <property
                           dataType="System.String"
-                          name="CLRType">System.SByte</property>
+                          name="CLRType">System.Int32</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[bathrooms]"
-                      dataType="i1"
+                      dataType="i4"
                       name="bathrooms">
                       <properties>
                         <property
                           dataType="System.String"
-                          name="CLRType">System.SByte</property>
+                          name="CLRType">System.Int32</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn
@@ -8283,12 +8283,12 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[data].ExternalColumns[showerRooms]"
-                      dataType="i1"
+                      dataType="i4"
                       name="showerRooms">
                       <properties>
                         <property
                           dataType="System.String"
-                          name="CLRType">System.SByte</property>
+                          name="CLRType">System.Int32</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn
@@ -9343,7 +9343,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp tables\XML Source.Outputs[title].ExternalColumns[text]"
-                      length="255"
+                      length="4000"
                       lineageId="Package\import XML to imp tables\XML Source.Outputs[title].Columns[text]"
                       name="text"
                       truncationRowDisposition="FailComponent" />
@@ -9373,7 +9373,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     <externalMetadataColumn
                       refId="Package\import XML to imp tables\XML Source.Outputs[title].ExternalColumns[text]"
                       dataType="wstr"
-                      length="255"
+                      length="4000"
                       name="text">
                       <properties>
                         <property
@@ -9477,19 +9477,19 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
               startId="Package\import XML to imp tables\XML Source.Outputs[data]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output12]"
+              endId="Package\import XML to imp tables\homeaway imp_rate.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 7.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output11]"
               endId="Package\import XML to imp tables\homeaway imp_author.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\add id columns.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output11]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output10]"
               endId="Package\import XML to imp tables\homeaway imp_link.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\add id columns 5.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output10]"
-              endId="Package\import XML to imp tables\homeaway imp_region.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 9.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output8]"
               endId="Package\import XML to imp tables\homeaway imp_category.Inputs[OLE DB Destination Input]"
@@ -9502,14 +9502,14 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
               startId="Package\import XML to imp tables\add id columns 2.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output6]"
-              endId="Package\import XML to imp tables\homeaway imp_rate.Inputs[OLE DB Destination Input]"
+              endId="Package\import XML to imp tables\homeaway imp_rates.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 7.Outputs[Derived Column Output]" />
+              startId="Package\import XML to imp tables\add id columns 8.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output9]"
-              endId="Package\import XML to imp tables\homeaway imp_regions.Inputs[OLE DB Destination Input]"
+              endId="Package\import XML to imp tables\homeaway imp_region.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 10.Outputs[Derived Column Output]" />
+              startId="Package\import XML to imp tables\add id columns 9.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output4]"
               endId="Package\import XML to imp tables\homeaway imp_listing.Inputs[OLE DB Destination Input]"
@@ -9522,24 +9522,24 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
               startId="Package\import XML to imp tables\add id columns 12.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output2]"
-              endId="Package\import XML to imp tables\homeaway imp_rates.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 8.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output1]"
               endId="Package\import XML to imp tables\rowsImported.Inputs[Row Count Input 1]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\add id columns 4.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output1]"
               endId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\add id columns 3.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output5]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output]"
               endId="Package\import XML to imp tables\homeaway imp_subtitle.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\add id columns 11.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output5]"
+              endId="Package\import XML to imp tables\homeaway imp_regions.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 10.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[entry]"
               endId="Package\import XML to imp tables\add id columns 4.Inputs[Derived Column Input]"
@@ -9664,30 +9664,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\populate staging tab_property latitude and longitude columns"
-      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{702a4b4a-56a2-4010-a0d9-87b5da4a815c}"
-      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="populate staging tab_property latitude and longitude columns"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="UPDATE staging.tab_property&#xA;SET staging.tab_property.latitude = h.latitude&#xA;&#x9;, staging.tab_property.longitude = h.longitude&#xA;FROM staging.tab_property p&#xA;INNER JOIN dbo.homeAwayCoords h&#xA;ON (&#xA;&#x9;h.externalId = p.externalId&#xA;&#x9;AND ISNULL(h.latitude, 0) &lt;&gt; 0&#xA;&#x9;AND ISNULL(h.longitude, 0) &lt;&gt; 0&#xA;&#x9;)&#xA;WHERE p.sourceId = ?&#xA;&#x9;AND ISNULL(p.latitude, 0) &lt;&gt; h.latitude&#xA;&#x9;AND ISNULL(p.longitude, 0) &lt;&gt; h.longitude;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="@sourceId"
-            SQLTask:DtsVariableName="$Package::sourceId"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
-            SQLTask:ParameterSize="-1" />
-        </SQLTask:SqlTaskData>
-      </DTS:ObjectData>
-    </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
@@ -9709,11 +9685,11 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
-      DTS:DTSID="{A6711B63-4034-4B1F-A12E-6FF169D2F2D6}"
+      DTS:DTSID="{518D89D1-99E0-4DFE-B669-CD449FD5B6F7}"
       DTS:From="Package\copy to PK staging tables"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
-      DTS:To="Package\populate staging tab_property latitude and longitude columns" />
+      DTS:To="Package\copy to FK staging tables" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
       DTS:CreationName=""
@@ -9722,14 +9698,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
       DTS:To="Package\insert tab_runFile" />
-    <DTS:PrecedenceConstraint
-      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
-      DTS:CreationName=""
-      DTS:DTSID="{CC6D4355-1AFC-4C4C-B160-81C9A6FEB1BB}"
-      DTS:From="Package\populate staging tab_property latitude and longitude columns"
-      DTS:LogicalAnd="True"
-      DTS:ObjectName="Constraint 4"
-      DTS:To="Package\copy to FK staging tables" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -9750,11 +9718,11 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
         <NodeLayout
           Size="198,42"
           Id="Package\copy to PK staging tables"
-          TopLeft="110.069737225841,224.171075589279" />
+          TopLeft="111.069737225841,311.171075589279" />
         <NodeLayout
           Size="197,42"
           Id="Package\import XML to imp tables"
-          TopLeft="110.569737225841,59.179245283019" />
+          TopLeft="111.569737225841,146.179245283019" />
         <NodeLayout
           Size="136,44"
           Id="Package\insert tab_runFile"
@@ -9762,10 +9730,10 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
         <NodeLayout
           Size="185,42"
           Id="Package\Log raw import counts"
-          TopLeft="116.569737225841,138.944792889217" />
+          TopLeft="117.569737225841,225.944792889217" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="209.069737225841,101.179245283019">
+          TopLeft="210.069737225841,188.179245283019">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -9787,7 +9755,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="209.069737225841,180.944792889217">
+          TopLeft="210.069737225841,267.944792889217">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -9799,6 +9767,28 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,35.726282700062" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="210.069737225841,353.171075589279">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.667706333245"
+              Start="0,0"
+              End="0,29.167706333245">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.167706333245" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -9835,55 +9825,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           FontInfo="{assembly:Null}"
           Size="479,40"
           Id="9e519a0a-f24c-4a1c-a649-4d3e76a68c4f"
-          TopLeft="325.253836988365,53.509821503206" />
-        <NodeLayout
-          Size="369,42"
-          Id="Package\populate staging tab_property latitude and longitude columns"
-          TopLeft="18,307" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="205.78486861292,266.171075589279">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40.828924410721"
-              Start="0,0"
-              End="0,33.328924410721">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,33.328924410721" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="206.28486861292,349">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40.838781922524"
-              Start="0,0"
-              End="0,33.338781922524">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,33.338781922524" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="326.253836988365,140.509821503206" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -10010,10 +9952,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
       <GraphLayout
         Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="121,42"
-          Id="Package\copy to PK staging tables\Union All"
-          TopLeft="598,459" />
-        <NodeLayout
           Size="177,42"
           Id="Package\copy to PK staging tables\staging tab_property"
           TopLeft="572.497703791133,563.674557544636" />
@@ -10037,122 +9975,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           Size="177,42"
           Id="Package\copy to PK staging tables\Lookup CountryCode"
           TopLeft="690.829417788066,364.912103142204" />
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[Union All Output 1]"
-          TopLeft="659.748851895567,501">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,62.6745575446359"
-              Start="0,0"
-              End="0,55.1745575446359">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,55.1745575446359" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
-          TopLeft="670.226058940522,141.929687632961">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,47.4516420157752"
-              Start="0,0"
-              End="0,39.9516420157752">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,39.9516420157752" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[Lookup Match Output1]"
-          TopLeft="779.329417788066,406.912103142204">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-101.996084454733,52.087896857796"
-              Start="0,0"
-              End="-101.996084454733,44.587896857796">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,26.8448720381402" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,26.8448720381402"
-                    Point2="0,30.8448720381402"
-                    Point3="-4,30.8448720381402" />
-                  <mssgle:LineSegment
-                    End="-97.9960844547327,30.8448720381402" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-97.9960844547327,30.8448720381402"
-                    Point2="-101.996084454733,30.8448720381402"
-                    Point3="-101.996084454733,34.8448720381402" />
-                  <mssgle:LineSegment
-                    End="-101.996084454733,44.587896857796" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-99.1894289461164,35.8448720381402,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables.Paths[Lookup Match Output]"
-          TopLeft="520.358723751519,409.407217032318">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="138.141276248481,49.592782967682"
-              Start="0,0"
-              End="138.141276248481,42.092782967682">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,20.796391483841" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,20.796391483841"
-                    Point2="0,24.796391483841"
-                    Point3="4,24.796391483841" />
-                  <mssgle:LineSegment
-                    End="134.141276248481,24.796391483841" />
-                  <mssgle:CubicBezierSegment
-                    Point1="134.141276248481,24.796391483841"
-                    Point2="138.141276248481,24.796391483841"
-                    Point3="138.141276248481,28.796391483841" />
-                  <mssgle:LineSegment
-                    End="138.141276248481,42.092782967682" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="20.8792514054905,29.796391483841,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\copy to PK staging tables.Paths[isCountryName]"
           TopLeft="704.643608894291,323.06816170708">
@@ -10254,6 +10076,126 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           Size="378,56"
           Id="9caa657e-83a2-434f-898d-21f656a75a17"
           TopLeft="845,287" />
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[OLE DB Source Output]"
+          TopLeft="670.226058940522,141.929687632961">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.4516420157752"
+              Start="0,0"
+              End="0,39.9516420157752">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.9516420157752" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="121,42"
+          Id="Package\copy to PK staging tables\Union All"
+          TopLeft="598,459" />
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Lookup Match Output]"
+          TopLeft="520.358723751519,409.407217032318">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="138.141276248481,49.592782967682"
+              Start="0,0"
+              End="138.141276248481,42.092782967682">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.796391483841" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.796391483841"
+                    Point2="0,24.796391483841"
+                    Point3="4,24.796391483841" />
+                  <mssgle:LineSegment
+                    End="134.141276248481,24.796391483841" />
+                  <mssgle:CubicBezierSegment
+                    Point1="134.141276248481,24.796391483841"
+                    Point2="138.141276248481,24.796391483841"
+                    Point3="138.141276248481,28.796391483841" />
+                  <mssgle:LineSegment
+                    End="138.141276248481,42.092782967682" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="20.8792514054905,29.796391483841,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Lookup Match Output1]"
+          TopLeft="779.329417788066,406.912103142204">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-101.996084454733,52.087896857796"
+              Start="0,0"
+              End="-101.996084454733,44.587896857796">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8448720381402" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.8448720381402"
+                    Point2="0,30.8448720381402"
+                    Point3="-4,30.8448720381402" />
+                  <mssgle:LineSegment
+                    End="-97.9960844547327,30.8448720381402" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-97.9960844547327,30.8448720381402"
+                    Point2="-101.996084454733,30.8448720381402"
+                    Point3="-101.996084454733,34.8448720381402" />
+                  <mssgle:LineSegment
+                    End="-101.996084454733,44.587896857796" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-99.1894289461164,35.8448720381402,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to PK staging tables.Paths[Union All Output 1]"
+          TopLeft="659.748851895567,501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62.6745575446359"
+              Start="0,0"
+              End="0,55.1745575446359">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.1745575446359" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -10442,104 +10384,14 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           Id="Package\import XML to imp tables\homeaway imp_link"
           TopLeft="1285.5,311.5" />
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
-          TopLeft="2950,149.5">
+          Id="Package\import XML to imp tables.Paths[Derived Column Output8]"
+          TopLeft="551,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="240,162"
+              EndConnector="-199,162"
               Start="0,0"
-              End="240,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="4,81" />
-                  <mssgle:LineSegment
-                    End="236,81" />
-                  <mssgle:CubicBezierSegment
-                    Point1="236,81"
-                    Point2="240,81"
-                    Point3="240,85" />
-                  <mssgle:LineSegment
-                    End="240,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
-          TopLeft="2078,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="71.5,162"
-              Start="0,0"
-              End="71.5,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="4,81" />
-                  <mssgle:LineSegment
-                    End="67.5,81" />
-                  <mssgle:CubicBezierSegment
-                    Point1="67.5,81"
-                    Point2="71.5,81"
-                    Point3="71.5,85" />
-                  <mssgle:LineSegment
-                    End="71.5,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
-          TopLeft="1203,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
-          TopLeft="988,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-130,162"
-              Start="0,0"
-              End="-130,154.5">
+              End="-199,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -10550,13 +10402,115 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     Point2="0,81"
                     Point3="-4,81" />
                   <mssgle:LineSegment
-                    End="-126,81" />
+                    End="-195,81" />
                   <mssgle:CubicBezierSegment
-                    Point1="-126,81"
-                    Point2="-130,81"
-                    Point3="-130,85" />
+                    Point1="-195,81"
+                    Point2="-199,81"
+                    Point3="-199,85" />
                   <mssgle:LineSegment
-                    End="-130,154.5" />
+                    End="-199,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output9]"
+          TopLeft="2296,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="120,162"
+              Start="0,0"
+              End="120,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="4,81" />
+                  <mssgle:LineSegment
+                    End="116,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="116,81"
+                    Point2="120,81"
+                    Point3="120,85" />
+                  <mssgle:LineSegment
+                    End="120,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output10]"
+          TopLeft="1424,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-40,162"
+              Start="0,0"
+              End="-40,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="-4,81" />
+                  <mssgle:LineSegment
+                    End="-36,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-36,81"
+                    Point2="-40,81"
+                    Point3="-40,85" />
+                  <mssgle:LineSegment
+                    End="-40,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output11]"
+          TopLeft="332,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-233,162"
+              Start="0,0"
+              End="-233,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="-4,81" />
+                  <mssgle:LineSegment
+                    End="-229,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-229,81"
+                    Point2="-233,81"
+                    Point3="-233,85" />
+                  <mssgle:LineSegment
+                    End="-233,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -11056,82 +11010,14 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output12]"
-          TopLeft="332,149.5">
+          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
+          TopLeft="2732,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-233,162"
+              EndConnector="200,162"
               Start="0,0"
-              End="-233,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="-4,81" />
-                  <mssgle:LineSegment
-                    End="-229,81" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-229,81"
-                    Point2="-233,81"
-                    Point3="-233,85" />
-                  <mssgle:LineSegment
-                    End="-233,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output11]"
-          TopLeft="1424,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-40,162"
-              Start="0,0"
-              End="-40,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="-4,81" />
-                  <mssgle:LineSegment
-                    End="-36,81" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-36,81"
-                    Point2="-40,81"
-                    Point3="-40,85" />
-                  <mssgle:LineSegment
-                    End="-40,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output10]"
-          TopLeft="2296,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="120,162"
-              Start="0,0"
-              End="120,154.5">
+              End="200,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -11142,13 +11028,13 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     Point2="0,81"
                     Point3="4,81" />
                   <mssgle:LineSegment
-                    End="116,81" />
+                    End="196,81" />
                   <mssgle:CubicBezierSegment
-                    Point1="116,81"
-                    Point2="120,81"
-                    Point3="120,85" />
+                    Point1="196,81"
+                    Point2="200,81"
+                    Point3="200,85" />
                   <mssgle:LineSegment
-                    End="120,154.5" />
+                    End="200,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -11158,7 +11044,153 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output9]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
+          TopLeft="988,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-130,162"
+              Start="0,0"
+              End="-130,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="-4,81" />
+                  <mssgle:LineSegment
+                    End="-126,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-126,81"
+                    Point2="-130,81"
+                    Point3="-130,85" />
+                  <mssgle:LineSegment
+                    End="-130,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
+          TopLeft="1203,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output6]"
+          TopLeft="2078,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71.5,162"
+              Start="0,0"
+              End="71.5,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="4,81" />
+                  <mssgle:LineSegment
+                    End="67.5,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67.5,81"
+                    Point2="71.5,81"
+                    Point3="71.5,85" />
+                  <mssgle:LineSegment
+                    End="71.5,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
+          TopLeft="2950,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="240,162"
+              Start="0,0"
+              End="240,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,77" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="4,81" />
+                  <mssgle:LineSegment
+                    End="236,81" />
+                  <mssgle:CubicBezierSegment
+                    Point1="236,81"
+                    Point2="240,81"
+                    Point3="240,85" />
+                  <mssgle:LineSegment
+                    End="240,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output4]"
+          TopLeft="1638.75,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,162"
+              Start="0,0"
+              End="0,154.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,154.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[Derived Column Output5]"
           TopLeft="2514,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11192,14 +11224,14 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output8]"
-          TopLeft="551,149.5">
+          Id="Package\import XML to imp tables.Paths[Derived Column Output12]"
+          TopLeft="1860,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-199,162"
+              EndConnector="29,162"
               Start="0,0"
-              End="-199,154.5">
+              End="29,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -11208,15 +11240,15 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                   <mssgle:CubicBezierSegment
                     Point1="0,77"
                     Point2="0,81"
-                    Point3="-4,81" />
+                    Point3="4,81" />
                   <mssgle:LineSegment
-                    End="-195,81" />
+                    End="25,81" />
                   <mssgle:CubicBezierSegment
-                    Point1="-195,81"
-                    Point2="-199,81"
-                    Point3="-199,85" />
+                    Point1="25,81"
+                    Point2="29,81"
+                    Point3="29,85" />
                   <mssgle:LineSegment
-                    End="-199,154.5" />
+                    End="29,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -11251,96 +11283,6 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
                     Point3="-162.5,85" />
                   <mssgle:LineSegment
                     End="-162.5,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output6]"
-          TopLeft="1860,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="29,162"
-              Start="0,0"
-              End="29,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="4,81" />
-                  <mssgle:LineSegment
-                    End="25,81" />
-                  <mssgle:CubicBezierSegment
-                    Point1="25,81"
-                    Point2="29,81"
-                    Point3="29,85" />
-                  <mssgle:LineSegment
-                    End="29,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output5]"
-          TopLeft="2732,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="200,162"
-              Start="0,0"
-              End="200,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,77" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="4,81" />
-                  <mssgle:LineSegment
-                    End="196,81" />
-                  <mssgle:CubicBezierSegment
-                    Point1="196,81"
-                    Point2="200,81"
-                    Point3="200,85" />
-                  <mssgle:LineSegment
-                    End="200,154.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output4]"
-          TopLeft="1638.75,149.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,162"
-              Start="0,0"
-              End="0,154.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

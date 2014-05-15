@@ -37,7 +37,7 @@
 	</xs:element>
 	<xs:element name="data">
 		<xs:complexType>
-			<xs:attribute name="wc" type="xs:byte" use="required"/>
+			<xs:attribute name="wc" type="xs:int" use="required"/>
 			<xs:attribute name="city" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -52,7 +52,7 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
-			<xs:attribute name="sleeps" type="xs:byte" use="required"/>
+			<xs:attribute name="sleeps" type="xs:int" use="required"/>
 			<xs:attribute name="country" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -60,8 +60,8 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
-			<xs:attribute name="bedrooms" type="xs:byte" use="required"/>
-			<xs:attribute name="bathrooms" type="xs:byte" use="required"/>
+			<xs:attribute name="bedrooms" type="xs:int" use="required"/>
+			<xs:attribute name="bathrooms" type="xs:int" use="required"/>
 			<xs:attribute name="postalCode" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -69,7 +69,7 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
-			<xs:attribute name="showerRooms" type="xs:byte" use="required"/>
+			<xs:attribute name="showerRooms" type="xs:int" use="required"/>
 			<xs:attribute name="propertyType" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
@@ -270,7 +270,7 @@
 	</xs:element>
 	<xs:simpleType name="ST_subtitle">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="255"/>
+			<xs:maxLength value="4000"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="subtitle">
@@ -297,7 +297,7 @@
 	</xs:element>
 	<xs:simpleType name="ST_title">
 		<xs:restriction base="xs:string">
-			<xs:maxLength value="255"/>
+			<xs:maxLength value="4000"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="title">
