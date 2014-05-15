@@ -16,6 +16,10 @@
     [fileId]               INT             NOT NULL,
     [sourceId]             INT             NOT NULL
 );
+GO
 
+CREATE CLUSTERED INDEX [CX_flipkey_imp_photo_runId_fileId_property_Id]
+    ON [flipkey].[imp_photo]([runId] ASC, [fileId] ASC, [property_photos_Id] ASC, [property_Id] ASC);
+GO
 
 

@@ -10,4 +10,8 @@
     [sourceId]              INT             NOT NULL, 
     [amenityValue] NVARCHAR(50) NULL 
 );
+GO
 
+CREATE CLUSTERED INDEX [CX_flipkey_imp_amenity_runId_fileId_amenityValue]
+    ON [flipkey].[imp_amenity]([runId] ASC, [fileId] ASC, [amenityValue] ASC, [property_amenities_Id] ASC, [property_Id] ASC);
+GO

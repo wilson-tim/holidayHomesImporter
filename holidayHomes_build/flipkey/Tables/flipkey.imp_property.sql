@@ -86,8 +86,8 @@
     [sourceId]                        INT              NOT NULL, 
     [externalId] NVARCHAR(100) NULL
 );
+GO
 
-
-
-
-
+CREATE CLUSTERED INDEX [CX_flipkey_imp_property_runId_fileId_property_Id]
+    ON [flipkey].[imp_property]([runId] ASC, [fileId] ASC, [property_Id] ASC, [externalId] ASC);
+GO
