@@ -1,4 +1,4 @@
-﻿CREATE TABLE [flipkey].[imp_rate] (
+CREATE TABLE [flipkey].[imp_rate] (
     [property_rates_Id]         BIGINT          NOT NULL,
     [property_Id]               BIGINT          NOT NULL,
     [weekend_min_rate]          DECIMAL (10, 2) NULL,
@@ -24,11 +24,14 @@
     [fileId]                    INT             NOT NULL,
     [sourceId]                  INT             NOT NULL
 );
+
+
 GO
 
 CREATE CLUSTERED INDEX [CX_flipkey_imp_rate_runId_fileId_property_Id]
     ON [flipkey].[imp_rate]([runId] ASC, [fileId] ASC, [property_rates_Id] ASC, [property_Id] ASC);
 GO
-
-
+CREATE NONCLUSTERED INDEX [NCX_flipkey_imp_rate_min_rates]
+    ON [flipkey].[imp_rate]([property_rates_Id] ASC, [property_Id] ASC, [runId] ASC, [fileId] ASC)
+    INCLUDE([weekend_min_rate], [weeknight_min_rate], [month_min_rate], [week_min_rate]);
 
