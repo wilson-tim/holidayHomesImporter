@@ -20,7 +20,7 @@ BEGIN
 	--using merge instead of simple insert to to capture output into change table
 	MERGE INTO holidayHomes.tab_photo AS ph
 	USING (
-		SELECT new.propertyId, ph.position, ph.url, ph.runId
+		SELECT new.propertyId, ph.position, RTRIM(LEFT(ph.url, 255)) AS url, ph.runId
 		FROM changeControl.tab_property_change new
 		INNER JOIN staging.tab_photo ph
 			ON ph.sourceId = new.sourceId
@@ -81,7 +81,7 @@ BEGIN
 	)
 	MERGE INTO ph
 	USING (
-		SELECT chg.propertyId, stgph.position, stgph.url, stgph.runId
+		SELECT chg.propertyId, stgph.position, RTRIM(LEFT(stgph.url, 255)) AS url, stgph.runId
 		FROM @tmp_property_changedPhotos chg
 		INNER JOIN staging.tab_photo stgph
 			ON stgph.sourceId = chg.sourceId

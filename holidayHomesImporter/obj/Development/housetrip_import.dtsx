@@ -7,13 +7,13 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{359FFE83-74C1-463D-B525-CED52415592F}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="207"
-  DTS:VersionGUID="{6D1779F0-3F84-4C27-A862-7576D181B8C1}">
+  DTS:VersionBuild="208"
+  DTS:VersionGUID="{57A6FF51-744D-4730-86E4-CF80F02D7172}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{B1315BE7-D370-4CB5-8F63-6A693E34DC8A}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{9824BCB9-F2E4-4D0B-B0A5-D245766B5A7F}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -369,8 +369,12 @@
 , ph.url
 , prop.runId
 FROM housetrip.imp_property prop
-INNER JOIN housetrip.imp_property2photo p2ph ON p2ph.imp_propertiesId = prop.imp_propertiesId
-INNER JOIN housetrip.imp_photo ph ON ph.imp_photosId = p2ph.imp_photosId
+INNER JOIN housetrip.imp_property2photo p2ph
+ON p2ph.imp_propertiesId = prop.imp_propertiesId
+AND p2ph.runId = prop.runId
+INNER JOIN housetrip.imp_photo ph
+ON ph.imp_photosId = p2ph.imp_photosId
+AND ph.runId = p2ph.runId
 WHERE prop.runId = ?
 AND prop.fileId = ?</property>
                 <property

@@ -13,8 +13,8 @@
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="435"
-  DTS:VersionGUID="{2F150EE9-2AEF-4D6E-BF50-C19EB29FB590}">
+  DTS:VersionBuild="441"
+  DTS:VersionGUID="{8FEF9C51-C4F1-4FD7-9027-315DDF5B3E53}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1478,7 +1478,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{AF57D975-57CF-47CC-8E42-DD4FD36F3766}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{6800EFA8-3CE6-434A-864F-C392B6CC80EC}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -4422,8 +4422,12 @@ AND stgp.externalId IS NULL</property>
       DTS:ObjectName="import XML to imp tables"
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="[XML Source].[XMLSchemaDefinition]">@[$Project::DIRECTORY_xsdDirectory] + "\\" + @[Internal::xsdFileName]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <pipeline
+          BLOBTempStoragePath="@[$Project::DIRECTORY_BLOBTempStoragePath]"
+          bufferTempStoragePath="@[$Project::DIRECTORY_bufferTempStorage]"
           version="1">
           <components>
             <component
@@ -7797,7 +7801,7 @@ AND stgp.externalId IS NULL</property>
                   dataType="System.String"
                   description="The XML schema definition used by the XML source adapter."
                   expressionType="Notify"
-                  name="XMLSchemaDefinition">C:\DATA\XSD\flipkey_feed_140512.xsd</property>
+                  name="XMLSchemaDefinition">C:\Data\XSD\\flipkey_feed.xsd</property>
                 <property
                   dataType="System.Boolean"
                   description="Identifies whether or not to use inline schema."
@@ -11049,24 +11053,24 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables\MJ photos.Outputs[Merge Join Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
-              endId="Package\import XML to imp tables\flipkey imp_photo error row count.Inputs[Row Count Input 1]"
-              name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_photo.Outputs[OLE DB Destination Error Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
               endId="Package\import XML to imp tables\flipkey imp_rate error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
               startId="Package\import XML to imp tables\flipkey imp_rate.Outputs[OLE DB Destination Error Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
-              endId="Package\import XML to imp tables\flipkey imp_property error row count.Inputs[Row Count Input 1]"
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
+              endId="Package\import XML to imp tables\flipkey imp_photo error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_property.Outputs[OLE DB Destination Error Output]" />
+              startId="Package\import XML to imp tables\flipkey imp_photo.Outputs[OLE DB Destination Error Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
               endId="Package\import XML to imp tables\flipkey imp_amenity error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
               startId="Package\import XML to imp tables\flipkey imp_amenity.Outputs[OLE DB Destination Error Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+              endId="Package\import XML to imp tables\flipkey imp_property error row count.Inputs[Row Count Input 1]"
+              name="OLE DB Destination Error Output"
+              startId="Package\import XML to imp tables\flipkey imp_property.Outputs[OLE DB Destination Error Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[property]"
               endId="Package\import XML to imp tables\Row Count.Inputs[Row Count Input 1]"
@@ -21500,35 +21504,14 @@ AND stgp.externalId IS NULL</property>
           Language="CSharp"
           ReadOnlyVariables="Internal::xslXmlFullPath,$Package::fileFullPath,$Package::xslFileName,$Project::DIRECTORY_xslDirectory">
           <ProjectItem
-            Name="Properties\AssemblyInfo.cs"
-            Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.resx"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -21837,14 +21820,35 @@ namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
     }
 }]]></ProjectItem>
           <ProjectItem
-            Name="Properties\Settings.settings"
-            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.Designer.cs"
             Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -22880,73 +22884,73 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           TopLeft="903,239" />
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_rates]"
-          TopLeft="335,178">
+          TopLeft="314,178">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="309,162"
+              EndConnector="330,162"
               Start="0,0"
-              End="309,154.5">
+              End="330,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,61.9469026548673" />
+                    End="0,77" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,61.9469026548673"
-                    Point2="0,65.9469026548673"
-                    Point3="4,65.9469026548673" />
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="4,81" />
                   <mssgle:LineSegment
-                    End="305,65.9469026548673" />
+                    End="326,81" />
                   <mssgle:CubicBezierSegment
-                    Point1="305,65.9469026548673"
-                    Point2="309,65.9469026548673"
-                    Point3="309,69.9469026548673" />
+                    Point1="326,81"
+                    Point2="330,81"
+                    Point3="330,85" />
                   <mssgle:LineSegment
-                    End="309,154.5" />
+                    End="330,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="121.60580078125,70.9469026548673,65.7883984375,11.033203125"
+              BoundingBox="132.10580078125,86,65.7883984375,11.033203125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_rate]"
-          TopLeft="335,178">
+          TopLeft="314,178">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="309,162"
+              EndConnector="330,162"
               Start="0,0"
-              End="309,154.5">
+              End="330,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,61.9469026548673" />
+                    End="0,77" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,61.9469026548673"
-                    Point2="0,65.9469026548673"
-                    Point3="4,65.9469026548673" />
+                    Point1="0,77"
+                    Point2="0,81"
+                    Point3="4,81" />
                   <mssgle:LineSegment
-                    End="305,65.9469026548673" />
+                    End="326,81" />
                   <mssgle:CubicBezierSegment
-                    Point1="305,65.9469026548673"
-                    Point2="309,65.9469026548673"
-                    Point3="309,69.9469026548673" />
+                    Point1="326,81"
+                    Point2="330,81"
+                    Point3="330,85" />
                   <mssgle:LineSegment
-                    End="309,154.5" />
+                    End="330,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="123.87203125,70.9469026548673,61.2559375,11.033203125"
+              BoundingBox="134.37203125,86,61.2559375,11.033203125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -23024,73 +23028,73 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_amenity]"
-          TopLeft="314,178">
+          TopLeft="282.5,178">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="326,61"
+              EndConnector="357.5,61"
               Start="0,0"
-              End="326,53.5">
+              End="357.5,53.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.5" />
+                    End="0,17.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,26.5"
-                    Point2="0,30.5"
-                    Point3="4,30.5" />
+                    Point1="0,17.1268292682927"
+                    Point2="0,21.1268292682927"
+                    Point3="4,21.1268292682927" />
                   <mssgle:LineSegment
-                    End="322,30.5" />
+                    End="353.5,21.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="322,30.5"
-                    Point2="326,30.5"
-                    Point3="326,34.5" />
+                    Point1="353.5,21.1268292682927"
+                    Point2="357.5,21.1268292682927"
+                    Point3="357.5,25.1268292682927" />
                   <mssgle:LineSegment
-                    End="326,53.5" />
+                    End="357.5,53.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="123.4314453125,35.5,79.137109375,11.3310546875"
+              BoundingBox="139.1814453125,26.1268292682927,79.137109375,11.3310546875"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_amenities]"
-          TopLeft="314,178">
+          TopLeft="282.5,178">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="326,61"
+              EndConnector="357.5,61"
               Start="0,0"
-              End="326,53.5">
+              End="357.5,53.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.5" />
+                    End="0,17.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,26.5"
-                    Point2="0,30.5"
-                    Point3="4,30.5" />
+                    Point1="0,17.1268292682927"
+                    Point2="0,21.1268292682927"
+                    Point3="4,21.1268292682927" />
                   <mssgle:LineSegment
-                    End="322,30.5" />
+                    End="353.5,21.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="322,30.5"
-                    Point2="326,30.5"
-                    Point3="326,34.5" />
+                    Point1="353.5,21.1268292682927"
+                    Point2="357.5,21.1268292682927"
+                    Point3="357.5,25.1268292682927" />
                   <mssgle:LineSegment
-                    End="326,53.5" />
+                    End="357.5,53.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="119.99580078125,35.5,86.0083984375,11.3310546875"
+              BoundingBox="135.74580078125,26.1268292682927,86.0083984375,11.3310546875"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -23155,79 +23159,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
-          TopLeft="1488,350">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="90,0"
-              Start="0,0"
-              End="82.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="82.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-31.95890625,5,146.4178125,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
-          TopLeft="1501,461">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="81,0"
-              Start="0,0"
-              End="73.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="73.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-36.45890625,5,146.4178125,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
           Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
-          TopLeft="1506,159">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="68,0"
-              Start="0,0"
-              End="60.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="60.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-42.95890625,5,146.4178125,11.43359375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
           TopLeft="1505,260.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -23251,6 +23183,78 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+          TopLeft="1506,159">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="68,0"
+              Start="0,0"
+              End="60.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="60.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-42.95890625,5,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
+          TopLeft="1488,350">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="90,0"
+              Start="0,0"
+              End="82.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="82.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-31.95890625,5,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
+          TopLeft="1501,461">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="81,0"
+              Start="0,0"
+              End="73.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="73.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-36.45890625,5,146.4178125,11.43359375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output2]"
           TopLeft="710,463.5">
           <EdgeLayout.Curve>
@@ -23269,9 +23273,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23293,9 +23295,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23317,9 +23317,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23341,9 +23339,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23365,9 +23361,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23389,9 +23383,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23413,9 +23405,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23437,9 +23427,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
