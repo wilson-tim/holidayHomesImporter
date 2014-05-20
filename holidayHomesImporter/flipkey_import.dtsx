@@ -13,8 +13,8 @@
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="441"
-  DTS:VersionGUID="{8FEF9C51-C4F1-4FD7-9027-315DDF5B3E53}">
+  DTS:VersionBuild="445"
+  DTS:VersionGUID="{6F081C5C-4E67-4116-B88A-0C2214F49405}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1478,7 +1478,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{F98820A0-4AD3-457C-969D-F1940E2B6996}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{3FB53EC8-7701-437C-9D9D-7029BB29DDAF}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -1515,7 +1515,7 @@
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:FileUsageType="1"
-          DTS:ConnectionString="C:\DATA\flipkey\property_data_20_flat.xml" />
+          DTS:ConnectionString="C:\DATA\flipkey\property_data_20.xmlx" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -1692,7 +1692,7 @@
       DTS:Namespace="Internal"
       DTS:ObjectName="xslXmlFullPath">
       <DTS:VariableValue
-        DTS:DataType="8">C:\DATA\flipkey\property_data_20_flat.xml</DTS:VariableValue>
+        DTS:DataType="8">C:\DATA\flipkey\property_data_20.xmlx</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:LoggingOptions
@@ -11053,24 +11053,24 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables\MJ photos.Outputs[Merge Join Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
-              endId="Package\import XML to imp tables\flipkey imp_amenity error row count.Inputs[Row Count Input 1]"
-              name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_amenity.Outputs[OLE DB Destination Error Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
-              endId="Package\import XML to imp tables\flipkey imp_property error row count.Inputs[Row Count Input 1]"
-              name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_property.Outputs[OLE DB Destination Error Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
               endId="Package\import XML to imp tables\flipkey imp_photo error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
               startId="Package\import XML to imp tables\flipkey imp_photo.Outputs[OLE DB Destination Error Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
               endId="Package\import XML to imp tables\flipkey imp_rate error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
               startId="Package\import XML to imp tables\flipkey imp_rate.Outputs[OLE DB Destination Error Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
+              endId="Package\import XML to imp tables\flipkey imp_property error row count.Inputs[Row Count Input 1]"
+              name="OLE DB Destination Error Output"
+              startId="Package\import XML to imp tables\flipkey imp_property.Outputs[OLE DB Destination Error Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+              endId="Package\import XML to imp tables\flipkey imp_amenity error row count.Inputs[Row Count Input 1]"
+              name="OLE DB Destination Error Output"
+              startId="Package\import XML to imp tables\flipkey imp_amenity.Outputs[OLE DB Destination Error Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[property]"
               endId="Package\import XML to imp tables\Row Count.Inputs[Row Count Input 1]"
@@ -22177,7 +22177,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         <NodeLayout
           Size="361,42"
           Id="Package\create and merge additional amenity data into imp_amenity"
-          TopLeft="21,493" />
+          TopLeft="20,493" />
         <NodeLayout
           Size="197,42"
           Id="Package\import XML to imp tables"
@@ -22185,9 +22185,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         <NodeLayout
           Size="223,42"
           Id="Package\import XML to imp tables (old)"
-          TopLeft="460,176.42880584609" />
+          TopLeft="823,248.42880584609" />
         <NodeLayout
-          Size="136,44"
+          Size="161,42"
           Id="Package\insert tab_runFile"
           TopLeft="132.267285779573,1067.15723159826" />
         <NodeLayout
@@ -22260,18 +22260,30 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 10]"
-          TopLeft="202.383642889787,1007.42880584609">
+          TopLeft="204.5,1007.42880584609">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,59.7284257521701"
+              EndConnector="8.267285779573,59.7284257521701"
               Start="0,0"
-              End="0,52.2284257521701">
+              End="8.267285779573,52.2284257521701">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.2284257521701" />
+                    End="0,25.864212876085" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.864212876085"
+                    Point2="0,29.864212876085"
+                    Point3="4,29.864212876085" />
+                  <mssgle:LineSegment
+                    End="4.267285779573,29.864212876085" />
+                  <mssgle:CubicBezierSegment
+                    Point1="4.267285779573,29.864212876085"
+                    Point2="8.267285779573,29.864212876085"
+                    Point3="8.267285779573,33.864212876085" />
+                  <mssgle:LineSegment
+                    End="8.267285779573,52.2284257521701" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -22282,7 +22294,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 11]"
-          TopLeft="202,535">
+          TopLeft="201.5,535">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -22308,14 +22320,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,55.6677063332439"
+              EndConnector="0,55.667706333244"
               Start="0,0"
-              End="0,48.1677063332439">
+              End="0,48.167706333244">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,48.1677063332439" />
+                    End="0,48.167706333244" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -22330,14 +22342,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,54.3752405628881"
+              EndConnector="0,54.3752405628879"
               Start="0,0"
-              End="0,46.8752405628881">
+              End="0,46.8752405628879">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,46.8752405628881" />
+                    End="0,46.8752405628879" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -22414,7 +22426,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="202.25,460.42880584609">
+          TopLeft="201.75,460.42880584609">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -22506,6 +22518,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="375,56"
           Id="64f87e68-e2b9-4556-be58-6c46d9b0d540"
           TopLeft="442.704809557408,99.271007243466" />
+        <AnnotationLayout
+          Text="Check Import XML to imp tables object properties!&#xA;There is an expression which assigns the XSD file.&#xA;[XML Source].[XMLSchemaDefinition] = @[$Project::DIRECTORY_xsdDirectory] + &quot;\\&quot; + @[Internal::xsdFileName]"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="620,72"
+          Id="26b3d0c4-c1db-4f38-bf42-e9378019a4db"
+          TopLeft="440,159" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -22513,7 +22532,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to FK staging tables (amenities)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="197,42"
           Id="Package\copy to FK staging tables (amenities)\QRY flipkey imp_amenity"
@@ -22541,9 +22560,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -22574,7 +22591,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to FK staging tables (photos)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="164,42"
           Id="Package\copy to FK staging tables (photos)\staging tab_photo"
@@ -22602,9 +22619,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -22720,7 +22735,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to PK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="177,42"
           Id="Package\copy to PK staging tables\staging tab_property"
@@ -22752,9 +22767,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22776,9 +22789,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -22813,228 +22824,228 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         <NodeLayout
           Size="195,42"
           Id="Package\import XML to imp tables\Add columns to property"
-          TopLeft="902,134" />
+          TopLeft="533.666666666667,135" />
         <NodeLayout
           Size="163,42"
           Id="Package\import XML to imp tables\flipkey imp_photo"
-          TopLeft="1338,441" />
+          TopLeft="788,435.333333333333" />
         <NodeLayout
           Size="173,42"
           Id="Package\import XML to imp tables\flipkey imp_amenity"
-          TopLeft="1332,240" />
+          TopLeft="782,234.333333333333" />
         <NodeLayout
           Size="250,42"
           Id="Package\import XML to imp tables\flipkey imp_amenity error row count"
-          TopLeft="1577,239" />
+          TopLeft="1052,235" />
         <NodeLayout
           Size="154,42"
           Id="Package\import XML to imp tables\flipkey imp_rate"
-          TopLeft="1334,330" />
+          TopLeft="784,334.333333333333" />
         <NodeLayout
           Size="182,42"
           Id="Package\import XML to imp tables\Add columns to photo"
-          TopLeft="902,441" />
+          TopLeft="533.666666666667,442" />
         <NodeLayout
           Size="134,42"
           Id="Package\import XML to imp tables\XML Source"
-          TopLeft="247,136" />
+          TopLeft="17,132" />
         <NodeLayout
           Size="252,42"
           Id="Package\import XML to imp tables\flipkey imp_property error row count"
-          TopLeft="1574,138" />
+          TopLeft="1049,134" />
         <NodeLayout
           Size="140,42"
           Id="Package\import XML to imp tables\MJ amenities"
-          TopLeft="570,239" />
+          TopLeft="340,235" />
         <NodeLayout
           Size="130,42"
           Id="Package\import XML to imp tables\Row Count"
-          TopLeft="571,134" />
+          TopLeft="341,130" />
         <NodeLayout
           Size="231,42"
           Id="Package\import XML to imp tables\flipkey imp_rate error row count"
-          TopLeft="1578,328" />
+          TopLeft="1054.66666666667,330.666666666667" />
         <NodeLayout
           Size="211,42"
           Id="Package\import XML to imp tables\XML Source error row count"
-          TopLeft="393,44" />
+          TopLeft="163,40" />
         <NodeLayout
           Size="176,42"
           Id="Package\import XML to imp tables\flipkey imp_property"
-          TopLeft="1330,138" />
+          TopLeft="779.999999999999,132.333333333333" />
         <NodeLayout
           Size="118,42"
           Id="Package\import XML to imp tables\MJ rates"
-          TopLeft="585,340" />
+          TopLeft="355,336" />
         <NodeLayout
           Size="174,42"
           Id="Package\import XML to imp tables\Add columns to rate"
-          TopLeft="903,337" />
+          TopLeft="534.666666666667,338" />
         <NodeLayout
           Size="127,42"
           Id="Package\import XML to imp tables\MJ photos"
-          TopLeft="583,444" />
+          TopLeft="353,440" />
         <NodeLayout
           Size="240,42"
           Id="Package\import XML to imp tables\flipkey imp_photo error row count"
-          TopLeft="1582,439" />
+          TopLeft="1057,435" />
         <NodeLayout
           Size="193,42"
           Id="Package\import XML to imp tables\Add columns to amenity"
-          TopLeft="903,239" />
+          TopLeft="534.666666666667,240" />
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_rates]"
-          TopLeft="314,178">
+          TopLeft="68,174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="330,162"
+              EndConnector="338,162"
               Start="0,0"
-              End="330,154.5">
+              End="338,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,77" />
+                    End="0,136" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="4,81" />
+                    Point1="0,136"
+                    Point2="0,140"
+                    Point3="4,140" />
                   <mssgle:LineSegment
-                    End="326,81" />
+                    End="334,140" />
                   <mssgle:CubicBezierSegment
-                    Point1="326,81"
-                    Point2="330,81"
-                    Point3="330,85" />
+                    Point1="334,140"
+                    Point2="338,140"
+                    Point3="338,144" />
                   <mssgle:LineSegment
-                    End="330,154.5" />
+                    End="338,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="132.10580078125,86,65.7883984375,11.033203125"
+              BoundingBox="136.10580078125,145,65.7883984375,11.033203125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_rate]"
-          TopLeft="314,178">
+          TopLeft="85,174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="330,162"
+              EndConnector="348,162"
               Start="0,0"
-              End="330,154.5">
+              End="348,154.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,77" />
+                    End="0,108" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,77"
-                    Point2="0,81"
-                    Point3="4,81" />
+                    Point1="0,108"
+                    Point2="0,112"
+                    Point3="4,112" />
                   <mssgle:LineSegment
-                    End="326,81" />
+                    End="344,112" />
                   <mssgle:CubicBezierSegment
-                    Point1="326,81"
-                    Point2="330,81"
-                    Point3="330,85" />
+                    Point1="344,112"
+                    Point2="348,112"
+                    Point3="348,116" />
                   <mssgle:LineSegment
-                    End="330,154.5" />
+                    End="348,154.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="134.37203125,86,61.2559375,11.033203125"
+              BoundingBox="143.37203125,117,61.2559375,11.033203125"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_photos]"
-          TopLeft="345.5,178">
+          TopLeft="100.5,174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="301,266"
+              EndConnector="316,266"
               Start="0,0"
-              End="301,258.5">
+              End="316,258.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,88.1268292682927" />
+                    End="0,239.126829268293" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,88.1268292682927"
-                    Point2="0,92.1268292682927"
-                    Point3="4,92.1268292682927" />
+                    Point1="0,239.126829268293"
+                    Point2="0,243.126829268293"
+                    Point3="4,243.126829268293" />
                   <mssgle:LineSegment
-                    End="297,92.1268292682927" />
+                    End="312,243.126829268293" />
                   <mssgle:CubicBezierSegment
-                    Point1="297,92.1268292682927"
-                    Point2="301,92.1268292682927"
-                    Point3="301,96.1268292682927" />
+                    Point1="312,243.126829268293"
+                    Point2="316,243.126829268293"
+                    Point3="316,247.126829268293" />
                   <mssgle:LineSegment
-                    End="301,258.5" />
+                    End="316,258.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="113.67580078125,97.1268292682927,73.6483984375,11.609375"
+              BoundingBox="121.17580078125,248.126829268293,73.6483984375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_photo]"
-          TopLeft="345.5,178">
+          TopLeft="115.5,174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="301,266"
+              EndConnector="320,266"
               Start="0,0"
-              End="301,258.5">
+              End="320,258.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,88.1268292682927" />
+                    End="0,213.126829268293" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,88.1268292682927"
-                    Point2="0,92.1268292682927"
-                    Point3="4,92.1268292682927" />
+                    Point1="0,213.126829268293"
+                    Point2="0,217.126829268293"
+                    Point3="4,217.126829268293" />
                   <mssgle:LineSegment
-                    End="297,92.1268292682927" />
+                    End="316,217.126829268293" />
                   <mssgle:CubicBezierSegment
-                    Point1="297,92.1268292682927"
-                    Point2="301,92.1268292682927"
-                    Point3="301,96.1268292682927" />
+                    Point1="316,217.126829268293"
+                    Point2="320,217.126829268293"
+                    Point3="320,221.126829268293" />
                   <mssgle:LineSegment
-                    End="301,258.5" />
+                    End="320,258.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="115.95134765625,97.1268292682927,69.0973046875,11.609375"
+              BoundingBox="125.45134765625,222.126829268293,69.0973046875,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_amenity]"
-          TopLeft="282.5,178">
+          TopLeft="52.5,174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="357.5,61"
+              EndConnector="379.5,61"
               Start="0,0"
-              End="357.5,53.5">
+              End="379.5,53.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -23045,62 +23056,62 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
                     Point2="0,21.1268292682927"
                     Point3="4,21.1268292682927" />
                   <mssgle:LineSegment
-                    End="353.5,21.1268292682927" />
+                    End="375.5,21.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="353.5,21.1268292682927"
-                    Point2="357.5,21.1268292682927"
-                    Point3="357.5,25.1268292682927" />
+                    Point1="375.5,21.1268292682927"
+                    Point2="379.5,21.1268292682927"
+                    Point3="379.5,25.1268292682927" />
                   <mssgle:LineSegment
-                    End="357.5,53.5" />
+                    End="379.5,53.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="139.1814453125,26.1268292682927,79.137109375,11.3310546875"
+              BoundingBox="150.1814453125,26.1268292682927,79.137109375,11.3310546875"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property_amenities]"
-          TopLeft="282.5,178">
+          TopLeft="36.5,174">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="357.5,61"
+              EndConnector="365.5,61"
               Start="0,0"
-              End="357.5,53.5">
+              End="365.5,53.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,17.1268292682927" />
+                    End="0,37.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,17.1268292682927"
-                    Point2="0,21.1268292682927"
-                    Point3="4,21.1268292682927" />
+                    Point1="0,37.1268292682927"
+                    Point2="0,41.1268292682927"
+                    Point3="4,41.1268292682927" />
                   <mssgle:LineSegment
-                    End="353.5,21.1268292682927" />
+                    End="361.5,41.1268292682927" />
                   <mssgle:CubicBezierSegment
-                    Point1="353.5,21.1268292682927"
-                    Point2="357.5,21.1268292682927"
-                    Point3="357.5,25.1268292682927" />
+                    Point1="361.5,41.1268292682927"
+                    Point2="365.5,41.1268292682927"
+                    Point3="365.5,45.1268292682927" />
                   <mssgle:LineSegment
-                    End="357.5,53.5" />
+                    End="365.5,53.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="135.74580078125,26.1268292682927,86.0083984375,11.3310546875"
+              BoundingBox="139.74580078125,46.1268292682927,86.0083984375,11.3310546875"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property Error Output]"
-          TopLeft="314,136">
+          TopLeft="84,132">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -23136,7 +23147,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[property]"
-          TopLeft="381,156">
+          TopLeft="151,152">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -23160,114 +23171,114 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
-          TopLeft="1505,260.5">
+          TopLeft="951,456.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="72,0"
+              EndConnector="106,0"
               Start="0,0"
-              End="64.5,0">
+              End="98.4999999999999,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="64.5,0" />
+                    End="98.4999999999999,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-40.95890625,5,146.4178125,11.43359375"
+              BoundingBox="-23.9589062500001,5,146.4178125,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
-          TopLeft="1506,159">
+          TopLeft="938,353.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="68,0"
+              EndConnector="116.666666666667,0"
               Start="0,0"
-              End="60.5,0">
+              End="109.166666666667,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="60.5,0" />
+                    End="109.166666666667,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-42.95890625,5,146.4178125,11.43359375"
+              BoundingBox="-18.6255729166667,5,146.4178125,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
-          TopLeft="1488,350">
+          TopLeft="955,255.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="90,0"
+              EndConnector="96.9999999999999,0"
               Start="0,0"
-              End="82.5,0">
+              End="89.4999999999999,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="82.5,0" />
+                    End="89.4999999999999,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-31.95890625,5,146.4178125,11.43359375"
+              BoundingBox="-28.4589062500001,5,146.4178125,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
-          TopLeft="1501,461">
+          TopLeft="955.999999999999,154.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="81,0"
+              EndConnector="93.0000000000001,0"
               Start="0,0"
-              End="73.5,0">
+              End="85.5000000000001,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="73.5,0" />
+                    End="85.5000000000001,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-36.45890625,5,146.4178125,11.43359375"
+              BoundingBox="-30.4589062499999,5,146.4178125,11.43359375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output2]"
-          TopLeft="710,463.5">
+          TopLeft="480,462">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="192,0"
+              EndConnector="53.6666666666666,0"
               Start="0,0"
-              End="184.5,0">
+              End="46.1666666666666,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="184.5,0" />
+                    End="46.1666666666666,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23278,18 +23289,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output1]"
-          TopLeft="703,359.5">
+          TopLeft="473,358">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="200,0"
+              EndConnector="61.6666666666666,0"
               Start="0,0"
-              End="192.5,0">
+              End="54.1666666666666,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="192.5,0" />
+                    End="54.1666666666666,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23300,18 +23311,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Merge Join Output]"
-          TopLeft="710,260">
+          TopLeft="480,258.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="193,0"
+              EndConnector="54.6666666666666,0"
               Start="0,0"
-              End="185.5,0">
+              End="47.1666666666666,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="185.5,0" />
+                    End="47.1666666666666,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23322,18 +23333,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
-          TopLeft="1097,157">
+          TopLeft="728.666666666667,154.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="233,0"
+              EndConnector="51.3333333333328,0"
               Start="0,0"
-              End="225.5,0">
+              End="43.8333333333328,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="225.5,0" />
+                    End="43.8333333333328,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23344,18 +23355,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
-          TopLeft="1084,462">
+          TopLeft="715.666666666667,459.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="254,0"
+              EndConnector="72.333333333333,0"
               Start="0,0"
-              End="246.5,0">
+              End="64.833333333333,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="246.5,0" />
+                    End="64.833333333333,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23366,18 +23377,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
-          TopLeft="1077,354.5">
+          TopLeft="708.666666666667,357.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="257,0"
+              EndConnector="75.333333333333,0"
               Start="0,0"
-              End="249.5,0">
+              End="67.833333333333,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="249.5,0" />
+                    End="67.833333333333,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23388,18 +23399,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Derived Column Output]"
-          TopLeft="1096,260.5">
+          TopLeft="727.666666666667,258.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="236,0"
+              EndConnector="54.333333333333,0"
               Start="0,0"
-              End="228.5,0">
+              End="46.833333333333,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="228.5,0" />
+                    End="46.833333333333,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23410,18 +23421,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\import XML to imp tables.Paths[Row Count Output 1]"
-          TopLeft="701,155">
+          TopLeft="471,153.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="201,0"
+              EndConnector="62.6666666666666,0"
               Start="0,0"
-              End="193.5,0">
+              End="55.1666666666666,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="193.5,0" />
+                    End="55.1666666666666,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -23509,9 +23520,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23773,9 +23782,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23797,9 +23804,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23821,9 +23826,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23845,9 +23848,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23869,9 +23870,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23893,9 +23892,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -23917,37 +23914,35 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
           Text="ignore truncation failure TRUE:&#xA;&#xA;property propertyDescription&#xA;"
           ParentId="Package\import XML to imp tables (old)"
           FontInfo="{assembly:Null}"
-          Size="191,NaN"
+          Size="191,88"
           Id="050c2690-3262-46cc-b2fd-14802499a811"
           TopLeft="0,30" />
         <AnnotationLayout
           Text="Cosmetic annotation to create more space"
           ParentId="Package\import XML to imp tables (old)"
           FontInfo="{assembly:Null}"
-          Size="253,NaN"
+          Size="253,40"
           Id="6d6f72b9-b0d9-441d-876b-92b3dc829739"
           TopLeft="1262,32" />
         <AnnotationLayout
           Text="Cosmetic annotation to create more space"
           ParentId="Package\import XML to imp tables (old)"
           FontInfo="{assembly:Null}"
-          Size="253,NaN"
+          Size="253,40"
           Id="32020027-3175-4ceb-9cd3-ae67ed2d52e3"
           TopLeft="29,1135" />
         <AnnotationLayout
           Text="ignore failure TRUE:&#xA;OLEDB Destinationm Input on all of these: &#xA;encountered multiple dodgy source values"
           ParentId="Package\import XML to imp tables (old)"
           FontInfo="{assembly:Null}"
-          Size="254,NaN"
+          Size="254,72"
           Id="63a372c4-4049-4b37-ac2c-6bffcea1179a"
           TopLeft="1017.95909805027,171.924768938834" />
       </GraphLayout>
