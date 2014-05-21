@@ -139,6 +139,7 @@
     <Build Include="dbo\Stored Procedures\propertyAreaSearchFacetCounts.sql" />
     <Build Include="dbo\Stored Procedures\propertySearchFacetCounts.sql" />
     <Build Include="dbo\Tables\homeAwayCoords.sql" />
+    <Build Include="dbo\Tables\tab_propertyTypeFacetsLookup.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

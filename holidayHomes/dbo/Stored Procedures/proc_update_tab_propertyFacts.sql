@@ -1,4 +1,5 @@
-﻿--------------------------------------------------------------------------------------------
+﻿
+--------------------------------------------------------------------------------------------
 --	2014-04-10 TW
 --	dbo.proc_update_tab_propertyFacts
 --  
@@ -57,6 +58,7 @@ BEGIN
 
 		-- property types
 		-- (best solution given that there is no property types child table in the current design)
+		/*
 		SELECT dbo.tab_property.propertyId
 		, 3 AS propertyFacetId
 		, dbo.tab_propertyFacets.propertyFacetName
@@ -68,6 +70,21 @@ BEGIN
 		ON dbo.tab_propertyFacets.propertyFacetId = 3
 		INNER JOIN dbo.tab_propertyTypeFacets
 		ON dbo.tab_property.typeOfProperty LIKE dbo.tab_propertyTypeFacets.propertyTypeFacetName + '%'
+		*/
+		SELECT dbo.tab_property.propertyId
+		, 3 AS propertyFacetId
+		, dbo.tab_propertyFacets.propertyFacetName
+		, dbo.tab_propertyTypeFacetsLookup.propertyTypeFacetId AS facetId
+		, dbo.tab_propertyTypeFacets.propertyTypeFacetName AS facetName
+		, dbo.tab_propertyTypeFacetsLookup.propertyTypeFacetId AS facetName
+		FROM dbo.tab_property
+		INNER JOIN dbo.tab_propertyFacets
+		ON dbo.tab_propertyFacets.propertyFacetId = 3
+		LEFT OUTER JOIN dbo.tab_propertyTypeFacetsLookup
+		ON dbo.tab_property.typeOfProperty LIKE dbo.tab_propertyTypeFacetsLookup.propertyType
+		INNER JOIN dbo.tab_propertyTypeFacets
+		ON dbo.tab_propertyTypeFacetsLookup.propertyTypeFacetId = dbo.tab_propertyTypeFacets.propertyTypeFacetId
+		WHERE dbo.tab_propertyTypeFacetsLookup.propertyTypeFacetId IS NOT NULL
 		)
 
 	MERGE INTO dbo.tab_propertyFacts AS facts
