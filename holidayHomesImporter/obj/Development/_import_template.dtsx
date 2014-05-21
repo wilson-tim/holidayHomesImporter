@@ -7,13 +7,13 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{300E2B3A-210B-4AF7-9C7F-FE3AAEEE6E05}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="_import_template"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="32"
-  DTS:VersionGUID="{84D2DC1E-1E78-428A-9ADF-0860F65397C9}">
+  DTS:VersionBuild="43"
+  DTS:VersionGUID="{EC4F98EB-82D9-411E-9310-8FA3AE890E18}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\_import_template_{89653C6B-D253-4640-B41F-04D15FE4193A}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\_import_template_{5D887F40-92EF-4CF0-BE23-01E513C7B566}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -159,6 +159,26 @@
         DTS:DataType="3"
         DTS:Name="ParameterValue">0</DTS:Property>
     </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:Description="XSD file name"
+      DTS:DTSID="{D62D730E-0175-476F-8203-E68114E682F4}"
+      DTS:ObjectName="xsdFileName">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">import_feed.xsd</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:Description="XSL file name"
+      DTS:DTSID="{976BF1EC-A0EA-4233-A0FE-59C37BF05E91}"
+      DTS:ObjectName="xslFileName">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">import.xsl</DTS:Property>
+    </DTS:PackageParameter>
   </DTS:PackageParameters>
   <DTS:Variables>
     <DTS:Variable
@@ -172,12 +192,39 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{3C62753B-FB83-4158-B0AF-A3F32D6FFA90}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="Internal"
+      DTS:ObjectName="periodType">
+      <DTS:VariableValue
+        DTS:DataType="8">nightly</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{D9CBE276-0136-4ECA-8B34-2512ABCFA05F}"
       DTS:IncludeInDebugDump="6789"
       DTS:Namespace="Internal"
       DTS:ObjectName="rowsImported">
       <DTS:VariableValue
         DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{550666AC-8028-4291-B0A1-295CE51A7E30}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="Internal"
+      DTS:ObjectName="xsdFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">import_feed.xsd</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{048C2D80-7E04-4C01-A7CC-7FBFE8B6699D}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="Internal"
+      DTS:ObjectName="xslXmlFullPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\Matt\Dropbox\Work\CompareAndShare\sources\housetrip\housetrip-feed-en-small.xmlx</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:LoggingOptions
@@ -348,10 +395,12 @@
       <DTS:Variables />
       <DTS:LoggingOptions
         DTS:FilterKind="0" />
+      <DTS:PropertyExpression
+        DTS:Name="[XML Source].[XMLSchemaDefinition]">@[$Project::DIRECTORY_xsdDirectory] + "\\" + @[Internal::xsdFileName]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <pipeline
-          BLOBTempStoragePath=""
-          bufferTempStoragePath=""
+          BLOBTempStoragePath="@[$Project::DIRECTORY_BLOBTempStoragePath]"
+          bufferTempStoragePath="@[$Project::DIRECTORY_bufferTempStorage]"
           version="1">
           <components>
             <component
@@ -822,7 +871,7 @@
                   dataType="System.String"
                   description="The XML schema definition used by the XML source adapter."
                   expressionType="Notify"
-                  name="XMLSchemaDefinition">C:\Users\Matt\Dropbox\Work\CompareAndShare\homeaway_feed.xsd</property>
+                  name="XMLSchemaDefinition">C:\Data\XSD\\import_feed.xsd</property>
                 <property
                   dataType="System.Boolean"
                   description="Identifies whether or not to use inline schema."

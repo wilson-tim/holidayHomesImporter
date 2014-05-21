@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="o6l0wm1LRQ==" SSIS:IV="LpVTS6MFBHI=">LLfrSipnC4g6DCMsExiw+E/e3Iv2NwpAKk5N7H/rlJQ8PqAx8XPN77HqshicxuxHr4pCFzi27GTdCJ5OZQCpNNBL0fdh3pR2HfdEmIZpvj3wb0HWKxhqmCa+jcuY28+WH8I5tEbGomVTwunXi3BM33tVg4X5D0ABgFjBsJHTe60QyczGahtmpw==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="Zj4D3eYskg==" SSIS:IV="+5d/uxcToR0=">pmMG/svXSMO5LHvQslZ4ZfkAqsujFanFrqhfrhBYH68ArWm07mY5dbEP3BrgzTFftBdLM9QxB7Fa+qXo3e9YhnZV+KmmWoKiNlf2aXmEIkcYrWeJp++hqVFc/6gmzlgTcJywk95bRV/5gl1YOEH77C4JAMoLEnY2pPyyA0FIvrvuYoqtltBDGg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -424,10 +424,10 @@
                 <SSIS:Property SSIS:Name="Name">waytostay_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">93</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">96</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1D6E5AC9-7022-4600-9D27-08B2AC1187D5}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9368DA37-45E2-461A-88B1-EC8F1527C7AA}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -498,10 +498,10 @@
                 <SSIS:Property SSIS:Name="Name">homeaway_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">83</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">85</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{7B690D66-D61E-445A-9A5E-567CF0BA969D}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{4006B829-B311-4906-9497-E1B53ED10BC4}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -572,10 +572,10 @@
                 <SSIS:Property SSIS:Name="Name">housetrip_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">208</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">211</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{57A6FF51-744D-4730-86E4-CF80F02D7172}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{14239964-623B-46D1-85F4-7AB2E8383292}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -646,10 +646,10 @@
                 <SSIS:Property SSIS:Name="Name">_importController</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">250</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">252</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{E693154E-BBEC-407C-B6B1-187FF53C9C8F}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{EAF08EA4-D447-4A77-A065-CB2D2D8C5C1B}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -720,10 +720,10 @@
                 <SSIS:Property SSIS:Name="Name">_import_template</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">32</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">43</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{84D2DC1E-1E78-428A-9ADF-0860F65397C9}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{EC4F98EB-82D9-411E-9310-8FA3AE890E18}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -786,6 +786,32 @@
                     <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="xsdFileName">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{D62D730E-0175-476F-8203-E68114E682F4}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">XSD file name</SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">import_feed.xsd</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="xslFileName">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{976BF1EC-A0EA-4233-A0FE-59C37BF05E91}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">XSL file name</SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">import.xsl</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
               </SSIS:Parameters>
             </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="flipkey_import.dtsx">
@@ -794,10 +820,10 @@
                 <SSIS:Property SSIS:Name="Name">flipkey_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">441</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">447</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{8FEF9C51-C4F1-4FD7-9027-315DDF5B3E53}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{3BB4D185-44B7-47F9-8D54-6875F175EABD}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -1803,10 +1829,10 @@
                 <SSIS:Property SSIS:Name="Name">roomorama</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">422</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">426</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{70594525-F0EF-4E12-8AEF-4D96F7D8F702}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{5791210E-756B-48A7-B9C2-70B0A0F3F5D8}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
