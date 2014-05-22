@@ -11,6 +11,11 @@ CREATE PROCEDURE [dbo].[proc_updateData_tab_propertyLatLong]
 AS
 BEGIN
 
+	-- Just in case
+	UPDATE dbo.tab_property
+	SET latitude = NULL, longitude = NULL
+	WHERE ABS(latitude) > 90 OR ABS(longitude) > 180;
+
 	MERGE dbo.tab_propertyLatLong AS latlong
 	USING dbo.tab_property AS property
 	ON (latlong.propertyId = property.propertyId)

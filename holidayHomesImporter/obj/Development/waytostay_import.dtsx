@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\waytostay_import_{D2DA1220-0F45-4BED-86BB-3EC829924E94}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\waytostay_import_{35E1F419-AE94-4EDF-9FFD-88E3FECFE6B7}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
