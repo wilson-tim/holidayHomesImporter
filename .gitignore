@@ -205,3 +205,6 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
+holidayHomesImporter/CORRUPT_housekeeping_holidayHomes_build_DB.dtsx
+holidayHomesImporter/test.dtsx
+holidayHomesImporter/_create_new_holidayHomes_DB_{84C66A53-582D-4D57-9A36-7FB10A45B91F}.log.conmgr
