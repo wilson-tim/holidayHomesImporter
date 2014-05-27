@@ -7,13 +7,13 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{359FFE83-74C1-463D-B525-CED52415592F}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="205"
-  DTS:VersionGUID="{1FD59C5C-CAA7-49F2-ACF7-E68A133817E6}">
+  DTS:VersionBuild="211"
+  DTS:VersionGUID="{14239964-623B-46D1-85F4-7AB2E8383292}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{5934A3FF-9862-4A52-9FA1-3C04D5906023}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{E1209E1B-B42D-4EE8-A253-9AA8CDAB4234}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -363,11 +363,20 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId, prop.id, ph.position, ph.url, prop.runId
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
+, externalId = CAST(prop.id AS NVARCHAR(100))
+, ph.position
+, ph.url
+, prop.runId
 FROM housetrip.imp_property prop
-INNER JOIN housetrip.imp_property2photo p2ph ON p2ph.imp_propertiesId = prop.imp_propertiesId
-INNER JOIN housetrip.imp_photo ph ON ph.imp_photosId = p2ph.imp_photosId
-WHERE prop.runId = ?</property>
+INNER JOIN housetrip.imp_property2photo p2ph
+ON p2ph.imp_propertiesId = prop.imp_propertiesId
+AND p2ph.runId = prop.runId
+INNER JOIN housetrip.imp_photo ph
+ON ph.imp_photosId = p2ph.imp_photosId
+AND ph.runId = p2ph.runId
+WHERE prop.runId = ?
+AND prop.fileId = ?</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -388,7 +397,7 @@ WHERE prop.runId = ?</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};"Parameter1:Input",{6C3DF31E-C7FB-48BE-9B21-133216189CA4};</property>
               </properties>
               <connections>
                 <connection
@@ -441,13 +450,14 @@ WHERE prop.runId = ?</property>
                       name="url"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[id]"
-                      dataType="i4"
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[externalId]"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[id]"
-                      name="id"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[externalId]"
+                      name="externalId"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -470,9 +480,10 @@ WHERE prop.runId = ?</property>
                       length="255"
                       name="url" />
                     <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      dataType="i4"
-                      name="id" />
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      name="externalId" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -486,10 +497,11 @@ WHERE prop.runId = ?</property>
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Error Output].Columns[sourceId]"
                       name="sourceId" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Error Output].Columns[id]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Error Output].Columns[id]"
-                      name="id" />
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      name="externalId" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Error Output].Columns[runId]"
                       dataType="i4"
@@ -548,7 +560,10 @@ WHERE prop.runId = ?</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId, prop.id, am.amenityId, imp_am.runId
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
+, externalId = CAST(prop.id AS NVARCHAR(100))
+, am.amenityId
+, imp_am.runId
 FROM housetrip.imp_property prop
 INNER JOIN housetrip.imp_property2amenity imp2a 
 	ON imp2a.runId = prop.runId
@@ -558,7 +573,8 @@ INNER JOIN housetrip.imp_amenity imp_am
 	AND imp_am.imp_amenitiesId = imp2a.imp_amenitiesId
 INNER JOIN staging.tab_amenity am
 	ON am.amenityValue = imp_am.amenityValue
-WHERE prop.runId = ?</property>
+WHERE prop.runId = ?
+AND prop.fileId = ?</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -579,7 +595,7 @@ WHERE prop.runId = ?</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};"Parameter1:Input",{6C3DF31E-C7FB-48BE-9B21-133216189CA4};</property>
               </properties>
               <connections>
                 <connection
@@ -622,13 +638,14 @@ WHERE prop.runId = ?</property>
                       name="amenityId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[id]"
-                      dataType="i4"
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[externalId]"
+                      dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[id]"
-                      name="id"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[externalId]"
+                      name="externalId"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -646,9 +663,10 @@ WHERE prop.runId = ?</property>
                       dataType="i8"
                       name="amenityId" />
                     <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      dataType="i4"
-                      name="id" />
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      name="externalId" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -662,10 +680,11 @@ WHERE prop.runId = ?</property>
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Error Output].Columns[sourceId]"
                       name="sourceId" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Error Output].Columns[id]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Error Output].Columns[id]"
-                      name="id" />
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      name="externalId" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Error Output].Columns[amenityId]"
                       dataType="i8"
@@ -719,13 +738,14 @@ WHERE prop.runId = ?</property>
                   description="The SQL command to be executed."
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT sourceId
-, id
+, externalId = CAST(id AS NVARCHAR(100))
 , CAST('nightly' AS NVARCHAR(255)) AS periodType
 , minimum_price_per_night
 , currency_code
 , runId
 FROM housetrip.imp_property
 WHERE runId = ?
+AND fileId = ?
 AND minimum_price_per_night IS NOT NULL</property>
                 <property
                   dataType="System.String"
@@ -747,7 +767,7 @@ AND minimum_price_per_night IS NOT NULL</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};"Parameter1:Input",{6C3DF31E-C7FB-48BE-9B21-133216189CA4};</property>
               </properties>
               <connections>
                 <connection
@@ -791,15 +811,6 @@ AND minimum_price_per_night IS NOT NULL</property>
                       name="periodType"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[id]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[id]"
-                      name="id"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[minimum_price_per_night]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -818,6 +829,16 @@ AND minimum_price_per_night IS NOT NULL</property>
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[currency_code]"
                       name="currency_code"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[externalId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[externalId]"
+                      name="externalId"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -835,10 +856,6 @@ AND minimum_price_per_night IS NOT NULL</property>
                       length="255"
                       name="periodType" />
                     <externalMetadataColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      dataType="i4"
-                      name="id" />
-                    <externalMetadataColumn
                       refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].ExternalColumns[minimum_price_per_night]"
                       dataType="i4"
                       name="minimum_price_per_night" />
@@ -847,6 +864,11 @@ AND minimum_price_per_night IS NOT NULL</property>
                       dataType="wstr"
                       length="3"
                       name="currency_code" />
+                    <externalMetadataColumn
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      name="externalId" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -860,10 +882,11 @@ AND minimum_price_per_night IS NOT NULL</property>
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Error Output].Columns[sourceId]"
                       name="sourceId" />
                     <outputColumn
-                      refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Error Output].Columns[id]"
-                      dataType="i4"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Error Output].Columns[id]"
-                      name="id" />
+                      refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      name="externalId" />
                     <outputColumn
                       refId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Error Output].Columns[runId]"
                       dataType="i4"
@@ -1001,11 +1024,12 @@ AND minimum_price_per_night IS NOT NULL</property>
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[url]"
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[url]" />
                     <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[id]"
-                      cachedDataType="i4"
-                      cachedName="id"
+                      refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].Columns[externalId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="externalId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[id]" />
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_photo.Outputs[OLE DB Source Output].Columns[externalId]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1024,7 +1048,8 @@ AND minimum_price_per_night IS NOT NULL</property>
                       name="url" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_photo.Inputs[OLE DB Destination Input].ExternalColumns[position]"
@@ -1153,11 +1178,12 @@ AND minimum_price_per_night IS NOT NULL</property>
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[amenityId]"
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[amenityId]" />
                     <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].Columns[id]"
-                      cachedDataType="i4"
-                      cachedName="id"
+                      refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].Columns[externalId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="externalId"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[id]" />
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_property2amenity.Outputs[OLE DB Source Output].Columns[externalId]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1167,7 +1193,8 @@ AND minimum_price_per_night IS NOT NULL</property>
                       name="sourceId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_property2amenity.Inputs[OLE DB Destination Input].ExternalColumns[amenityId]"
@@ -1297,12 +1324,6 @@ AND minimum_price_per_night IS NOT NULL</property>
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[runId]"
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[runId]" />
                     <inputColumn
-                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[id]"
-                      cachedDataType="i4"
-                      cachedName="id"
-                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[id]" />
-                    <inputColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[minimum_price_per_night]"
                       cachedDataType="i4"
                       cachedName="minimum_price_per_night"
@@ -1315,6 +1336,13 @@ AND minimum_price_per_night IS NOT NULL</property>
                       cachedName="currency_code"
                       externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[currencyCode]"
                       lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[currency_code]" />
+                    <inputColumn
+                      refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].Columns[externalId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="externalId"
+                      externalMetadataColumnId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
+                      lineageId="Package\copy to FK staging tables\QRY housetrip imp_rate.Outputs[OLE DB Source Output].Columns[externalId]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1328,7 +1356,8 @@ AND minimum_price_per_night IS NOT NULL</property>
                       name="sourceId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to FK staging tables\staging tab_rate.Inputs[OLE DB Destination Input].ExternalColumns[periodType]"
@@ -1442,9 +1471,52 @@ AND minimum_price_per_night IS NOT NULL</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT *
-FROM housetrip.imp_property
-WHERE runId = ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT p.sourceId
+, p.runId
+, externalId = CAST(p.id AS NVARCHAR(100))
+, p.landing_page_url
+, p.[description]
+, p.name
+, p.region_name
+, p.type_of_property
+, p.zip_code
+, p.region_id
+, p.city_id
+, p.city_name
+, p.country_code
+, p.latitude
+, p.longitude
+, p.check_in_from
+, p.check_out_before
+, p.size_of_space_in_sqm
+, p.size_of_space_in_sqft
+, p.cancellation_policy
+, p.minimum_price_per_night
+, p.currency_code
+, p.number_of_proper_bedrooms
+, p.number_of_bathrooms
+, p.[floor]
+, p.reviews_count
+, p.average_rating
+, p.maximum_number_of_people
+, p.number_of_other_rooms_where_guests_can_sleep
+, p.minimum_days_of_stay
+, thumbnailURL = photo.url
+FROM housetrip.imp_property p
+OUTER APPLY (
+	SELECT TOP 1 ph.url
+	FROM housetrip.imp_property2photo p2ph 
+	INNER JOIN housetrip.imp_photo ph
+		ON ph.runId = p2ph.runId
+		AND ph.fileId = p2ph.fileId
+		AND ph.imp_photosId = p2ph.imp_photosId
+	WHERE p2ph.runId = p.runId
+	AND p2ph.fileId = p.fileId
+	AND p2ph.imp_propertiesId = p.imp_propertiesId
+	ORDER BY ph.position
+) AS photo
+WHERE p.runId =?
+AND p.fileId = ?</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -1465,7 +1537,7 @@ WHERE runId = ?</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{C41BF84B-5AAA-4C6E-A8DD-C0EEC8A4822D};"Parameter1:Input",{6C3DF31E-C7FB-48BE-9B21-133216189CA4};</property>
               </properties>
               <connections>
                 <connection
@@ -1497,24 +1569,6 @@ WHERE runId = ?</property>
                       externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[runId]"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[runId]"
                       name="runId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[fileId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[fileId]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[fileId]"
-                      name="fileId"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[imp_propertiesId]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[imp_propertiesId]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[imp_propertiesId]"
-                      name="imp_propertiesId"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[description]"
@@ -1753,78 +1807,6 @@ WHERE runId = ?</property>
                       name="number_of_other_rooms_where_guests_can_sleep"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[kitchen]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[kitchen]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[kitchen]"
-                      name="kitchen"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[non_smoking_only]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[non_smoking_only]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[non_smoking_only]"
-                      name="non_smoking_only"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[wheelchair_accessible]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[wheelchair_accessible]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[wheelchair_accessible]"
-                      name="wheelchair_accessible"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[pets_not_allowed]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[pets_not_allowed]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[pets_not_allowed]"
-                      name="pets_not_allowed"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[children_friendly]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[children_friendly]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[children_friendly]"
-                      name="children_friendly"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[entire_property]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[entire_property]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[entire_property]"
-                      name="entire_property"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[elevator]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[elevator]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[elevator]"
-                      name="elevator"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[minimum_length_of_stay]"
-                      dataType="bool"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[minimum_length_of_stay]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[minimum_length_of_stay]"
-                      name="minimum_length_of_stay"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[minimum_days_of_stay]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
@@ -1832,15 +1814,6 @@ WHERE runId = ?</property>
                       externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[minimum_days_of_stay]"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[minimum_days_of_stay]"
                       name="minimum_days_of_stay"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[id]"
-                      dataType="i4"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[id]"
-                      name="id"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[landing_page_url]"
@@ -1851,6 +1824,26 @@ WHERE runId = ?</property>
                       length="255"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[landing_page_url]"
                       name="landing_page_url"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[thumbnailURL]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[thumbnailURL]"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[thumbnailURL]"
+                      name="thumbnailURL"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[externalId]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      length="100"
+                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[externalId]"
+                      name="externalId"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -1863,14 +1856,6 @@ WHERE runId = ?</property>
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[runId]"
                       dataType="i4"
                       name="runId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[fileId]"
-                      dataType="i4"
-                      name="fileId" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[imp_propertiesId]"
-                      dataType="i4"
-                      name="imp_propertiesId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[description]"
                       dataType="wstr"
@@ -1983,50 +1968,24 @@ WHERE runId = ?</property>
                       dataType="i4"
                       name="number_of_other_rooms_where_guests_can_sleep" />
                     <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[kitchen]"
-                      dataType="bool"
-                      name="kitchen" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[non_smoking_only]"
-                      dataType="bool"
-                      name="non_smoking_only" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[wheelchair_accessible]"
-                      dataType="bool"
-                      name="wheelchair_accessible" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[pets_not_allowed]"
-                      dataType="bool"
-                      name="pets_not_allowed" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[children_friendly]"
-                      dataType="bool"
-                      name="children_friendly" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[entire_property]"
-                      dataType="bool"
-                      name="entire_property" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[elevator]"
-                      dataType="bool"
-                      name="elevator" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[minimum_length_of_stay]"
-                      dataType="bool"
-                      name="minimum_length_of_stay" />
-                    <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[minimum_days_of_stay]"
                       dataType="i4"
                       name="minimum_days_of_stay" />
-                    <externalMetadataColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[id]"
-                      dataType="i4"
-                      name="id" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[landing_page_url]"
                       dataType="wstr"
                       length="255"
                       name="landing_page_url" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[thumbnailURL]"
+                      dataType="wstr"
+                      length="255"
+                      name="thumbnailURL" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      name="externalId" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2045,20 +2004,11 @@ WHERE runId = ?</property>
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[runId]"
                       name="runId" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[fileId]"
-                      dataType="i4"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[fileId]"
-                      name="fileId" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[imp_propertiesId]"
-                      dataType="i4"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[imp_propertiesId]"
-                      name="imp_propertiesId" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[id]"
-                      dataType="i4"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[id]"
-                      name="id" />
+                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[externalId]"
+                      name="externalId" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[landing_page_url]"
                       dataType="wstr"
@@ -2202,50 +2152,16 @@ WHERE runId = ?</property>
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[number_of_other_rooms_where_guests_can_sleep]"
                       name="number_of_other_rooms_where_guests_can_sleep" />
                     <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[kitchen]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[kitchen]"
-                      name="kitchen" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[non_smoking_only]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[non_smoking_only]"
-                      name="non_smoking_only" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[wheelchair_accessible]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[wheelchair_accessible]"
-                      name="wheelchair_accessible" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[pets_not_allowed]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[pets_not_allowed]"
-                      name="pets_not_allowed" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[children_friendly]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[children_friendly]"
-                      name="children_friendly" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[entire_property]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[entire_property]"
-                      name="entire_property" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[elevator]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[elevator]"
-                      name="elevator" />
-                    <outputColumn
-                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[minimum_length_of_stay]"
-                      dataType="bool"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[minimum_length_of_stay]"
-                      name="minimum_length_of_stay" />
-                    <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[minimum_days_of_stay]"
                       dataType="i4"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[minimum_days_of_stay]"
                       name="minimum_days_of_stay" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[thumbnailURL]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[thumbnailURL]"
+                      name="thumbnailURL" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -2515,18 +2431,26 @@ WHERE runId = ?</property>
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[numberOfOtherRoomsWhereGuestsCanSleep]"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[number_of_other_rooms_where_guests_can_sleep]" />
                     <inputColumn
-                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[id]"
-                      cachedDataType="i4"
-                      cachedName="id"
-                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[id]" />
-                    <inputColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[landing_page_url]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="landing_page_url"
                       externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalURL]"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[landing_page_url]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[externalId]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="externalId"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
+                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[externalId]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].Columns[thumbnailURL]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="thumbnailURL"
+                      externalMetadataColumnId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
+                      lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].Columns[thumbnailURL]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2540,7 +2464,8 @@ WHERE runId = ?</property>
                       name="runId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                      dataType="i8"
+                      dataType="wstr"
+                      length="100"
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
@@ -2753,6 +2678,8 @@ WHERE runId = ?</property>
         DTS:Name="[XML Source].[XMLSchemaDefinition]">@[$Project::DIRECTORY_xsdDirectory] + "\\" + @[Internal::xsdFileName]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <pipeline
+          BLOBTempStoragePath="@[$Project::DIRECTORY_BLOBTempStoragePath]"
+          bufferTempStoragePath="@[$Project::DIRECTORY_bufferTempStorage]"
           version="1">
           <components>
             <component
@@ -6377,10 +6304,16 @@ WHERE runId = ?</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="DECLARE @runId INT&#xA;SET @runId = ?&#xA;&#xA;DECLARE @message VARCHAR (255)&#xA;&#xA;SET @message = 'HouseTrip: raw property records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent) VALUES (@runId, 'info', @message);&#xA;&#xA;SET @message = 'HouseTrip: raw amenity records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent) VALUES (@runId, 'info', @message);&#xA;&#xA;SET @message = 'HouseTrip: raw photo records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent) VALUES (@runId, 'info', @message);&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="DECLARE @runId INT, @sourceId INT&#xA;SET @runId = ?&#xA;SET @sourceId = ?&#xA;&#xA;DECLARE @message VARCHAR (255)&#xA;&#xA;SET @message = 'HouseTrip: raw property records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);&#xA;&#xA;SET @message = 'HouseTrip: raw amenity records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);&#xA;&#xA;SET @message = 'HouseTrip: raw photo records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="@runId"
             SQLTask:DtsVariableName="$Package::runId"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="@sourceId"
+            SQLTask:DtsVariableName="$Package::sourceId"
             SQLTask:ParameterDirection="Input"
             SQLTask:DataType="3"
             SQLTask:ParameterSize="-1" />

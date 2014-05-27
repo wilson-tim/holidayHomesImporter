@@ -8,44 +8,44 @@
             <xs:sequence>
               <xs:element minOccurs="0" name="id" type="xs:integer" />
               <xs:element minOccurs="0" name="title" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="type" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="subtype" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="url" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="2000" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="num-rooms" type="xs:integer" />
               <xs:element minOccurs="0" name="num-bathrooms" type="xs:integer" />
               <xs:element minOccurs="0" name="max-guests" type="xs:integer" />
               <xs:element minOccurs="0" name="min-stay" type="xs:integer" />
               <xs:element minOccurs="0" name="floor" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="10" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="num-double-beds" type="xs:integer" />
               <xs:element minOccurs="0" name="num-single-beds" type="xs:integer" />
               <xs:element minOccurs="0" name="num-sofa-beds" type="xs:integer" />
@@ -54,173 +54,222 @@
               <xs:element minOccurs="0" name="tax-rate" type="xs:decimal" />
               <xs:element minOccurs="0" name="extra-charges" type="xs:integer" />
               <xs:element minOccurs="0" name="currency-code" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="currency-display" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="description" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="4000" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="city" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="country-code" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="lat" type="xs:decimal" />
               <xs:element minOccurs="0" name="lng" type="xs:decimal" />
-			  <xs:element minOccurs="0" name="amenities" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="2000" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-			<xs:element minOccurs="0" name="smoking" type="xs:boolean" />
-			<xs:element minOccurs="0" name="pets" type="xs:boolean" />
-			<xs:element minOccurs="0" name="children" type="xs:boolean" />
-			  <xs:element minOccurs="0" name="cleaningAvailable" type="xs:boolean" />
-			  <xs:element minOccurs="0" name="cleaningRate" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-			  <xs:element minOccurs="0" name="cleaningRequired" type="xs:boolean" />
-			  <xs:element minOccurs="0" name="airport-pickupAvailable" type="xs:boolean" />
-			  <xs:element minOccurs="0" name="airport-pickupRate" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-			  <xs:element minOccurs="0" name="car-rentalAvailable" type="xs:boolean" />
-			  <xs:element minOccurs="0" name="car-rentalRate" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-			  <xs:element minOccurs="0" name="conciergeAvailable" type="xs:boolean" />
-			  <xs:element minOccurs="0" name="conciergeRate" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+              <xs:element minOccurs="0" name="amenities" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="smoking" type="xs:boolean" />
+              <xs:element minOccurs="0" name="pets" type="xs:boolean" />
+              <xs:element minOccurs="0" name="children" type="xs:boolean" />
+              <xs:element minOccurs="0" name="cleaningAvailable" type="xs:boolean" />
+              <xs:element minOccurs="0" name="cleaningRate" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="cleaningRequired" type="xs:boolean" />
+              <xs:element minOccurs="0" name="airport-pickupAvailable" type="xs:boolean" />
+              <xs:element minOccurs="0" name="airport-pickupRate" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="car-rentalAvailable" type="xs:boolean" />
+              <xs:element minOccurs="0" name="car-rentalRate" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="conciergeAvailable" type="xs:boolean" />
+              <xs:element minOccurs="0" name="conciergeRate" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="check-in-time" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="check-out-time" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="check-in-instructions" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="4000" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="cancellation-policy" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="multi-unit" type="xs:boolean" />
               <xs:element minOccurs="0" name="instantly-bookable" type="xs:boolean" />
               <xs:element minOccurs="0" name="created-at" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-              <xs:element minOccurs="0" name="updated-at" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-              <xs:element minOccurs="0" name="calendar-updated-at"  >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="20" />
-					</xs:restriction>
-				</xs:simpleType>
-			  </xs:element>
-<!-- 25/02/2014  TW  security-deposit element not being used? -->
-              <xs:element minOccurs="0" name="security-deposit">
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="4000" />
-					</xs:restriction>
-				</xs:simpleType>
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
               </xs:element>
-<!-- 24/02/2014  TW  units element not being used? -->
+              <xs:element minOccurs="0" name="updated-at" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="calendar-updated-at"  >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <!-- 25/02/2014  TW  security-deposit element not being used? -->
+              <xs:element minOccurs="0" name="security-deposit">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <!-- 24/02/2014  TW  units element not being used? -->
               <xs:element minOccurs="0" name="units">
-<!-- 25/02/2014  TW  Generated by Visual Studio but not required
+                <!-- 25/02/2014  TW  Generated by Visual Studio but not required
                 <xs:complexType>
                   <xs:attribute name="type" type="xs:string" use="optional" />
                 </xs:complexType>
 -->
+                <!-- 06/03/2014  TW  Matt has spotted that units is used
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:maxLength value="4000" />
 					</xs:restriction>
 				</xs:simpleType>
+-->
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="unit">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="unitId" type="xs:integer" />
+                          <xs:element minOccurs="0" name="unitTitle" >
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="255" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="unitNum-units" type="xs:integer" />
+                          <xs:element minOccurs="0" name="unitNum-rooms" type="xs:integer" />
+                          <xs:element minOccurs="0" name="unitMax-guests" type="xs:integer" />
+                          <xs:element minOccurs="0" name="unitMin-stay" type="xs:integer" />
+                          <xs:element minOccurs="0" name="unitAmenities" >
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="2000" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="unitSmoking" type="xs:boolean" />
+                          <xs:element minOccurs="0" name="unitPets" type="xs:boolean" />
+                          <xs:element minOccurs="0" name="unitChildren" type="xs:boolean" />
+                          <xs:element minOccurs="0" name="unitPrice" type="xs:integer" />
+                          <xs:element minOccurs="0" name="unitCreated-at" >
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="20" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element minOccurs="0" name="unitUpdated-at" >
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="20" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
               </xs:element>
-			<xs:element minOccurs="0" name="hostId" type="xs:integer" />
-			<xs:element minOccurs="0" name="hostDisplay" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="255" />
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
-			<xs:element minOccurs="0" name="hostCertified" type="xs:boolean" />
-			<xs:element minOccurs="0" name="hostUrl" >
-				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						<xs:maxLength value="2000" />
-					</xs:restriction>
-				</xs:simpleType>
-			</xs:element>
+              <xs:element minOccurs="0" name="hostId" type="xs:integer" />
+              <xs:element minOccurs="0" name="hostDisplay" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" name="hostCertified" type="xs:boolean" />
+              <xs:element minOccurs="0" name="hostUrl" >
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
               <xs:element minOccurs="0" name="images">
                 <xs:complexType>
                   <xs:sequence>
@@ -228,27 +277,27 @@
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element minOccurs="0" name="imageUrl" >
-							<xs:simpleType>
-								<xs:restriction base="xs:string">
-									<xs:maxLength value="2000" />
-								</xs:restriction>
-							</xs:simpleType>
-						  </xs:element>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="2000" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
                           <xs:element minOccurs="0" name="caption" >
-						    <xs:simpleType>
-							  <xs:restriction base="xs:string">
-								<xs:maxLength value="255" />
-							  </xs:restriction>
-						    </xs:simpleType>
-					      </xs:element>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:maxLength value="2000" />
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
                           <xs:element minOccurs="0" name="position" type="xs:integer" />
                         </xs:sequence>
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-<!-- 24/02/2014  TW  Generated by Visual Studio but not required
+                  <!-- 24/02/2014  TW  Generated by Visual Studio but not required
                   <xs:attribute name="type" type="xs:string" use="optional" />
--->				  
+-->
                 </xs:complexType>
               </xs:element>
             </xs:sequence>

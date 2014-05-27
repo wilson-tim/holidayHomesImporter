@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [staging].[tab_property] (
     [sourceId]                              INT             NOT NULL,
     [runId]                                 INT             NOT NULL,
-    [externalId]                            BIGINT          NOT NULL,
+    [externalId]                            NVARCHAR (100)  NOT NULL,
     [thumbnailUrl]                          NVARCHAR (2000) NULL,
     [externalURL]                           NVARCHAR (2000) NOT NULL,
     [description]                           NVARCHAR (4000) NULL,

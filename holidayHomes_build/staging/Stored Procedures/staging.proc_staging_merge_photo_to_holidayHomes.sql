@@ -8,6 +8,7 @@
 --	
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
+--	2014-03-16 v03 changed datatype of @tmp_property_changedPhotos.externalId to NVARCHAR(200)
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_photo_to_holidayHomes]
   @runId INT
@@ -19,7 +20,7 @@ BEGIN
 	--using merge instead of simple insert to to capture output into change table
 	MERGE INTO holidayHomes.tab_photo AS ph
 	USING (
-		SELECT new.propertyId, ph.position, ph.url, ph.runId
+		SELECT new.propertyId, ph.position, RTRIM(LEFT(ph.url, 255)) AS url, ph.runId
 		FROM changeControl.tab_property_change new
 		INNER JOIN staging.tab_photo ph
 			ON ph.sourceId = new.sourceId
@@ -40,34 +41,34 @@ BEGIN
 	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT))
 
 	-- table to capture list of properties with changed photos
-	DECLARE @tmp_property_changedPhotos TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId BIGINT NOT NULL);
+	DECLARE @tmp_property_changedPhotos TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
 
 	--update checksums for existing properties and output list into above table
 	MERGE INTO holidayHomes.tab_property AS p
 	USING (
 		SELECT sourceId, externalId, photosChecksum
 		FROM staging.tab_property
-	) AS imp
-	ON imp.sourceId = p.sourceId
-	AND imp.externalId = p.externalId
-	AND imp.photosChecksum <> p.photosChecksum
+	) AS stgp
+	ON stgp.sourceId = p.sourceId
+	AND stgp.externalId = p.externalId
+	AND stgp.photosChecksum <> p.photosChecksum
 	WHEN MATCHED THEN 
-	UPDATE SET photosChecksum = imp.photosChecksum
-	OUTPUT $action, DELETED.propertyId, imp.sourceId, imp.externalId INTO @tmp_property_changedphotos ([action], propertyId, sourceId, externalId);
+	UPDATE SET photosChecksum = stgp.photosChecksum
+	OUTPUT $action, DELETED.propertyId, stgp.sourceId, stgp.externalId INTO @tmp_property_changedPhotos ([action], propertyId, sourceId, externalId);
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
-	USING @tmp_property_changedphotos chg
+	USING @tmp_property_changedPhotos chg
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
-	VALUES  ( @runId, [action], sourceId, propertyId, externalId );
+	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
 	, messageContent = 'tab_property Photos Changed:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedphotos;
+	FROM @tmp_property_changedPhotos;
 
 	--merge new mappings with existing records (isolated with CTE)
 	-- capture changes in changeControl.tab_photo_change for deployment
@@ -80,7 +81,7 @@ BEGIN
 	)
 	MERGE INTO ph
 	USING (
-		SELECT chg.propertyId, stgph.position, stgph.url, stgph.runId
+		SELECT chg.propertyId, stgph.position, RTRIM(LEFT(stgph.url, 255)) AS url, stgph.runId
 		FROM @tmp_property_changedPhotos chg
 		INNER JOIN staging.tab_photo stgph
 			ON stgph.sourceId = chg.sourceId

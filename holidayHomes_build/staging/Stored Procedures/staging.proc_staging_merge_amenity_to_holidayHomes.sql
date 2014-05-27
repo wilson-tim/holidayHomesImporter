@@ -8,6 +8,7 @@
 --	
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
+--	2014-03-16 v03 changed datatype of @tmp_property_changedAmenities.externalId to NVARCHAR(200)
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_amenity_to_holidayHomes]
   @runId INT
@@ -57,7 +58,7 @@ BEGIN
 	-- amenities persist, so simplest to delete existing and add new records to tab_property2amenity
 
 	-- table to capture list of properties with changed amenities
-	DECLARE @tmp_property_changedAmenities TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId BIGINT NOT NULL);
+	DECLARE @tmp_property_changedAmenities TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
 
 	--update checksums for existing properties and output list into above table
 	MERGE INTO holidayHomes.tab_property AS p
@@ -79,7 +80,7 @@ BEGIN
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
-	VALUES  ( @runId, [action], sourceId, propertyId, externalId );
+	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 

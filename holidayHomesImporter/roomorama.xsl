@@ -3,6 +3,7 @@
 
 <!--
 	26/02/2014  TW  New XSL file for Roomorama data import
+	06/03/2014  TW  Added processing for units node
 -->
 	
 <!-- Copy every line as is, except where it matches the conditions below -->
@@ -11,7 +12,7 @@
             <xsl:apply-templates select="@*|node()" />
         </xsl:copy>
     </xsl:template>
-
+	
     <xsl:template match="room/images/image/image">
 <!-- Rename the inner image node -->	
         <imageUrl><xsl:apply-templates select="@*|node()" /></imageUrl>
@@ -94,6 +95,51 @@
 	</xsl:template>
 	<xsl:template match="room/services/concierge/rate">
 			<conciergeRate><xsl:apply-templates select="@*|node()" /></conciergeRate>
+	</xsl:template>
+
+<!-- Rename elements of the units/unit node(s) -->
+	<xsl:template match="room/units/unit/id">
+		<unitId><xsl:apply-templates select="@*|node()" /></unitId>
+	</xsl:template>
+	<xsl:template match="room/units/unit/title">
+		<unitTitle><xsl:apply-templates select="@*|node()" /></unitTitle>
+	</xsl:template>
+	<xsl:template match="room/units/unit/num-units">
+		<unitNum-units><xsl:apply-templates select="@*|node()" /></unitNum-units>
+	</xsl:template>
+	<xsl:template match="room/units/unit/num-rooms">
+		<unitNum-rooms><xsl:apply-templates select="@*|node()" /></unitNum-rooms>
+	</xsl:template>
+	<xsl:template match="room/units/unit/num-guests">
+		<unitNum-guests><xsl:apply-templates select="@*|node()" /></unitNum-guests>
+	</xsl:template>
+	<xsl:template match="room/units/unit/min-stay">
+		<unitMin-stay><xsl:apply-templates select="@*|node()" /></unitMin-stay>
+	</xsl:template>
+	<xsl:template match="room/units/unit/amenities">
+		<unitAmenities><xsl:apply-templates select="@*|node()" /></unitAmenities>
+	</xsl:template>
+    <xsl:template match="room/units/unit/conditions">
+<!-- Ignore the unit/conditions node -->
+	  <xsl:apply-templates/>
+    </xsl:template>
+    <xsl:template match="room/units/unit/conditions/smoking">
+		<unitSmoking><xsl:apply-templates select="@*|node()" /></unitSmoking>
+    </xsl:template>
+    <xsl:template match="room/units/unit/conditions/pets">
+		<unitPets><xsl:apply-templates select="@*|node()" /></unitPets>
+    </xsl:template>
+    <xsl:template match="room/units/unit/conditions/children">
+		<unitChildren><xsl:apply-templates select="@*|node()" /></unitChildren>
+    </xsl:template>
+	<xsl:template match="room/units/unit/price">
+		<unitPrice><xsl:apply-templates select="@*|node()" /></unitPrice>
+	</xsl:template>
+	<xsl:template match="room/units/unit/created-at">
+		<unitCreated-at><xsl:apply-templates select="@*|node()" /></unitCreated-at>
+	</xsl:template>
+	<xsl:template match="room/units/unit/updated-at">
+		<unitUpdated-at><xsl:apply-templates select="@*|node()" /></unitUpdated-at>
 	</xsl:template>
 
 </xsl:stylesheet>

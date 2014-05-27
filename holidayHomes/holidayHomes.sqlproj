@@ -69,11 +69,20 @@
     <Folder Include="changeControl\Tables\" />
     <Folder Include="changeControl\Stored Procedures\" />
     <Folder Include="Security\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="Assemblies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="synonym_UPDATE.sql" />
+    <None Include="dbo\createtable_utils_numbers.sql" />
+    <None Include="Assemblies\clrUtilities.dll" />
+    <None Include="dbo\populate facet tables static data.sql" />
   </ItemGroup>
   <ItemGroup>
+    <SqlCmdVariable Include="holidayHomes_build">
+      <DefaultValue>holidayHomes_build</DefaultValue>
+      <Value>$(SqlCmdVar__2)</Value>
+    </SqlCmdVariable>
     <SqlCmdVariable Include="holidayHomes_empty">
       <DefaultValue>holidayHomes_empty</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
@@ -99,6 +108,8 @@
     <Build Include="dbo\Stored Procedures\propertyRandomSearch.sql" />
     <Build Include="dbo\Stored Procedures\proc_db_tableusage.sql">
       <QuotedIdentifier>Off</QuotedIdentifier>
+      <SuppressTSqlWarnings>
+      </SuppressTSqlWarnings>
     </Build>
     <Build Include="changeControl\Stored Procedures\proc_changeData_merge_rate_to_dbo.sql" />
     <Build Include="changeControl\Stored Procedures\proc_changeData_merge_photo_to_dbo.sql" />
@@ -108,5 +119,52 @@
     <Build Include="Security\changeData.sql" />
     <Build Include="Security\changeControl.sql" />
     <Build Include="dbo\Tables\utils_numbers_1.sql" />
+    <Build Include="Security\cands.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="cands_login.sql" />
+    <Build Include="dbo\Functions\func_getLatLongDistance.sql" />
+    <Build Include="dbo\Stored Procedures\propertyAreaSearch.sql" />
+    <Build Include="dbo\Tables\tab_propertyLatLong.sql" />
+    <Build Include="dbo\Stored Procedures\proc_updateData_tab_propertyLatLong.sql" />
+    <Build Include="dbo\Tables\utils_countryLookup.sql" />
+    <Build Include="dbo\Tables\utils_currencyLookup.sql" />
+    <Build Include="dbo\Functions\SplitString.sql" />
+    <Build Include="dbo\Stored Procedures\proc_updateHomeAwayLatLong.sql" />
+    <Build Include="dbo\Tables\tab_propertyFacts.sql" />
+    <Build Include="dbo\Tables\tab_propertyFacets.sql" />
+    <Build Include="dbo\Tables\tab_propertyTypeFacets.sql" />
+    <Build Include="dbo\Tables\tab_amenityFacets.sql" />
+    <Build Include="dbo\Tables\tab_amenityFacetsLookup.sql" />
+    <Build Include="dbo\Stored Procedures\proc_update_tab_propertyFacts.sql" />
+    <Build Include="dbo\Stored Procedures\propertyAreaSearchFacetCounts.sql" />
+    <Build Include="dbo\Stored Procedures\propertySearchFacetCounts.sql" />
+    <Build Include="dbo\Tables\homeAwayCoords.sql" />
+    <Build Include="dbo\Tables\tab_propertyTypeFacetsLookup.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="clrUtilities">
+      <HintPath>Assemblies\clrUtilities.dll</HintPath>
+      <SqlAssemblyName>clrUtilities</SqlAssemblyName>
+      <IsModelAware>True</IsModelAware>
+      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <SqlOwnerName>dbo</SqlOwnerName>
+      <SqlPermissionSet>SAFE</SqlPermissionSet>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\holidayHomes_build\holidayHomes_build.sqlproj">
+      <Name>holidayHomes_build</Name>
+      <Project>{9f1be4f5-49a3-4693-9791-27e08d61d3bc}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>holidayHomes_build</DatabaseVariableLiteralValue>
+    </ProjectReference>
   </ItemGroup>
 </Project>

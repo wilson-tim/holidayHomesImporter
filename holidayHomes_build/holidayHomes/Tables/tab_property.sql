@@ -2,7 +2,7 @@
     [propertyId]                            BIGINT          IDENTITY (1, 1) NOT NULL,
     [sourceId]                              INT             NOT NULL,
     [runId]                                 INT             NOT NULL,
-    [externalId]                            BIGINT          NOT NULL,
+    [externalId]                            NVARCHAR (100)  NOT NULL,
     [thumbnailUrl]                          NVARCHAR (2000) NULL,
     [externalURL]                           NVARCHAR (2000) NOT NULL,
     [description]                           NVARCHAR (4000) NULL,
@@ -42,7 +42,15 @@
 );
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_tab_property_importHashKeys]
     ON [holidayHomes].[tab_property]([propertyHashKey] ASC, [amenitiesChecksum] ASC, [photosChecksum] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_holidayHomes_tab_property]
+    ON [holidayHomes].[tab_property]([sourceId] ASC, [externalId] ASC)
+    INCLUDE([propertyId], [ratesChecksum]);
 

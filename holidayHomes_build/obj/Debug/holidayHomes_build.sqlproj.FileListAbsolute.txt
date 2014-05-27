@@ -17,11 +17,5 @@ C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holida
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\clr.dll
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\clr.pdb
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\clrUtilities.dll
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\obj\Debug\Model.xml
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\obj\Debug\refactor.xml
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\obj\Debug\postdeploy.sql
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\obj\Debug\predeploy.sql
-C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\obj\Debug\Model.xml
-C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\obj\Debug\refactor.xml
-C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\obj\Debug\postdeploy.sql
-C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\obj\Debug\predeploy.sql
+C:\Git\compareandshare\holidayHomesImporter\holidayHomes_build\bin\Debug\master.dacpac
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes_build\bin\Debug\master.dacpac

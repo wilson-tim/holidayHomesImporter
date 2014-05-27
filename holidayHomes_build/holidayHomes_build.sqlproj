@@ -89,6 +89,7 @@
     <Folder Include="Assemblies\" />
     <Folder Include="roomorama\Stored Procedures\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="Snapshots" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="staging\Tables\tab_property2amenity.sql" />
@@ -183,6 +184,19 @@
     <Build Include="dbo\Functions\dbo.SplitString.sql" />
     <Build Include="roomorama\Tables\roomorama.imp_amenity.sql" />
     <Build Include="roomorama\Stored Procedures\roomorama.proc_getPropertyAmenities.sql" />
+    <Build Include="roomorama\Tables\roomorama.imp_unit.sql" />
+    <Build Include="roomorama\Stored Procedures\roomorama.proc_getUnitAmenities.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_photo.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_bedroom.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_amenity.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_fee.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_booked_date.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_calendar.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_video.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_theme.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_rate.sql" />
+    <Build Include="flipkey\Tables\flipkey.imp_default_rate.sql" />
+    <Build Include="dbo\Functions\dbo.func_getLatLongDistance.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -199,8 +213,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\clrUtilities.dll" />
+    <None Include="Snapshots\holidayHomes_build_20140313_16-40-30.dacpac" />
+    <None Include="check_import_progress_query.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="holidayHomes_build.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
   </ItemGroup>
 </Project>

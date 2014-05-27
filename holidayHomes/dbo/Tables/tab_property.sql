@@ -2,7 +2,7 @@
     [propertyId]                            BIGINT          NOT NULL,
     [sourceId]                              INT             NOT NULL,
     [runId]                                 INT             NOT NULL,
-    [externalId]                            BIGINT          NOT NULL,
+    [externalId]                            NVARCHAR (100)  NOT NULL,
     [thumbnailUrl]                          NVARCHAR (2000) NULL,
     [externalURL]                           NVARCHAR (2000) NOT NULL,
     [description]                           NVARCHAR (4000) NULL,
@@ -41,3 +41,46 @@
     CONSTRAINT [PK_property] PRIMARY KEY CLUSTERED ([propertyId] ASC)
 );
 
+GO
+
+CREATE NONCLUSTERED INDEX [NCI_propertyAreaSearch]
+    ON [dbo].[tab_property]
+(
+	[sourceId] ASC,
+	[maximumNumberOfPeople] ASC,
+	[longitude] ASC,
+	[latitude] ASC,
+	[typeOfProperty] ASC,
+	[numberOfProperBedrooms] ASC,
+	[countryCode] ASC,
+	[cityName] ASC,
+	[currencyCode] ASC
+)
+INCLUDE
+(
+ 	[propertyId],
+	[externalId],
+	[thumbnailUrl],
+	[externalURL],
+	[description],
+	[name],
+	[regionName],
+	[minimumPricePerNight],
+	[averageRating]
+) WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF) ON [PRIMARY]
+GO
+
+CREATE NONCLUSTERED INDEX [NCI_propertyAreaFacetSearchCounts] ON [dbo].[tab_property]
+(
+	[maximumNumberOfPeople] ASC,
+	[sourceId] ASC,
+	[longitude] ASC,
+	[latitude] ASC,
+	[typeOfProperty] ASC,
+	[countryCode] ASC,
+	[numberOfProperBedrooms] ASC
+)
+INCLUDE ( 	[propertyId],
+	[regionName],
+	[cityName]) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO

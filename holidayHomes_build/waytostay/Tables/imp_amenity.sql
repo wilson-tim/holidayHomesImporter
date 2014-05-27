@@ -8,4 +8,8 @@
     [facilities_id]        INT            NULL,
     [general_amenities_id] INT            NULL
 );
+GO
 
+CREATE CLUSTERED INDEX [CX_waytostay_imp_amenity_runId_fileId_name]
+    ON [waytostay].[imp_amenity]([runId] ASC, [fileId] ASC, [name] ASC, [room_id] ASC, [facilities_id] ASC, [general_amenities_id] ASC);
+GO

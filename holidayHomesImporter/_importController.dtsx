@@ -7,14 +7,14 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{D8514103-DED2-4BD7-A63D-CEA1CDF17C9E}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3369.0"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
   DTS:LocaleID="2057"
   DTS:MaxErrorCount="99"
   DTS:ObjectName="_importController"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="243"
-  DTS:VersionGUID="{921B8DF8-43E1-4885-B7C6-A553B26D1455}">
+  DTS:VersionBuild="252"
+  DTS:VersionGUID="{EAF08EA4-D447-4A77-A065-CB2D2D8C5C1B}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\_importController_{E35E040C-E4C1-4C33-8AAE-122063CA21D0}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\_importController_{191EAEAF-4373-4CBC-B4AB-8F2CB4BC2675}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -478,7 +478,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-              SQLTask:SqlStatementSource="SELECT DISTINCT sourceId &#xA;FROM import.tab_runLog&#xA;WHERE runId = ?&#xA;AND messageType = 'error'&#xA;AND sourceId IS NOT NULL&#xA;"
+              SQLTask:SqlStatementSource="SELECT DISTINCT rl.sourceId&#xA;FROM import.tab_runLog rl&#xA;LEFT OUTER JOIN import.tab_runLog rl2&#xA;ON rl2.runId = rl.runId&#xA;   AND rl2.sourceId = rl.sourceId&#xA;--   AND rl2.messageContent like '%raw entry records inserted%'&#xA;   AND rl2.messageType = 'insert'&#xA;WHERE rl.runId = ?&#xA;-- select failed import sources&#xA;AND rl.messageType = 'error'&#xA;AND rl.sourceId IS NOT NULL&#xA;-- and where nothing has been imported&#xA;AND rl2.runLogId IS  NULL&#xA;&#xA;/*&#xA;-- Replaced 21/05/2014 TW&#xA;-- Only flag error if nothing has been imported&#xA;SELECT DISTINCT sourceId &#xA;FROM import.tab_runLog&#xA;WHERE runId = ?&#xA;AND messageType = 'error'&#xA;AND sourceId IS NOT NULL&#xA;*/"
               SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
               <SQLTask:ResultBinding
                 SQLTask:ResultName="0"
@@ -1970,10 +1970,11 @@ WHERE runId = ?</property>
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].Columns[externalId]"
                           name="externalId"
                           truncationRowDisposition="FailComponent" />
@@ -1999,7 +2000,8 @@ WHERE runId = ?</property>
                           name="propertyId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           name="externalId" />
                       </externalMetadataColumns>
                     </output>
@@ -2031,7 +2033,8 @@ WHERE runId = ?</property>
                           name="propertyId" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property_change.Outputs[OLE DB Source Error Output].Columns[externalId]"
                           name="externalId" />
                         <outputColumn
@@ -2635,7 +2638,8 @@ WHERE runId = ?</property>
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[propertyId]" />
                         <inputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].Columns[externalId]"
-                          cachedDataType="i8"
+                          cachedDataType="wstr"
+                          cachedLength="100"
                           cachedName="externalId"
                           externalMetadataColumnId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[externalId]" />
@@ -2882,7 +2886,8 @@ WHERE runId = ?</property>
                           name="runId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].ExternalColumns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="200"
                           name="externalId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\PROD changeData tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
@@ -3788,10 +3793,11 @@ AND pc.runID = ?;</property>
                           truncationRowDisposition="FailComponent" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
                           errorOrTruncationOperation="Conversion"
                           errorRowDisposition="FailComponent"
                           externalMetadataColumnId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].Columns[externalId]"
                           name="externalId"
                           truncationRowDisposition="FailComponent" />
@@ -4143,7 +4149,8 @@ AND pc.runID = ?;</property>
                           name="propertyId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].ExternalColumns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           name="externalId" />
                         <externalMetadataColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
@@ -4325,7 +4332,8 @@ AND pc.runID = ?;</property>
                           name="propertyId" />
                         <outputColumn
                           refId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Error Output].Columns[externalId]"
-                          dataType="i8"
+                          dataType="wstr"
+                          length="100"
                           lineageId="Package\Deploy data changes to PRODUCTION\transfer changeData to PROD\QRY BUILD tab_property new data.Outputs[OLE DB Source Error Output].Columns[externalId]"
                           name="externalId" />
                         <outputColumn
@@ -8397,8 +8405,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="186,88"
-          Size="186,131"
+          PanelSize="230,88"
+          Size="230,131"
           Id="Package\check for errors, clear staging\Loop through error sources"
           TopLeft="8.50000000000001,107.5" />
         <EdgeLayout
@@ -8407,14 +8415,26 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="22,60"
               Start="0,0"
-              End="0,52.5">
+              End="22,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="4,30" />
+                  <mssgle:LineSegment
+                    End="18,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18,30"
+                    Point2="22,30"
+                    Point3="22,34" />
+                  <mssgle:LineSegment
+                    End="22,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -8425,18 +8445,30 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\check for errors, clear staging.PrecedenceConstraints[Constraint 1]"
-          TopLeft="101.5,238.5">
+          TopLeft="123.5,238.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="-22,60"
               Start="0,0"
-              End="0,52.5">
+              End="-22,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,52.5" />
+                    End="0,26" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
+                  <mssgle:LineSegment
+                    End="-18,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-18,30"
+                    Point2="-22,30"
+                    Point3="-22,34" />
+                  <mssgle:LineSegment
+                    End="-22,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -8470,8 +8502,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="203,497"
-          Size="203,540"
+          PanelSize="244,497"
+          Size="244,540"
           Id="Package\check for errors, clear staging"
           TopLeft="697.07638777035,76.2378984342458" />
         <NodeLayout
@@ -9243,6 +9275,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="340,72"
           Id="bd1c09c7-3bee-45d5-a6d1-9bf8fef2ffe1"
           TopLeft="694.768489447105,656.20165941898" />
+        <AnnotationLayout
+          Text="Note&#xA;register new file&#xA;assigns variable fileId"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="141,72"
+          Id="932c7e9f-1d2a-452f-be5d-6ea1ce8af42a"
+          TopLeft="67,516" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -9252,28 +9291,24 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="123,42"
+          Size="NaN,NaN"
           Id="Package.EventHandlers[OnError]\Log Error"
-          TopLeft="23,5.5" />
+          TopLeft="NaN,NaN" />
         <NodeLayout
-          Size="158,42"
+          Size="NaN,NaN"
           Id="Package.EventHandlers[OnError]\Send Error Email"
-          TopLeft="5.50000000000001,107.5" />
+          TopLeft="NaN,NaN" />
         <EdgeLayout
           Id="Package.EventHandlers[OnError].PrecedenceConstraints[Constraint]"
-          TopLeft="84.5,47.5">
+          TopLeft="NaN,NaN">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,60"
+              EndConnector="{assembly:Null}"
               Start="0,0"
-              End="0,52.5">
+              End="0,0">
               <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
+                <assembly:Null />
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
@@ -9308,6 +9343,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_photo_change"
           TopLeft="232.45764313092,229.728835960446" />
         <NodeLayout
+          Size="286,42"
+          Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change"
+          TopLeft="605.902643392399,229.728835960446" />
+        <NodeLayout
           Size="350,42"
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property2amenity_change"
           TopLeft="387.620945531002,55.851685101496" />
@@ -9323,10 +9362,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="305,42"
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_amenity_change"
           TopLeft="739.652053746751,55.851685101496" />
-        <NodeLayout
-          Size="286,42"
-          Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change"
-          TopLeft="605.902643392399,229.728835960446" />
         <NodeLayout
           Size="279,42"
           Id="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\PROD changeControl tab_amenity_change"
@@ -9497,6 +9532,19 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_property2amenity_change">
     <Properties>
       <Property>
@@ -9537,19 +9585,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_amenity_change">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Deploy data changes to PRODUCTION\transfer changeControl to PROD\QRY BUILD changeControl tab_rate_change">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

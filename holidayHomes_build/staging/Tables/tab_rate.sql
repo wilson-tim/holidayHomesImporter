@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [staging].[tab_rate] (
     [rateId]       BIGINT         IDENTITY (1, 1) NOT NULL,
     [sourceId]     INT            NOT NULL,
-    [externalId]   BIGINT         NOT NULL,
+    [externalId]   NVARCHAR (100)  NOT NULL,
     [periodType]   NVARCHAR (255) NOT NULL,
     [from]         FLOAT (53)     NULL,
     [to]           FLOAT (53)     NULL,
