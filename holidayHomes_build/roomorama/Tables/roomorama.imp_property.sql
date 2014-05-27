@@ -57,4 +57,9 @@
     [sourceId]                INT              NULL, 
     [periodType]			  NVARCHAR(255) NULL
 );
+GO
+
+CREATE CLUSTERED INDEX [CX_roomorama_imp_property_runId_fileId_id, room_Id]
+    ON [roomorama].[imp_property]([runId] ASC, [fileId] ASC, [id] ASC, [room_Id] ASC);
+GO
 

@@ -18,4 +18,9 @@
     [fileId]         INT              NULL,
     [sourceId]       INT              NULL
 );
+GO
+
+CREATE CLUSTERED INDEX [CX_roomorama_imp_unit_runId_fileId_room_Id_units_Id]
+    ON [roomorama].[imp_unit]([runId] ASC, [fileId] ASC, [room_Id] ASC, [units_Id] ASC);
+GO
 
