@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="4XN2HN8E1Q==" SSIS:IV="+ZitG26tI/c=">CehoKeHsgNdhXEwavAYGotS3AbYVKK+RMsepm/U0naSURidYGZTpIP6NQQFWfkCLWFS7he0LPQNFkhUdLO2C334sMm9MXK2iqgQedLsww7V0JZ9l8hHNk7z2FL/4e+cbmM9R1EIE5Ox1QA2jO35VDfWTUJvFwPASfzoR1KFmKfExqnOwb6tqjg==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="OKPZ49VLPQ==" SSIS:IV="TNpsSEoY3Q8=">0g+i/4QNI8S+BjGMxeF9Sm2Rz+6XXD7EbZZXCOGvigppV7ApUYAJY3jLx9nEjw0NuxW5XbsVsO1ZNzCltp3mEHuIcjKBniijkWb8eeqPCOkNBVvbdG2EV6cF5uGeZldrL5IUsEJ36stbwuhzb9+3PGx9Dso6F+6iKyyhzthDJ1wcqOimWQ9iug==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -472,10 +472,10 @@
                 <SSIS:Property SSIS:Name="Name">feedDaemon</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">115</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">123</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1E71160B-2F4F-48C4-8476-4F8781CFC2E8}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{7F90CB00-5F15-4052-A1F3-241995C9E515}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -491,7 +491,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\DATA\flipkey\flat</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\DATA\holidayHomes</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -2773,10 +2773,10 @@
                 <SSIS:Property SSIS:Name="Name">_housekeeping_holidayHomes_build_DB</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">128</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">132</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{861B0978-EE7E-4308-91FA-BEC949895C47}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{B559E6E2-EC4D-46C2-AFC2-AF94AF4D0EA7}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -2804,10 +2804,10 @@
                 <SSIS:Property SSIS:Name="Name">xmlReader_dev</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">60</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">88</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{F4F63CF1-B91F-4987-9073-47C9901CCEE4}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{3B21CFEE-26E1-41F5-B344-160C9CD75FFF}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
