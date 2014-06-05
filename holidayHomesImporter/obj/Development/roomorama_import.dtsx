@@ -13,8 +13,8 @@
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="427"
-  DTS:VersionGUID="{93E249F5-809A-4D34-9452-8DB2E82F2225}">
+  DTS:VersionBuild="436"
+  DTS:VersionGUID="{C867E4D3-B533-449B-9B0E-074D7995C40F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{AAD4BBA8-3D5A-48EE-BE67-65BE8FB0F015}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{9F1D3C2F-78BC-40AA-8C86-85593B5A5F33}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -64,7 +64,7 @@
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:FileUsageType="1"
-          DTS:ConnectionString="C:\Data\roomorama\compareandshare-a0ab674a1446d2071a28ebf9184efa132e0d5a2c0a7c48ba4735dc5d1c2bdcdf_2.xmlx" />
+          DTS:ConnectionString="C:\Data\roomorama\compareandshare-a0ab674a1446d2071a28ebf9184efa132e0d5a2c0a7c48ba4735dc5d1c2bdcdf_2.tml" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -187,7 +187,7 @@
       DTS:Namespace="Internal"
       DTS:ObjectName="xslXmlFullPath">
       <DTS:VariableValue
-        DTS:DataType="8">C:\Data\roomorama\compareandshare-a0ab674a1446d2071a28ebf9184efa132e0d5a2c0a7c48ba4735dc5d1c2bdcdf_2.xmlx</DTS:VariableValue>
+        DTS:DataType="8">C:\Data\roomorama\compareandshare-a0ab674a1446d2071a28ebf9184efa132e0d5a2c0a7c48ba4735dc5d1c2bdcdf_2.tml</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:LoggingOptions
@@ -432,8 +432,14 @@ INNER JOIN roomorama.imp_property pr
 	AND imp_am.fileId = pr.fileId
 	AND imp_am.id = pr.id
 	AND pr.[multi-unit] = 0
+-- prevent duplicates from PK violations
+LEFT OUTER JOIN staging.tab_property2amenity stgp WITH (NOLOCK)
+	ON stgp.sourceId = imp_am.sourceId
+	AND stgp.runId = imp_am.runId
+	AND stgp.externalId = CAST(imp_am.[id] AS NVARCHAR(50)) + '-0'
 WHERE imp_am.runId = ?
 AND imp_am.fileId = ?
+AND stgp.externalId IS NULL
 
 UNION
 
@@ -458,8 +464,14 @@ INNER JOIN roomorama.imp_property pr
 			AND un.room_Id = pr.room_Id
 		)
 	AND pr.[multi-unit] = 1
+-- prevent duplicates from PK violations
+LEFT OUTER JOIN staging.tab_property2amenity stgp WITH (NOLOCK)
+	ON stgp.sourceId = imp_am.sourceId
+	AND stgp.runId = imp_am.runId
+	AND stgp.externalId = CAST(pr.[id] AS NVARCHAR(50)) + '-' + CAST(imp_am.id AS NVARCHAR(49))
 WHERE imp_am.runId = ?
-AND imp_am.fileId = ?;</property>
+AND imp_am.fileId = ?
+AND stgp.externalId IS NULL</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -636,8 +648,14 @@ LEFT OUTER JOIN roomorama.imp_unit un
 	ON un.runId  = pr.runId
 	AND un.fileId = pr.fileId
 	AND un.room_Id = pr.room_Id
+-- prevent duplicates from PK violations
+LEFT OUTER JOIN staging.tab_photo stgp WITH (NOLOCK)
+	ON stgp.sourceId = ph.sourceId
+	AND stgp.runId = ph.runId
+	AND stgp.externalId = CAST(pr.[id] AS NVARCHAR(50)) + '-' + CASE WHEN pr.[multi-unit] = 1 THEN CAST(un.unitId AS NVARCHAR(49)) ELSE '0' END
 WHERE pr.runId = ?
-AND pr.fileId = ?;</property>
+AND pr.fileId = ?
+AND stgp.externalId IS NULL</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -838,8 +856,14 @@ LEFT OUTER JOIN roomorama.imp_unit un
 	ON un.runId  = pr.runId
 	AND un.fileId = pr.fileId
 	AND un.room_Id = pr.room_Id
+-- prevent duplicates from PK violations
+LEFT OUTER JOIN staging.tab_rate stgr WITH (NOLOCK)
+	ON stgr.sourceId = pr.sourceId
+	AND stgr.runId = pr.runId
+	AND stgr.externalId = CAST(pr.[id] AS NVARCHAR(50)) + '-' + CASE WHEN pr.[multi-unit] = 1 THEN CAST(un.unitId AS NVARCHAR(49)) ELSE '0' END
 WHERE pr.runId = ?
-AND pr.fileId = ?;</property>
+AND pr.fileId = ?
+AND stgr.externalId IS NULL</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -1601,9 +1625,15 @@ INNER JOIN roomorama.imp_unit u
 	ON u.runId  = p.runId
 	AND u.fileId = p.fileId
 	AND u.room_Id = p.room_Id
+-- prevent duplicates from PK violations
+LEFT OUTER JOIN staging.tab_property stgp WITH (NOLOCK)
+	ON stgp.sourceId = p.sourceId
+	AND stgp.runId = p.runId
+	AND stgp.externalId = CAST(p.[id] AS NVARCHAR(98)) + '-0'
 WHERE p.runId = ?
 AND p.fileId = ?
-AND p.[multi-unit] = 1</property>
+AND p.[multi-unit] = 1
+AND stgp.externalId IS NULL;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -2165,32 +2195,38 @@ AND p.[multi-unit] = 1</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT sourceId
-, runId
-, externalId = CAST([id] AS NVARCHAR(98)) + '-0'
-, title
-, typeOfProperty = LEFT((ISNULL(subtype + ' ', '') + [type]), 50)
-, url
-, [num-rooms]
-, [num-bathrooms]
-, [max-guests]
-, [floor]
-, price
-, [currency-code] = LEFT([currency-code], 3)
-, [description]
-, city
-, [country-code] = LEFT([country-code], 2)
-, lat
-, lng
-, [check-in-time]
-, [check-out-time]
-, [cancellation-policy] = LEFT([cancellation-policy], 255)
-, [created-at]
-, [updated-at]
-FROM roomorama.imp_property
-WHERE runId = ?
-AND fileId = ?
-AND [multi-unit] = 0</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
+, prop.runId
+, externalId = CAST(prop.[id] AS NVARCHAR(98)) + '-0'
+, prop.title
+, typeOfProperty = LEFT((ISNULL(prop.subtype + ' ', '') + prop.[type]), 50)
+, prop.url
+, prop.[num-rooms]
+, prop.[num-bathrooms]
+, prop.[max-guests]
+, prop.[floor]
+, prop.price
+, [currency-code] = LEFT(prop.[currency-code], 3)
+, prop.[description]
+, prop.city
+, [country-code] = LEFT(prop.[country-code], 2)
+, prop.lat
+, prop.lng
+, prop.[check-in-time]
+, prop.[check-out-time]
+, [cancellation-policy] = LEFT(prop.[cancellation-policy], 255)
+, prop.[created-at]
+, prop.[updated-at]
+FROM roomorama.imp_property prop
+-- prevent duplicates from PK violations
+LEFT OUTER JOIN staging.tab_property stgp WITH (NOLOCK)
+	ON stgp.sourceId = prop.sourceId
+	AND stgp.runId = prop.runId
+	AND stgp.externalId = CAST(prop.[id] AS NVARCHAR(98)) + '-0'
+WHERE prop.runId = ?
+AND prop.fileId = ?
+AND prop.[multi-unit] = 0
+AND stgp.externalId IS NULL;</property>
                 <property
                   dataType="System.String"
                   description="The variable that contains the SQL command to be executed."
@@ -3996,6 +4032,7 @@ AND [multi-unit] = 0</property>
         <pipeline
           BLOBTempStoragePath="@[$Project::DIRECTORY_BLOBTempStoragePath]"
           bufferTempStoragePath="@[$Project::DIRECTORY_bufferTempStorage]"
+          defaultBufferSize="20971520"
           version="1">
           <components>
             <component
@@ -8876,7 +8913,7 @@ AND [multi-unit] = 0</property>
       <DTS:Variables />
       <DTS:ObjectData>
         <ExpressionTask
-          Expression="@[Internal::xslXmlFullPath] = REPLACE(@[$Package::fileFullPath], &quot;.xml&quot;, &quot;.xmlx&quot;)" />
+          Expression="@[Internal::xslXmlFullPath] = REPLACE(@[$Package::fileFullPath], &quot;.xml&quot;, &quot;.tml&quot;)" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -8953,35 +8990,14 @@ AND [multi-unit] = 0</property>
           Language="CSharp"
           ReadOnlyVariables="Internal::xslXmlFullPath,$Package::fileFullPath,$Package::xslFileName,$Project::DIRECTORY_xslDirectory">
           <ProjectItem
-            Name="Properties\AssemblyInfo.cs"
-            Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.resx"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -9387,14 +9403,35 @@ namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
     }
 }]]></ProjectItem>
           <ProjectItem
-            Name="Properties\Settings.settings"
-            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.Designer.cs"
             Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -9971,7 +10008,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to FK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="187,42"
           Id="Package\copy to FK staging tables\QRY roomorama photo"
@@ -10015,9 +10052,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10039,9 +10074,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10063,9 +10096,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -10138,7 +10169,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to PK staging tables (imp_property)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="234,42"
           Id="Package\copy to PK staging tables (imp_property)\QRY roomorama property source"
@@ -10186,9 +10217,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10210,9 +10239,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10246,16 +10273,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <AnnotationLayout
           Text="mutually exclusive union of imp_property.[multi-unit] = 0 or 1"
           ParentId="Package\copy to PK staging tables (imp_property)"
           FontInfo="{assembly:Null}"
-          Size="355,NaN"
+          Size="355,40"
           Id="3c8b3e51-933d-4856-8406-cc89d09cc0b9"
           TopLeft="552.807697397703,152.107817616946" />
       </GraphLayout>
@@ -10354,9 +10379,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10414,9 +10437,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10438,9 +10459,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10534,9 +10553,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10558,9 +10575,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10582,9 +10597,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -10663,7 +10676,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Text="Add column periodType&#xA;assigned from variable Internal::periodType&#xA;because staging.tab_rate.periodType may not be null"
           ParentId="Package\import XML to imp tables"
           FontInfo="{assembly:Null}"
-          Size="308,NaN"
+          Size="308,72"
           Id="c5051bb3-6589-45df-b309-e69f4a3fba2c"
           TopLeft="9,212" />
       </GraphLayout>

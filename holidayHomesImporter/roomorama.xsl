@@ -1,17 +1,28 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="xml"/>
-
+	<xsl:output method="xml" indent="no" />
+	<!-- Remove whitespace (default) -->
+	<xsl:strip-space elements="*"/>
+	
 <!--
 	26/02/2014  TW  New XSL file for Roomorama data import
 	06/03/2014  TW  Added processing for units node
+	29/05/2014  TW  Remove whitespace, remove 'type' attribute from all elements
 -->
+
+	<xsl:param name="removeAttributesNamed" select="'type'"/>
 	
 <!-- Copy every line as is, except where it matches the conditions below -->
-    <xsl:template match="@*|node()">
+    <xsl:template match="@*|node()" name="identity" >
         <xsl:copy>
             <xsl:apply-templates select="@*|node()" />
         </xsl:copy>
     </xsl:template>
+	
+	<xsl:template match="@*">
+      <xsl:if test="not(name() = $removeAttributesNamed)">
+       <xsl:call-template name="identity"/>
+      </xsl:if>
+     </xsl:template>
 	
     <xsl:template match="room/images/image/image">
 <!-- Rename the inner image node -->	

@@ -1,5 +1,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-	<xsl:output method="xml"/>
+	<xsl:output method="xml" indent="no" />
+	<!-- Remove whitespace (default) -->
+	<xsl:strip-space elements="*"/>
 
 <!--
 	04/03/2014  TW  New XSL file for FlipKey data import
@@ -8,8 +10,9 @@
 	31/03/2014  MC  removed <?xml declaration as was causing error
 	12/05/2014  TW  Transform only the data required for importing
 	                and ignore the rest
-					(to reduce the checking and testing workload, also better performance)
+					(to reduce the checking and testing workload)
 	13/05/2014  TW  New elements handicap_adapted, elder_elevator, children_over_five
+	29/05/2014  TW  Remove whitespace, remove 'type' attribute from all elements
 -->
 	
 <!-- Copy every line as is, except where it matches the conditions below -->
