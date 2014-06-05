@@ -8,6 +8,13 @@
     [isActive]         BIT            NOT NULL,
     [createDate]       DATETIME       DEFAULT (getdate()) NOT NULL,
     [lastModifiedDate] DATETIME       DEFAULT (getdate()) NOT NULL,
+    [xmlRootElementName] VARCHAR(100) NULL, 
+    [xmlRecordElementName] VARCHAR(100) NULL, 
+    [splitThreshold] INT NULL DEFAULT 100, 
+    [splitSize] INT NULL DEFAULT 70, 
+    [sourceExtension] VARCHAR(10) NULL DEFAULT 'xml', 
+    [splitExtension] VARCHAR(10) NULL DEFAULT 'splitxml', 
+    [maxRecords] INT NULL DEFAULT 3000, 
     PRIMARY KEY CLUSTERED ([sourceId] ASC)
 );
 
