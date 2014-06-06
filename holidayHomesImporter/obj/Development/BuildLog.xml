@@ -2,10 +2,10 @@
 <BuildLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ProjectInfo>
     <Name>holidayHomesImporter</Name>
-    <LastWriteTime>2014-06-04T10:42:13.2233022Z</LastWriteTime>
+    <LastWriteTime>2014-06-05T13:10:28.4775274Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-    <Salt>t7lqTbg2</Salt>
-    <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAB0I9l9yL8SJpVgP/ntKvO4mUEA+4FdnBJDVvx2fEFTwQAAAAAOgAAAAAIAACAAAAC26Bbpdhih0mHVTQi9gp950Wmn0vjf2dOCqiC2ZglJJjAAAAD2ci0miwpsfp2WWHdr01fzE65tfJva1VlRUN+D/clZZ7wB3mHkLRDQVxk+fPrE+VtAAAAAZX/iGPxR9NgNhi2wJc/dj47kNQhDXLzebTybwblHL+2Up1rMOYympLF8g1rZt9epGS7OHtWCu5zz7QF4GrN9xw==</LastKnownProtectedHashedPassword>
+    <Salt>MBHAa0OJ</Salt>
+    <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAC4HAxJx7RBVBWNe7YN3+m1b44gS9nkGENsfW5V192yewAAAAAOgAAAAAIAACAAAADdMLTF/7fVfqbNJnrNjjhE9NaL4gc2SeHwIXXaNI2FwzAAAADs3xzSA2NJEwSqL1GfEGewvkSKkcL11rdOSNYlKGXlNN4wOVR9PGCKzXm+X7i1a8pAAAAAPaUPZocCxnTqfVy9otfv56nMvFMK5E45i3S04g+OIu/nJi9m3riSSW9pY/1JSZdxDoe2fzTnLTkpRgGeY92s4Q==</LastKnownProtectedHashedPassword>
   </ProjectInfo>
   <LastBuildInfos>
     <ProjectBuildItemInfo>
@@ -13,84 +13,84 @@
       <LastWriteTime>2014-05-27T15:28:02.1660496Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
       <Salt>L1gq82KC</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADeDVHAnnRQriTyJEZsK/00bfFzL0wM4xxuz/AF2bdGOgAAAAAOgAAAAAIAACAAAAA+X1+yYa33x656Wxh2rZ9wLURJLqy0Rk7Ag0Eh3+/YMTAAAABJvtldFaE4WZ1ee1OAmpH9sfdtjHMK+fJToyXIDZk51w8KcVbNDhBaJ3BsE7lGHkJAAAAAV8rygIYGIoNg+VI+dllmYbifyzdusCvqgI7UNXtcHsbQxQTV73osCcKTlzyP7unVVLGjaDOsjLb3dYuVJYXBEg==</LastKnownProtectedHashedPassword>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADwg6aKPbdtTTQKU9KP0+Akg3gthZwxn7tVMIWJyWerSAAAAAAOgAAAAAIAACAAAACip90SMOyc6EdkC52iu9BX5hZyLAvq5eiZxMDLdwYTjzAAAADJxjwOUsz3eFR6sudPV/UkekkkCWuvYrcj70ZT1GSQn3C5A6dJdTrHPHYCZCZj6LRAAAAAIAlWsPHPJaD5lmBP9sh4BH3LOyj3F+ElQI4cwV2f0fVN93za2bm0ViNVkGPw8m9XVOqZsYoQE8zFnr1Ukvq4zQ==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>homeaway_import.dtsx</Name>
       <LastWriteTime>2014-05-27T15:28:01.8061604Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
       <Salt>Fn6QRaNt</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAABsVukSWgUAsiTPY0aYbYjmbeVul8vtQlPfYKn46F1QEAAAAAAOgAAAAAIAACAAAABGkNejB6xRL+1fihYRqFQEpUI1Z2+dvqBBFXZULACrLjAAAAAbYQixTDZg7fhi1niq5fNEK0A92ROJ1x9CADlxMvYZ/mgp3cnBQMzoOknLSmesOVVAAAAAOTMDIQDdyMdpyt7q67KvFNd1PPv5u/mJnPlVFdFo740qfh56qn7v0Ptt2L7eRtqOZE0n43GGImIhm/MKkAJk8A==</LastKnownProtectedHashedPassword>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAA2UTb4w8gSxmKp+XfomoGKg3yDD8sS6D28L2IWNM+JeAAAAAAOgAAAAAIAACAAAAB4TkBqCRU2VGza+mP9UPZivTU86v3reMPmMLO+IRzhPjAAAADW+4dZIbBMWkng8nN7T++lkBta+bHGb9SBQCf1wn2JqzJv9C4GJLwKvwDCgHvnecpAAAAA3LOnMaN3X/hV9F3UuRPlIXeEA+DaQc0QsD34Coc83dfwNpXar2iLWJOg4wJOltp4foOJIYAyTCHo/Or/KK/ziQ==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>housetrip_import.dtsx</Name>
-      <LastWriteTime>2014-06-03T13:14:24.5066275Z</LastWriteTime>
+      <LastWriteTime>2014-06-05T13:10:28.5015428Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>RzvkkzS1</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAA08PDa6z1cXIHfRA0U0CMyWhtC1QNbL55kaA9MdiqkMwAAAAAOgAAAAAIAACAAAABRvYsW5gNPoo6EGkqFLt2icK3/v8qltBxtcwiRjSzj6DAAAADplZDQ4nnA2A8M5urfzm5skRZaRHqnjH6LJfKKWonzHR0moF4fRvMOBpJyimayL4lAAAAAdV7yolOkpbVFT9kihObfJVgKp8l1yDYZ8Hp60o2XI8UElIYd8c29THLbUXwvmMfqC4mMtdmU4OcXRLdQHXIwmA==</LastKnownProtectedHashedPassword>
+      <Salt>8UCh0Mxa</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAC6+ZCqxIyNyMIfhMO93NFk2y7yBKvBpf/MGS2dp5m/RwAAAAAOgAAAAAIAACAAAACNrGobDgGYGWNNzh4gEMH/PJ4kGIqWIXLtF7d8Ea9d3jAAAACdak0RWSSxyN+OuRJV7AQ+8FkHUfApxVEGVPkOMz/6XJs9peQZm1eBICkgEbWbBCRAAAAAOAzKB+e0n/vueqDsFZbbolFNAXiry98ATz3SQ4uojPyNoLqi9HA8IEYjqGGSYgrYsSxMwzDpmU78xFEmscwxdA==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>_importController.dtsx</Name>
-      <LastWriteTime>2014-06-02T13:00:00.1054175Z</LastWriteTime>
+      <LastWriteTime>2014-06-05T13:10:28.3914729Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>9wdgPw1S</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAAeFPz7Och6PH5ArRZPi+vZcHiu//o+v8pEr5OxFL1abAAAAAAOgAAAAAIAACAAAAADjOWwPlzOyX2Y32V2o9sJITwT/27Dg2uIsuY8AeM0KDAAAAAHxrIdpmXI2ucUHhEd660u40KP179JSp7lnDvNxl+ai/Meun5jkz8L2b0ZZ8EP5+RAAAAAUkZ7coAPEcKKaoPtJNk4tCGL/s6uWm5H+Ig8pRtdkWdVOlb7D+IF5YIalXs24fDt8tjtJo89Hz9FjOFAZItSZw==</LastKnownProtectedHashedPassword>
+      <Salt>3SNn1Pwp</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAD+f7s8SsnrD/6+u4MN99u30Y+cbKE5QomgqoA2EvZIIwAAAAAOgAAAAAIAACAAAADup8dEYPBieBxzfx1JFoeVtVXRe8KS8lhYVk31Wo2JSTAAAAAUtg5dpn+yr16utZ+6yj+jNYuXPsXGB6ZaGjI8ri1s9I8L3cDo1PWpAt2H9TS+5mlAAAAAb/Rcry5QesYWmsBGItQX83k/pxhU0uoyAP799dMxZnT/X1HYINjAvb04izgntyVLZDxDpwKCBZbfF6cTDn6BtA==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>_feedDaemon.dtsx</Name>
-      <LastWriteTime>2014-06-04T08:23:25.6829946Z</LastWriteTime>
+      <LastWriteTime>2014-06-06T10:20:02.1143612Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>5PmLoikK</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAA1xo2yd7jznxKSUZhc+2OMZlGaCkAM//GJ+GT/HCNQtQAAAAAOgAAAAAIAACAAAAAtnjo6x0Q3C3dLn65xc7APYUCIZsnaMSZM3oBmRrjdIzAAAAAtx0qb4HFx9I13aCBbk792ZeWCtBEF10fbxjNkhWhIPWJ3SnELe4oNvbYHQYAXowFAAAAAEmOWlQAt+JkQu24bH8H/q2RGOg8KEIz0AII25gGKTa2C27vDuWth/mgRtczb/IMtI/F2359XyHz18S8EE4Jniw==</LastKnownProtectedHashedPassword>
+      <Salt>Vbe9nlLu</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADchPRmGaJeNUN21Z6CtH45MmetxxQM7EDzhxDfsRZUwwAAAAAOgAAAAAIAACAAAABVu9u2jGbRZV8Aq0U2ROnX8z/abljDHELKgls6uKL8fzAAAAAvB9FugxmcOA49ZODwP7xkbXG+qAwR4V+wPnJ9pXAcfFn+yElqqzGmfJaIokliUnVAAAAAKj/4ZU1SpUlPCnRHB8Z/hnmsh58fX4AFj2nQ3CI980Hp1xC6ZAc2uI99a5Tu0prZqL91RtjAP7NAngltqDaF+Q==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>_import_template.dtsx</Name>
       <LastWriteTime>2014-05-27T15:28:01.6139354Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
       <Salt>SY3NNfpE</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAABGVPvrPc53oXwLm5071asV/FKnrkdj+gPz6648350c6QAAAAAOgAAAAAIAACAAAACWvgQdjZSKrMXwANrnvNDCZxzaHRXR90AJQbzdxnKiIjAAAABCWFp8qujCjzeITGRA+CzrBs4LivYUJaaVCWNWX6tIosMr0Mw4Vpn5XM0lPSveKL9AAAAAoiNflMsigvdKXhTAyHWh1WsyhJxMd5114F3WDTPdUUKwKGzJwi7cqRs0O5TR8ia3l2/W+wGFV1T8kvB0asNxcw==</LastKnownProtectedHashedPassword>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADFQbMpC2v1ZDEVqxOLk+s91WlqaUZywdWyy/SSNQS2UQAAAAAOgAAAAAIAACAAAADc0LOqsPoKVz6lfGJ8dHYAIq6kvMaIg4AaUZgCvrzg4jAAAABlV7fdkbMKgYu2iNJ9BwiXrrDG1UDi3i98o0DP+ATEEqvpFeXUvtuSDzS/XWc5qt1AAAAAgonHTINDfHu4ckgelI7PKz6DmYbggQtwuXHsxJSVTQ5G3YVQSTKdkc9N+CvFM4b9ojis0HiRPSyzxoOoLiHEAw==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>flipkey_import.dtsx</Name>
-      <LastWriteTime>2014-06-04T09:01:08.9147281Z</LastWriteTime>
+      <LastWriteTime>2014-06-05T13:10:28.4675208Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>TkWfyYWJ</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAAHG61V2tAPMjW780JUt8R2aXnlMk5VN/OdG/ZGyFO0SwAAAAAOgAAAAAIAACAAAAAYrXkN3TJJSawgbmkGabu9AmKldKO+CJ8mmGVI9zzNXjAAAADntQqxQjbdV/WR129Uktc3eDD++XUjIau26wwzwQcLDr8svFTtnLlk13VzzZrLzFZAAAAAaxwQAQ6pHHfGTONt17N+zpN3wwDSPc6fBmQjxWTbUya7X37tZc4WjCUQ/LYKHEXueUgj/WZlD1s175FbkOxddA==</LastKnownProtectedHashedPassword>
+      <Salt>VYAwEovd</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAAVSaQMhX9L58fsNTPT4g7weD10bH0/WGvGwLqu2/n1fgAAAAAOgAAAAAIAACAAAAC6mtBqzW4Cxe5yDOuRmqls8mehWu1omIm2SXHpf0cixzAAAAD7JLGlIvR4wLtD5YOrL3qbAgV/g+xPKPXFGictc7uqMyJuCxrTCijz+2ddM0OjaH1AAAAA9y0BRYzZ/lYZQTVK4p6OlGrRnnCKIfGk7V1DH6ZVwf+owIbdhJN6439JRFdzcm18yFBk5am7m3keQi1LWoa5OA==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>roomorama_import.dtsx</Name>
-      <LastWriteTime>2014-06-04T09:01:44.7273357Z</LastWriteTime>
+      <LastWriteTime>2014-06-05T13:10:28.709338Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>Iho9naix</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAABdh0tVqHOUAzuOJu6IstGUiKPSeGDjZFkx14IP2IqEIQAAAAAOgAAAAAIAACAAAABuAoKL9twE9p257uNFVgijG7RrQ5h4jHyOCyY9W7kRczAAAACLTtTrYla/C2Ji2PtcsRssojLNWTmqcdbJjQeiNkRLl+B8IyWX0rRAM4ELhWr1iSNAAAAAmQ1vkv4erpsjVzFRuHx2ATofv7JMpoQG/7/57cHE5rLKO6X5J7bJ2BgKRkaDP1DmrgrcddjWjD3ono2awM6B3Q==</LastKnownProtectedHashedPassword>
+      <Salt>uhdv69Ec</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADeykW61+ns/ihgQkXywHMnyd3bA4XPS9181qvwL4IKGQAAAAAOgAAAAAIAACAAAAA/51cJNS5XZNL17fW00NgFDLgumLpTlyVqlEx6h5CMyTAAAAAC5zfgEdVL4jFdF0blJ1KmzBlLLRI8hDLb9CDuTaS4gd8AYbOmpvz4pvRE4yI/Ro5AAAAAyvpY/GrJkOG0ykbpTLYKfDDSOg7FEsH6yHd9mE+NhrN7/5D0OjQ2qQJvfzykJ0pHHqswO+/6GuQxu36jw+i5Mw==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>fileSystem_test.dtsx</Name>
       <LastWriteTime>2014-05-27T15:28:01.6259447Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
       <Salt>5k1Ko7tH</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAABsLn5opQ/txyOGvdSZSKvizX+MxbXxZcoq9Nh1JGYgrQAAAAAOgAAAAAIAACAAAAACvntIr1kYrkBEoLeZ5iOlsedIjBiLK7l9hEdS0mzKiDAAAACA1TZcPrwek8pom8Aga3CBjSb+juMxQ5FKwF0yko0j2QYYMbHccN+fYavN66YoZEdAAAAAVCaiqo/Zi9OXQV8CiyKElACi1QLjKaM5ih0qACJPZAGrty6yc0yNBso1xUQv91Voyk/bbnJtm7gUJFQk7boGAQ==</LastKnownProtectedHashedPassword>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAABrg6CjWJxTpCEIQ8amZSGWeyt7wrWwVnUjzdIEVSeMKgAAAAAOgAAAAAIAACAAAABdTvt+TF+DcSW0ZviSD4i8Ye5eetnl9B/Ih+4PRwYG2zAAAADB9efNa/GwLleZ/UH0/7Gi+XKN0Fv7qwERytMYW9OU96Ujt1czVeFNEKOo0J6OGZRAAAAAX2+k5zYSIQKCSr58pwx426mkZw/GC18RQKmaOkkiBzyBzEbcPkA7B6WQDbYPbh9ofK1t5p+TQGaFa80c8dXBDw==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>flipkey_import_dev.dtsx</Name>
       <LastWriteTime>2014-05-27T15:28:01.7611241Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
       <Salt>Vy3zFINk</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAA3nsqU5FwRvZFM/PVztVZudTyhzGH0SZe4Rzxlo8k39AAAAAAOgAAAAAIAACAAAABucqlB6EsIjFKMAdgO/9WxWY7E42XynfaZBQHnO7zWWDAAAAAkp9f5a2sz8KLbmps/YDIhfEUXncJoS6+jQVcYLxrv5XBvOo6qUer6WrGZFPhvStZAAAAAaR5n9m/ZDdA8aHR9R2JZYiJ67WinguyL75HrWoVbQUcYta6cXXdXaOKRZFpIF44wJ2YIt6jxGNlecrbvP84+kg==</LastKnownProtectedHashedPassword>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADmHS7IW7VHwld7FE78gZ5Oe7gDsHlkyxpvh8kON4ml6wAAAAAOgAAAAAIAACAAAAAJSFKG+slRAHpshmVhxKQF+TR7bVqPd9vz6aUhCAenOjAAAABg5OGAYuh77cTbBtg3K38srHw8Nv/ad2PN/BvnjjPd7UQlFgfipV4Rqrlo/ymKlXpAAAAAafo1LGak4dgNJbRUFEDTKJp2rpYESDMVaI/NRZOUfEgwp16zaOM3q+VSWK7zmxt3gucwLY61ZS6EXgZmwP/YPg==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>_housekeeping_holidayHomes_build_DB.dtsx</Name>
-      <LastWriteTime>2014-06-05T11:51:48.6713698Z</LastWriteTime>
+      <LastWriteTime>2014-06-06T08:23:44.3730181Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>9qXUfTQq</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAAKq54Io/1RiXYNfw8YSNWb10RRgtBfOanbr28xRlcJSAAAAAAOgAAAAAIAACAAAACaxnE7m/y8NkKFn2VuVt0BVHlyCRVsGYy1Nta1dSGmWDAAAACrCiHz38RNxqBgfNsv7jIV/tmMxF5+gjJUnexK63S5WLJ7/RjR/GRxdbfEX7sZLUVAAAAAmNHEpKJaJEOkKqNlqojgEoZK81bJBjtmxkxIBFgDMQXx4Kb0vAbKAADiftcxLES6lVwJXhxDx+A9HBSnLPVNhA==</LastKnownProtectedHashedPassword>
+      <Salt>n0AjdvTP</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAC3IuZ79oG+TvXvbKQ/K/RHSVUPSP5xv74zitQG7GA8fQAAAAAOgAAAAAIAACAAAACNbZJXR66AA0FaVI9ZBhEwiOfjNwzeSjhfRjll70D74TAAAACfqRfH0Uip6ag03SXgwjr8CqoCaw96/+LXbVQnNu+2sZAzrY/srUCrflRHl3cftcVAAAAAcEycgDXS2uGuvuh0du2bW19CXzzeo/JRuMy/HfQQreIvDWo2GHKCeGjGxnBypySMfsQ8hgTmP73QB3O4C6hVjA==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>xmlReader_dev.dtsx</Name>
-      <LastWriteTime>2014-05-30T12:49:48.5178387Z</LastWriteTime>
+      <LastWriteTime>2014-06-05T13:10:28.7233482Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithPassword</LastKnownProtectionLevel>
-      <Salt>xJ6Za1GV</Salt>
-      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAAA/sQeuIFg7GHIf4yAxiUtj36RwnpARXxQ3Tft+t7WH2QAAAAAOgAAAAAIAACAAAACnvY7ZQvoFbGZWDMzMncWWafEYbkyaIJJBluB/IVz8TTAAAADhSkQtPxtXQtRcobkSj4O5eOgTuy74FHXNnbLXpn+GdKEU5YNNamuRx5k6XMJ5UQ5AAAAA1xpLd73tv0rMuJHgp57Ra+qwdfQ/okSY0eSo8RsgdwthoT41YoaLFioq4yoAktcXhKJtAS5Pq6pagNZ0sr8EhQ==</LastKnownProtectedHashedPassword>
+      <Salt>F+Ermlxc</Salt>
+      <LastKnownProtectedHashedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAFKRw2U9mS0utrMGCVNRFTgAAAAACAAAAAAAQZgAAAAEAACAAAADwJJtMC5bmZsBXtzD2zgT4LZlbp5ZgBdkOnTfpeRZwfgAAAAAOgAAAAAIAACAAAAB2remJP6embcN8xHHa9VGSXC4uJdTo0cKa8J+UTz+eZjAAAADfP/1YcM26dOOfGtPgArK7qJA1FclcRNnAx4wNyznZhrBWUyRUWqpXD4TBh87oCZlAAAAADJ5hDpXNTVc6P3aNHvCyl62JM/YgZxW9e0VQRE865hDmYLi5cdbIWVIWyQj30rnzX60Fc3UUTtDOprjlw/NbsQ==</LastKnownProtectedHashedPassword>
     </ProjectBuildItemInfo>
   </LastBuildInfos>
 </BuildLog>

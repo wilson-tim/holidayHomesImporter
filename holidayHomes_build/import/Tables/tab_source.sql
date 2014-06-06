@@ -11,9 +11,9 @@
     [xmlRootElementName] VARCHAR(100) NULL, 
     [xmlRecordElementName] VARCHAR(100) NULL, 
     [splitThreshold] INT NULL DEFAULT 100, 
-    [splitSize] INT NULL DEFAULT 70, 
+    [splitSize] INT NULL DEFAULT 50, 
     [sourceExtension] VARCHAR(10) NULL DEFAULT 'xml', 
-    [splitExtension] VARCHAR(10) NULL DEFAULT 'splitxml', 
+    [splitExtension] VARCHAR(10) NULL DEFAULT 'split', 
     [maxRecords] INT NULL DEFAULT 3000, 
     PRIMARY KEY CLUSTERED ([sourceId] ASC)
 );
