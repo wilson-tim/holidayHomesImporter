@@ -105,8 +105,8 @@ BEGIN
 		)
 		THEN
 		UPDATE SET
-			  facts.propertyFacetName = ISNULL(facts_CTE.PropertyFacetName, '')
-			, facts.facetName = ISNULL(facts_CTE.facetName, '')
+			  facts.propertyFacetName = facts_CTE.PropertyFacetName
+			, facts.facetName = facts_CTE.facetName
 
 	-- new data
 	WHEN NOT MATCHED BY TARGET THEN
@@ -123,9 +123,9 @@ BEGIN
 			(
 			  facts_CTE.propertyId
 			, facts_CTE.propertyFacetId
-			, ISNULL(facts_CTE.propertyFacetName, '')
+			, facts_CTE.propertyFacetName
 			, facts_CTE.FacetId
-			, ISNULL(facts_CTE.FacetName, '')
+			, facts_CTE.FacetName
 			, facts_CTE.dataId
 			)
 
