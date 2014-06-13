@@ -71,6 +71,7 @@
     <Folder Include="Security\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="Assemblies\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="synonym_UPDATE.sql" />
@@ -144,6 +145,8 @@
     <Build Include="dbo\Stored Procedures\propertyIdSearch.sql" />
     <Build Include="dbo\Stored Procedures\proc_update_tab_propertyKeywords.sql" />
     <Build Include="dbo\Stored Procedures\propertyKeywordSearch.sql" />
+    <Build Include="Storage\holidayHomesFullTextCatalog.sql" />
+    <Build Include="FullTextIndexes.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
