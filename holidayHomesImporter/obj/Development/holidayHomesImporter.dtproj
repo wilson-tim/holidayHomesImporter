@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="akoJjOkbjA==" SSIS:IV="jqactXTqa/Q=">gRbBeS2LFI8nOIrIWJbLRwf8NZ2h1MvHHAhxwFcEjLRFBT82gCs1Umk/9+BhbYd9zz+Hs7kEq7AsH1pjw/G/8P8kdYtG4XKcruq3afknSVg3i8g+KbtApQ7tz/QrcQzBjlX6YPrhVTlXtdzDjEL7GSGa52Jd+qp49Sb2MqaqirZVm792UHjabQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="mLYP2kTVAA==" SSIS:IV="lT1In47+XFg=">m3XtXL95IgNBVv36THOHTHjyyEx0jp3fOQq8br7kUgIrrqtlmVRwucAsZpeOm5s4QLtPzm8Pcc6/539wZWK2CZzNF5WTGNLKgS+g+r9hPSqfv9psqJiCWlD4RHsNPWG/3mhWsgeQXWzSrBcBd9Apb2A4BwOlVXNLoZjbltA8LvuEjVnrfteVdQ==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -2806,10 +2806,10 @@
                 <SSIS:Property SSIS:Name="Name">xmlReader_dev</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">121</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">123</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{5EC7C0F7-2713-4E38-99C0-6AA8F82DBFEC}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{B4DCB1E1-AE8C-4795-B768-655E62343123}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
