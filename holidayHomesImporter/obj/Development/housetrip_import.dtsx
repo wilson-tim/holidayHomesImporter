@@ -12,8 +12,8 @@
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="220"
-  DTS:VersionGUID="{8872A989-A681-4C6E-B168-9188BC20AF25}">
+  DTS:VersionBuild="221"
+  DTS:VersionGUID="{E0F134AE-CE6B-42D8-969F-A66FBC19618A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{A9DA11C9-2BD3-4130-A74B-A2E6386C2F35}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{D9260FE3-E638-4F6C-A54F-073A984D88F4}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -2631,8 +2631,8 @@ WHERE prop.runId = ?
 , p.runId
 , externalId = LTRIM(RTRIM(CAST(p.id AS NVARCHAR(100))))
 , p.landing_page_url
-, p.[description]
-, p.name
+, [description] = dbo.cleanString(p.[description])
+, name = dbo.cleanString(p.name)
 , p.region_name
 , p.type_of_property
 , p.zip_code
@@ -3014,13 +3014,11 @@ AND p.fileId = ?</property>
                       name="runId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[description]"
-                      dataType="wstr"
-                      length="4000"
+                      dataType="nText"
                       name="description" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[name]"
-                      dataType="wstr"
-                      length="255"
+                      dataType="nText"
                       name="name" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Output].ExternalColumns[region_name]"
@@ -3173,14 +3171,12 @@ AND p.fileId = ?</property>
                       name="landing_page_url" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[description]"
-                      dataType="wstr"
-                      length="4000"
+                      dataType="nText"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[description]"
                       name="description" />
                     <outputColumn
                       refId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[name]"
-                      dataType="wstr"
-                      length="255"
+                      dataType="nText"
                       lineageId="Package\copy to PK staging tables\QRY housetrip imp_property.Outputs[OLE DB Source Error Output].Columns[name]"
                       name="name" />
                     <outputColumn
@@ -7592,6 +7588,10 @@ AND p.fileId = ?</property>
           Id="Package\copy to FK staging tables"
           TopLeft="75.7499187789523,547.626860239615" />
         <NodeLayout
+          Size="197,42"
+          Id="Package\copy to FK staging tables 1"
+          TopLeft="506,497" />
+        <NodeLayout
           Size="198,42"
           Id="Package\copy to PK staging tables"
           TopLeft="79.7167927156501,467.439050199679" />
@@ -7750,10 +7750,6 @@ AND p.fileId = ?</property>
           Size="479,40"
           Id="64a6b6b9-68c9-446a-9a1a-560b3994ec0a"
           TopLeft="282.846388166812,143.243556461496" />
-        <NodeLayout
-          Size="197,42"
-          Id="Package\copy to FK staging tables 1"
-          TopLeft="506,497" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -7862,6 +7858,14 @@ AND p.fileId = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
+    design-time-name="Package\copy to FK staging tables\QRY housetrip imp_property2amenity">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\copy to FK staging tables\staging tab_rate">
     <Properties>
       <Property>
@@ -7904,10 +7908,108 @@ AND p.fileId = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
+    design-time-name="Package\copy to FK staging tables 1">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="256,42"
+          Id="Package\copy to FK staging tables 1\QRY housetrip imp_property2amenity"
+          TopLeft="58.1042726279358,101.203340983869" />
+        <NodeLayout
+          Size="156,42"
+          Id="Package\copy to FK staging tables 1\staging tab_rate"
+          TopLeft="580.671395690515,213.803380288545" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\copy to FK staging tables 1\QRY housetrip imp_rate"
+          TopLeft="570.282532485225,101.508828599944" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\copy to FK staging tables 1\staging tab_photo"
+          TopLeft="357.26238510647,213.803380288545" />
+        <NodeLayout
+          Size="200,42"
+          Id="Package\copy to FK staging tables 1\QRY housetrip imp_photo"
+          TopLeft="342.19340255658,101.203340983869" />
+        <NodeLayout
+          Size="220,42"
+          Id="Package\copy to FK staging tables 1\staging tab_property2amenity"
+          TopLeft="75.8533745224259,213.803380288545" />
+        <EdgeLayout
+          Id="Package\copy to FK staging tables 1.Paths[OLE DB Source Output2]"
+          TopLeft="662.47696408787,143.508828599944">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.294551688601"
+              Start="0,0"
+              End="0,62.794551688601">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,62.794551688601" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to FK staging tables 1.Paths[OLE DB Source Output1]"
+          TopLeft="440.727893831525,143.203340983869">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.600039304676"
+              Start="0,0"
+              End="0,63.100039304676">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.100039304676" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\copy to FK staging tables 1.Paths[OLE DB Source Output]"
+          TopLeft="185.978823575181,143.203340983869">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.600039304676"
+              Start="0,0"
+              End="0,63.100039304676">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.100039304676" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <TaskHost
     design-time-name="Package\copy to PK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="177,42"
           Id="Package\copy to PK staging tables\staging tab_property"
@@ -7935,9 +8037,7 @@ AND p.fileId = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-25.1244140625,25.9357618398379,50.248828125,11.228515625"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -8450,112 +8550,6 @@ AND p.fileId = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\copy to FK staging tables 1">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
-        <NodeLayout
-          Size="256,42"
-          Id="Package\copy to FK staging tables 1\QRY housetrip imp_property2amenity"
-          TopLeft="58.1042726279358,101.203340983869" />
-        <NodeLayout
-          Size="156,42"
-          Id="Package\copy to FK staging tables 1\staging tab_rate"
-          TopLeft="580.671395690515,213.803380288545" />
-        <NodeLayout
-          Size="192,42"
-          Id="Package\copy to FK staging tables 1\QRY housetrip imp_rate"
-          TopLeft="570.282532485225,101.508828599944" />
-        <NodeLayout
-          Size="164,42"
-          Id="Package\copy to FK staging tables 1\staging tab_photo"
-          TopLeft="357.26238510647,213.803380288545" />
-        <NodeLayout
-          Size="200,42"
-          Id="Package\copy to FK staging tables 1\QRY housetrip imp_photo"
-          TopLeft="342.19340255658,101.203340983869" />
-        <NodeLayout
-          Size="220,42"
-          Id="Package\copy to FK staging tables 1\staging tab_property2amenity"
-          TopLeft="75.8533745224259,213.803380288545" />
-        <EdgeLayout
-          Id="Package\copy to FK staging tables 1.Paths[OLE DB Source Output2]"
-          TopLeft="662.47696408787,143.508828599944">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,70.294551688601"
-              Start="0,0"
-              End="0,62.794551688601">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,62.794551688601" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to FK staging tables 1.Paths[OLE DB Source Output1]"
-          TopLeft="440.727893831525,143.203340983869">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,70.600039304676"
-              Start="0,0"
-              End="0,63.100039304676">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,63.100039304676" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to FK staging tables 1.Paths[OLE DB Source Output]"
-          TopLeft="185.978823575181,143.203340983869">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,70.600039304676"
-              Start="0,0"
-              End="0,63.100039304676">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,63.100039304676" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\copy to FK staging tables\QRY housetrip imp_property2amenity">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

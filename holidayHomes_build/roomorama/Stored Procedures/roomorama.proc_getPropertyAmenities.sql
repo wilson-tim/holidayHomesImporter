@@ -34,7 +34,7 @@ BEGIN
 	) as unpvt
 	WHERE [enabled] = 1
 UNION ALL
-	SELECT DISTINCT sourceId, runId, fileId, split.Item as sourceAmenityValue, [id]
+	SELECT DISTINCT sourceId, runId, fileId, dbo.cleanString(split.Item) AS sourceAmenityValue, [id]
 	FROM roomorama.imp_property prop
 	CROSS APPLY dbo.SplitString(amenities, ', ') AS split
 	WHERE prop.runId = @runId

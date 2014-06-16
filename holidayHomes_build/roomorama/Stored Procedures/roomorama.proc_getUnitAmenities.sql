@@ -16,7 +16,7 @@ BEGIN
 	SELECT DISTINCT sourceId
 		, runId
 		, fileId
-		, split.Item AS sourceAmenityValue
+		, dbo.cleanString(Item) AS sourceAmenityValue
 		, [unitId]
 	FROM roomorama.imp_unit unit
 	CROSS APPLY dbo.SplitString(unitAmenities, ', ') AS split

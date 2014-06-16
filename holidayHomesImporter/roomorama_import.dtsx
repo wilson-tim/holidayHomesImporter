@@ -13,8 +13,8 @@
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="436"
-  DTS:VersionGUID="{C867E4D3-B533-449B-9B0E-074D7995C40F}">
+  DTS:VersionBuild="438"
+  DTS:VersionGUID="{53358355-9443-401E-AE95-016DFBD9498F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{2371C997-E322-421D-87BC-29B3380C6C7C}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{F835B160-86C7-4205-BEDA-DA7EECF458E0}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -1601,7 +1601,7 @@ AND stgr.externalId IS NULL</property>
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT p.sourceId
 , p.runId
 , externalId = CAST(p.[id] AS NVARCHAR(50)) + '-' + CAST(u.unitId AS NVARCHAR(49))
-, title = LEFT(p.title + ' - ' + u.unitTitle, 255)
+, title = LEFT(dbo.cleanString(p.title) + ' - ' + dbo.cleanString(u.unitTitle), 255)
 , typeOfProperty = LEFT((ISNULL(p.subtype + ' ', '') + p.[type]), 50)
 , p.url
 , [num-rooms] = u.[unitNum-rooms]
@@ -1610,7 +1610,7 @@ AND stgr.externalId IS NULL</property>
 , p.[floor]
 , price = unitPrice
 , [currency-code] = LEFT(p.[currency-code], 3)
-, p.[description]
+, [description] = dbo.cleanString(p.[description])
 , p.city
 , [country-code] = LEFT(p.[country-code], 2)
 , p.lat
@@ -1911,8 +1911,7 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[title]"
-                      dataType="wstr"
-                      length="255"
+                      dataType="nText"
                       name="title" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[typeOfProperty]"
@@ -1960,8 +1959,7 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[description]"
-                      dataType="wstr"
-                      length="4000"
+                      dataType="nText"
                       name="description" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[city]"
@@ -2035,8 +2033,7 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[title]"
-                      dataType="wstr"
-                      length="255"
+                      dataType="nText"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[title]"
                       name="title" />
                     <outputColumn
@@ -2093,8 +2090,7 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[description]"
-                      dataType="wstr"
-                      length="4000"
+                      dataType="nText"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[description]"
                       name="description" />
                     <outputColumn
@@ -2198,7 +2194,7 @@ AND stgp.externalId IS NULL;</property>
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
 , prop.runId
 , externalId = CAST(prop.[id] AS NVARCHAR(98)) + '-0'
-, prop.title
+, title = dbo.cleanString(prop.title)
 , typeOfProperty = LEFT((ISNULL(prop.subtype + ' ', '') + prop.[type]), 50)
 , prop.url
 , prop.[num-rooms]
@@ -2207,7 +2203,7 @@ AND stgp.externalId IS NULL;</property>
 , prop.[floor]
 , prop.price
 , [currency-code] = LEFT(prop.[currency-code], 3)
-, prop.[description]
+, [description] = dbo.cleanString(prop.[description])
 , prop.city
 , [country-code] = LEFT(prop.[country-code], 2)
 , prop.lat
@@ -2504,8 +2500,7 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[title]"
-                      dataType="wstr"
-                      length="255"
+                      dataType="nText"
                       name="title" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[typeOfProperty]"
@@ -2553,8 +2548,7 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[description]"
-                      dataType="wstr"
-                      length="4000"
+                      dataType="nText"
                       name="description" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[city]"
@@ -2628,8 +2622,7 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[title]"
-                      dataType="wstr"
-                      length="255"
+                      dataType="nText"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[title]"
                       name="title" />
                     <outputColumn
@@ -2686,8 +2679,7 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[description]"
-                      dataType="wstr"
-                      length="4000"
+                      dataType="nText"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[description]"
                       name="description" />
                     <outputColumn
@@ -8990,6 +8982,15 @@ AND stgp.externalId IS NULL;</property>
           Language="CSharp"
           ReadOnlyVariables="Internal::xslXmlFullPath,$Package::fileFullPath,$Package::xslFileName,$Project::DIRECTORY_xslDirectory">
           <ProjectItem
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
             Name="Properties\Resources.resx"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -9108,35 +9109,6 @@ AND stgp.externalId IS NULL;</property>
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
-          <ProjectItem
-            Name="Properties\Settings.Designer.cs"
-            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Settings.get_Default():ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Sett" +
-    "ings")]
-
-namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
           <ProjectItem
             Name="ScriptMain.cs"
             Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
@@ -9394,6 +9366,35 @@ namespace ST_d7e3d80826544eb4b79ba20d9b6890db
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
           <ProjectItem
+            Name="Properties\Settings.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Settings.get_Default():ST_d7e3d80826544eb4b79ba20d9b6890db.Properties.Sett" +
+    "ings")]
+
+namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+          <ProjectItem
             Name="Properties\AssemblyInfo.cs"
             Encoding="UTF8"><![CDATA[using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -9423,15 +9424,6 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-          <ProjectItem
-            Name="Properties\Settings.settings"
-            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.Designer.cs"
             Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------

@@ -90,6 +90,9 @@ public partial class UserDefinedFunctions
             cleanedString = Regex.Replace(cleanedString, @"\={2,}", " ");
         }
 
+        // Clean specific problems: underscore characters
+        cleanedString = cleanedString.Replace(@"_", " ");
+
         // HtmlDecode
         // Decode twice to decode data such as "&amp;#39;"
         cleanedString = WebUtility.HtmlDecode(cleanedString);
