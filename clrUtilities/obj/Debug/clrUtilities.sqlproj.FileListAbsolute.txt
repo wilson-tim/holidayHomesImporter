@@ -9,9 +9,5 @@ C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUti
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.dll
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.pdb
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\master.dacpac
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\Model.xml
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\refactor.xml
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\postdeploy.sql
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\predeploy.sql
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.dll
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.pdb

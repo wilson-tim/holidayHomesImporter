@@ -12,6 +12,8 @@
 /// Thanks to Erland Sommarskog for his typically insightful explanation of CLR
 /// http://www.sommarskog.se/arrays-in-sql-2005.html#CLR
 /// 
+/// Note that ToString() returns string value; (string) cast returns string object
+/// 
 /// 16/06/2014  TW  New
 /// 
 /// </summary>
@@ -31,9 +33,23 @@ public partial class UserDefinedFunctions
        IsDeterministic = true
        )
     ]
-    public static String cleanString(String dirtyString)
+    [return: SqlFacet(MaxSize = -1)]
+    public static SqlString cleanString(
+        [SqlFacet(MaxSize = -1)]
+        SqlString dirtyString
+        )
     {
-        String cleanedString = dirtyString;
+        // Check whether dirtyString is either null or empty
+        if (dirtyString.IsNull)
+        {
+            return SqlString.Null;
+        }
+        if (dirtyString.ToString() == "")
+        {
+            return new SqlString("");
+        }
+
+        String cleanedString = (string) dirtyString;
 
         // Clean specific problems: strings starting with "&#711;"
         if (cleanedString.Length >= 6)
@@ -101,16 +117,16 @@ public partial class UserDefinedFunctions
         // Strip HTML tags
         cleanedString = StripTagsCharArray(cleanedString);
 
-        // Left trim
-        cleanedString = cleanedString.TrimStart(' ');
-
         // Replace multiple spaces - better to replace whitespace, see below
         // cleanedString = Regex.Replace(cleanedString, @"[ ]{2,}", @" ");
 
         // Replace runs of whitespace with a single space character
         cleanedString = Regex.Replace(cleanedString, @"\s+", @" ");
 
-        return (cleanedString);
+        // Finally a left trim
+        cleanedString = cleanedString.TrimStart(' ');
+
+        return new SqlString(cleanedString);
     }
 
     public static string StripTagsCharArray(string source)
