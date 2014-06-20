@@ -148,6 +148,7 @@
     <Build Include="Storage\holidayHomesFullTextCatalog.sql" />
     <Build Include="FullTextIndexes.sql" />
     <Build Include="dbo\Functions\cleanString.sql" />
+    <Build Include="dbo\Tables\nineFlatsJson.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

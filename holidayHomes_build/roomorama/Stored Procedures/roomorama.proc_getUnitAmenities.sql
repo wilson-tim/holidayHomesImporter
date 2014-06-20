@@ -12,12 +12,13 @@ CREATE PROCEDURE [roomorama].[proc_getUnitAmenities]
 , @fileId INT
 AS
 BEGIN
+
  	INSERT roomorama.imp_amenity (sourceId, runId, fileId, amenityValue, [id])
-	SELECT DISTINCT sourceId
-		, runId
-		, fileId
-		, dbo.cleanString(Item) AS sourceAmenityValue
-		, [unitId]
+	SELECT DISTINCT unit.sourceId
+		, unit.runId
+		, unit.fileId
+		, CAST(dbo.cleanString(split.Item) AS nvarchar(50)) AS sourceAmenityValue
+		, unit.[unitId]
 	FROM roomorama.imp_unit unit
 	CROSS APPLY dbo.SplitString(unitAmenities, ', ') AS split
 	WHERE unit.runId  = @runId

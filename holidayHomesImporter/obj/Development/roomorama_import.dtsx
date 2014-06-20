@@ -13,8 +13,8 @@
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="438"
-  DTS:VersionGUID="{53358355-9443-401E-AE95-016DFBD9498F}">
+  DTS:VersionBuild="442"
+  DTS:VersionGUID="{848CE005-891A-403E-9E73-B89B4E6CF333}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{F402A96A-7701-4B9D-A8BB-3F5D541BB0A1}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{57415B8B-1EC4-43B5-B2D4-F3B1C267EB3E}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -390,8 +390,14 @@
       <DTS:Variables />
       <DTS:LoggingOptions
         DTS:FilterKind="0" />
+      <DTS:PropertyExpression
+        DTS:Name="BLOBTempStoragePath">@[$Project::DIRECTORY_BLOBTempStoragePath]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="BufferTempStoragePath">@[$Project::DIRECTORY_bufferTempStorage]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <pipeline
+          BLOBTempStoragePath="C:\SSIS\BLOBTempStorage\"
+          bufferTempStoragePath="C:\SSIS\BufferTempStorage\"
           version="1">
           <components>
             <component
@@ -437,6 +443,7 @@ LEFT OUTER JOIN staging.tab_property2amenity stgp WITH (NOLOCK)
 	ON stgp.sourceId = imp_am.sourceId
 	AND stgp.runId = imp_am.runId
 	AND stgp.externalId = CAST(imp_am.[id] AS NVARCHAR(50)) + '-0'
+	AND stgp.amenityId = am.amenityId
 WHERE imp_am.runId = ?
 AND imp_am.fileId = ?
 AND stgp.externalId IS NULL
@@ -469,6 +476,7 @@ LEFT OUTER JOIN staging.tab_property2amenity stgp WITH (NOLOCK)
 	ON stgp.sourceId = imp_am.sourceId
 	AND stgp.runId = imp_am.runId
 	AND stgp.externalId = CAST(pr.[id] AS NVARCHAR(50)) + '-' + CAST(imp_am.id AS NVARCHAR(49))
+	AND stgp.amenityId = am.amenityId
 WHERE imp_am.runId = ?
 AND imp_am.fileId = ?
 AND stgp.externalId IS NULL</property>
@@ -1569,8 +1577,14 @@ AND stgr.externalId IS NULL</property>
       <DTS:Variables />
       <DTS:LoggingOptions
         DTS:FilterKind="0" />
+      <DTS:PropertyExpression
+        DTS:Name="BLOBTempStoragePath">@[$Project::DIRECTORY_BLOBTempStoragePath]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="BufferTempStoragePath">@[$Project::DIRECTORY_bufferTempStorage]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <pipeline
+          BLOBTempStoragePath="C:\SSIS\BLOBTempStorage\"
+          bufferTempStoragePath="C:\SSIS\BufferTempStorage\"
           version="1">
           <components>
             <component
@@ -1601,7 +1615,7 @@ AND stgr.externalId IS NULL</property>
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT p.sourceId
 , p.runId
 , externalId = CAST(p.[id] AS NVARCHAR(50)) + '-' + CAST(u.unitId AS NVARCHAR(49))
-, title = LEFT(dbo.cleanString(p.title) + ' - ' + dbo.cleanString(u.unitTitle), 255)
+, title = CAST(dbo.cleanString(p.title) + ' - ' + dbo.cleanString(u.unitTitle) AS nvarchar(255))
 , typeOfProperty = LEFT((ISNULL(p.subtype + ' ', '') + p.[type]), 50)
 , p.url
 , [num-rooms] = u.[unitNum-rooms]
@@ -1610,7 +1624,7 @@ AND stgr.externalId IS NULL</property>
 , p.[floor]
 , price = unitPrice
 , [currency-code] = LEFT(p.[currency-code], 3)
-, [description] = dbo.cleanString(p.[description])
+, [description] = CAST(dbo.cleanString(p.[description]) AS nvarchar(4000))
 , p.city
 , [country-code] = LEFT(p.[country-code], 2)
 , p.lat
@@ -1911,7 +1925,8 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[title]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="255"
                       name="title" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[typeOfProperty]"
@@ -1959,7 +1974,8 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[description]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="4000"
                       name="description" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[city]"
@@ -2033,7 +2049,8 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[title]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[title]"
                       name="title" />
                     <outputColumn
@@ -2090,7 +2107,8 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[description]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="4000"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[description]"
                       name="description" />
                     <outputColumn
@@ -2194,7 +2212,7 @@ AND stgp.externalId IS NULL;</property>
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
 , prop.runId
 , externalId = CAST(prop.[id] AS NVARCHAR(98)) + '-0'
-, title = dbo.cleanString(prop.title)
+, title = CAST(dbo.cleanString(prop.title) AS nvarchar(255))
 , typeOfProperty = LEFT((ISNULL(prop.subtype + ' ', '') + prop.[type]), 50)
 , prop.url
 , prop.[num-rooms]
@@ -2203,7 +2221,7 @@ AND stgp.externalId IS NULL;</property>
 , prop.[floor]
 , prop.price
 , [currency-code] = LEFT(prop.[currency-code], 3)
-, [description] = dbo.cleanString(prop.[description])
+, [description] = CAST(dbo.cleanString(prop.[description]) AS nvarchar(4000))
 , prop.city
 , [country-code] = LEFT(prop.[country-code], 2)
 , prop.lat
@@ -2500,7 +2518,8 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[title]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="255"
                       name="title" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[typeOfProperty]"
@@ -2548,7 +2567,8 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[description]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="4000"
                       name="description" />
                     <externalMetadataColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[city]"
@@ -2622,7 +2642,8 @@ AND stgp.externalId IS NULL;</property>
                       name="externalId" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[title]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="255"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[title]"
                       name="title" />
                     <outputColumn
@@ -2679,7 +2700,8 @@ AND stgp.externalId IS NULL;</property>
                       name="currency-code" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[description]"
-                      dataType="nText"
+                      dataType="wstr"
+                      length="4000"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[description]"
                       name="description" />
                     <outputColumn
@@ -4019,11 +4041,15 @@ AND stgp.externalId IS NULL;</property>
       DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:Variables />
       <DTS:PropertyExpression
+        DTS:Name="BLOBTempStoragePath">@[$Project::DIRECTORY_BLOBTempStoragePath]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="BufferTempStoragePath">@[$Project::DIRECTORY_bufferTempStorage]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
         DTS:Name="[XML Source].[XMLSchemaDefinition]">@[$Project::DIRECTORY_xsdDirectory] + "\\" + @[Internal::xsdFileName]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <pipeline
-          BLOBTempStoragePath="@[$Project::DIRECTORY_BLOBTempStoragePath]"
-          bufferTempStoragePath="@[$Project::DIRECTORY_bufferTempStorage]"
+          BLOBTempStoragePath="C:\SSIS\BLOBTempStorage\"
+          bufferTempStoragePath="C:\SSIS\BufferTempStorage\"
           defaultBufferSize="20971520"
           version="1">
           <components>

@@ -26,6 +26,12 @@ BEGIN
 
 		SET @fileId = scope_identity()
 	END
+	ELSE
+	BEGIN
+		UPDATE import.tab_file
+		SET lastAccessedDate = GETDATE()
+		WHERE fileId = @fileId
+	END
 
 	SET NOCOUNT OFF
 
