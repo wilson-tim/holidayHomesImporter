@@ -9,6 +9,7 @@
 -- History
 --	2014-06-10 TW New
 --  2014-06-12 TW trims, replaces, concat() MSSQL2012 function
+--  2014-06-23 TW removed trims, replaces as these are now dealt with by cleanString() during the import
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[proc_update_tab_propertyKeywords]
 AS
@@ -51,27 +52,27 @@ BEGIN
 				*/
 				, keywords = CONCAT
 				(
-				  LTRIM(RTRIM(p.name))
+				  p.name
 				, ' '
-				, LTRIM(RTRIM(p.cityname))
+				, p.cityname
 				, ' '
-				, LTRIM(RTRIM(p.regionName))
+				, p.regionName
 				, ' '
-				, LTRIM(RTRIM(p.statename))
+				, p.statename
 				, ' '
-				, LTRIM(RTRIM(p.countryCode))
+				, p.countryCode
 				, ' '
-				, LTRIM(RTRIM(c.countryName))
+				, c.countryName
 				, ' '
-				, LTRIM(RTRIM(REPLACE(p.typeOfProperty, '_', ' ')))
+				, p.typeOfProperty
 				, ' '
-				, REPLACE(amenitySelect.amenityValues, '_', ' ')
+				, amenitySelect.amenityValues
 				, ' '
-				, LTRIM(RTRIM(p.[description]))
+				, p.[description]
 				)
 				FROM dbo.tab_property p
 				OUTER APPLY (
-					SELECT CONVERT(varchar(MAX), COALESCE(LTRIM(RTRIM(a.amenityValue)), '') + ' ')
+					SELECT CONVERT(varchar(MAX), COALESCE(a.amenityValue, '') + ' ')
 					FROM dbo.tab_property2amenity p2a
 					INNER JOIN dbo.tab_amenity a
 					ON a.amenityId = p2a.amenityId
@@ -87,8 +88,8 @@ BEGIN
 			(
 				SELECT DISTINCT SOUNDEX(split.Item) AS item
 				FROM dbo.SplitString(keywords, ' ') AS split
-				WHERE LEN(split.Item) > 2
-					AND SOUNDEX(split.Item) <> '0000'
+				WHERE 2 < LEN(split.Item)
+					AND '0000' <> SOUNDEX(item)
 			) soundexSelect
 			FOR XML PATH('')
 			) sx (keywordsSoundex)

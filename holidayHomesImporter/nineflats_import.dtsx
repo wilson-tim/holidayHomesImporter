@@ -12,8 +12,8 @@
   DTS:ObjectName="nineflats_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="109"
-  DTS:VersionGUID="{EB206E6A-CE09-4089-B70A-1DEB5F13BEC1}">
+  DTS:VersionBuild="110"
+  DTS:VersionGUID="{37DBE738-11D4-40A7-912C-BAF418CE059E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:PackageParameters>
@@ -1425,7 +1425,7 @@ WHERE stgr.externalId IS NULL
 , [description] = CAST(dbo.cleanString(p.[description]) AS nvarchar(4000))
 , name = CAST(dbo.cleanString(p.name) AS nvarchar(255))
 , regionName = p.district
-, typeOfProperty = LEFT(p.category, 50)
+, typeOfProperty = LEFT(dbo.cleanString(p.category), 50)
 , postcode = p.zipcode
 , cityName = p.city
 , countryCode = (SELECT countryCode2 FROM import.tab_country WHERE import.tab_country.countryName = p.country)
@@ -1747,8 +1747,7 @@ AND stgp.externalId IS NULL</property>
                           name="regionName" />
                         <externalMetadataColumn
                           refId="Package\Foreach XML record\copy to PK staging tables\QRY imp_property.Outputs[OLE DB Source Output].ExternalColumns[typeOfProperty]"
-                          dataType="wstr"
-                          length="50"
+                          dataType="nText"
                           name="typeOfProperty" />
                         <externalMetadataColumn
                           refId="Package\Foreach XML record\copy to PK staging tables\QRY imp_property.Outputs[OLE DB Source Output].ExternalColumns[postcode]"
@@ -1864,8 +1863,7 @@ AND stgp.externalId IS NULL</property>
                           name="regionName" />
                         <outputColumn
                           refId="Package\Foreach XML record\copy to PK staging tables\QRY imp_property.Outputs[OLE DB Source Error Output].Columns[typeOfProperty]"
-                          dataType="wstr"
-                          length="50"
+                          dataType="nText"
                           lineageId="Package\Foreach XML record\copy to PK staging tables\QRY imp_property.Outputs[OLE DB Source Error Output].Columns[typeOfProperty]"
                           name="typeOfProperty" />
                         <outputColumn
@@ -6077,6 +6075,10 @@ AND stgp.externalId IS NULL</property>
           Id="Package\insert tab_runFile"
           TopLeft="259,1231.5" />
         <NodeLayout
+          Size="185,42"
+          Id="Package\Log raw import counts"
+          TopLeft="252,1121" />
+        <NodeLayout
           Size="168,42"
           Id="Package\Select XML records"
           TopLeft="252,187" />
@@ -6107,6 +6109,28 @@ AND stgp.externalId IS NULL</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="343.5,1042">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,79"
+              Start="0,0"
+              End="0,71.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="327.25,60">
           <EdgeLayout.Curve>
@@ -6120,6 +6144,28 @@ AND stgp.externalId IS NULL</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="342,1163">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68.5"
+              Start="0,0"
+              End="0,61">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -6157,54 +6203,6 @@ AND stgp.externalId IS NULL</property>
           Size="181,56"
           Id="4b5d4443-177d-4fd1-850c-b22a6b8e9b0b"
           TopLeft="440,8" />
-        <NodeLayout
-          Size="185,42"
-          Id="Package\Log raw import counts"
-          TopLeft="252,1121" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="343.5,1042">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,79"
-              Start="0,0"
-              End="0,71.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,71.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="342,1163">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,68.5"
-              Start="0,0"
-              End="0,61">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,61" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -6366,7 +6364,7 @@ AND stgp.externalId IS NULL</property>
     design-time-name="Package\Foreach XML record\copy to PK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="177,42"
           Id="Package\Foreach XML record\copy to PK staging tables\staging tab_property"
@@ -6394,9 +6392,7 @@ AND stgp.externalId IS NULL</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

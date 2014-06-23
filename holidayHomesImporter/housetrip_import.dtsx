@@ -12,8 +12,8 @@
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="227"
-  DTS:VersionGUID="{6FB518EC-77F3-4418-B1B3-7B42F6269ED5}">
+  DTS:VersionBuild="229"
+  DTS:VersionGUID="{97741904-D8F6-42AF-9171-618AD9CBD339}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{205E75E0-7BFE-4CE3-8105-6420F60CBB59}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{6776CFDF-D470-4BB5-86CD-73C9AC0CBF41}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -2677,7 +2677,7 @@ WHERE prop.runId = ?
 , [description] = CAST(dbo.cleanString(p.[description]) AS nvarchar(4000))
 , name = CAST(dbo.cleanString(p.name) AS nvarchar(255))
 , p.region_name
-, p.type_of_property
+, type_of_property = CAST(dbo.cleanString(p.type_of_property) AS nvarchar(50))
 , p.zip_code
 , p.region_id
 , p.city_id
@@ -7639,6 +7639,10 @@ AND p.fileId = ?</property>
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="234,42"
+          Id="Package\clean imp_amenity amenityValue"
+          TopLeft="56,233" />
+        <NodeLayout
           Size="218,42"
           Id="Package\convert bit fields to amenities"
           TopLeft="61.7383065671928,307.063430119808" />
@@ -7670,6 +7674,28 @@ AND p.fileId = ?</property>
           Size="292,42"
           Id="Package\merge imp_amenities to staging tab_amenity"
           TopLeft="29.4929332971897,387.251240159743" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="174.385315164167,199.875620079872">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.124379920128"
+              Start="0,0"
+              End="0,25.624379920128">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.624379920128" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="176.293564593738,117.687810039936">
@@ -7780,39 +7806,6 @@ AND p.fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="&lt;-- xsd file path ([XML Source].[XML SchemaDefinition]) is defined in expression here"
-          ParentId="Package"
-          FontInfo="{assembly:Null}"
-          Size="479,40"
-          Id="64a6b6b9-68c9-446a-9a1a-560b3994ec0a"
-          TopLeft="291.846388166812,78.243556461496" />
-        <NodeLayout
-          Size="234,42"
-          Id="Package\clean imp_amenity amenityValue"
-          TopLeft="56,233" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="174.385315164167,199.875620079872">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,33.124379920128"
-              Start="0,0"
-              End="0,25.624379920128">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,25.624379920128" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 6]"
           TopLeft="171.869153283596,275">
@@ -7835,6 +7828,13 @@ AND p.fileId = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <AnnotationLayout
+          Text="&lt;-- xsd file path ([XML Source].[XML SchemaDefinition]) is defined in expression here"
+          ParentId="Package"
+          FontInfo="{assembly:Null}"
+          Size="479,40"
+          Id="64a6b6b9-68c9-446a-9a1a-560b3994ec0a"
+          TopLeft="291.846388166812,78.243556461496" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

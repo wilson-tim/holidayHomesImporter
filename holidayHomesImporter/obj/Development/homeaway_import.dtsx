@@ -13,8 +13,8 @@
   DTS:ObjectName="homeaway_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="89"
-  DTS:VersionGUID="{F7573751-8272-4F20-A240-D31209E1B26D}">
+  DTS:VersionBuild="90"
+  DTS:VersionGUID="{B10F8803-4F94-43C0-BACC-D4C92137CB5F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\homeaway_import_{427F8E7F-4420-4758-87BA-26FE7F8CC108}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\homeaway_import_{27B6679D-E045-4125-83BD-C16C9656A20D}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -1484,7 +1484,7 @@ where [refTable].[countryCode2] = ?</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT d.propertyType
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT propertyType = CAST(dbo.cleanString(d.propertyType) AS nvarchar(255))
 , d.bedrooms
 , d.sleeps
 , d.bathrooms
@@ -9493,69 +9493,69 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
               startId="Package\import XML to imp tables\XML Source.Outputs[data]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output12]"
-              endId="Package\import XML to imp tables\homeaway imp_author.Inputs[OLE DB Destination Input]"
+              endId="Package\import XML to imp tables\homeaway imp_subtitle.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns.Outputs[Derived Column Output]" />
+              startId="Package\import XML to imp tables\add id columns 11.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[Derived Column Output11]"
-              endId="Package\import XML to imp tables\homeaway imp_link.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 5.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output10]"
-              endId="Package\import XML to imp tables\homeaway imp_region.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 9.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output8]"
-              endId="Package\import XML to imp tables\homeaway imp_title.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 12.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output7]"
-              endId="Package\import XML to imp tables\homeaway imp_listing.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 6.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output6]"
-              endId="Package\import XML to imp tables\homeaway imp_rate.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 7.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output9]"
-              endId="Package\import XML to imp tables\homeaway imp_regions.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 10.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output4]"
-              endId="Package\import XML to imp tables\homeaway imp_content.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 2.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output3]"
-              endId="Package\import XML to imp tables\homeaway imp_category.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 1.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output2]"
-              endId="Package\import XML to imp tables\homeaway imp_rates.Inputs[OLE DB Destination Input]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 8.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output1]"
-              endId="Package\import XML to imp tables\rowsImported.Inputs[Row Count Input 1]"
-              name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 4.Outputs[Derived Column Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output]"
               endId="Package\import XML to imp tables\homeaway imp_data.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
               startId="Package\import XML to imp tables\add id columns 3.Outputs[Derived Column Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[Derived Column Output5]"
-              endId="Package\import XML to imp tables\homeaway imp_subtitle.Inputs[OLE DB Destination Input]"
+              refId="Package\import XML to imp tables.Paths[Derived Column Output10]"
+              endId="Package\import XML to imp tables\rowsImported.Inputs[Row Count Input 1]"
               name="Derived Column Output"
-              startId="Package\import XML to imp tables\add id columns 11.Outputs[Derived Column Output]" />
+              startId="Package\import XML to imp tables\add id columns 4.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output8]"
+              endId="Package\import XML to imp tables\homeaway imp_category.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 1.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output7]"
+              endId="Package\import XML to imp tables\homeaway imp_content.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 2.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output6]"
+              endId="Package\import XML to imp tables\homeaway imp_regions.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 10.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output9]"
+              endId="Package\import XML to imp tables\homeaway imp_rates.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 8.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output4]"
+              endId="Package\import XML to imp tables\homeaway imp_listing.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 6.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output3]"
+              endId="Package\import XML to imp tables\homeaway imp_title.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 12.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output2]"
+              endId="Package\import XML to imp tables\homeaway imp_region.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 9.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output1]"
+              endId="Package\import XML to imp tables\homeaway imp_link.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 5.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output]"
+              endId="Package\import XML to imp tables\homeaway imp_author.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[Derived Column Output5]"
+              endId="Package\import XML to imp tables\homeaway imp_rate.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\import XML to imp tables\add id columns 7.Outputs[Derived Column Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[entry]"
               endId="Package\import XML to imp tables\add id columns 4.Inputs[Derived Column Input]"
@@ -10406,7 +10406,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           Id="Package\import XML to imp tables\homeaway imp_link"
           TopLeft="1285.5,311.5" />
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output8]"
           TopLeft="551,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -10440,7 +10440,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output10]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
           TopLeft="2296,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -10474,7 +10474,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output11]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
           TopLeft="1424,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -10508,7 +10508,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output12]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
           TopLeft="332,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11032,7 +11032,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output5]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output12]"
           TopLeft="2732,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11066,7 +11066,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output11]"
           TopLeft="988,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11100,7 +11100,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output1]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output10]"
           TopLeft="1203,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11122,7 +11122,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output2]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output9]"
           TopLeft="2078,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11156,7 +11156,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output8]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output3]"
           TopLeft="2950,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11190,7 +11190,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output7]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output4]"
           TopLeft="1638.75,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11212,7 +11212,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output9]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output6]"
           TopLeft="2514,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11246,7 +11246,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output6]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output5]"
           TopLeft="1860,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -11280,7 +11280,7 @@ GROUP BY d.propertyType, d.bedrooms, d.sleeps, d.bathrooms, d.city, d.[state], d
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[Derived Column Output4]"
+          Id="Package\import XML to imp tables.Paths[Derived Column Output7]"
           TopLeft="770,149.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
