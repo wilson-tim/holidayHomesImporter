@@ -72,7 +72,7 @@ BEGIN
 				)
 				FROM dbo.tab_property p
 				OUTER APPLY (
-					SELECT CONVERT(varchar(MAX), COALESCE(a.amenityValue, '') + ' ')
+					SELECT CONVERT(varchar(60), COALESCE(a.amenityValue, '') + ' ')
 					FROM dbo.tab_property2amenity p2a
 					INNER JOIN dbo.tab_amenity a
 					ON a.amenityId = p2a.amenityId
@@ -83,7 +83,7 @@ BEGIN
 				ON c.countryCode2 = ISNULL(p.countryCode, '')
 		) innerselect
 		OUTER APPLY (
-			SELECT CONVERT(varchar(MAX), COALESCE(item , '') + ' ')
+			SELECT CONVERT(varchar(10), COALESCE(item , '') + ' ')
 			FROM
 			(
 				SELECT DISTINCT SOUNDEX(split.Item) AS item
