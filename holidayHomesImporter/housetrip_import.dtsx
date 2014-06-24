@@ -12,8 +12,8 @@
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="229"
-  DTS:VersionGUID="{97741904-D8F6-42AF-9171-618AD9CBD339}">
+  DTS:VersionBuild="230"
+  DTS:VersionGUID="{897B315B-C448-4F32-BC50-F144A0164D8A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{6776CFDF-D470-4BB5-86CD-73C9AC0CBF41}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{06DBAE45-523B-43DA-8D09-2CA5B8D3EC8B}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -7507,7 +7507,7 @@ AND p.fileId = ?</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="DECLARE @runId INT, @sourceId INT&#xA;SET @runId = ?&#xA;SET @sourceId = ?&#xA;&#xA;DECLARE @message VARCHAR (255)&#xA;&#xA;SET @message = 'HouseTrip: raw property records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);&#xA;&#xA;SET @message = 'HouseTrip: raw amenity records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);&#xA;&#xA;SET @message = 'HouseTrip: raw photo records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="DECLARE @runId INT, @sourceId INT&#xA;SET @runId = ?&#xA;SET @sourceId = ?&#xA;&#xA;DECLARE @message VARCHAR (255)&#xA;&#xA;SET @message = 'HouseTrip: raw property records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);&#xA;&#xA;SET @message = 'HouseTrip: raw amenity records inserted: ' + LTRIM(STR(?))&#xA;--INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);&#xA;&#xA;SET @message = 'HouseTrip: raw photo records inserted: ' + LTRIM(STR(?))&#xA;--INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, @sourceId);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="@runId"
             SQLTask:DtsVariableName="$Package::runId"
