@@ -68,8 +68,7 @@ BEGIN
 	) AS stg
 	ON stg.sourceId = p.sourceId
 	AND stg.externalId = p.externalId
-	AND stg.amenitiesChecksum <> p.amenitiesChecksum
-	WHEN MATCHED THEN 
+	WHEN MATCHED AND stg.amenitiesChecksum <> p.amenitiesChecksum THEN 
 	UPDATE SET amenitiesChecksum = stg.amenitiesChecksum
 	OUTPUT $action, stg.sourceId, DELETED.propertyId, stg.externalId
 	INTO @tmp_property_changedAmenities ([action], sourceId, propertyId, externalId);
@@ -89,7 +88,7 @@ BEGIN
 	FROM @tmp_property_changedAmenities;
 
 	--merge new mappings with existing records (isolated with CTE)
-	-- capture changes in holidayHomes.tab_property2amenity_change for deployment
+	--then capture changes in changeControl.tab_property2amenity_change for deployment
 	WITH p2a AS 
 	(
 		SELECT p2a.propertyId, p2a.amenityId, p2a.runId

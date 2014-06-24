@@ -51,8 +51,7 @@ BEGIN
 	) AS stgp
 	ON stgp.sourceId = p.sourceId
 	AND stgp.externalId = p.externalId
-	AND stgp.photosChecksum <> p.photosChecksum
-	WHEN MATCHED THEN 
+	WHEN MATCHED AND stgp.photosChecksum <> p.photosChecksum THEN 
 	UPDATE SET photosChecksum = stgp.photosChecksum
 	OUTPUT $action, DELETED.propertyId, stgp.sourceId, stgp.externalId INTO @tmp_property_changedPhotos ([action], propertyId, sourceId, externalId);
 
@@ -71,7 +70,7 @@ BEGIN
 	FROM @tmp_property_changedPhotos;
 
 	--merge new mappings with existing records (isolated with CTE)
-	-- capture changes in changeControl.tab_photo_change for deployment
+	--then capture changes in changeControl.tab_photo_change for deployment
 	WITH ph AS 
 	(
 		SELECT ph.photoId, ph.propertyId, ph.position, ph.url, ph.runId

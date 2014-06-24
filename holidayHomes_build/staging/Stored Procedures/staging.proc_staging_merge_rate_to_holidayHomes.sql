@@ -58,8 +58,7 @@ BEGIN
 	) AS imp
 	ON imp.sourceId = p.sourceId
 	AND imp.externalId = p.externalId
-	AND imp.ratesChecksum <> p.ratesChecksum
-	WHEN MATCHED THEN 
+	WHEN MATCHED AND imp.ratesChecksum <> p.ratesChecksum THEN 
 	UPDATE SET ratesChecksum = imp.ratesChecksum
 	OUTPUT $action, DELETED.propertyId, imp.sourceId, imp.externalId
 	INTO @tmp_property_changedRates ([action], propertyId, sourceId, externalId);
@@ -79,7 +78,7 @@ BEGIN
 	FROM @tmp_property_changedRates;
 
 	--merge new mappings with existing records (isolated with CTE)
-	-- capture changes in changeControl.tab_rate_change for deployment
+	--then capture changes in changeControl.tab_rate_change for deployment
 	WITH r AS 
 	(
 		SELECT r.rateId, r.propertyId, r.periodType, r.[from], r.[to], r.[currencyCode], r.runId
