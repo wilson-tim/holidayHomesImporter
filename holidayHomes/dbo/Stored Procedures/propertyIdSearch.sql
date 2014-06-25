@@ -9,9 +9,9 @@
 -- =============================================
 
 CREATE PROCEDURE [dbo].[propertyIdSearch]
-  @externalIds VARCHAR(MAX) = NULL
-, @sourceId int = NULL
-, @localCurrencyCode nvarchar(3) = 'GBP'
+  @externalIds VARCHAR(MAX)
+, @sourceId INT = NULL
+, @localCurrencyCode NVARCHAR(3) = 'GBP'
 
 AS
 
@@ -19,7 +19,7 @@ BEGIN
 
 	SET NOCOUNT ON;
 
-	DECLARE @localRate float
+	DECLARE @localRate FLOAT;
 
 	IF @localCurrencyCode = '' OR @localCurrencyCode IS NULL
 	BEGIN
@@ -97,6 +97,8 @@ BEGIN
 					(p.minimumPricePerNight / currency.rate)
 			END
 	FROM dbo.tab_property p
+	INNER JOIN dbo.SplitString(@externalIds, ',') AS split
+	ON split.Item = p.externalId
 	OUTER APPLY
 	(
 		SELECT TOP 1 dbo.tab_photo.url
@@ -107,8 +109,7 @@ BEGIN
 	LEFT OUTER JOIN dbo.utils_currencyLookup currency
     ON currency.id = p.currencyCode
 		AND currency.localId = @localCurrencyCode
-	WHERE p.externalId IN (SELECT split.Item FROM dbo.SplitString(@externalIds, ',') AS split)
-		AND
+	WHERE
 		(
 		(p.sourceId = @sourceId AND @sourceId IS NOT NULL AND @sourceId <> '')
 		OR
