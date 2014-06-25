@@ -66,7 +66,7 @@ BEGIN
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
-	, messageContent = 'tab_property Photos Changed:' + LTRIM(STR(COUNT(1)))
+	, messageContent = 'tab_property Photos CHANGED:' + LTRIM(STR(COUNT(1)))
 	FROM @tmp_property_changedPhotos;
 
 	--merge new mappings with existing records (isolated with CTE)

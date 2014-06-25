@@ -101,7 +101,7 @@ BEGIN
 	-- not in live table, so delete
 	WHEN NOT MATCHED BY SOURCE THEN DELETE
 
-	-- capture changes for deployment and so can insert amenities and photos (below)
+	-- capture changes for deployment and so can insert amenities, photos and rates (processed by other individual stored procedures)
 	OUTPUT @runId, $action, ISNULL(INSERTED.sourceId, DELETED.sourceId), ISNULL(INSERTED.propertyId, DELETED.propertyId), ISNULL(INSERTED.externalId, DELETED.externalId)
 	INTO changeControl.tab_property_change (runId, [action], sourceId, propertyId, externalId);
 
