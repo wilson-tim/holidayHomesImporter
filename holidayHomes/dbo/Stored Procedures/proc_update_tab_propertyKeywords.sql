@@ -10,14 +10,15 @@
 --	2014-06-10 TW New
 --  2014-06-12 TW trims, replaces, concat() MSSQL2012 function
 --  2014-06-23 TW removed trims, replaces as these are now dealt with by cleanString() during the import
+--  2014-06-25 TW no longer using CTE to select source data
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[proc_update_tab_propertyKeywords]
 AS
 BEGIN
 
-	WITH keywords_CTE ( propertyId, keywords, keywordsSoundex )
-	AS
-		(
+	MERGE INTO dbo.tab_propertyKeywords AS targetKeywords
+	USING
+	(
 		SELECT
 			  propertyId
 			/*
@@ -72,7 +73,7 @@ BEGIN
 				)
 				FROM dbo.tab_property p
 				OUTER APPLY (
-					SELECT CONVERT(varchar(60), COALESCE(a.amenityValue, '') + ' ')
+					SELECT CONVERT(VARCHAR(60), COALESCE(a.amenityValue, '') + ' ')
 					FROM dbo.tab_property2amenity p2a
 					INNER JOIN dbo.tab_amenity a
 					ON a.amenityId = p2a.amenityId
@@ -83,7 +84,7 @@ BEGIN
 				ON c.countryCode2 = ISNULL(p.countryCode, '')
 		) innerselect
 		OUTER APPLY (
-			SELECT CONVERT(varchar(10), COALESCE(item , '') + ' ')
+			SELECT CONVERT(VARCHAR(10), COALESCE(item , '') + ' ')
 			FROM
 			(
 				SELECT DISTINCT SOUNDEX(split.Item) AS item
@@ -93,22 +94,19 @@ BEGIN
 			) soundexSelect
 			FOR XML PATH('')
 			) sx (keywordsSoundex)
-		)
-
-	MERGE INTO dbo.tab_propertyKeywords AS keywords
-	USING keywords_CTE
-	ON keywords_CTE.propertyId = keywords.propertyId
+	) sourceKeywords (propertyId, keywords, keywordsSoundex)
+	ON sourceKeywords.propertyId = targetKeywords.propertyId
 
 	-- changed data
 	WHEN MATCHED AND
 		(
-			ISNULL(keywords.keywords, '') <> ISNULL(keywords_CTE.keywords, '')
+			ISNULL(targetKeywords.keywords, '') <> ISNULL(sourceKeywords.keywords, '')
 			OR
-			ISNULL(keywords.keywordsSoundex, '') <> ISNULL(keywords_CTE.keywordsSoundex, '')
+			ISNULL(targetKeywords.keywordsSoundex, '') <> ISNULL(sourceKeywords.keywordsSoundex, '')
 		)
 		THEN UPDATE SET
-			  keywords.keywords = keywords_CTE.keywords
-			, keywords.keywordsSoundex = keywords_CTE.keywordsSoundex
+			  targetKeywords.keywords = sourceKeywords.keywords
+			, targetKeywords.keywordsSoundex = sourceKeywords.keywordsSoundex
 
 	-- new data
 	WHEN NOT MATCHED BY TARGET THEN
@@ -120,9 +118,9 @@ BEGIN
 				)
 			VALUES
 				(
-				  keywords_CTE.propertyId
-				, keywords_CTE.keywords
-				, keywords_CTE.keywordsSoundex
+				  sourceKeywords.propertyId
+				, sourceKeywords.keywords
+				, sourceKeywords.keywordsSoundex
 				)
 
 	-- deleted data
