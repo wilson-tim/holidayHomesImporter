@@ -7,3 +7,10 @@
     [photo]              NVARCHAR (2000) NULL
 );
 
+
+
+
+GO
+CREATE CLUSTERED INDEX [CIX_imp_photo]
+    ON [nineflats].[imp_photo]([runId] ASC, [fileId] ASC, [property_Id] ASC, [property_photos_Id] ASC);
+

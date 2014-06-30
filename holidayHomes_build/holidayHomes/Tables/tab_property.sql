@@ -50,7 +50,7 @@ CREATE NONCLUSTERED INDEX [IX_tab_property_importHashKeys]
 
 
 GO
-CREATE NONCLUSTERED INDEX [IX_holidayHomes_tab_property]
+CREATE UNIQUE NONCLUSTERED INDEX [IX_holidayHomes_tab_property]
     ON [holidayHomes].[tab_property]([sourceId] ASC, [externalId] ASC)
     INCLUDE([propertyId], [ratesChecksum]);
 

@@ -110,7 +110,7 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
-				<xs:element minOccurs="0" name="size" type="xs:int" />
+				<xs:element minOccurs="0" name="size" type="xs:decimal" />
 				<xs:element minOccurs="0" name="slug">
 					<xs:simpleType>
 						<xs:restriction base="xs:string">

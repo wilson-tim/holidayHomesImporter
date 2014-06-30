@@ -29,10 +29,17 @@
     [number_of_beds]                INT             NULL,
     [pets_around]                   BIT             NULL,
     [place_type]                    NVARCHAR (255)  NULL,
-    [size]                          INT NULL,
+    [size]                          INT             NULL,
     [slug]                          NVARCHAR (255)  NULL,
     [zipcode]                       NVARCHAR (255)  NULL,
     [currency]                      NVARCHAR (10)   NULL,
     [price]                         DECIMAL (10, 2) NULL
 );
+
+
+
+
+GO
+CREATE CLUSTERED INDEX [CIX_imp_property]
+    ON [nineflats].[imp_property]([runId] ASC, [fileId] ASC, [property_Id] ASC, [id] ASC);
 

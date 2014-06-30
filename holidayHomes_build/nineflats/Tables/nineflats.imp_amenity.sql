@@ -7,3 +7,10 @@
     [amenity]               NVARCHAR (255) NULL
 );
 
+
+
+
+GO
+CREATE CLUSTERED INDEX [CIX_imp_amenity]
+    ON [nineflats].[imp_amenity]([runId] ASC, [fileId] ASC, [property_Id] ASC, [property_amenities_Id] ASC);
+
