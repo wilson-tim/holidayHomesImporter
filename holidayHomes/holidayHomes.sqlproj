@@ -149,6 +149,10 @@
     <Build Include="FullTextIndexes.sql" />
     <Build Include="dbo\Functions\cleanString.sql" />
     <Build Include="dbo\Tables\nineFlatsJson.sql" />
+    <Build Include="dbo\Tables\utils_relatedCountryLookup.sql" />
+    <Build Include="dbo\Tables\utils_houseTripCities.sql" />
+    <Build Include="dbo\Tables\tab_propertyFeatured.sql" />
+    <Build Include="dbo\Functions\utils_getField.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

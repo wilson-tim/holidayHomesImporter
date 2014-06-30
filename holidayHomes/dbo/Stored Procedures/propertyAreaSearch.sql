@@ -256,6 +256,7 @@ BEGIN
   , internalURL
   , urlSafeName
   , logoURL
+  , partnerId
  FROM
 	 (
 	 -- here is the main select
@@ -282,6 +283,7 @@ BEGIN
 	  , '' AS internalURL
 	  , '' AS urlSafeName
 	  , '' AS logoURL
+	  , '' AS partnerId
 	 FROM dbo.tab_property pro
 	 /* VERY SLOW
 	 INNER JOIN dbo.tab_propertyLatLong latlong

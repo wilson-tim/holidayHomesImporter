@@ -205,6 +205,7 @@ BEGIN
   , '' AS internalURL
   , '' AS urlSafeName
   , '' AS logoURL
+  , '' AS partnerId
  FROM dbo.tab_property pro
  OUTER APPLY (
   SELECT  TOP 1 dbo.tab_photo.url

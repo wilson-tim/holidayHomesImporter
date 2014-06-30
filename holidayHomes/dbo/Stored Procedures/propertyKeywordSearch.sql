@@ -11,7 +11,8 @@ CREATE PROCEDURE [dbo].[propertyKeywordSearch]
   @keywords VARCHAR(8000) = NULL
 , @sourceId INT = NULL
 , @localCurrencyCode NVARCHAR(3) = 'GBP'
-, @numberOfRecords INT = 1000
+, @Page int
+, @RecsPerPage int
 
 AS
 
@@ -64,98 +65,53 @@ BEGIN
 		SET @localRate = 1;
 	END
 
-	IF @numberOfRecords = 0 OR @numberOfRecords IS NULL
-	BEGIN
-		SET @numberOfRecords = 1000;
-	END
-
 	SELECT
-		TOP (@numberOfRecords)
-		  propertyId
-		, sourceId
-		, runId
-		, externalId
-		, name
-		, typeOfProperty
+		  name
 		, [description]
-		, externalURL
-		, thumbnailUrl
-		, regionName
-		, cityName
-		, stateName
-		, postcode
-		, cityId
-		, regionId
-		, countryCode
 		, latitude
 		, longitude
-		, checkInFrom
-		, checkOutBefore
-		, sizeOfSpaceInSqm
-		, sizeOfSpaceInSqft
-		, cancellationPolicy
+		, propertyId
+		, externalURL
+		, numberOfProperBedrooms
+		, maximumNumberOfPeople
+		, averageRating
+		, thumbnailUrl
+		, countryCode
+		, cityName
+		, sourceId
+		, externalId
+		, regionName
 		, minimumPricePerNight
 		, currencyCode
-		, numberOfProperBedrooms
-		, numberOfBathrooms
-		, [floor]
-		, reviewsCount
-		, averageRating
-		, maximumNumberOfPeople
-		, numberOfOtherRoomsWhereGuestsCanSleep
-		, minimumDaysOfStay
-		, dateCreated
-		, lastUpdated
-		, propertyHashKey
-		, amenitiesChecksum
-		, photosChecksum
-		, ratesChecksum
 		, minimumPricePerNightLocal
-		, keywords
-		, keywordsSoundex
-		, [RANK]
+		, [rank]
+		, '' AS [partner]
+		, '' AS internalURL
+		, '' AS urlSafeName
+		, '' AS logoURL
+		, '' AS partnerId
+--		, keywords
+--		, keywordsSoundex
 	FROM
 	(
 		SELECT
 			  p.propertyId
 			, p.sourceId
-			, p.runId
 			, p.externalId
 			, p.name
-			, p.typeOfProperty
 			, p.[description]
 			, p.externalURL
 			, ISNULL(p.thumbnailUrl, pho.url) AS thumbnailUrl
 			, p.regionName
 			, p.cityName
-			, p.stateName
-			, p.postcode
-			, p.cityId
-			, p.regionId
 			, p.countryCode
 			, p.latitude
 			, p.longitude
-			, p.checkInFrom
-			, p.checkOutBefore
-			, p.sizeOfSpaceInSqm
-			, p.sizeOfSpaceInSqft
-			, p.cancellationPolicy
 			, p.minimumPricePerNight
 			, p.currencyCode
 			, p.numberOfProperBedrooms
-			, p.numberOfBathrooms
-			, p.[floor]
-			, p.reviewsCount
 			, p.averageRating
 			, p.maximumNumberOfPeople
-			, p.numberOfOtherRoomsWhereGuestsCanSleep
-			, p.minimumDaysOfStay
-			, p.dateCreated
-			, p.lastUpdated
-			, p.propertyHashKey
-			, p.amenitiesChecksum
-			, p.photosChecksum
-			, p.ratesChecksum
 			, minimumPricePerNightLocal =
 				CASE
 					WHEN
@@ -174,16 +130,17 @@ BEGIN
 					ELSE
 						(p.minimumPricePerNight / currency.rate)
 				END
-			, keywords
-			, keywordsSoundex
-			, [RANK]
+--			, keywords
+--			, keywordsSoundex
+			, [rank]
 			, rownum = ROW_NUMBER() OVER (PARTITION BY p.propertyId ORDER BY [RANK] DESC, p.name ASC)
 		FROM
 		(
+			-- Text search (with boosted rank value)
 			SELECT
 				  pk.propertyId
-				, pk.keywords
-				, pk.keywordsSoundex
+--				, pk.keywords
+--				, pk.keywordsSoundex
 				, ct.[RANK] * 1000
 			FROM dbo.tab_propertyKeywords pk
 			INNER JOIN CONTAINSTABLE(
@@ -195,10 +152,11 @@ BEGIN
 
 			UNION ALL
 
+			-- Soundex search
 			SELECT
 				  pk.propertyId
-				, pk.keywords
-				, pk.keywordsSoundex
+--				, pk.keywords
+--				, pk.keywordsSoundex
 				, ct.[RANK]
 			FROM dbo.tab_propertyKeywords pk
 			INNER JOIN CONTAINSTABLE(
@@ -207,7 +165,7 @@ BEGIN
 				, @searchStringSoundex
 				) ct
 			ON ct.[KEY] = pk.propertyId
-		) resultsList (propertyId, keywords, keywordsSoundex, [RANK])
+		) resultsList (propertyId, [rank])
 
 		INNER JOIN dbo.tab_property p
 		ON p.propertyId = resultsList.propertyId
@@ -236,6 +194,8 @@ BEGIN
 	WHERE rownum = 1
 
 	ORDER BY [RANK] DESC, propertyId ASC
+	OFFSET (@RecsPerPage * (@Page - 1)) ROWS
+	FETCH NEXT @RecsPerPage ROWS ONLY;
 	;
 
 END
