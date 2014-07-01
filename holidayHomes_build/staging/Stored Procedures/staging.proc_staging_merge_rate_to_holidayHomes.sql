@@ -74,7 +74,7 @@ BEGIN
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
-	, messageContent = 'tab_property rates CHANGED:' + LTRIM(STR(COUNT(1)))
+	, messageContent = 'tab_property Rates CHANGED:' + LTRIM(STR(COUNT(1)))
 	FROM @tmp_property_changedRates;
 
 	--merge new mappings with existing records (isolated with CTE)
