@@ -11,6 +11,6 @@
 
 
 GO
-CREATE NONCLUSTERED INDEX [IX_property_change]
+CREATE UNIQUE NONCLUSTERED INDEX [IX_property_change]
     ON [changeControl].[tab_property_change]([runId] ASC, [propertyId] ASC);
 

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [holidayHomes].[tab_property] (
+CREATE TABLE [holidayHomes].[tab_property] (
     [propertyId]                            BIGINT          IDENTITY (1, 1) NOT NULL,
     [sourceId]                              INT             NOT NULL,
     [runId]                                 INT             NOT NULL,
@@ -38,19 +38,22 @@
     [amenitiesChecksum]                     BIGINT          NULL,
     [photosChecksum]                        BIGINT          NULL,
     [ratesChecksum]                         BIGINT          NULL,
-    CONSTRAINT [PK_property] PRIMARY KEY CLUSTERED ([propertyId] ASC)
+    CONSTRAINT [PK_tab_property] PRIMARY KEY NONCLUSTERED ([propertyId] ASC)
 );
+
+
 
 
 
 
 GO
 CREATE NONCLUSTERED INDEX [IX_tab_property_importHashKeys]
-    ON [holidayHomes].[tab_property]([propertyHashKey] ASC, [amenitiesChecksum] ASC, [photosChecksum] ASC);
+    ON [holidayHomes].[tab_property]([propertyHashKey] ASC, [amenitiesChecksum] ASC, [photosChecksum] ASC, [ratesChecksum] ASC);
+
+
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_holidayHomes_tab_property]
-    ON [holidayHomes].[tab_property]([sourceId] ASC, [externalId] ASC)
-    INCLUDE([propertyId], [ratesChecksum]);
+CREATE UNIQUE CLUSTERED INDEX [CIX_tab_property_sourceId_externalId]
+    ON [holidayHomes].[tab_property]([sourceId] ASC, [externalId] ASC);
 
