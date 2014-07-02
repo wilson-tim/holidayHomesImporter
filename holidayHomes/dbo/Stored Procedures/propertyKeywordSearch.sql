@@ -66,25 +66,41 @@ BEGIN
 	END
 
 	SELECT
-		  name
-		, [description]
-		, latitude
-		, longitude
-		, propertyId
-		, externalURL
-		, numberOfProperBedrooms
-		, maximumNumberOfPeople
-		, averageRating
-		, thumbnailUrl
-		, countryCode
-		, cityName
-		, sourceId
-		, externalId
-		, regionName
-		, minimumPricePerNight
-		, currencyCode
-		, minimumPricePerNightLocal
-		, [rank]
+		  p.name
+		, p.[description]
+		, p.latitude
+		, p.longitude
+		, p.externalURL
+		, p.numberOfProperBedrooms
+		, p.maximumNumberOfPeople
+		, p.averageRating
+		, p.thumbnailUrl
+		, p.countryCode
+		, p.cityName
+		, p.sourceId
+		, p.externalId
+		, p.regionName
+		, p.minimumPricePerNight
+		, p.currencyCode
+		, minimumPricePerNightLocal =
+			CASE
+				WHEN
+					(
+					p.minimumPricePerNight IS NULL
+					OR
+					ABS(p.minimumPricePerNight) = 0
+					OR
+					p.currencyCode IS NULL
+					OR
+					currency.rate IS NULL
+					OR
+					currency.rate = 0
+					)
+					THEN 0
+				ELSE
+					(p.minimumPricePerNight / currency.rate)
+			END
+		, resultsListIds.[rank]
 		, '' AS [partner]
 		, '' AS internalURL
 		, '' AS urlSafeName
@@ -92,110 +108,62 @@ BEGIN
 		, '' AS partnerId
 --		, keywords
 --		, keywordsSoundex
-	FROM
-	(
-		SELECT
-			  p.propertyId
-			, p.sourceId
-			, p.externalId
-			, p.name
-			, p.[description]
-			, p.externalURL
-			, ISNULL(p.thumbnailUrl, pho.url) AS thumbnailUrl
-			, p.regionName
-			, p.cityName
-			, p.countryCode
-			, p.latitude
-			, p.longitude
-			, p.minimumPricePerNight
-			, p.currencyCode
-			, p.numberOfProperBedrooms
-			, p.averageRating
-			, p.maximumNumberOfPeople
-			, minimumPricePerNightLocal =
-				CASE
-					WHEN
-						(
-						p.minimumPricePerNight IS NULL
-						OR
-						ABS(p.minimumPricePerNight) = 0
-						OR
-						p.currencyCode IS NULL
-						OR
-						currency.rate IS NULL
-						OR
-						currency.rate = 0
-						)
-						THEN 0
-					ELSE
-						(p.minimumPricePerNight / currency.rate)
-				END
---			, keywords
---			, keywordsSoundex
+	FROM dbo.tab_property p
+	INNER JOIN
+		(SELECT
+			  propertyId
 			, [rank]
-			, rownum = ROW_NUMBER() OVER (PARTITION BY p.propertyId ORDER BY [RANK] DESC, p.name ASC)
+			, rownum = ROW_NUMBER() OVER (PARTITION BY propertyId ORDER BY [RANK] DESC)
 		FROM
-		(
-			-- Text search (with boosted rank value)
-			SELECT
-				  pk.propertyId
---				, pk.keywords
---				, pk.keywordsSoundex
-				, ct.[RANK] * 1000
-			FROM dbo.tab_propertyKeywords pk
-			INNER JOIN CONTAINSTABLE(
-				  dbo.tab_propertyKeywords
-				, keywords
-				, @searchString
-				) ct
-			ON ct.[KEY] = pk.propertyId
-
-			UNION ALL
-
-			-- Soundex search
-			SELECT
-				  pk.propertyId
---				, pk.keywords
---				, pk.keywordsSoundex
-				, ct.[RANK]
-			FROM dbo.tab_propertyKeywords pk
-			INNER JOIN CONTAINSTABLE(
-				  dbo.tab_propertyKeywords
-				, keywordsSoundex
-				, @searchStringSoundex
-				) ct
-			ON ct.[KEY] = pk.propertyId
-		) resultsList (propertyId, [rank])
-
-		INNER JOIN dbo.tab_property p
-		ON p.propertyId = resultsList.propertyId
-
-		OUTER APPLY
-		(
-			SELECT TOP 1 dbo.tab_photo.url
-			FROM dbo.tab_photo
-			WHERE dbo.tab_photo.propertyId = p.propertyId
-			ORDER BY dbo.tab_photo.position
-		) pho
-
-		LEFT OUTER JOIN dbo.utils_currencyLookup currency
-		ON currency.id = p.currencyCode
-			AND currency.localId = @localCurrencyCode
-
-		WHERE
 			(
-			(p.sourceId = @sourceId AND @sourceId IS NOT NULL AND @sourceId <> '')
-			OR
-			(@sourceId IS NULL OR @sourceId = '')
-			)
+				-- Text search (with boosted rank value)
+				SELECT
+					  pk.propertyId
+--					, pk.keywords
+--					, pk.keywordsSoundex
+					, ct.[RANK] * 1000
+				FROM dbo.tab_propertyKeywords pk
+				INNER JOIN CONTAINSTABLE(
+					  dbo.tab_propertyKeywords
+					, keywords
+					, @searchString
+					) ct
+				ON ct.[KEY] = pk.propertyId
 
-	) rownumSelect
+				UNION ALL
 
-	WHERE rownum = 1
+				-- Soundex search
+				SELECT
+					  pk.propertyId
+--					, pk.keywords
+--					, pk.keywordsSoundex
+					, ct.[RANK]
+				FROM dbo.tab_propertyKeywords pk
+				INNER JOIN CONTAINSTABLE(
+					  dbo.tab_propertyKeywords
+					, keywordsSoundex
+					, @searchStringSoundex
+					) ct
+				ON ct.[KEY] = pk.propertyId
+			) resultsList (propertyId, [rank])
+		) resultsListIds
+	ON p.propertyId = resultsListIds.propertyId
+		AND resultsListIds.rownum = 1
 
-	ORDER BY [RANK] DESC, propertyId ASC
+	LEFT OUTER JOIN dbo.utils_currencyLookup currency
+	ON currency.id = p.currencyCode
+		AND currency.localId = @localCurrencyCode
+
+	WHERE
+		(
+		(p.sourceId = @sourceId AND @sourceId IS NOT NULL AND @sourceId <> '')
+		OR
+		(@sourceId IS NULL OR @sourceId = '')
+		)
+
+	ORDER BY [RANK] DESC, resultsListIds.propertyId ASC
 	OFFSET (@RecsPerPage * (@Page - 1)) ROWS
-	FETCH NEXT @RecsPerPage ROWS ONLY;
+	FETCH NEXT @RecsPerPage ROWS ONLY
 	;
 
 END
