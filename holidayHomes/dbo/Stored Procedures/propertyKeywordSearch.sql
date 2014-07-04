@@ -74,7 +74,7 @@ BEGIN
 		, p.numberOfProperBedrooms
 		, p.maximumNumberOfPeople
 		, p.averageRating
-		, p.thumbnailUrl
+		, ISNULL(p.thumbnailUrl, pho.url) AS thumbnailUrl
 		, p.countryCode
 		, p.cityName
 		, p.sourceId
@@ -153,6 +153,12 @@ BEGIN
 	LEFT OUTER JOIN dbo.utils_currencyLookup currency
 	ON currency.id = p.currencyCode
 		AND currency.localId = @localCurrencyCode
+
+	OUTER APPLY (
+	SELECT  TOP 1 dbo.tab_photo.url
+	FROM    dbo.tab_photo
+	WHERE   dbo.tab_photo.propertyId = p.propertyId
+	) pho
 
 	WHERE
 		(
