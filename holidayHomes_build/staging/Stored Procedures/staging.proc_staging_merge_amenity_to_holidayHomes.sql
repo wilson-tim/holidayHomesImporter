@@ -9,6 +9,7 @@
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-03-16 v03 changed datatype of @tmp_property_changedAmenities.externalId to NVARCHAR(200)
+--  2014-07-10     revised declaration of @tmp_property_changedRates
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_amenity_to_holidayHomes]
   @runId INT
@@ -58,9 +59,17 @@ BEGIN
 	-- amenities persist, so simplest to delete existing and add new records to tab_property2amenity
 
 	-- table to capture list of properties with changed amenities
-	DECLARE @tmp_property_changedAmenities TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
+	DECLARE @tmp_property_changedAmenities TABLE
+		(
+		  [action] NVARCHAR(10) COLLATE DATABASE_DEFAULT NOT NULL
+		, sourceId INT NOT NULL
+		, propertyId BIGINT NOT NULL
+		, externalId NVARCHAR(100) COLLATE DATABASE_DEFAULT NOT NULL
+		, PRIMARY KEY (propertyId, [action])
+		);
 
 	--update checksums for existing properties and output list into above table
+	/*
 	MERGE INTO holidayHomes.tab_property AS p
 	USING (
 		SELECT sourceId, externalId, amenitiesChecksum
@@ -72,6 +81,22 @@ BEGIN
 	UPDATE SET amenitiesChecksum = stg.amenitiesChecksum
 	OUTPUT $action, stg.sourceId, DELETED.propertyId, stg.externalId
 	INTO @tmp_property_changedAmenities ([action], sourceId, propertyId, externalId);
+	*/
+	UPDATE holidayHomes.tab_property
+	SET amenitiesChecksum = s.amenitiesChecksum
+	OUTPUT 'UPDATE', DELETED.propertyId, s.sourceId, s.externalId
+	INTO @tmp_property_changedAmenities ([action], propertyId, sourceId, externalId)
+	FROM holidayHomes.tab_property p
+	INNER JOIN staging.tab_property s
+	ON s.sourceId = p.sourceId
+	AND s.externalId = p.externalId
+	WHERE s.amenitiesChecksum <> p.amenitiesChecksum;
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info'
+	, messageContent = 'tab_property Amenities CHANGED:' + LTRIM(STR(COUNT(1)))
+	FROM @tmp_property_changedAmenities;
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
@@ -81,11 +106,9 @@ BEGIN
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
 	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
-	-- log counts
+	-- log update
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
-	SELECT @runId, 'info'
-	, messageContent = 'tab_property Amenities CHANGED:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedAmenities;
+	VALUES ( @runId, 'info', 'tab_property Amenities changes captured');
 
 	--merge new mappings with existing records (isolated with CTE)
 	--then capture changes in changeControl.tab_property2amenity_change for deployment
@@ -112,4 +135,13 @@ BEGIN
 	WHEN NOT MATCHED BY SOURCE THEN DELETE
 	OUTPUT @runId, $action, ISNULL(INSERTED.propertyId, DELETED.propertyId), ISNULL(INSERTED.amenityId, DELETED.amenityId)
 	INTO changeControl.tab_property2amenity_change (runId, [action], propertyId, amenityId);
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info'
+	, messageContent = 'tab_property2amenity ' + [action] + ':' + LTRIM(STR(COUNT(1)))
+	FROM changeControl.tab_property2amenity_change
+	WHERE runId = @runId
+	GROUP BY [action];
+
 END

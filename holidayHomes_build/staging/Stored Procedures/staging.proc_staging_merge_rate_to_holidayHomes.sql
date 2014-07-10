@@ -9,6 +9,7 @@
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-03-16 v03 changed datatype of @tmp_property_changedRates.externalId to NVARCHAR(200)
+--  2014-07-10     revised declaration of @tmp_property_changedRates
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_rate_to_holidayHomes]
   @runId INT
@@ -48,9 +49,17 @@ BEGIN
 	SELECT @runId, 'info', messageContent = 'tab_rate INSERT:' + LTRIM(STR(@@ROWCOUNT))
 
 	-- table to capture list of properties with changed rates
-	DECLARE @tmp_property_changedRates TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
+	DECLARE @tmp_property_changedRates TABLE
+		(
+		  [action] NVARCHAR(10) COLLATE DATABASE_DEFAULT NOT NULL
+		, sourceId INT NOT NULL
+		, propertyId BIGINT NOT NULL
+		, externalId NVARCHAR(100) COLLATE DATABASE_DEFAULT NOT NULL
+		, PRIMARY KEY (propertyId, [action])
+		);
 
 	--update checksums for existing properties and output list into above table
+	/*
 	MERGE INTO holidayHomes.tab_property AS p
 	USING (
 		SELECT sourceId, externalId, ratesChecksum
@@ -62,6 +71,22 @@ BEGIN
 	UPDATE SET ratesChecksum = imp.ratesChecksum
 	OUTPUT $action, DELETED.propertyId, imp.sourceId, imp.externalId
 	INTO @tmp_property_changedRates ([action], propertyId, sourceId, externalId);
+	*/
+	UPDATE holidayHomes.tab_property
+	SET ratesChecksum = s.ratesChecksum
+	OUTPUT 'UPDATE', DELETED.propertyId, s.sourceId, s.externalId
+	INTO @tmp_property_changedRates ([action], propertyId, sourceId, externalId)
+	FROM holidayHomes.tab_property p
+	INNER JOIN staging.tab_property s
+	ON s.sourceId = p.sourceId
+	AND s.externalId = p.externalId
+	WHERE s.ratesChecksum <> p.ratesChecksum;
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info'
+	, messageContent = 'tab_property Rates CHANGED:' + LTRIM(STR(COUNT(1)))
+	FROM @tmp_property_changedRates;
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
@@ -71,11 +96,9 @@ BEGIN
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
 	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
-	-- log counts
+	-- log update
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
-	SELECT @runId, 'info'
-	, messageContent = 'tab_property Rates CHANGED:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedRates;
+	VALUES ( @runId, 'info', 'tab_property Rates changes captured');
 
 	--merge new mappings with existing records (isolated with CTE)
 	--then capture changes in changeControl.tab_rate_change for deployment
@@ -105,5 +128,13 @@ BEGIN
 	WHEN NOT MATCHED BY SOURCE THEN DELETE
 	OUTPUT @runId, $action, ISNULL(INSERTED.propertyId, DELETED.propertyId), ISNULL(INSERTED.rateId, DELETED.rateId)
 	INTO changeControl.tab_rate_change (runId, [action], propertyId, rateId);
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info'
+	, messageContent = 'tab_rate ' + [action] + ':' + LTRIM(STR(COUNT(1)))
+	FROM changeControl.tab_rate_change
+	WHERE runId = @runId
+	GROUP BY [action];
 
 END

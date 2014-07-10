@@ -1,4 +1,4 @@
-﻿CREATE TABLE [staging].[tab_property] (
+CREATE TABLE [staging].[tab_property] (
     [sourceId]                              INT             NOT NULL,
     [runId]                                 INT             NOT NULL,
     [externalId]                            NVARCHAR (100)  NOT NULL,
@@ -43,13 +43,27 @@
 
 
 
+
+
 GO
 CREATE NONCLUSTERED INDEX [IX_staging_tab_property_importHashKeys]
     ON [staging].[tab_property]([propertyHashKey] ASC, [amenitiesChecksum] ASC, [photosChecksum] ASC, [ratesChecksum] ASC);
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_tab_property_merge]
+CREATE UNIQUE NONCLUSTERED INDEX [IX_tab_property_merge_rates]
     ON [staging].[tab_property]([sourceId] ASC, [externalId] ASC)
-    INCLUDE([amenitiesChecksum], [photosChecksum], [ratesChecksum]);
+    INCLUDE([ratesChecksum]);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_tab_property_merge_photos]
+    ON [staging].[tab_property]([sourceId] ASC, [externalId] ASC)
+    INCLUDE([photosChecksum]);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [IX_tab_property_merge_amenities]
+    ON [staging].[tab_property]([sourceId] ASC, [externalId] ASC)
+    INCLUDE([amenitiesChecksum]);
 

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [changeControl].[tab_property_change] (
+CREATE TABLE [changeControl].[tab_property_change] (
     [runId]      INT            NOT NULL,
     [action]     NVARCHAR (10)  NOT NULL,
     [sourceId]   INT            NOT NULL,
@@ -10,7 +10,9 @@
 
 
 
+
+
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IX_property_change]
-    ON [changeControl].[tab_property_change]([runId] ASC, [propertyId] ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [IX_property_change_merge]
+    ON [changeControl].[tab_property_change]([runId] ASC, [action] ASC, [sourceId] ASC, [externalId] ASC, [propertyId] ASC);
 
