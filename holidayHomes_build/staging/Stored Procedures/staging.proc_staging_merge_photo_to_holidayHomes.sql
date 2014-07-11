@@ -10,6 +10,7 @@
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-03-16 v03 changed datatype of @tmp_property_changedPhotos.externalId to NVARCHAR(200)
 --  2014-07-10     revised declaration of @tmp_property_changedRates
+--  2014-07-11     poorly performing temporary table variable now replaced with a real table
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_photo_to_holidayHomes]
   @runId INT
@@ -42,6 +43,7 @@ BEGIN
 	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT))
 
 	-- table to capture list of properties with changed photos
+	/*
 	DECLARE @tmp_property_changedPhotos TABLE
 		(
 		  [action] NVARCHAR(10) COLLATE DATABASE_DEFAULT NOT NULL
@@ -50,6 +52,8 @@ BEGIN
 		, externalId NVARCHAR(100) COLLATE DATABASE_DEFAULT NOT NULL
 		, PRIMARY KEY (propertyId, [action])
 		);
+	*/
+	TRUNCATE TABLE holidayHomes.tab_property_changedPhotos;
 
 	--update checksums for existing properties and output list into above table
 	/*
@@ -67,7 +71,7 @@ BEGIN
 	UPDATE holidayHomes.tab_property
 	SET photosChecksum = s.photosChecksum
 	OUTPUT 'UPDATE', DELETED.propertyId, s.sourceId, s.externalId
-	INTO @tmp_property_changedPhotos ([action], propertyId, sourceId, externalId)
+	INTO holidayHomes.tab_property_changedPhotos ([action], propertyId, sourceId, externalId)
 	FROM holidayHomes.tab_property p
 	INNER JOIN staging.tab_property s
 	ON s.sourceId = p.sourceId
@@ -78,11 +82,11 @@ BEGIN
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
 	, messageContent = 'tab_property Photos CHANGED:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedPhotos;
+	FROM holidayHomes.tab_property_changedPhotos;
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
-	USING @tmp_property_changedPhotos chg
+	USING holidayHomes.tab_property_changedPhotos chg
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
@@ -98,13 +102,13 @@ BEGIN
 	(
 		SELECT ph.photoId, ph.propertyId, ph.position, ph.url, ph.runId
 		FROM holidayHomes.tab_photo ph
-		INNER JOIN @tmp_property_changedPhotos chg
+		INNER JOIN holidayHomes.tab_property_changedPhotos chg
 		ON chg.propertyId = ph.propertyId
 	)
 	MERGE INTO ph
 	USING (
 		SELECT chg.propertyId, stgph.position, RTRIM(LEFT(stgph.url, 255)) AS url, stgph.runId
-		FROM @tmp_property_changedPhotos chg
+		FROM holidayHomes.tab_property_changedPhotos chg
 		INNER JOIN staging.tab_photo stgph
 			ON stgph.sourceId = chg.sourceId
 			AND stgph.externalId = chg.externalId

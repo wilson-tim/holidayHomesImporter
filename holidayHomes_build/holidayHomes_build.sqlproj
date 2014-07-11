@@ -204,6 +204,9 @@
     <Build Include="nineflats\Tables\nineflats.imp_photo.sql" />
     <Build Include="nineflats\Tables\nineflats.imp_property.sql" />
     <Build Include="Security\nineflats.sql" />
+    <Build Include="holidayHomes\Tables\tab_property_changedRates.sql" />
+    <Build Include="holidayHomes\Tables\tab_property_changedPhotos.sql" />
+    <Build Include="holidayHomes\Tables\tab_property_changedAmenities.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

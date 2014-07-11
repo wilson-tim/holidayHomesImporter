@@ -10,6 +10,7 @@
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-03-16 v03 changed datatype of @tmp_property_changedAmenities.externalId to NVARCHAR(200)
 --  2014-07-10     revised declaration of @tmp_property_changedRates
+--  2014-07-11     poorly performing temporary table variable now replaced with a real table
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_amenity_to_holidayHomes]
   @runId INT
@@ -59,6 +60,7 @@ BEGIN
 	-- amenities persist, so simplest to delete existing and add new records to tab_property2amenity
 
 	-- table to capture list of properties with changed amenities
+	/*
 	DECLARE @tmp_property_changedAmenities TABLE
 		(
 		  [action] NVARCHAR(10) COLLATE DATABASE_DEFAULT NOT NULL
@@ -67,6 +69,8 @@ BEGIN
 		, externalId NVARCHAR(100) COLLATE DATABASE_DEFAULT NOT NULL
 		, PRIMARY KEY (propertyId, [action])
 		);
+	*/
+	TRUNCATE TABLE holidayHomes.tab_property_changedAmenities;
 
 	--update checksums for existing properties and output list into above table
 	/*
@@ -85,7 +89,7 @@ BEGIN
 	UPDATE holidayHomes.tab_property
 	SET amenitiesChecksum = s.amenitiesChecksum
 	OUTPUT 'UPDATE', DELETED.propertyId, s.sourceId, s.externalId
-	INTO @tmp_property_changedAmenities ([action], propertyId, sourceId, externalId)
+	INTO holidayHomes.tab_property_changedAmenities ([action], propertyId, sourceId, externalId)
 	FROM holidayHomes.tab_property p
 	INNER JOIN staging.tab_property s
 	ON s.sourceId = p.sourceId
@@ -96,11 +100,11 @@ BEGIN
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
 	SELECT @runId, 'info'
 	, messageContent = 'tab_property Amenities CHANGED:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedAmenities;
+	FROM holidayHomes.tab_property_changedAmenities;
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
-	USING @tmp_property_changedAmenities chg
+	USING holidayHomes.tab_property_changedAmenities chg
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
@@ -116,13 +120,13 @@ BEGIN
 	(
 		SELECT p2a.propertyId, p2a.amenityId, p2a.runId
 		FROM holidayHomes.tab_property2amenity p2a
-		INNER JOIN @tmp_property_changedAmenities chg
+		INNER JOIN holidayHomes.tab_property_changedAmenities chg
 		ON chg.propertyId = p2a.propertyId
 	)
 	MERGE INTO p2a
 	USING (
 		SELECT chg.propertyId, stg2a.amenityId, stg2a.runId
-		FROM @tmp_property_changedAmenities chg
+		FROM holidayHomes.tab_property_changedAmenities chg
 		INNER JOIN staging.tab_property2amenity stg2a
 			ON stg2a.sourceId = chg.sourceId
 			AND stg2a.externalId = chg.externalId

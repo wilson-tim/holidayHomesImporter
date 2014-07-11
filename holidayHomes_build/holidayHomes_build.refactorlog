@@ -7,4 +7,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="conciergeAvailable" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="266a22b7-705b-4cb9-b230-af872da85ba2" ChangeDateTime="07/11/2014 08:24:58">
+    <Property Name="ElementName" Value="[dbo].[tab_property_changedRates].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tab_property_changedRates]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="propertyId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="da49581b-ebc2-44bf-9f78-61b726250ba9" ChangeDateTime="07/11/2014 08:25:19">
+    <Property Name="ElementName" Value="[dbo].[tab_property_changedRates].[[action]]]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[tab_property_changedRates]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="action" />
+  </Operation>
 </Operations>
