@@ -63,12 +63,5 @@ BEGIN
 		AND ISNULL(p.longitude, 0) <> h.longitude
 	;
 
-	-- Just in case...
-	UPDATE dbo.tab_property
-	SET   latitude  = NULL
-		, longitude = NULL
-	WHERE ABS(ISNULL(latitude, 0)) > 90 OR ABS(ISNULL(longitude, 0)) > 180
-	;
-
 END
 GO
