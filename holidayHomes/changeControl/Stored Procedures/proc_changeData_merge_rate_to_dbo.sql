@@ -8,6 +8,7 @@
 --		
 -- history
 --	2014-01-16 created
+--  2014-07-15 TW property record archiving feature
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [changeControl].[proc_changeData_merge_rate_to_dbo]
 AS
@@ -18,11 +19,13 @@ BEGIN
 
 	MERGE INTO dbo.tab_rate AS rate
 	USING (
-		SELECT rc.[action], rc.rateId, r.propertyId, r.periodType, r.[from], r.[to], r.currencyCode, r.runId
+		SELECT rc.[action], rc.rateId, rc.propertyId, r.periodType, r.[from], r.[to], r.currencyCode, r.runId, pp.isActive
 		FROM changeControl.tab_rate_change rc
 		LEFT OUTER JOIN changeData.tab_rate r
 		ON r.rateId = rc.rateId
-	) AS src ([action], rateId, propertyId, periodType, [from], [to], currencyCode, runId)
+		LEFT OUTER JOIN dbo.tab_property pp
+		ON pp.propertyId = rc.propertyId
+	) AS src ([action], rateId, propertyId, periodType, [from], [to], currencyCode, runId, isActive)
 	ON src.rateId = rate.rateId
 
 	WHEN NOT MATCHED BY TARGET AND src.[action] = 'INSERT' THEN INSERT (rateId, propertyId, periodType, [from], [to], currencyCode, runId)
@@ -36,7 +39,8 @@ BEGIN
 	, currencyCode = src.currencyCode
 	, runId = src.runId
 
-	WHEN MATCHED AND src.[action] = 'DELETE' THEN DELETE
+	-- Property archiving feature - only DELETE if the parent property record is currently active
+	WHEN MATCHED AND src.[action] = 'DELETE' AND src.isActive = 1 THEN DELETE
 
 	-- capture changes for logging output
 	OUTPUT $action, ISNULL(INSERTED.rateId, DELETED.rateId)
