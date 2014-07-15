@@ -9,23 +9,11 @@
 -- History
 --	2014-07-14 TW New
 --------------------------------------------------------------------------------------------
-CREATE PROCEDURE [dbo].[proc_proc_updatePropertyCountryCode]
+CREATE PROCEDURE [dbo].[proc_updatePropertyCountryCode]
 AS
 BEGIN
 
 	-- Update country code lookup table with new properties to lookup country codes for
-	/*
-	INSERT INTO dbo.tab_propertyCountryLookup
-		(sourceId, externalId, propertyId, latitude, longitude)
-	SELECT p.sourceId, p.externalId, p.propertyId, p.latitude, p.longitude
-	FROM dbo.tab_propertyCountryLookup
-	LEFT OUTER JOIN dbo.tab_propertyCountryLookup pc
-	ON pc.propertyId = p.propertyId
-	WHERE pc.propertyId IS NULL
-		AND (p.countryCode IS NULL)
-		AND (ABS(ISNULL(p.latitude, 0)) <= 90 AND ABS(ISNULL(p.longitude, 0)) <= 180)
-	;
-	*/
 	MERGE INTO dbo.tab_propertyCountryLookup pc
 	USING dbo.tab_property p
 	ON pc.propertyId = p.propertyId
