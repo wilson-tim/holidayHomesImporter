@@ -9,14 +9,15 @@
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-03-16 v03 changed datatype of @tmp_property_changedPhotos.externalId to NVARCHAR(200)
---  2014-07-10     revised declaration of @tmp_property_changedRates
---  2014-07-11     poorly performing temporary table variable now replaced with a real table
+--  2014-07-10 TW  revised declaration of @tmp_property_changedRates
+--  2014-07-11 TW  poorly performing temporary table variable now replaced with a real table
+--  2014-07-16 TW  child records of deleted properties were not being processed    
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_photo_to_holidayHomes]
   @runId INT
 AS
 BEGIN
-	DECLARE @rowcount INT, @message VARCHAR(255)
+	DECLARE @rowcount INT, @message VARCHAR(255);
 
 	--insert new photo records
 	--using merge instead of simple insert to to capture output into change table
@@ -29,7 +30,7 @@ BEGIN
 			AND ph.externalId = new.externalId
 		WHERE new.runId = @runId
 		AND new.[action] = 'INSERT'
-	) as stg_ph
+	) AS stg_ph
 	ON stg_ph.propertyId = ph.propertyId
 	AND stg_ph.position = ph.position
 	AND stg_ph.url = ph.url
@@ -40,7 +41,28 @@ BEGIN
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
-	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT))
+	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT));
+
+	--check for deleted properties and delete related photo records
+	MERGE INTO holidayHomes.tab_photo AS ph
+	USING (
+		SELECT old.propertyId, old.runId, old.[action]
+		FROM changeControl.tab_property_change old
+		LEFT OUTER JOIN holidayHomes.tab_property prop
+		ON prop.propertyId = old.propertyId
+		WHERE
+			old.[action] = 'DELETE'
+		AND
+			(old.runId = @runId OR prop.propertyId IS NULL)
+	) AS src (propertyId, runId, [action])
+	ON src.propertyId = ph.propertyId
+	WHEN MATCHED THEN DELETE
+	OUTPUT @runId, $action, DELETED.photoId, DELETED.propertyId
+	INTO changeControl.tab_photo_change (runId, [action], photoId, propertyId);
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info', messageContent = 'tab_photo DELETE:' + LTRIM(STR(@@ROWCOUNT));
 
 	-- table to capture list of properties with changed photos
 	/*

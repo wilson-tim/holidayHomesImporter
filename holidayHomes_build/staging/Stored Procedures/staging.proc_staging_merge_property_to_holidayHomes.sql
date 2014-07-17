@@ -15,15 +15,15 @@ CREATE PROCEDURE [staging].[proc_staging_merge_property_to_holidayHomes]
   @runId INT
 AS
 BEGIN
-	DECLARE @rowcount INT, @message VARCHAR(255)
+	DECLARE @rowcount INT, @message VARCHAR(255);
 	
 	--capture affected sources to restrict merge queries
-	DECLARE @tmp_stagingSource TABLE (sourceId INT NOT NULL PRIMARY KEY)
+	DECLARE @tmp_stagingSource TABLE (sourceId INT NOT NULL PRIMARY KEY);
 
 	INSERT @tmp_stagingSource (sourceId)
 	SELECT DISTINCT sourceId FROM staging.tab_property;
 
-	--use CTE to restrict target records to jsut the source we are dealing with
+	--use CTE to restrict target records to just the source we are dealing with
 	WITH prop AS (
 		SELECT prop.propertyId, prop.sourceId, prop.runId, prop.externalId, prop.thumbnailUrl, prop.externalURL, prop.[description], prop.name, prop.regionName, prop.typeOfProperty, prop.postcode, prop.regionId, prop.cityId
 		, prop.cityName, prop.countryCode, prop.latitude, prop.longitude, prop.checkInFrom, prop.checkOutBefore, prop.sizeOfSpaceInSqm, prop.sizeOfSpaceInSqft, prop.cancellationPolicy

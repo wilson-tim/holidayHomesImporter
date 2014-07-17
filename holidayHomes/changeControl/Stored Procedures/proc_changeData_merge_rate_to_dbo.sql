@@ -39,8 +39,8 @@ BEGIN
 	, currencyCode = src.currencyCode
 	, runId = src.runId
 
-	-- Property archiving feature - only DELETE if the parent property record is currently active
-	WHEN MATCHED AND src.[action] = 'DELETE' AND src.isActive = 1 THEN DELETE
+	-- Property archiving feature - only DELETE if the parent property record is currently active or is not physically present
+	WHEN MATCHED AND src.[action] = 'DELETE' AND (src.isActive = 1 OR src.isActive IS NULL) THEN DELETE
 
 	-- capture changes for logging output
 	OUTPUT $action, ISNULL(INSERTED.rateId, DELETED.rateId)

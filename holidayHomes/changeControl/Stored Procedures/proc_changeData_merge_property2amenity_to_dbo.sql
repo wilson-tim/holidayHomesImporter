@@ -40,8 +40,8 @@ BEGIN
 	WHEN MATCHED AND src.[action] = 'UPDATE' THEN UPDATE
 	SET runId = src.runId
 
-	-- Property archiving feature - only DELETE if the parent property record is currently active
-	WHEN MATCHED AND src.[action] = 'DELETE' AND src.isActive = 1 THEN DELETE
+	-- Property archiving feature - only DELETE if the parent property record is currently active or is not physically present
+	WHEN MATCHED AND src.[action] = 'DELETE' AND (src.isActive = 1 OR src.isActive IS NULL) THEN DELETE
 
 	OUTPUT $action, ISNULL(INSERTED.propertyId, DELETED.propertyId), ISNULL(INSERTED.amenityId, DELETED.amenityId)
 	INTO @tmp_property2amenity_changed ([action], propertyId, amenityId);
