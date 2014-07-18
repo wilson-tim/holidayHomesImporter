@@ -12,6 +12,7 @@
 --	2014-07-11 JP added parameter typeOfProperty
 --  2014-07-11 TW revised parameter @sourceId to @sourceIds
 --                and enabled a comma delimited list of partner ids to be passed
+--  2014-07-18 TW Added additional column for isActive flag
 -- =============================================
 
 CREATE PROCEDURE [dbo].[propertyIdSearch]
@@ -119,6 +120,7 @@ BEGIN
 				ELSE
 					(p.minimumPricePerNight / currency.rate)
 			END
+		, p.isActive
 	FROM dbo.tab_property p
 	INNER JOIN dbo.SplitString(@externalIds, ',') AS split
 	ON split.Item = p.externalId

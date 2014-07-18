@@ -25,6 +25,7 @@
 -- History
 --	2014-06-12 TW New
 --  2014-07-08 TW Added additional parameters per dbo.propertySearch
+--  2014-07-18 TW Added additional where condition for isActive flag
 -- =============================================
 
 CREATE PROCEDURE [dbo].[propertyKeywordSearch]
@@ -218,6 +219,7 @@ BEGIN
 	AND ( @sleeps IS NULL OR p.maximumNumberOfPeople >= @sleeps )
 	AND ( @maxSleeps IS NULL OR p.maximumNumberOfPeople <= @maxSleeps )
 	AND ( @numberOfBedrooms IS NULL OR P.numberOfProperBedrooms = @numberOfBedrooms )
+	AND ( isActive = 1 )
 	AND
 	(
 		@sourceIdCount = 0

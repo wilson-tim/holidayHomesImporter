@@ -8,6 +8,7 @@
 --  2014-04-11 TW optimised
 --  2014-04-15 TW added faceted search criteria parameters @amenityFacets, @specReqFacets, @propertyTypeFacets
 --                (each passed as comma delimited lists, e.g. '1,7,10')
+--  2014-07-18 TW Added additional where condition for isActive flag
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaSearchFacetCounts]
 -- Add the parameters for the stored procedure here
@@ -204,6 +205,8 @@ BEGIN
 			@maxPrice >= (minimumPricePerNight / curr.rate)
 			)
 		)
+	  AND
+       isActive = 1
 	  AND
 	   (
        @sourceIdCount = 0
