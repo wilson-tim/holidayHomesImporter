@@ -7,13 +7,13 @@
   DTS:CreatorName="Compaq\Admin"
   DTS:DTSID="{B532A296-0118-4371-BDE7-F385C0629C75}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.5058.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="nineflats_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="176"
-  DTS:VersionGUID="{8B1B8569-05CF-4467-B86C-246787BCF000}">
+  DTS:VersionBuild="185"
+  DTS:VersionGUID="{3309463E-7823-4CF2-8C33-85B50C1E90C1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\nineflats_import_{379ABDDF-6D69-47CC-B832-2CB5FA91037E}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\nineflats_import_{A4052108-7944-4770-A649-9BF6155B5CDB}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -423,6 +423,34 @@
     </DTS:SelectedLogProviders>
   </DTS:LoggingOptions>
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Assign rowsImported"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8C299B00-EA38-47C3-8395-9C646865A92C}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Assign rowsImported"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
+          SQLTask:SqlStatementSource="SELECT rowsImported = COUNT(*) FROM nineflats.imp_property WHERE runId = ?;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="rowsImported"
+            SQLTask:DtsVariableName="Internal::rowsImported" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::runId"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\copy to FK staging tables"
       DTS:CreationName="SSIS.Pipeline.3"
@@ -2597,10 +2625,10 @@ AND stgp.externalId IS NULL</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{34664FAB-B566-4EF8-94D6-21F3A73F4093}"
-          SQLTask:SqlStatementSource="SELECT COUNT(*)&#xA;FROM dbo.nineflatsJson&#xA;WHERE xmlFormat IS NOT NULL&#xA;AND xmlFormat &lt;&gt; ''"
+          SQLTask:SqlStatementSource="SELECT totalRecordCount = COUNT(*)&#xA;FROM dbo.nineflatsJson&#xA;WHERE xmlFormat IS NOT NULL&#xA;AND xmlFormat &lt;&gt; '';"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
-            SQLTask:ResultName="0"
+            SQLTask:ResultName="totalRecordCount"
             SQLTask:DtsVariableName="Internal::totalRecordCount" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
@@ -7219,7 +7247,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="INSERT import.tab_runFile ( runId, fileId, dateImported, rowsImported)&#xA;VALUES (?, ?, getDate(), ?)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="INSERT import.tab_runFile ( runId, fileId, dateImported, rowsImported)&#xA;VALUES (?, ?, getDate(), ?);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="0"
             SQLTask:DtsVariableName="$Package::runId"
@@ -7257,21 +7285,21 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="DECLARE @runId INT&#xA;SET @runId = ?&#xA;&#xA;DECLARE @message VARCHAR (255)&#xA;&#xA;SET @message = 'nineflats: raw place records inserted: ' + LTRIM(STR(?))&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (@runId, 'insert', @message, ?);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="DECLARE @message VARCHAR (255);&#xA;&#xA;SET @message = 'nineflats: raw place records inserted: ' + LTRIM(STR(?));&#xA;&#xA;INSERT import.tab_runLog ( runId, messageType, messageContent, sourceId) VALUES (?, 'insert', @message, ?);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
-            SQLTask:ParameterName="@runId"
-            SQLTask:DtsVariableName="$Package::runId"
-            SQLTask:ParameterDirection="Input"
-            SQLTask:DataType="3"
-            SQLTask:ParameterSize="-1" />
-          <SQLTask:ParameterBinding
-            SQLTask:ParameterName="@rowsImported"
+            SQLTask:ParameterName="0"
             SQLTask:DtsVariableName="Internal::rowsImported"
             SQLTask:ParameterDirection="Input"
             SQLTask:DataType="3"
             SQLTask:ParameterSize="-1" />
           <SQLTask:ParameterBinding
-            SQLTask:ParameterName="@sourceId"
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="$Package::runId"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
             SQLTask:DtsVariableName="$Package::sourceId"
             SQLTask:ParameterDirection="Input"
             SQLTask:DataType="3"
@@ -7372,6 +7400,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\merge imp_amenity to staging tab_amenity" />
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{AA3F8599-1F74-4406-8467-981CAF45DBBB}"
+      DTS:From="Package\Assign rowsImported"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Log raw import counts" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
       DTS:DTSID="{8203D162-3FCD-4A0E-84A2-DE661F88E2BA}"
@@ -7414,11 +7450,11 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
       DTS:CreationName=""
-      DTS:DTSID="{524F5179-D86C-4714-9B1F-A93C09C46338}"
+      DTS:DTSID="{E00F3539-8A9B-40DA-B265-8439EBCE2F2E}"
       DTS:From="Package\copy to FK staging tables"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 7"
-      DTS:To="Package\Log raw import counts" />
+      DTS:To="Package\Assign rowsImported" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
       DTS:CreationName=""
@@ -7448,6 +7484,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     <LayoutInfo>
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Assign rowsImported"
+          TopLeft="268,1646" />
         <NodeLayout
           Size="197,42"
           Id="Package\copy to FK staging tables"
@@ -7644,11 +7684,11 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <NodeLayout
           Size="161,42"
           Id="Package\insert tab_runFile"
-          TopLeft="276,1736" />
+          TopLeft="278,1823" />
         <NodeLayout
           Size="185,42"
           Id="Package\Log raw import counts"
-          TopLeft="260,1644.5" />
+          TopLeft="267,1737.5" />
         <NodeLayout
           Size="285,42"
           Id="Package\merge imp_amenity to staging tab_amenity"
@@ -7702,6 +7742,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="358.25,1688">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49.5"
+              Start="0,0"
+              End="0,42">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
           TopLeft="356.5,290">
           <EdgeLayout.Curve>
@@ -7725,18 +7787,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="354.5,1686.5">
+          TopLeft="359,1779.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,49.5"
+              EndConnector="0,43.5"
               Start="0,0"
-              End="0,42">
+              End="0,36">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,42" />
+                    End="0,36" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -7813,18 +7875,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="352.75,1608.16770633324">
+          TopLeft="355,1608.16770633324">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,36.3322936667601"
+              EndConnector="0,37.8322936667601"
               Start="0,0"
-              End="0,28.8322936667601">
+              End="0,30.3322936667601">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,28.8322936667601" />
+                    End="0,30.3322936667601" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -7892,17 +7954,17 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           Id="50118a36-704d-476c-bcb6-292cd14c08dd"
           TopLeft="614,949" />
         <AnnotationLayout
-          Text="Processing 1000 XML records&#xD;&#xA;at a time, or the final group&#xD;&#xA;of XML records"
+          Text="Processing 1000 XML records&#xA;at a time, or the final group&#xA;of XML records"
           ParentId="Package"
           FontInfo="{assembly:Null}"
           Size="184,72"
           Id="320b0873-8e89-46b5-a465-44bce6ab8c5d"
           TopLeft="617,862" />
         <AnnotationLayout
-          Text="Get ready to process&#xD;&#xA;the next 1000 records"
+          Text="Get ready to process&#xA;the next 1000 records"
           ParentId="Package"
           FontInfo="{assembly:Null}"
-          Size="144,60"
+          Size="144,56"
           Id="0b7c7c8a-a0f3-423f-a4c2-f5e42027bd77"
           TopLeft="617,1167" />
       </GraphLayout>
@@ -8148,6 +8210,114 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           Size="127,42"
           Id="Package\Foreach XML record\Process XML record\MJ photos"
           TopLeft="510,187" />
+        <EdgeLayout
+          Id="Package\Foreach XML record\Process XML record.Paths[amenity]"
+          TopLeft="339.5,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="239.5,176"
+              Start="0,0"
+              End="239.5,168.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.9560975609756" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56.9560975609756"
+                    Point2="0,60.9560975609756"
+                    Point3="4,60.9560975609756" />
+                  <mssgle:LineSegment
+                    End="235.5,60.9560975609756" />
+                  <mssgle:CubicBezierSegment
+                    Point1="235.5,60.9560975609756"
+                    Point2="239.5,60.9560975609756"
+                    Point3="239.5,64.9560975609756" />
+                  <mssgle:LineSegment
+                    End="239.5,168.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="101.356015625,65.9560975609756,36.78796875,11.3310546875"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach XML record\Process XML record.Paths[amenities]"
+          TopLeft="339.5,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="239.5,176"
+              Start="0,0"
+              End="239.5,168.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.9560975609756" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56.9560975609756"
+                    Point2="0,60.9560975609756"
+                    Point3="4,60.9560975609756" />
+                  <mssgle:LineSegment
+                    End="235.5,60.9560975609756" />
+                  <mssgle:CubicBezierSegment
+                    Point1="235.5,60.9560975609756"
+                    Point2="239.5,60.9560975609756"
+                    Point3="239.5,64.9560975609756" />
+                  <mssgle:LineSegment
+                    End="239.5,168.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="97.92037109375,65.9560975609756,43.6592578125,9.470703125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach XML record\Process XML record.Paths[additional_photos]"
+          TopLeft="308,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="265.5,88"
+              Start="0,0"
+              End="265.5,80.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,40" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,40"
+                    Point2="0,44"
+                    Point3="4,44" />
+                  <mssgle:LineSegment
+                    End="261.5,44" />
+                  <mssgle:CubicBezierSegment
+                    Point1="261.5,44"
+                    Point2="265.5,44"
+                    Point3="265.5,48" />
+                  <mssgle:LineSegment
+                    End="265.5,80.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="92.98037109375,49,79.5392578125,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Foreach XML record\Process XML record.Paths[place]"
           TopLeft="276.5,99">
@@ -8400,114 +8570,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach XML record\Process XML record.Paths[amenity]"
-          TopLeft="339.5,99">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="239.5,176"
-              Start="0,0"
-              End="239.5,168.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56.9560975609756" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,56.9560975609756"
-                    Point2="0,60.9560975609756"
-                    Point3="4,60.9560975609756" />
-                  <mssgle:LineSegment
-                    End="235.5,60.9560975609756" />
-                  <mssgle:CubicBezierSegment
-                    Point1="235.5,60.9560975609756"
-                    Point2="239.5,60.9560975609756"
-                    Point3="239.5,64.9560975609756" />
-                  <mssgle:LineSegment
-                    End="239.5,168.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="101.356015625,65.9560975609756,36.78796875,11.3310546875"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach XML record\Process XML record.Paths[amenities]"
-          TopLeft="339.5,99">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="239.5,176"
-              Start="0,0"
-              End="239.5,168.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56.9560975609756" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,56.9560975609756"
-                    Point2="0,60.9560975609756"
-                    Point3="4,60.9560975609756" />
-                  <mssgle:LineSegment
-                    End="235.5,60.9560975609756" />
-                  <mssgle:CubicBezierSegment
-                    Point1="235.5,60.9560975609756"
-                    Point2="239.5,60.9560975609756"
-                    Point3="239.5,64.9560975609756" />
-                  <mssgle:LineSegment
-                    End="239.5,168.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="97.92037109375,65.9560975609756,43.6592578125,9.470703125"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Foreach XML record\Process XML record.Paths[additional_photos]"
-          TopLeft="308,99">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="265.5,88"
-              Start="0,0"
-              End="265.5,80.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,40" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,40"
-                    Point2="0,44"
-                    Point3="4,44" />
-                  <mssgle:LineSegment
-                    End="261.5,44" />
-                  <mssgle:CubicBezierSegment
-                    Point1="261.5,44"
-                    Point2="265.5,44"
-                    Point3="265.5,48" />
-                  <mssgle:LineSegment
-                    End="265.5,80.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="92.98037109375,49,79.5392578125,11.609375"
-              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
