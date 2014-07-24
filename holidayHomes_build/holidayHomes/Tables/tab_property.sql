@@ -38,6 +38,8 @@
     [amenitiesChecksum]                     BIGINT          NULL,
     [photosChecksum]                        BIGINT          NULL,
     [ratesChecksum]                         BIGINT          NULL,
+    [isActive]                              BIT             NULL, 
+    [statusUpdated]                         DATETIME        NULL, 
     CONSTRAINT [PK_tab_property] PRIMARY KEY NONCLUSTERED ([propertyId] ASC)
 );
 

@@ -122,7 +122,7 @@ BEGIN
 	OUTPUT $action, ISNULL(INSERTED.propertyId, DELETED.propertyId)
 	INTO @tmp_property_changed ([action], propertyId);
 
-	-- Property archiving feature
+	-- Property archiving feature, capturing changes for deployment
 	UPDATE dbo.tab_property
 	SET   isActive = 0
 		, statusUpdated = GETDATE()

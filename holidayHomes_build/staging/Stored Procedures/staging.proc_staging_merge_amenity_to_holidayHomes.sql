@@ -12,6 +12,7 @@
 --  2014-07-10 TW  revised declaration of @tmp_property_changedRates
 --  2014-07-11 TW  poorly performing temporary table variable now replaced with a real table
 --  2014-07-16 TW  child records of deleted properties were not being processed    
+--  2014-07-23 TW  property record archiving feature
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_amenity_to_holidayHomes]
   @runId INT
@@ -62,11 +63,16 @@ BEGIN
 		SELECT old.propertyId, old.runId, old.[action]
 		FROM changeControl.tab_property_change old
 		LEFT OUTER JOIN holidayHomes.tab_property prop
-		ON prop.propertyId = old.propertyId
+			ON prop.propertyId = old.propertyId
 		WHERE
-			old.[action] = 'DELETE'
-		AND
-			(old.runId = @runId OR prop.propertyId IS NULL)
+			old.runId = @runId
+			AND
+			(
+			-- Property archiving feature - only DELETE if the parent property record is currently active or is not physically present
+			(old.[action] = 'DELETE' AND prop.isActive = 1)
+			OR
+			(prop.isActive IS NULL)
+			)
 	) AS src (propertyId, runId, [action])
 	ON src.propertyId = p2a.propertyId
 	WHEN MATCHED THEN DELETE
