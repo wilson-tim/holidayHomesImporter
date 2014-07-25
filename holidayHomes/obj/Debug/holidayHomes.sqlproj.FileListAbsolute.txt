@@ -13,9 +13,16 @@ C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\bin\Debug\holidayHo
 C:\Users\Matt\Dropbox\Work\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.sqlprojResolveAssemblyReference.cache
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes.dacpac
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.sqlprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.dll
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes.dll
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\clr.dll
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\clrUtilities.dll
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\clr.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes_build.dacpac
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\master.dacpac
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\Model.xml
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\refactor.xml
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\postdeploy.sql
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\predeploy.sql
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.dll
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\holidayHomes.pdb

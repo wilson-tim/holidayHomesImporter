@@ -5,9 +5,11 @@
     [messageContent] VARCHAR (8000) NULL,
     [entryDate]      DATETIME       CONSTRAINT [DF_runLog_entryDate] DEFAULT (getdate()) NOT NULL,
     [sourceId]       INT            NULL,
-    PRIMARY KEY CLUSTERED ([runLogId] ASC),
-    FOREIGN KEY ([runId]) REFERENCES [import].[tab_run] ([runId])
+    CONSTRAINT [PK_runLog_runLogId] PRIMARY KEY CLUSTERED ([runLogId] ASC),
+    CONSTRAINT [FK_tab_run_runLog] FOREIGN KEY ([runId]) REFERENCES [import].[tab_run] ([runId])
 );
+
+
 
 
 

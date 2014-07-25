@@ -8,6 +8,7 @@
 --		
 -- History
 --	2014-04-10 TW New
+--  2014-05-21 TW Using child table dbo.tab_propertyTypeFacetsLookup
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[proc_update_tab_propertyFacts]
 AS
@@ -71,6 +72,7 @@ BEGIN
 		INNER JOIN dbo.tab_propertyTypeFacets
 		ON dbo.tab_property.typeOfProperty LIKE dbo.tab_propertyTypeFacets.propertyTypeFacetName + '%'
 		*/
+		-- Using child table dbo.tab_propertyTypeFacetsLookup
 		SELECT dbo.tab_property.propertyId
 		, 3 AS propertyFacetId
 		, dbo.tab_propertyFacets.propertyFacetName
@@ -97,34 +99,35 @@ BEGIN
 	-- changed data
 	WHEN MATCHED AND
 		(
-		facts.propertyFacetName <> facts_CTE.PropertyFacetName
+		ISNULL(facts.propertyFacetName, '') <> ISNULL(facts_CTE.PropertyFacetName, '')
 		AND
-		facts.facetName <> facts_CTE.facetName
+		ISNULL(facts.facetName, '') <> ISNULL(facts_CTE.facetName, '')
 		)
-		THEN UPDATE SET
-			facts.propertyFacetName = facts_CTE.PropertyFacetName
+		THEN
+		UPDATE SET
+			  facts.propertyFacetName = facts_CTE.PropertyFacetName
 			, facts.facetName = facts_CTE.facetName
 
 	-- new data
 	WHEN NOT MATCHED BY TARGET THEN
 		INSERT
-				(
-				propertyId
-				, propertyFacetId
-				, propertyFacetName
-				, facetId
-				, facetName
-				, dataId
-				)
-			VALUES
-				(
-				facts_CTE.propertyId
-				, facts_CTE.propertyFacetId
-				, facts_CTE.propertyFacetName
-				, facts_CTE.FacetId
-				, facts_CTE.FacetName
-				, facts_CTE.dataId
-				)
+			(
+			  propertyId
+			, propertyFacetId
+			, propertyFacetName
+			, facetId
+			, facetName
+			, dataId
+			)
+		VALUES
+			(
+			  facts_CTE.propertyId
+			, facts_CTE.propertyFacetId
+			, facts_CTE.propertyFacetName
+			, facts_CTE.FacetId
+			, facts_CTE.FacetName
+			, facts_CTE.dataId
+			)
 
 	-- deleted data
 	WHEN NOT MATCHED BY SOURCE THEN

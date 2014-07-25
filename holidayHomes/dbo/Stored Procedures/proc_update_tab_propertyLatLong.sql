@@ -1,13 +1,13 @@
 ﻿--------------------------------------------------------------------------------------------
 --	2014-03-31 TW
---	dbo.proc_updateData_tab_propertyLatLong
+--	dbo.proc_update_tab_propertyLatLong
 --  
 --  updates table dbo.tab_propertyLatLong for new / changed / deleted geographic data
 --		
 -- History
 --	2014-03-31 TW New
 --------------------------------------------------------------------------------------------
-CREATE PROCEDURE [dbo].[proc_updateData_tab_propertyLatLong]
+CREATE PROCEDURE [dbo].[proc_update_tab_propertyLatLong]
 AS
 BEGIN
 

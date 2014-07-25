@@ -8,6 +8,7 @@
 --		
 -- history
 --	2014-01-16 created
+--  2014-07-15 TW property record archiving feature
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [changeControl].[proc_changeData_merge_photo_to_dbo]
 AS
@@ -18,11 +19,13 @@ BEGIN
 
 	MERGE INTO dbo.tab_photo AS photo
 	USING (
-		SELECT phc.[action], phc.photoId, phc.propertyId, ph.position, ph.url, ph.runId
+		SELECT phc.[action], phc.photoId, phc.propertyId, ph.position, ph.url, ph.runId, pp.isActive
 		FROM changeControl.tab_photo_change phc
 		LEFT OUTER JOIN changeData.tab_photo ph
 		ON ph.photoId = phc.photoId
-	) AS src ([action], photoId, propertyId, position, url, runId)
+		LEFT OUTER JOIN dbo.tab_property pp
+		ON pp.propertyId = phc.propertyId
+	) AS src ([action], photoId, propertyId, position, url, runId, isActive)
 	ON src.photoId = photo.photoId
 
 	WHEN NOT MATCHED BY TARGET AND src.[action] = 'INSERT' THEN INSERT (photoId, propertyId, position, url, runId)
@@ -34,7 +37,8 @@ BEGIN
 	, url = src.url
 	, runId = src.runId
 
-	WHEN MATCHED AND src.[action] = 'DELETE' THEN DELETE
+	-- Property archiving feature - only DELETE if the parent property record is currently active or is not physically present
+	WHEN MATCHED AND src.[action] = 'DELETE' AND (src.isActive = 1 OR src.isActive IS NULL) THEN DELETE
 
 	-- capture changes for logging output
 	OUTPUT $action, ISNULL(INSERTED.photoId, DELETED.photoId)

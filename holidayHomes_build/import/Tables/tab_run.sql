@@ -3,6 +3,8 @@
     [rootFolder]     VARCHAR (1000) NULL,
     [runDescription] VARCHAR (1000) NULL,
     [createDate]     DATETIME       DEFAULT (getdate()) NOT NULL,
-    PRIMARY KEY CLUSTERED ([runId] ASC)
+    CONSTRAINT [PK_run_runId] PRIMARY KEY CLUSTERED ([runId] ASC)
 );
+
+
 

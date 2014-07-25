@@ -90,6 +90,8 @@
     <Folder Include="roomorama\Stored Procedures\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="Snapshots" />
+    <Folder Include="nineflats\" />
+    <Folder Include="nineflats\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="staging\Tables\tab_property2amenity.sql" />
@@ -197,6 +199,14 @@
     <Build Include="flipkey\Tables\flipkey.imp_rate.sql" />
     <Build Include="flipkey\Tables\flipkey.imp_default_rate.sql" />
     <Build Include="dbo\Functions\dbo.func_getLatLongDistance.sql" />
+    <Build Include="dbo\Functions\dbo.cleanString.sql" />
+    <Build Include="nineflats\Tables\nineflats.imp_amenity.sql" />
+    <Build Include="nineflats\Tables\nineflats.imp_photo.sql" />
+    <Build Include="nineflats\Tables\nineflats.imp_property.sql" />
+    <Build Include="Security\nineflats.sql" />
+    <Build Include="holidayHomes\Tables\tab_property_changedRates.sql" />
+    <Build Include="holidayHomes\Tables\tab_property_changedPhotos.sql" />
+    <Build Include="holidayHomes\Tables\tab_property_changedAmenities.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

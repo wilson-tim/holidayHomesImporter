@@ -12,6 +12,7 @@
 --
 -- history
 --	2014-01-16 created
+--  2014-07-15 TW property record archiving feature
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [changeControl].[proc_changeData_merge_property2amenity_to_dbo]
 AS
@@ -22,12 +23,14 @@ BEGIN
 
 	MERGE INTO dbo.tab_property2amenity AS p2a
 	USING (
-			SELECT p2ac.[action], p2ac.propertyId, p2ac.amenityId, p2a.runId
-			FROM changeControl.tab_property2amenity_change p2ac
-			LEFT OUTER JOIN changeData.tab_property2amenity p2a
-				ON p2a.propertyId = p2ac.propertyId
-				AND p2a.amenityId= p2ac.amenityId
-	) as src ([action], propertyId, amenityId, runId)
+		SELECT p2ac.[action], p2ac.propertyId, p2ac.amenityId, p2a.runId, pp.isActive
+		FROM changeControl.tab_property2amenity_change p2ac
+		LEFT OUTER JOIN changeData.tab_property2amenity p2a
+		ON p2a.propertyId = p2ac.propertyId
+		AND p2a.amenityId= p2ac.amenityId
+		LEFT OUTER JOIN dbo.tab_property pp
+		ON pp.propertyId = p2ac.propertyId
+	) AS src ([action], propertyId, amenityId, runId, isActive)
 	ON src.propertyId = p2a.propertyId
 	AND src.amenityId = p2a.amenityId
 
@@ -37,7 +40,8 @@ BEGIN
 	WHEN MATCHED AND src.[action] = 'UPDATE' THEN UPDATE
 	SET runId = src.runId
 
-	WHEN MATCHED AND src.[action] = 'DELETE' THEN DELETE
+	-- Property archiving feature - only DELETE if the parent property record is currently active or is not physically present
+	WHEN MATCHED AND src.[action] = 'DELETE' AND (src.isActive = 1 OR src.isActive IS NULL) THEN DELETE
 
 	OUTPUT $action, ISNULL(INSERTED.propertyId, DELETED.propertyId), ISNULL(INSERTED.amenityId, DELETED.amenityId)
 	INTO @tmp_property2amenity_changed ([action], propertyId, amenityId);

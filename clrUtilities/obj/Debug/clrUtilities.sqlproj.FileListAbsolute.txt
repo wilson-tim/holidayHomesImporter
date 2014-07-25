@@ -4,3 +4,10 @@ C:\Git\compareandshare\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.
 C:\Git\compareandshare\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.pdb
 C:\Git\compareandshare\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.dll
 C:\Git\compareandshare\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.dacpac
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.cs
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.dll
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\clrUtilities.pdb
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\bin\Debug\master.dacpac
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.dll
+C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\clrUtilities\obj\Debug\clrUtilities.pdb

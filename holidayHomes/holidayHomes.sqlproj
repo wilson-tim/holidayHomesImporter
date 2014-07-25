@@ -71,6 +71,7 @@
     <Folder Include="Security\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="Assemblies\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="synonym_UPDATE.sql" />
@@ -125,7 +126,7 @@
     <Build Include="dbo\Functions\func_getLatLongDistance.sql" />
     <Build Include="dbo\Stored Procedures\propertyAreaSearch.sql" />
     <Build Include="dbo\Tables\tab_propertyLatLong.sql" />
-    <Build Include="dbo\Stored Procedures\proc_updateData_tab_propertyLatLong.sql" />
+    <Build Include="dbo\Stored Procedures\proc_update_tab_propertyLatLong.sql" />
     <Build Include="dbo\Tables\utils_countryLookup.sql" />
     <Build Include="dbo\Tables\utils_currencyLookup.sql" />
     <Build Include="dbo\Functions\SplitString.sql" />
@@ -140,6 +141,22 @@
     <Build Include="dbo\Stored Procedures\propertySearchFacetCounts.sql" />
     <Build Include="dbo\Tables\homeAwayCoords.sql" />
     <Build Include="dbo\Tables\tab_propertyTypeFacetsLookup.sql" />
+    <Build Include="dbo\Tables\tab_propertyKeywords.sql" />
+    <Build Include="dbo\Stored Procedures\propertyIdSearch.sql" />
+    <Build Include="dbo\Stored Procedures\proc_update_tab_propertyKeywords.sql" />
+    <Build Include="dbo\Stored Procedures\propertyKeywordSearch.sql" />
+    <Build Include="Storage\holidayHomesFullTextCatalog.sql" />
+    <Build Include="FullTextIndexes.sql" />
+    <Build Include="dbo\Functions\cleanString.sql" />
+    <Build Include="dbo\Tables\nineFlatsJson.sql" />
+    <Build Include="dbo\Tables\utils_relatedCountryLookup.sql" />
+    <Build Include="dbo\Tables\utils_houseTripCities.sql" />
+    <Build Include="dbo\Tables\tab_propertyFeatured.sql" />
+    <Build Include="dbo\Functions\utils_getField.sql" />
+    <Build Include="dbo\Tables\utils_googleCountry.sql" />
+    <Build Include="dbo\Tables\tab_propertyCountryLookup.sql" />
+    <Build Include="dbo\Stored Procedures\proc_validatePropertyLatLong.sql" />
+    <Build Include="dbo\Stored Procedures\proc_updatePropertyCountryCode.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
@@ -166,5 +183,8 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>holidayHomes_build</DatabaseVariableLiteralValue>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="holidayHomes.refactorlog" />
   </ItemGroup>
 </Project>

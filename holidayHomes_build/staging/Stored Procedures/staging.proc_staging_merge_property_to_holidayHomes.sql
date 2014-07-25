@@ -10,28 +10,29 @@
 -- history
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-02-07 v03 added thumbnailURL - it wasn't being copied 
+--  2014-07-23 TW  property record archiving feature
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_property_to_holidayHomes]
   @runId INT
 AS
 BEGIN
-	DECLARE @rowcount INT, @message VARCHAR(255)
+	DECLARE @rowcount INT, @message VARCHAR(255);
 	
 	--capture affected sources to restrict merge queries
-	DECLARE @tmp_stagingSource TABLE (sourceId INT NOT NULL PRIMARY KEY)
+	DECLARE @tmp_stagingSource TABLE (sourceId INT NOT NULL PRIMARY KEY);
 
 	INSERT @tmp_stagingSource (sourceId)
 	SELECT DISTINCT sourceId FROM staging.tab_property;
 
-	--use CTE to restrict target records to jsut the source we are dealing with
+	--use CTE to restrict target records to just the source we are dealing with
 	WITH prop AS (
 		SELECT prop.propertyId, prop.sourceId, prop.runId, prop.externalId, prop.thumbnailUrl, prop.externalURL, prop.[description], prop.name, prop.regionName, prop.typeOfProperty, prop.postcode, prop.regionId, prop.cityId
 		, prop.cityName, prop.countryCode, prop.latitude, prop.longitude, prop.checkInFrom, prop.checkOutBefore, prop.sizeOfSpaceInSqm, prop.sizeOfSpaceInSqft, prop.cancellationPolicy
 		, prop.minimumPricePerNight, prop.currencyCode, prop.numberOfProperBedrooms, prop.numberOfBathrooms, prop.[floor], prop.reviewsCount, prop.averageRating
 		, prop.maximumNumberOfPeople, prop.numberOfOtherRoomsWhereGuestsCanSleep, prop.minimumDaysOfStay, prop.dateCreated, prop.lastUpdated
-		, prop.propertyHashKey, prop.amenitiesChecksum, prop.photosChecksum, prop.ratesChecksum
+		, prop.propertyHashKey, prop.amenitiesChecksum, prop.photosChecksum, prop.ratesChecksum, prop.isActive, prop.statusUpdated
 		FROM holidayHomes.tab_property prop
-		INNER JOIN @tmp_stagingSource src on src.sourceId = prop.sourceId
+		INNER JOIN @tmp_stagingSource src ON src.sourceId = prop.sourceId
 	)
 	MERGE INTO prop
 	USING (
@@ -86,24 +87,48 @@ BEGIN
 		--, amenitiesChecksum = src.amenitiesChecksum
 		--, photosChecksum = src.photosChecksum
 		--, ratesChecksum = src.ratesChecksum
+		, isActive = 1
+		, statusUpdated = 
+			CASE
+				-- Status unchanged
+				WHEN isActive = 1 THEN statusUpdated
+				-- Status changed
+				ELSE lastUpdated
+			END
 		
 	-- DNE, so insert		
 	WHEN NOT MATCHED BY TARGET THEN INSERT (sourceId, runId, externalId, thumbnailUrl, externalURL, [description], name, regionName, typeOfProperty, postcode, regionId, cityId
 		, cityName, countryCode, latitude, longitude, checkInFrom, checkOutBefore, sizeOfSpaceInSqm, sizeOfSpaceInSqft, cancellationPolicy
 		, minimumPricePerNight, currencyCode, numberOfProperBedrooms, numberOfBathrooms, [floor], reviewsCount, averageRating
-		, maximumNumberOfPeople, numberOfOtherRoomsWhereGuestsCanSleep, minimumDaysOfStay, propertyHashKey, amenitiesChecksum, photosChecksum, ratesChecksum
+		, maximumNumberOfPeople, numberOfOtherRoomsWhereGuestsCanSleep, minimumDaysOfStay, propertyHashKey, amenitiesChecksum, photosChecksum, ratesChecksum, isActive, statusUpdated
 		) VALUES (src.sourceId, src.runId, src.externalId, src.thumbnailUrl, src.externalURL, src.[description], src.name, src.regionName, src.typeOfProperty, src.postcode, src.regionId, src.cityId
 		, src.cityName, src.countryCode, src.latitude, src.longitude, src.checkInFrom, src.checkOutBefore, src.sizeOfSpaceInSqm, src.sizeOfSpaceInSqft, src.cancellationPolicy
 		, src.minimumPricePerNight, src.currencyCode, src.numberOfProperBedrooms, src.numberOfBathrooms, src.[floor], src.reviewsCount, src.averageRating
 		, src.maximumNumberOfPeople, src.numberOfOtherRoomsWhereGuestsCanSleep, src.minimumDaysOfStay, src.propertyHashKey, src.amenitiesChecksum, src.photosChecksum, src.ratesChecksum
+		, 1, GETDATE()
 		)
 		
 	-- not in live table, so delete
+	/* No longer DELETEing, see property archiving UPDATE below
 	WHEN NOT MATCHED BY SOURCE THEN DELETE
+	*/
 
-	-- capture changes for deployment and so can insert amenities and photos (below)
+	-- capture changes for deployment and so can insert amenities, photos and rates (processed by other individual stored procedures)
 	OUTPUT @runId, $action, ISNULL(INSERTED.sourceId, DELETED.sourceId), ISNULL(INSERTED.propertyId, DELETED.propertyId), ISNULL(INSERTED.externalId, DELETED.externalId)
 	INTO changeControl.tab_property_change (runId, [action], sourceId, propertyId, externalId);
+
+	-- Property archiving feature, capturing changes for deployment
+	UPDATE holidayHomes.tab_property
+	SET   isActive = 0
+		, statusUpdated = GETDATE()
+	OUTPUT @runId, 'DELETE', DELETED.sourceId, DELETED.propertyId, DELETED.externalId
+	INTO changeControl.tab_property_change (runId, [action], sourceId, propertyId, externalId)
+	FROM holidayHomes.tab_property prop
+	INNER JOIN @tmp_stagingSource src ON src.sourceId = prop.sourceId
+	LEFT OUTER JOIN staging.tab_property pc
+	ON pc.sourceId = prop.sourceId
+	AND pc.externalId = prop.externalId
+	WHERE pc.externalId IS NULL;
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="places">
+    <xs:complexType>
+      <xs:sequence>
+		  <xs:element minOccurs="0" maxOccurs="unbounded" name="place">
+			<xs:complexType>
+			  <xs:sequence>
+				<xs:element minOccurs="0" name="name">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="bathroom_type">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="bed_type">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="cancellation_rules">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="4000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="category">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="charge_per_extra_person_limit" type="xs:decimal" />
+				<xs:element minOccurs="0" name="city">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="cleaning_fee" type="xs:decimal" />
+				<xs:element minOccurs="0" name="content_language">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="country">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="description">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="4000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="district">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="externalURL">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="2000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="favorites_count" type="xs:integer" />
+				<xs:element minOccurs="0" name="featured_photo">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="2000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="id" type="xs:integer" />
+				<xs:element minOccurs="0" name="instant_bookable" type="xs:boolean" />
+				<xs:element minOccurs="0" name="lat" type="xs:decimal" />
+				<xs:element minOccurs="0" name="lng" type="xs:decimal" />
+				<xs:element minOccurs="0" name="maximum_nights" type="xs:integer" />
+				<xs:element minOccurs="0" name="minimum_nights" type="xs:integer" />
+				<xs:element minOccurs="0" name="number_of_bathrooms" type="xs:integer" />
+				<xs:element minOccurs="0" name="number_of_bedrooms" type="xs:integer" />
+				<xs:element minOccurs="0" name="number_of_beds" type="xs:integer" />
+				<xs:element minOccurs="0" name="pets_around" type="xs:boolean" />
+				<xs:element minOccurs="0" name="place_type">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="size" type="xs:decimal" />
+				<xs:element minOccurs="0" name="slug">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="zipcode">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="255" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="currency">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="10" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element minOccurs="0" name="price"  type="xs:decimal" />
+				<xs:element minOccurs="0" name="additional_photos">
+				  <xs:complexType>
+					<xs:sequence>
+					  <xs:element minOccurs="0" maxOccurs="unbounded" name="photo">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="2000" />
+							</xs:restriction>
+						</xs:simpleType>
+					  </xs:element>
+					</xs:sequence>
+				  </xs:complexType>
+				</xs:element>
+				<xs:element minOccurs="0" name="amenities">
+				  <xs:complexType>
+					<xs:sequence>
+					  <xs:element minOccurs="0" maxOccurs="unbounded" name="amenity">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="255" />
+							</xs:restriction>
+						</xs:simpleType>
+					  </xs:element>
+					</xs:sequence>
+				  </xs:complexType>
+				</xs:element>
+			  </xs:sequence>
+			</xs:complexType>
+		  </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

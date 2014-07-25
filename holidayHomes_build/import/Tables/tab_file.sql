@@ -6,8 +6,10 @@
     [registeredDate]   DATETIME      DEFAULT (getdate()) NOT NULL,
     [lastAccessedDate] DATETIME      DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [pk_file_src_path] PRIMARY KEY CLUSTERED ([sourceId] ASC, [fullPath] ASC),
-    FOREIGN KEY ([sourceId]) REFERENCES [import].[tab_source] ([sourceId])
+    CONSTRAINT [FK_tab_source_file] FOREIGN KEY ([sourceId]) REFERENCES [import].[tab_source] ([sourceId])
 );
+
+
 
 
 GO

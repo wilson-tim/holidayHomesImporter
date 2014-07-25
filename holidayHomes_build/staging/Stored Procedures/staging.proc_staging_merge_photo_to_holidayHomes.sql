@@ -9,12 +9,16 @@
 -- notes
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-03-16 v03 changed datatype of @tmp_property_changedPhotos.externalId to NVARCHAR(200)
+--  2014-07-10 TW  revised declaration of @tmp_property_changedRates
+--  2014-07-11 TW  poorly performing temporary table variable now replaced with a real table
+--  2014-07-16 TW  child records of deleted properties were not being processed    
+--  2014-07-23 TW  property record archiving feature
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_photo_to_holidayHomes]
   @runId INT
 AS
 BEGIN
-	DECLARE @rowcount INT, @message VARCHAR(255)
+	DECLARE @rowcount INT, @message VARCHAR(255);
 
 	--insert new photo records
 	--using merge instead of simple insert to to capture output into change table
@@ -27,7 +31,7 @@ BEGIN
 			AND ph.externalId = new.externalId
 		WHERE new.runId = @runId
 		AND new.[action] = 'INSERT'
-	) as stg_ph
+	) AS stg_ph
 	ON stg_ph.propertyId = ph.propertyId
 	AND stg_ph.position = ph.position
 	AND stg_ph.url = ph.url
@@ -38,12 +42,49 @@ BEGIN
 
 	-- log counts
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
-	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT))
+	SELECT @runId, 'info', messageContent = 'tab_photo INSERT:' + LTRIM(STR(@@ROWCOUNT));
+
+	--check for deleted properties and delete related photo records
+	MERGE INTO holidayHomes.tab_photo AS ph
+	USING (
+		SELECT old.propertyId, old.runId, old.[action]
+		FROM changeControl.tab_property_change old
+		LEFT OUTER JOIN holidayHomes.tab_property prop
+			ON prop.propertyId = old.propertyId
+		WHERE
+			old.runId = @runId
+			AND
+			(
+			-- Property archiving feature - only DELETE if the parent property record is currently active or is not physically present
+			(old.[action] = 'DELETE' AND prop.isActive = 1)
+			OR
+			(prop.isActive IS NULL)
+			)
+	) AS src (propertyId, runId, [action])
+	ON src.propertyId = ph.propertyId
+	WHEN MATCHED THEN DELETE
+	OUTPUT @runId, $action, DELETED.photoId, DELETED.propertyId
+	INTO changeControl.tab_photo_change (runId, [action], photoId, propertyId);
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info', messageContent = 'tab_photo DELETE:' + LTRIM(STR(@@ROWCOUNT));
 
 	-- table to capture list of properties with changed photos
-	DECLARE @tmp_property_changedPhotos TABLE ([action] NVARCHAR(10), sourceId INT NOT NULL, propertyId BIGINT NOT NULL, externalId NVARCHAR(200) NOT NULL);
+	/*
+	DECLARE @tmp_property_changedPhotos TABLE
+		(
+		  [action] NVARCHAR(10) COLLATE DATABASE_DEFAULT NOT NULL
+		, sourceId INT NOT NULL
+		, propertyId BIGINT NOT NULL
+		, externalId NVARCHAR(100) COLLATE DATABASE_DEFAULT NOT NULL
+		, PRIMARY KEY (propertyId, [action])
+		);
+	*/
+	TRUNCATE TABLE holidayHomes.tab_property_changedPhotos;
 
 	--update checksums for existing properties and output list into above table
+	/*
 	MERGE INTO holidayHomes.tab_property AS p
 	USING (
 		SELECT sourceId, externalId, photosChecksum
@@ -51,38 +92,51 @@ BEGIN
 	) AS stgp
 	ON stgp.sourceId = p.sourceId
 	AND stgp.externalId = p.externalId
-	AND stgp.photosChecksum <> p.photosChecksum
-	WHEN MATCHED THEN 
+	WHEN MATCHED AND stgp.photosChecksum <> p.photosChecksum THEN 
 	UPDATE SET photosChecksum = stgp.photosChecksum
 	OUTPUT $action, DELETED.propertyId, stgp.sourceId, stgp.externalId INTO @tmp_property_changedPhotos ([action], propertyId, sourceId, externalId);
+	*/
+	UPDATE holidayHomes.tab_property
+	SET photosChecksum = s.photosChecksum
+	OUTPUT 'UPDATE', DELETED.propertyId, s.sourceId, s.externalId
+	INTO holidayHomes.tab_property_changedPhotos ([action], propertyId, sourceId, externalId)
+	FROM holidayHomes.tab_property p
+	INNER JOIN staging.tab_property s
+	ON s.sourceId = p.sourceId
+	AND s.externalId = p.externalId
+	WHERE s.photosChecksum <> p.photosChecksum;
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info'
+	, messageContent = 'tab_property Photos CHANGED:' + LTRIM(STR(COUNT(1)))
+	FROM holidayHomes.tab_property_changedPhotos;
 
 	-- capture tab_property changes for deployment, unless already there, hence merge
 	MERGE INTO changeControl.tab_property_change AS pc
-	USING @tmp_property_changedPhotos chg
+	USING holidayHomes.tab_property_changedPhotos chg
 	ON pc.runId = @runId
 	AND chg.propertyId = pc.propertyId
 	WHEN NOT MATCHED THEN INSERT (runId, [action], sourceId, propertyId, externalId)
 	VALUES  ( @runId, chg.[action], chg.sourceId, chg.propertyId, chg.externalId );
 
-	-- log counts
+	-- log update
 	INSERT import.tab_runLog ( runId, messageType, messageContent) 
-	SELECT @runId, 'info'
-	, messageContent = 'tab_property Photos Changed:' + LTRIM(STR(COUNT(1)))
-	FROM @tmp_property_changedPhotos;
+	VALUES ( @runId, 'info', 'tab_property Photos changes captured');
 
 	--merge new mappings with existing records (isolated with CTE)
-	-- capture changes in changeControl.tab_photo_change for deployment
+	--then capture changes in changeControl.tab_photo_change for deployment
 	WITH ph AS 
 	(
 		SELECT ph.photoId, ph.propertyId, ph.position, ph.url, ph.runId
 		FROM holidayHomes.tab_photo ph
-		INNER JOIN @tmp_property_changedPhotos chg
+		INNER JOIN holidayHomes.tab_property_changedPhotos chg
 		ON chg.propertyId = ph.propertyId
 	)
 	MERGE INTO ph
 	USING (
 		SELECT chg.propertyId, stgph.position, RTRIM(LEFT(stgph.url, 255)) AS url, stgph.runId
-		FROM @tmp_property_changedPhotos chg
+		FROM holidayHomes.tab_property_changedPhotos chg
 		INNER JOIN staging.tab_photo stgph
 			ON stgph.sourceId = chg.sourceId
 			AND stgph.externalId = chg.externalId
@@ -96,5 +150,13 @@ BEGIN
 	WHEN NOT MATCHED BY SOURCE THEN DELETE
 	OUTPUT @runId, $action, ISNULL(INSERTED.photoId, DELETED.photoId), ISNULL(INSERTED.propertyId, DELETED.propertyId)
 	INTO changeControl.tab_photo_change (runId, [action], photoId, propertyId);
+
+	-- log counts
+	INSERT import.tab_runLog ( runId, messageType, messageContent) 
+	SELECT @runId, 'info'
+	, messageContent = 'tab_photo ' + [action] + ':' + LTRIM(STR(COUNT(1)))
+	FROM changeControl.tab_photo_change
+	WHERE runId = @runId
+	GROUP BY [action];
 
 END

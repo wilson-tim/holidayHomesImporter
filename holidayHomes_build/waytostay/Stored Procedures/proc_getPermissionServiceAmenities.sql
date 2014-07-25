@@ -10,6 +10,7 @@ CREATE PROCEDURE waytostay.proc_getPermissionServiceAmenities
 , @fileId INT
 AS
 BEGIN
+
 	-- convert permissions and services into amenities
 	INSERT waytostay.imp_amenity (sourceId, runId, fileId, name, [text], general_amenities_id)
 
@@ -23,7 +24,7 @@ BEGIN
 		, p.pets
 		, p.parties
 		, p.children
-		, p.young_groups
+		, [young groups] = p.young_groups
 		, ga.general_amenities_id
 		FROM waytostay.imp_permissions p
 		--re-classing the permissions as general amenities
@@ -35,19 +36,21 @@ BEGIN
 		AND p.fileId = @fileId
 	) AS src
 		UNPIVOT (
-			name FOR [column] IN (smoking, pets, parties, children, young_groups)
+			name FOR [column] IN (smoking, pets, parties, children, [young groups])
 		) as unpvt
 
-	UNION ALL
-		--services
-		SELECT s.sourceId, s.runId, s.fileId, s.name, NULL AS [text], ga.general_amenities_id
-		FROM waytostay.imp_service s
-		INNER JOIN waytostay.imp_services ss
-			ON ss.runId = s.runId
-			AND ss.fileId = s.fileId
-			AND ss.services_id = s.services_id
-		--re-classing the services as general amenities
-		INNER JOIN waytostay.imp_general_amenities ga ON ga.rooms_and_amenities_id = ss.rooms_and_amenities_id
-		WHERE s.runId = @runId
-		AND s.fileId = @fileId
+UNION ALL
+
+	--services
+	SELECT s.sourceId, s.runId, s.fileId, CAST(dbo.cleanString(s.name) AS nvarchar(50)), NULL AS [text], ga.general_amenities_id
+	FROM waytostay.imp_service s
+	INNER JOIN waytostay.imp_services ss
+		ON ss.runId = s.runId
+		AND ss.fileId = s.fileId
+		AND ss.services_id = s.services_id
+	--re-classing the services as general amenities
+	INNER JOIN waytostay.imp_general_amenities ga ON ga.rooms_and_amenities_id = ss.rooms_and_amenities_id
+	WHERE s.runId = @runId
+	AND s.fileId = @fileId
+
 END
