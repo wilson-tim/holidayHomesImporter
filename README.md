@@ -1,1 +1,1 @@
-# Repository for data feed import SSIS development source code
+# SSIS development source code for data feed import packages
