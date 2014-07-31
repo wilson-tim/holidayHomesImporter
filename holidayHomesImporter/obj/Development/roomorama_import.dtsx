@@ -8,7 +8,7 @@
   DTS:DTSID="{07C13B39-9BCF-4BEE-8481-BB62B32351CD}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.5058.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{2FBD5645-E5A4-457D-95C0-4F08731BC02E}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{40C9153B-0E9C-4C80-A1B3-584E144ED40A}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
