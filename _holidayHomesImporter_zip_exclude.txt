@@ -1,7 +1,4 @@
 .git
 .gitignore
-batch
-_holidayHomesImporter.cmd
-_holidayHomesImporter_zip_exclude.txt
 readme.md
 *.7z
