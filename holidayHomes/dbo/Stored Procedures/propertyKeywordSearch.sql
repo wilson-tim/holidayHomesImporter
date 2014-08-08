@@ -26,6 +26,7 @@
 --	2014-06-12 TW New
 --  2014-07-08 TW Added additional parameters per dbo.propertySearch
 --  2014-07-18 TW Added additional where condition for isActive flag
+--  2014-08-08 TW Remove round brackets, etc. from @searchCriteria
 -- =============================================
 
 CREATE PROCEDURE [dbo].[propertyKeywordSearch]
@@ -53,6 +54,9 @@ BEGIN
 		, @searchString VARCHAR(8000)
 		, @searchStringSoundex VARCHAR(8000)
 		, @sourceIdCount INT;
+		
+	-- Remove round brackets, etc. from @keywords
+	SET @searchCriteria = REPLACE(REPLACE(REPLACE(REPLACE(@searchCriteria, '(', ''), ')', ''), ';', ''), '''', '');
 
 	SELECT @searchString = CONVERT(VARCHAR(8000), COALESCE(item, '') + ' ')
 	FROM

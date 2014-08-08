@@ -157,6 +157,8 @@
     <Build Include="dbo\Tables\tab_propertyCountryLookup.sql" />
     <Build Include="dbo\Stored Procedures\proc_validatePropertyLatLong.sql" />
     <Build Include="dbo\Stored Procedures\proc_updatePropertyCountryCode.sql" />
+    <Build Include="dbo\Stored Procedures\propertyAreaKeywordSearch.sql" />
+    <Build Include="dbo\Stored Procedures\propertyAreaKeywordSearchFacetCounts.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
