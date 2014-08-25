@@ -4,7 +4,7 @@
 **
 ** Description
 ** Create a new property record and associated amenity, photo and rate records
-** on the build and production databases
+** on the staging build and production databases
 **
 ** Parameters
 ** @xmlString = xml document containing data for new property record and child records (required)
@@ -13,12 +13,11 @@
 ** Return value 0 (success), otherwise -1 (failure)
 **
 ** History
-** 16/08/2014  TW  New
-** 17/08/2014  TW  Continued development
-** 23/08/2014  TW  Continued development
-** 25/08/2014  TW  Continued development
+** 25/08/2014  TW  Version of proc_createNewProperty for holidayHomes_staging database
 **
 *****************************************************************************/
+USE holidayHomes_staging
+GO
 IF OBJECT_ID (N'dbo.proc_createNewProperty', N'P') IS NOT NULL
     DROP PROCEDURE dbo.proc_createNewProperty;
 GO
@@ -112,7 +111,7 @@ BEGIN
 	SET @rateCount = 0;
 
 	BEGIN TRY
-		INSERT holidayHomes_build.import.tab_run
+		INSERT holidayHomes_build_staging.import.tab_run
 			(
 			  rootFolder
 			, runDescription
@@ -131,7 +130,7 @@ BEGIN
 	END CATCH
 
 	BEGIN TRY
-		INSERT holidayHomes_build.import.tab_runLog
+		INSERT holidayHomes_build_staging.import.tab_runLog
 			(
 			  runId
 			, messageType
@@ -150,7 +149,7 @@ BEGIN
 	END CATCH
 
 	BEGIN TRY
-		INSERT holidayHomes_build.import.tab_runLog
+		INSERT holidayHomes_build_staging.import.tab_runLog
 			(
 			  runId
 			, messageType
@@ -320,7 +319,7 @@ BEGIN
 
 -- property
 	BEGIN TRY
-		INSERT INTO holidayHomes_build.holidayHomes.tab_property
+		INSERT INTO holidayHomes_build_staging.holidayHomes.tab_property
 			(
 			  sourceId
 			, runId
@@ -418,7 +417,7 @@ BEGIN
 	END
 
 	BEGIN TRY
-		UPDATE holidayHomes_build.holidayHomes.tab_property
+		UPDATE holidayHomes_build_staging.holidayHomes.tab_property
 		SET
 			  sourceID = @sourceId
 			, externalId = @externalId
@@ -438,7 +437,7 @@ BEGIN
 			, externalId = @externalId
 			, amenityId = ah.amenityId
 		FROM #tempTab_Property2Amenity p2a
-		INNER JOIN holidayHomes_build.holidayHomes.tab_amenity ah
+		INNER JOIN holidayHomes_build_staging.holidayHomes.tab_amenity ah
 		ON ah.amenityValue = p2a.amenityValue;
 	END
 
@@ -462,7 +461,7 @@ BEGIN
 	IF @property2amenityCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes_build.holidayHomes.tab_property2amenity
+			INSERT INTO holidayHomes_build_staging.holidayHomes.tab_property2amenity
 				(
 				  propertyId
 				, amenityId
@@ -473,7 +472,7 @@ BEGIN
 				, ah.amenityId
 				, runId = @runId
 			FROM #tempTab_Property2Amenity at
-			INNER JOIN holidayHomes_build.holidayHomes.tab_amenity ah
+			INNER JOIN holidayHomes_build_staging.holidayHomes.tab_amenity ah
 			ON ah.amenityValue = at.amenityValue;
 		END TRY
 		BEGIN CATCH
@@ -486,7 +485,7 @@ BEGIN
 	IF @photoCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes_build.holidayHomes.tab_photo
+			INSERT INTO holidayHomes_build_staging.holidayHomes.tab_photo
 				(
 				  propertyId
 				, position
@@ -510,7 +509,7 @@ BEGIN
 	IF @rateCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes_build.holidayHomes.tab_rate
+			INSERT INTO holidayHomes_build_staging.holidayHomes.tab_rate
 				(
 				  propertyId
 				, periodType
@@ -536,7 +535,7 @@ BEGIN
 
 -- property final pass
 	BEGIN TRY
-		UPDATE holidayHomes_build.holidayHomes.tab_property
+		UPDATE holidayHomes_build_staging.holidayHomes.tab_property
 		SET
 			  lastUpdated = dateCreated
 			, isActive = 1
@@ -582,7 +581,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE p
 		SET amenitiesChecksum = ISNULL(agg.amenitiesChecksum, 0)
-		FROM holidayHomes_build.holidayHomes.tab_property p
+		FROM holidayHomes_build_staging.holidayHomes.tab_property p
 		LEFT OUTER JOIN (
 			SELECT sourceId, externalId
 			, amenitiesChecksum = ISNULL(CAST(CHECKSUM_AGG(CHECKSUM(ISNULL(amenityId, 0))) AS BIGINT), 0)
@@ -602,7 +601,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE p
 		SET photosChecksum = ISNULL(agg.photosChecksum, 0)
-		FROM holidayHomes_build.holidayHomes.tab_property p
+		FROM holidayHomes_build_staging.holidayHomes.tab_property p
 		LEFT OUTER JOIN (
 			SELECT sourceId, externalId
 			, photosChecksum = ISNULL(CAST(CHECKSUM_AGG(ISNULL(position, -1)) AS BIGINT), 0)
@@ -623,7 +622,7 @@ BEGIN
 	BEGIN TRY
 		UPDATE p
 		SET ratesChecksum = ISNULL(agg.ratesChecksum, 0)
-		FROM holidayHomes_build.holidayHomes.tab_property p
+		FROM holidayHomes_build_staging.holidayHomes.tab_property p
 		LEFT OUTER JOIN (
 			SELECT sourceId, externalId
 			, ratesChecksum = ISNULL(CAST(CHECKSUM_AGG(CHECKSUM(ISNULL(periodType, 'NA'))) AS BIGINT), 0)
@@ -649,7 +648,7 @@ BEGIN
 
 -- property
 	BEGIN TRY
-		INSERT INTO holidayHomes_build.changeControl.tab_property_change
+		INSERT INTO holidayHomes_build_staging.changeControl.tab_property_change
 			(
 			  runId
 			, [action]
@@ -675,7 +674,7 @@ BEGIN
 	IF @property2amenityCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes_build.changeControl.tab_property2amenity_change
+			INSERT INTO holidayHomes_build_staging.changeControl.tab_property2amenity_change
 				(
 				  runId
 				, [action]
@@ -687,7 +686,7 @@ BEGIN
 				, [action] = 'INSERT'
 				, propertyId = @propertyId
 				, amenityId = amenityId
-			FROM holidayHomes_build.holidayHomes.tab_property2amenity
+			FROM holidayHomes_build_staging.holidayHomes.tab_property2amenity
 			WHERE propertyId = @propertyId;
 		END TRY
 		BEGIN CATCH
@@ -700,7 +699,7 @@ BEGIN
 	IF @photoCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes_build.changeControl.tab_photo_change
+			INSERT INTO holidayHomes_build_staging.changeControl.tab_photo_change
 				(
 				  runId
 				, [action]
@@ -712,7 +711,7 @@ BEGIN
 				, [action] = 'INSERT'
 				, propertyId = @propertyId
 				, photoId
-			FROM holidayHomes_build.holidayHomes.tab_photo
+			FROM holidayHomes_build_staging.holidayHomes.tab_photo
 			WHERE propertyId = @propertyId;
 		END TRY
 		BEGIN CATCH
@@ -725,7 +724,7 @@ BEGIN
 	IF @rateCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes_build.changeControl.tab_rate_change
+			INSERT INTO holidayHomes_build_staging.changeControl.tab_rate_change
 				(
 				  runId
 				, [action]
@@ -737,7 +736,7 @@ BEGIN
 				, [action] = 'INSERT'
 				, propertyId = @propertyId
 				, rateId
-			FROM holidayHomes_build.holidayHomes.tab_rate
+			FROM holidayHomes_build_staging.holidayHomes.tab_rate
 			WHERE propertyId = @propertyId;
 		END TRY
 		BEGIN CATCH
@@ -757,7 +756,7 @@ BEGIN
 
 -- property
 	BEGIN TRY
-		INSERT INTO holidayHomes.dbo.tab_property
+		INSERT INTO holidayHomes_staging.dbo.tab_property
 			(
 			  propertyId
 			, sourceId
@@ -839,7 +838,7 @@ BEGIN
 			, ratesChecksum
 			, isActive
 			, statusUpdated
-		FROM holidayHomes_build.holidayHomes.tab_property
+		FROM holidayHomes_build_staging.holidayHomes.tab_property
 		WHERE propertyId = @propertyId;
 	END TRY
 	BEGIN CATCH
@@ -851,7 +850,7 @@ BEGIN
 	IF @property2amenityCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes.dbo.tab_property2amenity
+			INSERT INTO holidayHomes_staging.dbo.tab_property2amenity
 				(
 				  propertyId
 				, amenityId
@@ -861,7 +860,7 @@ BEGIN
 				  propertyId
 				, amenityId
 				, runId
-			FROM holidayHomes_build.holidayHomes.tab_property2amenity
+			FROM holidayHomes_build_staging.holidayHomes.tab_property2amenity
 			WHERE propertyId = @propertyId;
 		END TRY
 		BEGIN CATCH
@@ -874,7 +873,7 @@ BEGIN
 	IF @photoCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes.dbo.tab_photo
+			INSERT INTO holidayHomes_staging.dbo.tab_photo
 				(
 				  photoId
 				, propertyId
@@ -888,7 +887,7 @@ BEGIN
 				, position
 				, url
 				, runId
-			FROM holidayHomes_build.holidayHomes.tab_photo
+			FROM holidayHomes_build_staging.holidayHomes.tab_photo
 			WHERE propertyId = @propertyId;
 		END TRY
 		BEGIN CATCH
@@ -901,7 +900,7 @@ BEGIN
 	IF @rateCount > 0
 	BEGIN
 		BEGIN TRY
-			INSERT INTO holidayHomes.dbo.tab_rate
+			INSERT INTO holidayHomes_staging.dbo.tab_rate
 				(
 				  rateId
 				, propertyId
@@ -919,7 +918,7 @@ BEGIN
 				, [to]
 				, currencyCode
 				, runId
-			FROM holidayHomes_build.holidayHomes.tab_rate
+			FROM holidayHomes_build_staging.holidayHomes.tab_rate
 			WHERE propertyId = @propertyId;
 		END TRY
 		BEGIN CATCH
@@ -962,7 +961,7 @@ normalexit:
 		COMMIT TRANSACTION createNewProperty;
 	END
 
-	INSERT holidayHomes_build.import.tab_runLog
+	INSERT holidayHomes_build_staging.import.tab_runLog
 		(
 		  runId
 		, messageType
@@ -983,7 +982,7 @@ errorexit:
 		ROLLBACK TRANSACTION createNewProperty;
 	END
 
-	INSERT holidayHomes_build.import.tab_runLog
+	INSERT holidayHomes_build_staging.import.tab_runLog
 		(
 		  runId
 		, messageType
