@@ -207,6 +207,7 @@
     <Build Include="holidayHomes\Tables\tab_property_changedRates.sql" />
     <Build Include="holidayHomes\Tables\tab_property_changedPhotos.sql" />
     <Build Include="holidayHomes\Tables\tab_property_changedAmenities.sql" />
+    <Build Include="import\Tables\import.tab_sourceHistory.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
