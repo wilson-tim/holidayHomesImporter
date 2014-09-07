@@ -19,9 +19,9 @@
 ** 25/08/2014  TW  Continued development
 **
 *****************************************************************************/
-IF OBJECT_ID (N'dbo.proc_createNewProperty', N'P') IS NOT NULL
-    DROP PROCEDURE dbo.proc_createNewProperty;
-GO
+--IF OBJECT_ID (N'dbo.proc_createNewProperty', N'P') IS NOT NULL
+--    DROP PROCEDURE dbo.proc_createNewProperty;
+--GO
 CREATE PROCEDURE dbo.proc_createNewProperty
 	    @xmlString VARCHAR(MAX)
 	  , @propertyId BIGINT OUTPUT
