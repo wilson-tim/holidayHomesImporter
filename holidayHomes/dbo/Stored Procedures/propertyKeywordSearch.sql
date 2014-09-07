@@ -27,6 +27,7 @@
 --  2014-07-08 TW Added additional parameters per dbo.propertySearch
 --  2014-07-18 TW Added additional where condition for isActive flag
 --  2014-08-08 TW Remove round brackets, etc. from @searchCriteria
+--  2014-09-07 TW Added a parameter for the top_n_by_rank parameter, default 10000
 -- =============================================
 
 CREATE PROCEDURE [dbo].[propertyKeywordSearch]
@@ -42,6 +43,7 @@ CREATE PROCEDURE [dbo].[propertyKeywordSearch]
 , @maxPrice INT = 10000
 , @Page INT
 , @RecsPerPage INT
+, @topN INT = 10000  -- Limit the scope of the full text search result set
 
 AS
 
@@ -54,9 +56,10 @@ BEGIN
 		, @searchString VARCHAR(8000)
 		, @searchStringSoundex VARCHAR(8000)
 		, @sourceIdCount INT;
-		
-	-- Remove round brackets, etc. from @keywords
-	SET @searchCriteria = REPLACE(REPLACE(REPLACE(REPLACE(@searchCriteria, '(', ''), ')', ''), ';', ''), '''', '');
+
+	-- Remove round brackets, etc. from @searchCriteria
+	SET @searchCriteria = REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(@searchCriteria, '(', ''), ')', ''), ';', ''), '''', ''), '"', '');
+	SET @searchCriteria = REPLACE(@searchCriteria, '%', '');
 
 	SELECT @searchString = CONVERT(VARCHAR(8000), COALESCE(item, '') + ' ')
 	FROM
@@ -184,6 +187,7 @@ BEGIN
 					  dbo.tab_propertyKeywords
 					, keywords
 					, @searchString
+					, @topN
 					) ct
 				ON ct.[KEY] = pk.propertyId
 
@@ -200,6 +204,7 @@ BEGIN
 					  dbo.tab_propertyKeywords
 					, keywordsSoundex
 					, @searchStringSoundex
+					, @topN
 					) ct
 				ON ct.[KEY] = pk.propertyId
 			) resultsList (propertyId, [rank])
@@ -263,5 +268,3 @@ BEGIN
 	;
 
 END
-
-GO
