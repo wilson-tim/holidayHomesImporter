@@ -11,6 +11,7 @@
 --  2014-06-12 TW trims, replaces, concat() MSSQL2012 function
 --  2014-06-23 TW removed trims, replaces as these are now dealt with by cleanString() during the import
 --  2014-06-25 TW no longer using CTE to select source data
+--  2014-09-09 TW only select active properties (so propertyKeywordSearch CONTAINSTABLE selects only active properties)
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [dbo].[proc_update_tab_propertyKeywords]
 AS
@@ -82,6 +83,8 @@ BEGIN
 					) amenitySelect (amenityValues)
 				LEFT OUTER JOIN holidayHomes_build.import.tab_country c
 				ON c.countryCode2 = ISNULL(p.countryCode, '')
+				-- Only select active properties
+				WHERE isActive = 1
 		) innerselect
 		OUTER APPLY (
 			SELECT CONVERT(VARCHAR(10), COALESCE(item , '') + ' ')
