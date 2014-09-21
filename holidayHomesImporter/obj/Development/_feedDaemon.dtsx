@@ -12,8 +12,8 @@
   DTS:ObjectName="feedDaemon"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="160"
-  DTS:VersionGUID="{2137867D-712C-4373-9FAB-DEEA55D79EA3}">
+  DTS:VersionBuild="161"
+  DTS:VersionGUID="{1DC75888-A792-46F6-8283-F4C7884259B1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\feedDaemon_{D86323F4-7745-400F-BC9A-68F9C48A55BA}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\feedDaemon_{1FC20A41-7B02-4AF2-B4ED-62D9DF60CC68}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -70,13 +70,13 @@
     <DTS:PackageParameter
       DTS:CreationName=""
       DTS:DataType="3"
-      DTS:Description="1==Move, 10==copy"
+      DTS:Description="1==Move, 0==copy"
       DTS:DTSID="{7BC9C32D-45A9-4EB9-BA80-FDAD10C97AA2}"
       DTS:ObjectName="fileOperation"
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="3"
-        DTS:Name="ParameterValue">10</DTS:Property>
+        DTS:Name="ParameterValue">0</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -1957,7 +1957,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                     DTS:Name="Operation">@[$Package::fileOperation]</DTS:PropertyExpression>
                   <DTS:ObjectData>
                     <FileSystemData
-                      TaskOperationType="DeleteFile, DeleteDirectory"
                       TaskOverwriteDestFile="True"
                       TaskSourcePath="Internal::fileFullPath"
                       TaskIsSourceVariable="True"

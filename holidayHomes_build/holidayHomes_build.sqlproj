@@ -92,6 +92,8 @@
     <Folder Include="Snapshots" />
     <Folder Include="nineflats\" />
     <Folder Include="nineflats\Tables\" />
+    <Folder Include="homestay\" />
+    <Folder Include="homestay\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="staging\Tables\tab_property2amenity.sql" />
@@ -208,6 +210,10 @@
     <Build Include="holidayHomes\Tables\tab_property_changedPhotos.sql" />
     <Build Include="holidayHomes\Tables\tab_property_changedAmenities.sql" />
     <Build Include="import\Tables\import.tab_sourceHistory.sql" />
+    <Build Include="homestay\Tables\homestay.imp_amenity.sql" />
+    <Build Include="homestay\Tables\homestay.imp_photo.sql" />
+    <Build Include="homestay\Tables\homestay.imp_property.sql" />
+    <Build Include="Security\homestay.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
