@@ -9,6 +9,7 @@
 -- history
 --	2014-01-16 MC created
 --  2014-07-15 TW property record archiving feature
+--  2014-09-20 TW thumbnailURL was not being copied
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [changeControl].[proc_changeData_merge_property_to_dbo]
 AS
@@ -25,7 +26,7 @@ BEGIN
 	
 	--use CTE to restrict target records to just the sources we are dealing with
 	WITH prop AS (
-		SELECT prop.propertyId, prop.sourceId, prop.runId, prop.externalId, prop.externalURL, prop.[description], prop.name, prop.regionName, prop.typeOfProperty, prop.postcode, prop.regionId, prop.cityId
+		SELECT prop.propertyId, prop.sourceId, prop.runId, prop.externalId, prop.thumbnailURL, prop.externalURL, prop.[description], prop.name, prop.regionName, prop.typeOfProperty, prop.postcode, prop.regionId, prop.cityId
 		, prop.cityName, prop.countryCode, prop.latitude, prop.longitude, prop.checkInFrom, prop.checkOutBefore, prop.sizeOfSpaceInSqm, prop.sizeOfSpaceInSqft, prop.cancellationPolicy
 		, prop.minimumPricePerNight, prop.currencyCode, prop.numberOfProperBedrooms, prop.numberOfBathrooms, prop.[floor], prop.reviewsCount, prop.averageRating
 		, prop.maximumNumberOfPeople, prop.numberOfOtherRoomsWhereGuestsCanSleep, prop.minimumDaysOfStay, prop.dateCreated, prop.lastUpdated
@@ -35,7 +36,7 @@ BEGIN
 	)
 	MERGE INTO prop
 	USING (
-		SELECT pc.[action], pc.propertyId, p.sourceId, p.runId, p.externalId, p.externalURL, p.[description], p.name, p.regionName, p.typeOfProperty, p.postcode, p.regionId, p.cityId
+		SELECT pc.[action], pc.propertyId, p.sourceId, p.runId, p.externalId, p.thumbnailURL, p.externalURL, p.[description], p.name, p.regionName, p.typeOfProperty, p.postcode, p.regionId, p.cityId
 		, p.cityName, p.countryCode, p.latitude, p.longitude, p.checkInFrom, p.checkOutBefore, p.sizeOfSpaceInSqm, p.sizeOfSpaceInSqft, p.cancellationPolicy
 		, p.minimumPricePerNight, p.currencyCode, p.numberOfProperBedrooms, p.numberOfBathrooms, p.[floor], p.reviewsCount, p.averageRating
 		, p.maximumNumberOfPeople, p.numberOfOtherRoomsWhereGuestsCanSleep, p.minimumDaysOfStay, p.dateCreated, p.lastUpdated
@@ -45,7 +46,7 @@ BEGIN
 		ON p.propertyId = pc.propertyId
 		LEFT OUTER JOIN dbo.tab_property pp
 		ON pp.propertyId = pc.propertyId
-	) AS src ([action], propertyId, sourceId, runId, externalId, externalURL, [description], name, regionName, typeOfProperty, postcode, regionId, cityId
+	) AS src ([action], propertyId, sourceId, runId, externalId, thumbnailURL, externalURL, [description], name, regionName, typeOfProperty, postcode, regionId, cityId
 		, cityName, countryCode, latitude, longitude, checkInFrom, checkOutBefore, sizeOfSpaceInSqm, sizeOfSpaceInSqft, cancellationPolicy
 		, minimumPricePerNight, currencyCode, numberOfProperBedrooms, numberOfBathrooms, [floor], reviewsCount, averageRating
 		, maximumNumberOfPeople, numberOfOtherRoomsWhereGuestsCanSleep, minimumDaysOfStay, dateCreated, lastUpdated
@@ -54,12 +55,12 @@ BEGIN
 		ON src.propertyId = prop.propertyId
 
 	-- DNE, so insert		
-	WHEN NOT MATCHED BY TARGET AND src.[action] = 'INSERT' THEN INSERT (propertyId, sourceId, runId, externalId, externalURL, [description], name, regionName, typeOfProperty, postcode, regionId, cityId
+	WHEN NOT MATCHED BY TARGET AND src.[action] = 'INSERT' THEN INSERT (propertyId, sourceId, runId, externalId, thumbnailURL, externalURL, [description], name, regionName, typeOfProperty, postcode, regionId, cityId
 		, cityName, countryCode, latitude, longitude, checkInFrom, checkOutBefore, sizeOfSpaceInSqm, sizeOfSpaceInSqft, cancellationPolicy
 		, minimumPricePerNight, currencyCode, numberOfProperBedrooms, numberOfBathrooms, [floor], reviewsCount, averageRating
 		, maximumNumberOfPeople, numberOfOtherRoomsWhereGuestsCanSleep, minimumDaysOfStay, dateCreated, lastUpdated
 		, propertyHashKey, amenitiesChecksum, photosChecksum, ratesChecksum, isActive, statusUpdated
-		) VALUES (src.propertyId, src.sourceId, src.runId, src.externalId, src.externalURL, src.[description], src.name, src.regionName, src.typeOfProperty, src.postcode, src.regionId, src.cityId
+		) VALUES (src.propertyId, src.sourceId, src.runId, src.externalId, src.thumbnailURL, src.externalURL, src.[description], src.name, src.regionName, src.typeOfProperty, src.postcode, src.regionId, src.cityId
 		, src.cityName, src.countryCode, src.latitude, src.longitude, src.checkInFrom, src.checkOutBefore, src.sizeOfSpaceInSqm, src.sizeOfSpaceInSqft, src.cancellationPolicy
 		, src.minimumPricePerNight, src.currencyCode, src.numberOfProperBedrooms, src.numberOfBathrooms, src.[floor], src.reviewsCount, src.averageRating
 		, src.maximumNumberOfPeople, src.numberOfOtherRoomsWhereGuestsCanSleep, src.minimumDaysOfStay, src.dateCreated, src.lastUpdated
@@ -71,6 +72,7 @@ BEGIN
 		SET sourceId = src.sourceId
 		, runId = src.runId
 		, externalURL = src.externalURL
+		, thumbnailURL = src.thumbnailURL
 		, [description] = src.[description]
 		, name = src.name
 		, regionName = src.regionName

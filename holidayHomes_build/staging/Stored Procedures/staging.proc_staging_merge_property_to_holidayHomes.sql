@@ -50,7 +50,7 @@ BEGIN
 		AND	src.externalId = prop.externalId
 		)
 	-- exists but different, so update details
-	WHEN MATCHED AND src.propertyHashKey <> prop.propertyHashKey THEN UPDATE
+	WHEN MATCHED AND src.propertyHashKey <> ISNULL(prop.propertyHashKey, 0) THEN UPDATE
 		SET sourceId = src.sourceId
 		, runId = src.runId
 		, thumbnailUrl = src.thumbnailUrl
