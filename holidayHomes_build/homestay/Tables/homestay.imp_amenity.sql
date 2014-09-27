@@ -4,8 +4,11 @@
     [amenity]      NVARCHAR (255) NULL,
     [runId]        INT            NULL,
     [fileId]       INT            NULL,
-    [sourceId]     INT            NULL
+    [sourceId]     INT            NULL,
+    [loopNo]       INT            NULL
 );
+
+
 
 
 GO

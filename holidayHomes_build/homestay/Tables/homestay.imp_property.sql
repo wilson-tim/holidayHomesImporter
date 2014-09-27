@@ -3,6 +3,7 @@
     [runId]                  INT              NOT NULL,
     [fileId]                 INT              NOT NULL,
     [sourceId]               INT              NOT NULL,
+    [loopNo]                 INT              NULL,
     [name]                   NVARCHAR (255)   NULL,
     [externalId]             BIGINT           NULL,
     [externalURL]            NVARCHAR (2000)  NULL,
@@ -23,6 +24,8 @@
     [maximumNumberOfPeople]  INT              NULL,
     [minimumDaysOfStay]      INT              NULL
 );
+
+
 
 
 GO

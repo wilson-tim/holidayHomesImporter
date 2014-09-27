@@ -12,8 +12,8 @@
   DTS:ObjectName="nineflats_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="186"
-  DTS:VersionGUID="{AE59C032-D65F-4778-81C0-EAC6593A3351}">
+  DTS:VersionBuild="192"
+  DTS:VersionGUID="{A6D95566-336B-4C4E-9F86-C4A72CEE3289}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\nineflats_import_{85BCAA1A-F5B0-4CE5-9594-C8F839728CCA}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\nineflats_import_{8743DAC2-EACE-4EB1-8118-21FFF07E061E}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -513,7 +513,7 @@ FROM
   , ROW_NUMBER() OVER (PARTITION BY imp_am.sourceId, imp_am.runId, pr.id, am.amenityId ORDER BY imp_am.sourceId, imp_am.runId, pr.id, am.amenityId) AS rownum
   FROM nineFLats.imp_amenity imp_am
   INNER JOIN nineflats.imp_property pr
-  ON pr.runId = ? AND pr.fileId = ? AND pr.property_Id = imp_am.property_Id
+  ON pr.runId = ? AND pr.fileId = ? AND pr.property_Id = imp_am.property_Id  AND pr.loopNo = imp_am.loopNo
   INNER JOIN staging.tab_amenity am
   ON am.amenityValue = imp_am.amenity
   WHERE imp_am.runId = ?
@@ -545,7 +545,7 @@ WHERE rownum = 1
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{8156375F-0244-4281-B500-8B8DC6636CB2};"Parameter1:Input",{081508AC-29AE-48EB-A183-2D6EF11A430D};"Parameter2:Input",{8156375F-0244-4281-B500-8B8DC6636CB2};"Parameter3:Input",{081508AC-29AE-48EB-A183-2D6EF11A430D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{1A99FF77-4F3D-465D-83F6-14D073491BBE};"Parameter1:Input",{239E4444-707F-4809-A180-D53A25E43AA0};"Parameter2:Input",{1A99FF77-4F3D-465D-83F6-14D073491BBE};"Parameter3:Input",{239E4444-707F-4809-A180-D53A25E43AA0};</property>
               </properties>
               <connections>
                 <connection
@@ -697,6 +697,7 @@ INNER JOIN nineflats.imp_property pr
 	ON ph.runId  = pr.runId
 	AND ph.fileId = pr.fileId
 	AND ph.property_Id = pr.property_Id
+	AND ph.loopNo = pr.loopNo
 -- prevent duplicates from PK violations
 LEFT OUTER JOIN staging.tab_photo stgp WITH (NOLOCK)
 	ON stgp.sourceId = ph.sourceId
@@ -725,7 +726,7 @@ AND stgp.externalId IS NULL</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{8156375F-0244-4281-B500-8B8DC6636CB2};"Parameter1:Input",{081508AC-29AE-48EB-A183-2D6EF11A430D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{1A99FF77-4F3D-465D-83F6-14D073491BBE};"Parameter1:Input",{239E4444-707F-4809-A180-D53A25E43AA0};</property>
               </properties>
               <connections>
                 <connection
@@ -923,7 +924,7 @@ WHERE stgr.externalId IS NULL
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{8156375F-0244-4281-B500-8B8DC6636CB2};"Parameter1:Input",{081508AC-29AE-48EB-A183-2D6EF11A430D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{1A99FF77-4F3D-465D-83F6-14D073491BBE};"Parameter1:Input",{239E4444-707F-4809-A180-D53A25E43AA0};</property>
               </properties>
               <connections>
                 <connection
@@ -1672,6 +1673,7 @@ OUTER APPLY
 	WHERE nineflats.imp_photo.runId = p.runId
 		AND nineflats.imp_photo.fileId = p.fileId
 		AND nineflats.imp_photo.property_Id = p.property_Id
+		AND nineflats.imp_photo.loopNo = p.loopNo
 	ORDER BY nineflats.imp_photo.photo
 ) pho
 -- prevent duplicates from PK violations
@@ -1702,7 +1704,7 @@ AND stgp.externalId IS NULL</property>
                 <property
                   dataType="System.String"
                   description="The mappings between the parameters in the SQL command and variables."
-                  name="ParameterMapping">"Parameter0:Input",{8156375F-0244-4281-B500-8B8DC6636CB2};"Parameter1:Input",{081508AC-29AE-48EB-A183-2D6EF11A430D};</property>
+                  name="ParameterMapping">"Parameter0:Input",{1A99FF77-4F3D-465D-83F6-14D073491BBE};"Parameter1:Input",{239E4444-707F-4809-A180-D53A25E43AA0};</property>
               </properties>
               <connections>
                 <connection
@@ -2676,14 +2678,35 @@ AND stgp.externalId IS NULL</property>
               ReadOnlyVariables="Internal::xmlRecord"
               ReadWriteVariables="Internal::xmlDoc">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_254e1ae6ac694641adce51444192d0e0")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_254e1ae6ac694641adce51444192d0e0")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -3070,35 +3093,14 @@ namespace ST_254e1ae6ac694641adce51444192d0e0.Properties {
     }
 }]]></ProjectItem>
               <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_254e1ae6ac694641adce51444192d0e0")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_254e1ae6ac694641adce51444192d0e0")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -3309,6 +3311,15 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
               ReadOnlyVariables="Internal::xmlDeclaration,Internal::xmlRootEnd,Internal::xmlRootStart"
               ReadWriteVariables="Internal::xmlDoc">
               <ProjectItem
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+              <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -3427,35 +3438,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_638bbdcf30d544208a90cf3e301b0ef8.Properties.Settings.get_Default():ST_638bbdcf30d544208a90cf3e301b0ef8.Properties.Sett" +
-    "ings")]
-
-namespace ST_638bbdcf30d544208a90cf3e301b0ef8.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
               <ProjectItem
                 Name="ST_638bbdcf30d544208a90cf3e301b0ef8.csproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -3697,6 +3679,35 @@ namespace ST_638bbdcf30d544208a90cf3e301b0ef8
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_638bbdcf30d544208a90cf3e301b0ef8.Properties.Settings.get_Default():ST_638bbdcf30d544208a90cf3e301b0ef8.Properties.Sett" +
+    "ings")]
+
+namespace ST_638bbdcf30d544208a90cf3e301b0ef8.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+              <ProjectItem
                 Name="Properties\AssemblyInfo.cs"
                 Encoding="UTF8"><![CDATA[using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -3726,15 +3737,6 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -4130,6 +4132,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                               name="FriendlyExpression">@[$Package::sourceId]</property>
                           </properties>
                         </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach XML record\Process XML record\add id columns imp_amenity.Outputs[Derived Column Output].Columns[loopNo]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Foreach XML record\Process XML record\add id columns imp_amenity.Outputs[Derived Column Output].Columns[loopNo]"
+                          name="loopNo"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_I4)@[Internal::loopCounter]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_I4)@[Internal::loopCounter]</property>
+                          </properties>
+                        </outputColumn>
                       </outputColumns>
                       <externalMetadataColumns />
                     </output>
@@ -4247,6 +4271,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                               name="FriendlyExpression">@[$Package::sourceId]</property>
                           </properties>
                         </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach XML record\Process XML record\add id columns imp_photo.Outputs[Derived Column Output].Columns[loopNo]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Foreach XML record\Process XML record\add id columns imp_photo.Outputs[Derived Column Output].Columns[loopNo]"
+                          name="loopNo"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_I4)@[Internal::loopCounter]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_I4)@[Internal::loopCounter]</property>
+                          </properties>
+                        </outputColumn>
                       </outputColumns>
                       <externalMetadataColumns />
                     </output>
@@ -4362,6 +4408,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                               description="Derived Column Friendly Expression"
                               expressionType="Notify"
                               name="FriendlyExpression">@[$Package::sourceId]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach XML record\Process XML record\add id columns imp_property.Outputs[Derived Column Output].Columns[loopNo]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Foreach XML record\Process XML record\add id columns imp_property.Outputs[Derived Column Output].Columns[loopNo]"
+                          name="loopNo"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_I4)@[Internal::loopCounter]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_I4)@[Internal::loopCounter]</property>
                           </properties>
                         </outputColumn>
                       </outputColumns>
@@ -4502,6 +4570,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                           cachedName="sourceId"
                           externalMetadataColumnId="Package\Foreach XML record\Process XML record\imp_amenity.Inputs[OLE DB Destination Input].ExternalColumns[sourceId]"
                           lineageId="Package\Foreach XML record\Process XML record\add id columns imp_amenity.Outputs[Derived Column Output].Columns[sourceId]" />
+                        <inputColumn
+                          refId="Package\Foreach XML record\Process XML record\imp_amenity.Inputs[OLE DB Destination Input].Columns[loopNo]"
+                          cachedDataType="i4"
+                          cachedName="loopNo"
+                          externalMetadataColumnId="Package\Foreach XML record\Process XML record\imp_amenity.Inputs[OLE DB Destination Input].ExternalColumns[loopNo]"
+                          lineageId="Package\Foreach XML record\Process XML record\add id columns imp_amenity.Outputs[Derived Column Output].Columns[loopNo]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -4530,6 +4604,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                           dataType="wstr"
                           length="255"
                           name="amenity" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach XML record\Process XML record\imp_amenity.Inputs[OLE DB Destination Input].ExternalColumns[loopNo]"
+                          dataType="i4"
+                          name="loopNo" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -4697,6 +4775,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                           cachedSortKeyPosition="1"
                           externalMetadataColumnId="Package\Foreach XML record\Process XML record\imp_photo.Inputs[OLE DB Destination Input].ExternalColumns[property_photos_Id]"
                           lineageId="Package\Foreach XML record\Process XML record\MJ photos.Outputs[Merge Join Output].Columns[additional_photos_Id]" />
+                        <inputColumn
+                          refId="Package\Foreach XML record\Process XML record\imp_photo.Inputs[OLE DB Destination Input].Columns[loopNo]"
+                          cachedDataType="i4"
+                          cachedName="loopNo"
+                          externalMetadataColumnId="Package\Foreach XML record\Process XML record\imp_photo.Inputs[OLE DB Destination Input].ExternalColumns[loopNo]"
+                          lineageId="Package\Foreach XML record\Process XML record\add id columns imp_photo.Outputs[Derived Column Output].Columns[loopNo]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -4725,6 +4809,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                           dataType="wstr"
                           length="2000"
                           name="photo" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach XML record\Process XML record\imp_photo.Inputs[OLE DB Destination Input].ExternalColumns[loopNo]"
+                          dataType="i4"
+                          name="loopNo" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -5094,6 +5182,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                           cachedScale="10"
                           externalMetadataColumnId="Package\Foreach XML record\Process XML record\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[favourites_count]"
                           lineageId="Package\Foreach XML record\Process XML record\XML Source.Outputs[place].Columns[favorites_count]" />
+                        <inputColumn
+                          refId="Package\Foreach XML record\Process XML record\imp_property.Inputs[OLE DB Destination Input].Columns[loopNo]"
+                          cachedDataType="i4"
+                          cachedName="loopNo"
+                          externalMetadataColumnId="Package\Foreach XML record\Process XML record\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[loopNo]"
+                          lineageId="Package\Foreach XML record\Process XML record\add id columns imp_property.Outputs[Derived Column Output].Columns[loopNo]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -5259,6 +5353,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                           name="price"
                           precision="10"
                           scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach XML record\Process XML record\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[loopNo]"
+                          dataType="i4"
+                          name="loopNo" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -7974,7 +8072,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     design-time-name="Package\copy to FK staging tables">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="153,42"
           Id="Package\copy to FK staging tables\QRY imp_photo"
@@ -8018,9 +8116,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -8042,9 +8138,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -8066,9 +8160,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -8575,6 +8667,45 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach XML record\Process XML record\imp_amenity">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach XML record\Process XML record\imp_photo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach XML record\Process XML record\imp_property">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PrecedenceConstraint
     design-time-name="Package\Foreach XML record.PrecedenceConstraints[Constraint 1]">
     <ShowAnnotation>ConstraintOptions</ShowAnnotation>
