@@ -60,6 +60,7 @@
 -- History
 --	2014-08-06 TW new stored procedure
 --  2014-08-08 TW continued development
+--  2014-09-23 TW Added a parameter for the top_n_by_rank parameter, default 10000
 -- =============================================
 CREATE PROCEDURE [dbo].[propertyAreaKeywordSearchFacetCounts]
 -- Add the parameters for the stored procedure here
@@ -85,6 +86,7 @@ CREATE PROCEDURE [dbo].[propertyAreaKeywordSearchFacetCounts]
 , @amenityFacets varchar(200) = NULL
 , @specReqFacets varchar(200) = NULL
 , @propertyTypeFacets varchar(200) = NULL
+, @topN INT = 10000  -- Limit the scope of the full text search result set
 AS
 BEGIN
  -- SET NOCOUNT ON added to prevent extra result sets from
@@ -201,6 +203,7 @@ BEGIN
  BEGIN
 	 -- Remove round brackets, etc. from @keywords
 	 SET @keywords = REPLACE(REPLACE(REPLACE(REPLACE(@keywords, '(', ''), ')', ''), ';', ''), '''', '');
+	 SET @keywords = REPLACE(@keywords, '%', '');
 
 	 SELECT @searchString = CONVERT(VARCHAR(8000), COALESCE(item, '') + ' ')
 	 FROM
@@ -275,6 +278,7 @@ BEGIN
 						  dbo.tab_propertyKeywords
 						, keywords
 						, @searchString
+						, @topN
 						) ct
 					ON ct.[KEY] = pk.propertyId
 
@@ -291,6 +295,7 @@ BEGIN
 						  dbo.tab_propertyKeywords
 						, keywordsSoundex
 						, @searchStringSoundex
+						, @topN
 						) ct
 					ON ct.[KEY] = pk.propertyId
 				) resultsList (propertyId, [rank])
