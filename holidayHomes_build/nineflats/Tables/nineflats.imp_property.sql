@@ -3,6 +3,7 @@
     [runId]                         INT             NOT NULL,
     [fileId]                        INT             NOT NULL,
     [sourceId]                      INT             NOT NULL,
+    [loopNo]                        INT             NULL,
     [name]                          NVARCHAR (255)  NULL,
     [bathroom_type]                 NVARCHAR (255)  NULL,
     [bed_type]                      NVARCHAR (255)  NULL,
@@ -35,6 +36,8 @@
     [currency]                      NVARCHAR (10)   NULL,
     [price]                         DECIMAL (10, 2) NULL
 );
+
+
 
 
 

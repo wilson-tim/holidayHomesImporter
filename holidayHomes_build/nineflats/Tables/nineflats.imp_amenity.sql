@@ -4,8 +4,11 @@
     [runId]                 INT            NOT NULL,
     [fileId]                INT            NOT NULL,
     [sourceId]              INT            NOT NULL,
-    [amenity]               NVARCHAR (255) NULL
+    [amenity]               NVARCHAR (255) NULL,
+    [loopNo]                INT            NULL
 );
+
+
 
 
 

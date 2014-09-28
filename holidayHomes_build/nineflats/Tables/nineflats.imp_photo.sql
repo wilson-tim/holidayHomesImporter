@@ -4,8 +4,11 @@
     [runId]              INT             NOT NULL,
     [fileId]             INT             NOT NULL,
     [sourceId]           INT             NOT NULL,
-    [photo]              NVARCHAR (2000) NULL
+    [photo]              NVARCHAR (2000) NULL,
+    [loopNo]             INT             NULL
 );
+
+
 
 
 
