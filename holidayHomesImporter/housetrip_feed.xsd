@@ -101,7 +101,7 @@
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:element>
-              <xs:element minOccurs="0" name="minimum_price_per_night" type="xs:unsignedInt" nillable="true" />
+              <xs:element minOccurs="0" name="minimum_price_per_night" type="xs:decimal" nillable="true" />
               <xs:element minOccurs="0" name="currency_code" >
 			<xs:simpleType>
 				<xs:restriction base="xs:string">

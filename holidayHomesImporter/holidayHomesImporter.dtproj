@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="QoI6r8D1xg==" SSIS:IV="KL0wwhfVFdQ=">htPLL1UKjOC7Mm/Ll3/1t7WYIr1tFZAW2TLwWp7hVb7Eri97ZIqGo6SHcLNVjUV+m9RMt1BIjbRyte+jHR4K7S7MVma5DzXy+/k5/qG32ob6KRp+2ubXQhnum9kc8S/ZPqoFnyoRUJitj6YUi9hPhfU4ky9ttMHoBSICRxUcrvubRdGI53fHLQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="RsjSS7vpAA==" SSIS:IV="CN9YSs8+nYs=">VFc9TzGtjqaJu3hCWvH6BKaElS3LCCgggGVHkRsqG9o/YoFzF3744gmxsD6t+3sSLGvUn4MoCp9RWlxpzL1u5/RuK7Ir0xxQzWFB+MX0dI3Kkcr5Ocxw9GrzaK3M2ayvz/CZ0qt94wtAYpD4Ea8HHpqpoHY1kPKqbcvwo67ob4lDFTTQRhqSgA==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -385,10 +385,10 @@
                 <SSIS:Property SSIS:Name="Name">housetrip_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">227</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">235</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{6FB518EC-77F3-4418-B1B3-7B42F6269ED5}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{A731449C-DA3D-4C7C-9FBE-3A47DFD6EF1C}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -405,7 +405,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\Matt\Dropbox\Work\CompareAndShare\sources\housetrip\housetrip-feed-en-small.xml</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\DATA\housetrip.dev\70\housetrip_1.xml</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>

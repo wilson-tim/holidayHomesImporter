@@ -7,13 +7,13 @@
   DTS:CreatorName="mconway"
   DTS:DTSID="{359FFE83-74C1-463D-B525-CED52415592F}"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.5058.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="housetrip_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="230"
-  DTS:VersionGUID="{897B315B-C448-4F32-BC50-F144A0164D8A}">
+  DTS:VersionBuild="235"
+  DTS:VersionGUID="{A731449C-DA3D-4C7C-9FBE-3A47DFD6EF1C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -26,7 +26,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory] + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{06DBAE45-523B-43DA-8D09-2CA5B8D3EC8B}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\housetrip_import_{90AEF376-989F-4CD9-A65E-A0235FAD052D}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -51,7 +51,7 @@
       DTS:Required="True">
       <DTS:Property
         DTS:DataType="8"
-        DTS:Name="ParameterValue">C:\Users\Matt\Dropbox\Work\CompareAndShare\sources\housetrip\housetrip-feed-en-small.xml</DTS:Property>
+        DTS:Name="ParameterValue">C:\DATA\housetrip.dev\70\housetrip_1.xml</DTS:Property>
     </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
@@ -342,12 +342,18 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{CBBB7672-C100-4E96-B714-4BE3EEFCCBB2}"
-          SQLTask:SqlStatementSource="EXEC housetrip.proc_getPropertyAmenities @runId = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="EXEC housetrip.proc_getPropertyAmenities @runId = ?, @fileId = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="@runId"
             SQLTask:DtsVariableName="$Package::runId"
             SQLTask:ParameterDirection="Input"
             SQLTask:DataType="2"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="@fileId"
+            SQLTask:DtsVariableName="$Package::fileId"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
             SQLTask:ParameterSize="-1" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
@@ -400,7 +406,7 @@
                   description="The SQL command to be executed."
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
-, externalId = CAST(prop.id AS NVARCHAR(100))
+, externalId = LTRIM(RTRIM(CAST(prop.id AS NVARCHAR(100))))
 , ph.position
 , ph.url
 , prop.runId
@@ -408,14 +414,16 @@ FROM housetrip.imp_property prop
 INNER JOIN housetrip.imp_property2photo p2ph
 ON p2ph.imp_propertiesId = prop.imp_propertiesId
 AND p2ph.runId = prop.runId
+AND p2ph.fileId = prop.fileId
 INNER JOIN housetrip.imp_photo ph
 ON ph.imp_photosId = p2ph.imp_photosId
 AND ph.runId = p2ph.runId
+AND ph.fileId = p2ph.fileId
 -- prevent duplicates from PK violations
 LEFT OUTER JOIN staging.tab_photo stgp WITH (NOLOCK)
 	ON stgp.sourceId = prop.sourceId
 	AND stgp.runId = prop.runId
-	AND stgp.externalId = CAST(prop.id AS NVARCHAR(100))
+	AND stgp.externalId = LTRIM(RTRIM(CAST(prop.id AS NVARCHAR(100))))
 WHERE prop.runId = ?
 	AND prop.fileId = ?
 	AND stgp.externalId IS NULL;</property>
@@ -618,6 +626,7 @@ SELECT prop.sourceId
 FROM housetrip.imp_property prop
 INNER JOIN housetrip.imp_property2amenity imp2a 
 	ON imp2a.runId = prop.runId
+	AND imp2a.fileId = prop.fileId
 	AND imp2a.imp_propertiesId = prop.imp_propertiesId
 INNER JOIN housetrip.imp_amenity imp_am 
 	ON imp_am.runId = imp2a.runId
@@ -798,7 +807,7 @@ WHERE rownum = 1
                   description="The SQL command to be executed."
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT prop.sourceId
-, externalId = CAST(prop.id AS NVARCHAR(100))
+, externalId = LTRIM(RTRIM(CAST(prop.id AS NVARCHAR(100))))
 , CAST('prop.nightly' AS NVARCHAR(255)) AS periodType
 , prop.minimum_price_per_night
 , prop.currency_code
@@ -808,7 +817,7 @@ FROM housetrip.imp_property prop
 LEFT OUTER JOIN staging.tab_rate stgr WITH (NOLOCK)
 	ON stgr.sourceId = prop.sourceId
 	AND stgr.runId = prop.runId
-	AND stgr.externalId = CAST(prop.id AS NVARCHAR(100))
+	AND stgr.externalId = LTRIM(RTRIM(CAST(prop.id AS NVARCHAR(100))))
 WHERE prop.runId = ?
 	AND prop.fileId = ?
 	AND prop.minimum_price_per_night IS NOT NULL
@@ -3897,6 +3906,14 @@ AND p.fileId = ?</property>
                   refId="Package\import XML to imp_housetrip\add ID columns.Inputs[Derived Column Input]"
                   description="Input to the Derived Column Transformation"
                   name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\import XML to imp_housetrip\add ID columns.Inputs[Derived Column Input].Columns[minimum_price_per_night]"
+                      cachedDataType="decimal"
+                      cachedName="minimum_price_per_night"
+                      cachedScale="10"
+                      lineageId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[minimum_price_per_night]" />
+                  </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
@@ -3972,6 +3989,28 @@ AND p.fileId = ?</property>
                           description="Derived Column Friendly Expression"
                           expressionType="Notify"
                           name="FriendlyExpression">@[$Package::fileId]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\import XML to imp_housetrip\add ID columns.Outputs[Derived Column Output].Columns[price_per_night]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\import XML to imp_housetrip\add ID columns.Outputs[Derived Column Output].Columns[price_per_night]"
+                      name="price_per_night"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_I4)#{Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[minimum_price_per_night]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_I4)minimum_price_per_night</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -4983,12 +5022,6 @@ AND p.fileId = ?</property>
                       externalMetadataColumnId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[cancellation_policy]"
                       lineageId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[cancellation_policy]" />
                     <inputColumn
-                      refId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].Columns[minimum_price_per_night]"
-                      cachedDataType="ui4"
-                      cachedName="minimum_price_per_night"
-                      externalMetadataColumnId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[minimum_price_per_night]"
-                      lineageId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[minimum_price_per_night]" />
-                    <inputColumn
                       refId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].Columns[currency_code]"
                       cachedDataType="wstr"
                       cachedLength="3"
@@ -5129,6 +5162,12 @@ AND p.fileId = ?</property>
                       cachedName="id"
                       externalMetadataColumnId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[id]"
                       lineageId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[id]" />
+                    <inputColumn
+                      refId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].Columns[price_per_night]"
+                      cachedDataType="i4"
+                      cachedName="price_per_night"
+                      externalMetadataColumnId="Package\import XML to imp_housetrip\imp_property.Inputs[OLE DB Destination Input].ExternalColumns[minimum_price_per_night]"
+                      lineageId="Package\import XML to imp_housetrip\add ID columns.Outputs[Derived Column Output].Columns[price_per_night]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -6430,12 +6469,13 @@ AND p.fileId = ?</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[minimum_price_per_night]"
-                      dataType="ui4"
+                      dataType="decimal"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\import XML to imp_housetrip\XML Source.Outputs[property].ExternalColumns[minimum_price_per_night]"
                       lineageId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[minimum_price_per_night]"
                       name="minimum_price_per_night"
+                      scale="10"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\import XML to imp_housetrip\XML Source.Outputs[property].Columns[currency_code]"
@@ -6800,12 +6840,13 @@ AND p.fileId = ?</property>
                     </externalMetadataColumn>
                     <externalMetadataColumn
                       refId="Package\import XML to imp_housetrip\XML Source.Outputs[property].ExternalColumns[minimum_price_per_night]"
-                      dataType="ui4"
-                      name="minimum_price_per_night">
+                      dataType="decimal"
+                      name="minimum_price_per_night"
+                      scale="10">
                       <properties>
                         <property
                           dataType="System.String"
-                          name="CLRType">System.UInt32</property>
+                          name="CLRType">System.Decimal</property>
                       </properties>
                     </externalMetadataColumn>
                     <externalMetadataColumn

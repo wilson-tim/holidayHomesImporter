@@ -8,7 +8,8 @@
 --		NULLs will be excluded as only matching where bit is set
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE housetrip.proc_getPropertyAmenities
-  @runId INT
+  @runId INT,
+  @fileId INT
 AS
 BEGIN
 
@@ -32,8 +33,10 @@ BEGIN
 		-- joining below to get surrogate key imp_amenitiesId, which is really a surrogate imp_propertiesId...
 		LEFT OUTER JOIN housetrip.imp_property2amenity p2a
 			ON p2a.runId = p.runId
+			AND p2a.fileId = p.fileId
 			AND p2a.imp_propertiesId = p.imp_propertiesId
 		WHERE p.runId = @runId
+		AND p.fileId = @fileId
 	) src
 	UNPIVOT (
 		[enabled] FOR sourceAmenityValue IN (kitchen, [non smoking only], [wheelchair accessible], [pets not allowed], [children friendly], [entire property], elevator)
