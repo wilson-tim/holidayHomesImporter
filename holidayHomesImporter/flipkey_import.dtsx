@@ -8,13 +8,13 @@
   DTS:DTSID="{913E5BA5-FD2A-4856-AA0B-6B1A122F610C}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.5058.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="flipkey_import"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="476"
-  DTS:VersionGUID="{C0969EE3-E4BB-4DDA-B263-B87AF1BC9E70}">
+  DTS:VersionBuild="477"
+  DTS:VersionGUID="{A9636D96-AADE-4905-9233-0251BD4312A1}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1478,7 +1478,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{E6E17FA7-1E36-42E1-971B-EBBC5D515D0F}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\flipkey_import_{BBAFDCAF-828F-4DCB-A741-B9C80B029E80}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -1918,6 +1918,7 @@ FROM
   INNER JOIN flipkey.imp_property pr
   ON pr.property_Id = imp_am.property_Id
 	AND pr.runId = imp_am.runId
+	AND pr.fileId = imp_am.fileId
   INNER JOIN staging.tab_amenity am
   ON am.amenityValue = imp_am.amenityValue
   WHERE imp_am.runId = ?
@@ -11025,24 +11026,24 @@ AND stgp.externalId IS NULL</property>
               startId="Package\import XML to imp tables\MJ photos.Outputs[Merge Join Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
-              endId="Package\import XML to imp tables\flipkey imp_photo error row count.Inputs[Row Count Input 1]"
+              endId="Package\import XML to imp tables\flipkey imp_amenity error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_photo.Outputs[OLE DB Destination Error Output]" />
+              startId="Package\import XML to imp tables\flipkey imp_amenity.Outputs[OLE DB Destination Error Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
-              endId="Package\import XML to imp tables\flipkey imp_rate error row count.Inputs[Row Count Input 1]"
-              name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_rate.Outputs[OLE DB Destination Error Output]" />
-            <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
               endId="Package\import XML to imp tables\flipkey imp_property error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
               startId="Package\import XML to imp tables\flipkey imp_property.Outputs[OLE DB Destination Error Output]" />
             <path
-              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
-              endId="Package\import XML to imp tables\flipkey imp_amenity error row count.Inputs[Row Count Input 1]"
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
+              endId="Package\import XML to imp tables\flipkey imp_photo error row count.Inputs[Row Count Input 1]"
               name="OLE DB Destination Error Output"
-              startId="Package\import XML to imp tables\flipkey imp_amenity.Outputs[OLE DB Destination Error Output]" />
+              startId="Package\import XML to imp tables\flipkey imp_photo.Outputs[OLE DB Destination Error Output]" />
+            <path
+              refId="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+              endId="Package\import XML to imp tables\flipkey imp_rate error row count.Inputs[Row Count Input 1]"
+              name="OLE DB Destination Error Output"
+              startId="Package\import XML to imp tables\flipkey imp_rate.Outputs[OLE DB Destination Error Output]" />
             <path
               refId="Package\import XML to imp tables.Paths[property]"
               endId="Package\import XML to imp tables\Row Count.Inputs[Row Count Input 1]"
@@ -11294,14 +11295,35 @@ AND stgp.externalId IS NULL</property>
           Language="CSharp"
           ReadOnlyVariables="Internal::xslXmlFullPath,$Package::fileFullPath,$Package::xslFileName,$Project::DIRECTORY_xslDirectory">
           <ProjectItem
-            Name="Properties\Settings.settings"
-            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.resx"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -11610,35 +11632,14 @@ namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
     }
 }]]></ProjectItem>
           <ProjectItem
-            Name="Properties\AssemblyInfo.cs"
-            Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.Designer.cs"
             Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -12308,13 +12309,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="197,42"
-          Id="Package\copy to FK staging tables (amenities)\QRY flipkey imp_amenity"
-          TopLeft="75,91" />
-        <NodeLayout
           Size="220,42"
           Id="Package\copy to FK staging tables (amenities)\staging tab_property2amenity"
           TopLeft="65,200" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\copy to FK staging tables (amenities)\QRY flipkey imp_amenity"
+          TopLeft="75,91" />
         <EdgeLayout
           Id="Package\copy to FK staging tables (amenities).Paths[OLE DB Source Output]"
           TopLeft="174.25,133">
@@ -12424,7 +12425,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to FK staging tables (rates)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="156,42"
           Id="Package\copy to FK staging tables (rates)\staging tab_rate"
@@ -12456,9 +12457,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -12480,9 +12479,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -12922,7 +12919,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
           TopLeft="955.999999999999,154.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -12946,7 +12943,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
           TopLeft="955,255.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -12970,7 +12967,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output3]"
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output]"
           TopLeft="951,456.166666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -12994,7 +12991,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output2]"
+          Id="Package\import XML to imp tables.Paths[OLE DB Destination Error Output1]"
           TopLeft="938,353.5">
           <EdgeLayout.Curve>
             <mssgle:Curve

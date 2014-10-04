@@ -8,13 +8,13 @@
   DTS:DTSID="{07C13B39-9BCF-4BEE-8481-BB62B32351CD}"
   DTS:EnableConfig="True"
   DTS:ExecutableType="SSIS.Package.3"
-  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LastModifiedProductVersion="11.0.5058.0"
   DTS:LocaleID="2057"
   DTS:ObjectName="roomorama"
   DTS:PackageType="5"
   DTS:ProtectionLevel="2"
-  DTS:VersionBuild="445"
-  DTS:VersionGUID="{E7695E7B-BF02-4700-8269-0812AB91DE2C}">
+  DTS:VersionBuild="446"
+  DTS:VersionGUID="{7BBC1BD2-26C9-4606-A72A-AB8A89B5AC31}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
         DTS:Name="ConnectionString">@[$Project::DIRECTORY_loggingDirectory]  + "\\"  +  @[System::PackageName] + "_" +  @[System::ExecutionInstanceGUID] + ".log"</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{277DD6BB-9D42-4DFD-B35E-A3075B884F53}.log" />
+          DTS:ConnectionString="C:\SSIS\Log\\roomorama_{59263A48-E2BE-4F1B-8E86-11BC993DEC80}.log" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -1618,6 +1618,7 @@ AND stgr.externalId IS NULL</property>
 , title = CAST(dbo.cleanString(p.title) + ' - ' + dbo.cleanString(u.unitTitle) AS nvarchar(255))
 ,  typeOfProperty = CAST(dbo.cleanString((ISNULL(p.subtype + ' ', '') + p.[type])) AS nvarchar(50))
 , p.url
+, thumbnailUrl = photo.imageUrl
 , [num-rooms] = u.[unitNum-rooms]
 , p.[num-bathrooms]
 , [max-guests] = [unitMax-guests]
@@ -1639,6 +1640,14 @@ INNER JOIN roomorama.imp_unit u
 	ON u.runId  = p.runId
 	AND u.fileId = p.fileId
 	AND u.room_Id = p.room_Id
+OUTER APPLY (
+	SELECT TOP 1 ph.imageUrl
+	FROM roomorama.imp_photo ph
+	WHERE ph.runId = p.runId
+		AND ph.fileId = p.fileId
+		AND ph.room_Id = p.room_Id
+	ORDER BY ph.position
+) AS photo
 -- prevent duplicates from PK violations
 LEFT OUTER JOIN staging.tab_property stgp WITH (NOLOCK)
 	ON stgp.sourceId = p.sourceId
@@ -1907,6 +1916,16 @@ AND stgp.externalId IS NULL;</property>
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].Columns[updated-at]"
                       name="updated-at"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2024,6 +2043,11 @@ AND stgp.externalId IS NULL;</property>
                       dataType="wstr"
                       length="20"
                       name="updated-at" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      name="thumbnailUrl" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2065,6 +2089,12 @@ AND stgp.externalId IS NULL;</property>
                       length="2000"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[url]"
                       name="url" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Error Output].Columns[num-rooms]"
                       dataType="numeric"
@@ -2215,6 +2245,7 @@ AND stgp.externalId IS NULL;</property>
 , title = CAST(dbo.cleanString(prop.title) AS nvarchar(255))
 , typeOfProperty = CAST(dbo.cleanString((ISNULL(prop.subtype + ' ', '') + prop.[type])) AS nvarchar(50))
 , prop.url
+, thumbnailUrl = photo.imageUrl
 , prop.[num-rooms]
 , prop.[num-bathrooms]
 , prop.[max-guests]
@@ -2232,6 +2263,14 @@ AND stgp.externalId IS NULL;</property>
 , prop.[created-at]
 , prop.[updated-at]
 FROM roomorama.imp_property prop
+OUTER APPLY (
+	SELECT TOP 1 ph.imageUrl
+	FROM roomorama.imp_photo ph
+	WHERE ph.runId = prop.runId
+		AND ph.fileId = prop.fileId
+		AND ph.room_Id = prop.room_Id
+	ORDER BY ph.position
+) AS photo
 -- prevent duplicates from PK violations
 LEFT OUTER JOIN staging.tab_property stgp WITH (NOLOCK)
 	ON stgp.sourceId = prop.sourceId
@@ -2500,6 +2539,16 @@ AND stgp.externalId IS NULL;</property>
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].Columns[updated-at]"
                       name="updated-at"
                       truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl"
+                      truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2617,6 +2666,11 @@ AND stgp.externalId IS NULL;</property>
                       dataType="wstr"
                       length="20"
                       name="updated-at" />
+                    <externalMetadataColumn
+                      refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].ExternalColumns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      name="thumbnailUrl" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2658,6 +2712,12 @@ AND stgp.externalId IS NULL;</property>
                       length="2000"
                       lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[url]"
                       name="url" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[thumbnailUrl]"
+                      name="thumbnailUrl" />
                     <outputColumn
                       refId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Error Output].Columns[num-rooms]"
                       dataType="numeric"
@@ -3007,6 +3067,13 @@ AND stgp.externalId IS NULL;</property>
                       cachedScale="10"
                       externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[minimumPricePerNight]"
                       lineageId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[price]" />
+                    <inputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\staging tab_property.Inputs[OLE DB Destination Input].Columns[thumbnailUrl]"
+                      cachedDataType="wstr"
+                      cachedLength="2000"
+                      cachedName="thumbnailUrl"
+                      externalMetadataColumnId="Package\copy to PK staging tables (imp_property)\staging tab_property.Inputs[OLE DB Destination Input].ExternalColumns[thumbnailUrl]"
+                      lineageId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[thumbnailUrl]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3531,6 +3598,20 @@ AND stgp.externalId IS NULL;</property>
                           name="OutputColumnLineageID">#{Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[updated-at]}</property>
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\Union All.Inputs[Union All Input 1].Columns[thumbnailUrl]"
+                      cachedDataType="wstr"
+                      cachedLength="2000"
+                      cachedName="thumbnailUrl"
+                      lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[thumbnailUrl]}</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -3851,6 +3932,20 @@ AND stgp.externalId IS NULL;</property>
                           name="OutputColumnLineageID">#{Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[updated-at]}</property>
                       </properties>
                     </inputColumn>
+                    <inputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\Union All.Inputs[Union All Input 2].Columns[thumbnailUrl]"
+                      cachedDataType="wstr"
+                      cachedLength="2000"
+                      cachedName="thumbnailUrl"
+                      lineageId="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source.Outputs[OLE DB Source Output].Columns[thumbnailUrl]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[thumbnailUrl]}</property>
+                      </properties>
+                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -4003,6 +4098,12 @@ AND stgp.externalId IS NULL;</property>
                       length="20"
                       lineageId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[updated-at]"
                       name="updated-at" />
+                    <outputColumn
+                      refId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[thumbnailUrl]"
+                      dataType="wstr"
+                      length="2000"
+                      lineageId="Package\copy to PK staging tables (imp_property)\Union All.Outputs[Union All Output 1].Columns[thumbnailUrl]"
+                      name="thumbnailUrl" />
                   </outputColumns>
                   <externalMetadataColumns />
                 </output>
@@ -9008,14 +9109,35 @@ AND stgp.externalId IS NULL;</property>
           Language="CSharp"
           ReadOnlyVariables="Internal::xslXmlFullPath,$Package::fileFullPath,$Package::xslFileName,$Project::DIRECTORY_xslDirectory">
           <ProjectItem
-            Name="Properties\Settings.settings"
-            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
+[assembly: AssemblyCopyright("Copyright @  2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.resx"
             Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -9421,35 +9543,14 @@ namespace ST_d7e3d80826544eb4b79ba20d9b6890db.Properties {
     }
 }]]></ProjectItem>
           <ProjectItem
-            Name="Properties\AssemblyInfo.cs"
-            Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_d7e3d80826544eb4b79ba20d9b6890db")]
-[assembly: AssemblyCopyright("Copyright @  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
           <ProjectItem
             Name="Properties\Resources.Designer.cs"
             Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -10187,7 +10288,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
     design-time-name="Package\copy to PK staging tables (imp_property)">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="234,42"
           Id="Package\copy to PK staging tables (imp_property)\QRY roomorama property source"
@@ -10200,58 +10301,43 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           Size="276,42"
           Id="Package\copy to PK staging tables (imp_property)\QRY roomorama property and unit source"
           TopLeft="483,39" />
+        <AnnotationLayout
+          Text="mutually exclusive union of imp_property.[multi-unit] = 0 or 1"
+          ParentId="Package\copy to PK staging tables (imp_property)"
+          FontInfo="{assembly:Null}"
+          Size="355,40"
+          Id="3c8b3e51-933d-4856-8406-cc89d09cc0b9"
+          TopLeft="552.807697397703,152.107817616946" />
         <NodeLayout
           Size="121,42"
           Id="Package\copy to PK staging tables (imp_property)\Union All"
-          TopLeft="416,150" />
+          TopLeft="425,155" />
         <EdgeLayout
           Id="Package\copy to PK staging tables (imp_property).Paths[OLE DB Source Output]"
           TopLeft="328,84">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="120.5,66"
+              EndConnector="138.666666666667,71"
               Start="0,0"
-              End="120.5,58.5">
+              End="138.666666666667,63.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29" />
+                    End="0,38.0440456769984" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,29"
-                    Point2="0,33"
-                    Point3="4,33" />
+                    Point1="0,38.0440456769984"
+                    Point2="0,42.0440456769984"
+                    Point3="4,42.0440456769984" />
                   <mssgle:LineSegment
-                    End="116.5,33" />
+                    End="134.666666666667,42.0440456769984" />
                   <mssgle:CubicBezierSegment
-                    Point1="116.5,33"
-                    Point2="120.5,33"
-                    Point3="120.5,37" />
+                    Point1="134.666666666667,42.0440456769984"
+                    Point2="138.666666666667,42.0440456769984"
+                    Point3="138.666666666667,46.0440456769984" />
                   <mssgle:LineSegment
-                    End="120.5,58.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\copy to PK staging tables (imp_property).Paths[Union All Output 1]"
-          TopLeft="478,192">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,76"
-              Start="0,0"
-              End="0,68.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,68.5" />
+                    End="138.666666666667,63.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10266,26 +10352,26 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-125.666666666667,69"
+              EndConnector="-116.666666666667,74"
               Start="0,0"
-              End="-125.666666666667,61.5">
+              End="-116.666666666667,66.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.8597063621533" />
+                    End="0,39.8205546492659" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.8597063621533"
-                    Point2="0,40.8597063621533"
-                    Point3="-4,40.8597063621533" />
+                    Point1="0,39.8205546492659"
+                    Point2="0,43.8205546492659"
+                    Point3="-4,43.8205546492659" />
                   <mssgle:LineSegment
-                    End="-121.666666666667,40.8597063621533" />
+                    End="-112.666666666667,43.8205546492659" />
                   <mssgle:CubicBezierSegment
-                    Point1="-121.666666666667,40.8597063621533"
-                    Point2="-125.666666666667,40.8597063621533"
-                    Point3="-125.666666666667,44.8597063621533" />
+                    Point1="-112.666666666667,43.8205546492659"
+                    Point2="-116.666666666667,43.8205546492659"
+                    Point3="-116.666666666667,47.8205546492659" />
                   <mssgle:LineSegment
-                    End="-125.666666666667,61.5" />
+                    End="-116.666666666667,66.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -10294,13 +10380,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <AnnotationLayout
-          Text="mutually exclusive union of imp_property.[multi-unit] = 0 or 1"
-          ParentId="Package\copy to PK staging tables (imp_property)"
-          FontInfo="{assembly:Null}"
-          Size="355,40"
-          Id="3c8b3e51-933d-4856-8406-cc89d09cc0b9"
-          TopLeft="552.807697397703,152.107817616946" />
+        <EdgeLayout
+          Id="Package\copy to PK staging tables (imp_property).Paths[Union All Output 1]"
+          TopLeft="482.5,197">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71"
+              Start="0,0"
+              End="0,63.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
