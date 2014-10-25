@@ -13,6 +13,7 @@
 					(to reduce the checking and testing workload)
 	13/05/2014  TW  New elements handicap_adapted, elder_elevator, children_over_five
 	29/05/2014  TW  Remove whitespace, remove 'type' attribute from all elements
+	25/10/2014  TW  Additional replacements to transform revised photo schema elements back to original naming
 -->
 	
 <!-- Copy every line as is, except where it matches the conditions below -->
@@ -224,6 +225,17 @@
     </xsl:template>
     <xsl:template match="property_data/property/property_attributes/property_id">
 	  	  <attributesProperty_id><xsl:apply-templates select="@*|node()" /></attributesProperty_id>
+    </xsl:template>
+
+<!-- 25/10/2014  TW  Additional replacements to transform revised photo schema elements back to original naming -->
+    <xsl:template match="property_data/property/property_photos/property_photo/ta_image">
+	  	  <base_url><xsl:apply-templates select="@*|node()" /></base_url>
+    </xsl:template>
+    <xsl:template match="property_data/property/property_photos/property_photo/ta_image_width">
+	  	  <width><xsl:apply-templates select="@*|node()" /></width>
+    </xsl:template>
+    <xsl:template match="property_data/property/property_photos/property_photo/ta_image_height">
+	  	  <height><xsl:apply-templates select="@*|node()" /></height>
     </xsl:template>
 
 <!-- START  12/05/2014  TW  Ignore various nodes / elements -->	
