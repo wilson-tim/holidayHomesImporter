@@ -11,6 +11,7 @@
 --	2014-01-16 v02 added permanent change capture tables to optimise deployment to production
 --	2014-02-07 v03 added thumbnailURL - it wasn't being copied 
 --  2014-07-23 TW  property record archiving feature
+--  2014-11-05 TW  property record archiving feature bug fix
 --------------------------------------------------------------------------------------------
 CREATE PROCEDURE [staging].[proc_staging_merge_property_to_holidayHomes]
   @runId INT
@@ -50,7 +51,8 @@ BEGIN
 		AND	src.externalId = prop.externalId
 		)
 	-- exists but different, so update details
-	WHEN MATCHED AND src.propertyHashKey <> ISNULL(prop.propertyHashKey, 0) THEN UPDATE
+--	WHEN MATCHED AND src.propertyHashKey <> ISNULL(prop.propertyHashKey, 0) THEN UPDATE
+	WHEN MATCHED AND ((src.propertyHashKey <> ISNULL(prop.propertyHashKey, 0)) OR (prop.isActive = 0)) THEN UPDATE
 		SET sourceId = src.sourceId
 		, runId = src.runId
 		, thumbnailUrl = src.thumbnailUrl
