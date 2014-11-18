@@ -161,6 +161,8 @@
     <Build Include="dbo\Stored Procedures\propertyAreaKeywordSearchFacetCounts.sql" />
     <Build Include="dbo\Stored Procedures\proc_createNewProperty.sql" />
     <Build Include="dbo\Tables\homeStayXML.sql" />
+    <Build Include="dbo\Tables\utils_roomoramaLocations.sql" />
+    <Build Include="dbo\Stored Procedures\propertyFeaturedSearch.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">

@@ -11,3 +11,10 @@
 
 
 
+
+
+
+GO
+CREATE NONCLUSTERED INDEX [NCI_countryLookupId]
+    ON [dbo].[utils_relatedCountryLookup]([countryLookupId] ASC);
+
