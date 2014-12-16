@@ -214,6 +214,8 @@
     <Build Include="homestay\Tables\homestay.imp_photo.sql" />
     <Build Include="homestay\Tables\homestay.imp_property.sql" />
     <Build Include="Security\homestay.sql" />
+    <Build Include="Security\cands.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
