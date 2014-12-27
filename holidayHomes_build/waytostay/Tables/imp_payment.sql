@@ -5,7 +5,7 @@
     [payment_id]     INT            NOT NULL,
     [currency]       NVARCHAR (3)   NULL,
     [minimum_nights] SMALLINT       NULL,
-    [damage_deposit] DECIMAL (5, 2) NULL,
+    [damage_deposit] DECIMAL (10, 2) NULL,
     [apartment_id]   INT            NOT NULL
 );
 
