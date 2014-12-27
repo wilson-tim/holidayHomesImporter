@@ -22,7 +22,3 @@ C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holida
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\clr.pdb
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\holidayHomes_build.dacpac
 C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\bin\Debug\master.dacpac
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\Model.xml
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\refactor.xml
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\postdeploy.sql
-C:\Users\Admin\Documents\Visual Studio 2012\Projects\holidayHomesImporter\holidayHomes\obj\Debug\predeploy.sql
