@@ -216,6 +216,7 @@
     <Build Include="Security\homestay.sql" />
     <Build Include="Security\cands.sql" />
     <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="cands_login.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

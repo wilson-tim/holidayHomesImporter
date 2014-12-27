@@ -975,6 +975,9 @@ normalexit:
 		, 'Run Finished'
 		);
 
+		-- Return result set for ColdFusion
+		SELECT propertyId = @propertyId;
+
 	RETURN @propertyId;
 
 errorexit:
