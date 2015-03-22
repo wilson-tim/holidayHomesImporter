@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="v0q/JjcUEQ==" SSIS:IV="vsp4uuyr+vc=">/nB9nifgtjGzkZwKq0lfbH30zg+0XWMcg7Y/W4ZParWqZPjk4xze9olBINJKoczZA4rnihMjYIql4uxAl7rLRfTadTPh80gC3oY4iPdtdwAcygOyOo4Hs5741A+WSt7zPx94qzQrSrmqQVbWf80mO97v2rybvAGfGW/3REBIwX/d8DyMXd036g==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="YTKsgvjemg==" SSIS:IV="jhCSCLXln2g=">hdJcuwRsZmlntgG+rMONaaocvRglxyy5t3xHGd8epy0MJ1z3qEc8E1HvVlwSUF1i8cmWe++e0Tx8ZEwG1kWqt5KHORVzGQWrFx1DG+adhC/Czaji6ADsgdU2MtPJFC/vaYN/Aq15Rk6MZ76ZDcWGft7Lo7baqFCL0zBLYGffR9bm0yqzebmzjA==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -46,6 +46,7 @@
           <SSIS:Package SSIS:Name="_deploy_to_holidayHomes_DB.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="homestay_import.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="nineflats_import.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="interhome_import.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="PROD.holidayHomes.conmgr" />
@@ -311,10 +312,10 @@
                 <SSIS:Property SSIS:Name="Name">homeaway_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">88</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">95</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{87FB66F9-07C1-4C52-8894-756979239865}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{4653114E-5709-4055-8612-FBB77EBC9777}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -3642,6 +3643,93 @@
                 </SSIS:Parameter>
               </SSIS:Parameters>
             </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="interhome_import.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{8A40B92F-F571-4E78-A9F0-242E4B96ACD2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">interhome_import</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">240</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{94FA7D78-DDE1-419D-B01D-24B8DBD1706B}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">2</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters>
+                <SSIS:Parameter SSIS:Name="fileFullPath">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{2D7735CA-0964-4D9A-A9DD-295BE52C5D2E}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">full file path of original XML data feed (for compatibility with _importController)</SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">C:\DATA\interhome.dev\places.xml</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="fileId">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{EC45FC1D-FD52-449F-978D-F6ADEDFC4A65}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="runId">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{DDD8C88D-5948-47A8-B32A-9271F913CB0B}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="sourceId">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{FFB9DEC3-F515-45FA-9505-88C09AE154D1}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">1</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">12</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">9</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+                <SSIS:Parameter SSIS:Name="xsdFileName">
+                  <SSIS:Properties>
+                    <SSIS:Property SSIS:Name="ID">{DD7A7A4F-F1B2-4865-A6DF-E91936B8896D}</SSIS:Property>
+                    <SSIS:Property SSIS:Name="CreationName">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="Description">
+                    </SSIS:Property>
+                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">interhome_feed.xsd</SSIS:Property>
+                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
+                  </SSIS:Properties>
+                </SSIS:Parameter>
+              </SSIS:Parameters>
+            </SSIS:PackageMetaData>
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>
       </SSIS:Project>
@@ -3695,6 +3783,10 @@
     <ProjectItem>
       <Name>homestay_feed.xsd</Name>
       <FullPath>homestay_feed.xsd</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>interhome_feed.xsd</Name>
+      <FullPath>interhome_feed.xsd</FullPath>
     </ProjectItem>
   </Miscellaneous>
   <Configurations>

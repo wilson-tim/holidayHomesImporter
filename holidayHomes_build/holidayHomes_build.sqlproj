@@ -94,6 +94,8 @@
     <Folder Include="nineflats\Tables\" />
     <Folder Include="homestay\" />
     <Folder Include="homestay\Tables\" />
+    <Folder Include="interhome\" />
+    <Folder Include="interhome\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="staging\Tables\tab_property2amenity.sql" />
@@ -217,6 +219,10 @@
     <Build Include="Security\cands.sql" />
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="cands_login.sql" />
+    <Build Include="interhome\Tables\interhome.imp_amenity.sql" />
+    <Build Include="interhome\Tables\interhome.imp_photo.sql" />
+    <Build Include="interhome\Tables\interhome.imp_property.sql" />
+    <Build Include="Security\interhome.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
