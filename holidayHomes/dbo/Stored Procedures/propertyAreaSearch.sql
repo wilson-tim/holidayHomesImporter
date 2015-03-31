@@ -221,6 +221,7 @@ BEGIN
   , [description]
   , latitude
   , longitude
+  , typeOfProperty
   , propertyId
   , externalURL
   , numberOfProperBedrooms
@@ -266,6 +267,7 @@ BEGIN
 	  , pro.[description]
 	  , pro.latitude
 	  , pro.longitude
+	  , pro.typeOfProperty
 	  , pro.propertyId
 	  , pro.externalURL
 	  , pro.numberOfProperBedrooms
