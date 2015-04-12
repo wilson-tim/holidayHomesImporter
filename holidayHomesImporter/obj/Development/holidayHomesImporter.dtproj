@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">MC_VAIO</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="VQ6lm9Zq3w==" SSIS:IV="I6V2IF7hBvI=">a9+H/DTJUCapeeVFzhZZgyfvcUKNZYTmjhsk4kbgPxyPpTm9Q/hiANziuOf6y3KkQS13JUZm9wtC2rBzQwgHXuRg+1Eyi7ZHj0RO9GrAHlgmZQy93mipzR8ZJEbSXnxRJRv6a/E+4EykBBt5CmZpA8lSy2JDHgtSI6EL4lHoZb2u3HSzm5hs0Q==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1" SSIS:Salt="xgZuHYaC8g==" SSIS:IV="EQX49r+wauw=">Q5p9VAgCdxWBS6NoLdra1idsZtQVKO4RgsAy4Wd7+p63RcBnfWU8vCS5fzOVg5l9GGGtWvq0jNdQvZhzXDL40QeXK+R+0lQgW56khBf5jGTNKaeO/mSPnKP1RetIHPua0sPdLolcHVM0CPmrY6W9lDIK013oi1EczhjvCmc8OPe4gH2EHYKjtg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -238,10 +238,10 @@
                 <SSIS:Property SSIS:Name="Name">waytostay_import</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">102</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">108</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{8875A67B-6136-40DA-A3D9-DC09234A8CB2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{8DA71F92-369A-4B2B-AB3F-EFD09A85FC16}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
