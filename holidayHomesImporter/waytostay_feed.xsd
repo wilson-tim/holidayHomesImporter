@@ -318,7 +318,13 @@
     </xs:simpleType>
   </xs:element>
   <xs:element name="longitude" type="xs:decimal"/>
-  <xs:element name="per_night" type="xs:decimal"/>
+  <xs:element name="per_night">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:maxLength value="20"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="reference" type="xs:short"/>
   <xs:element name="facilities">
     <xs:complexType>
@@ -441,7 +447,13 @@
   <xs:element name="long_description">
     <xs:complexType/>
   </xs:element>
-  <xs:element name="person_per_night" type="xs:decimal"/>
+  <xs:element name="person_per_night">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:maxLength value="20"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
   <xs:element name="availability_link">
     <xs:simpleType>
       <xs:restriction base="xs:string">
