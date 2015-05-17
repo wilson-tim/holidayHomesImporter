@@ -14,6 +14,7 @@
 	13/05/2014  TW  New elements handicap_adapted, elder_elevator, children_over_five
 	29/05/2014  TW  Remove whitespace, remove 'type' attribute from all elements
 	25/10/2014  TW  Additional replacements to transform revised photo schema elements back to original naming
+	17/05/2015  TW  property_attributes/score not importing reliably, and data not used ultimately, so replace data with 0.00
 -->
 	
 <!-- Copy every line as is, except where it matches the conditions below -->
@@ -215,7 +216,7 @@
 	  	  <attributesDirect><xsl:apply-templates select="@*|node()" /></attributesDirect>
     </xsl:template>
     <xsl:template match="property_data/property/property_attributes/score">
-	  	  <attributesScore><xsl:apply-templates select="@*|node()" /></attributesScore>
+	  	  <attributesScore>0.00</attributesScore>
     </xsl:template>
     <xsl:template match="property_data/property/property_attributes/user_group_id">
 	  	  <attributesUser_group_id><xsl:apply-templates select="@*|node()" /></attributesUser_group_id>
