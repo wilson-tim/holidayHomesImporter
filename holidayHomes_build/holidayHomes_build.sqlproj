@@ -96,6 +96,8 @@
     <Folder Include="homestay\Tables\" />
     <Folder Include="interhome\" />
     <Folder Include="interhome\Tables\" />
+    <Folder Include="interhomeXML\" />
+    <Folder Include="interhomeXML\Tables\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="staging\Tables\tab_property2amenity.sql" />
@@ -223,6 +225,8 @@
     <Build Include="interhome\Tables\interhome.imp_photo.sql" />
     <Build Include="interhome\Tables\interhome.imp_property.sql" />
     <Build Include="Security\interhome.sql" />
+    <Build Include="interhomeXML\Tables\interhomeXML.imp_property.sql" />
+    <Build Include="Security\interhomeXML.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
